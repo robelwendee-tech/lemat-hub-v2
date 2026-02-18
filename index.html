@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ልማት Hub | Ethiopia 2026</title>
 <style>
-body { margin: 0; padding: 0; font-family: sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
 nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 .logo { font-weight: bold; font-size: 1.5rem; color: #003973; }
 .btn-join { background: #2E7D32; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; }
-.hero { padding: 60px 5%; background: white; }
+.hero { padding: 80px 5%; background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url(''); background-size: cover; background-position: center; }
 .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: #003973; }
-.btn-start { background: #2E7D32; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; border: none; cursor: pointer; }
+.btn-start { background: #2E7D32; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; border: none; cursor: pointer; font-size: 1.1rem; }
 .content-grid { display: flex; align-items: flex-start; margin-top: 50px; gap: 40px; flex-wrap: wrap; }
 .text-side { flex: 1.5; min-width: 300px; }
 .impact-box { flex: 1; min-width: 300px; background: #FFD700; padding: 60px 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
@@ -21,7 +21,7 @@ nav { background: white; padding: 15px 5%; display: flex; justify-content: space
 .card { background: white; padding: 30px; border-radius: 10px; width: 280px; margin: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
 .signup-section { padding: 80px 5%; text-align: center; background: #003973; color: white; }
 .signup-container { max-width: 600px; margin: 0 auto; }
-.signup-input { padding: 15px; width: 70%; border-radius: 5px 0 0 5px; border: none; font-size: 1rem; }
+.signup-input { padding: 15px; width: 60%; border-radius: 5px 0 0 5px; border: none; font-size: 1rem; }
 .signup-btn { padding: 15.5px 25px; background: #2E7D32; color: white; border: none; border-radius: 0 5px 5px 0; font-weight: bold; cursor: pointer; font-size: 1rem; }
 </style>
 </head>
@@ -29,36 +29,46 @@ nav { background: white; padding: 15px 5%; display: flex; justify-content: space
 
 <nav>
 <div class="logo">ልማት Hub</div>
-<div class="btn-join">Join Now</div>
+<div class="btn-join" onclick="alert('Welcome! Registration opens soon.')" style="cursor:pointer">Join Now</div>
 </nav>
 
 <section class="hero">
 <h1>ልማት Hub</h1>
-<p style="font-size: 1.4rem; color: #555;">Empowering Ethiopia's Students for a Global Future</p>
-<button class="btn-start" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})">Start Learning Now</button>
+<p style="font-size: 1.4rem; color: #555; max-width: 700px;">Bridging the gap between Ethiopian students and the global 2026 digital economy.</p>
+<button class="btn-start" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})">Start Your Journey</button>
 
 </section>
 
 <section class="features">
 <div class="card"><h3>AI Learning</h3><p>Personalized paths that evolve with your progress.</p></div>
-<div class="card"><h3>Fayda ID</h3><p>Secure, verified credentials for the global market.</p></div>
-<div class="card"><h3>Global Jobs</h3><p>Bridge the gap between your skills and remote careers.</p></div>
+<div class="card"><h3>Fayda ID</h3><p>Verified credentials for the global market.</p></div>
+<div class="card"><h3>Global Jobs</h3><p>Direct bridge to international remote careers.</p></div>
 </section>
 
 <section class="signup-section" id="signup">
 <div class="signup-container">
-<h2>Ready to join the future of work?</h2>
-<p>Enter your email to join the waitlist for our 2026 AI Training Program.</p>
+<h2>Ready to join the future?</h2>
+<p>Join the waitlist for our 2026 AI Training Program.</p>
 <div style="margin-top: 30px; display: flex; justify-content: center;">
-<input type="email" class="signup-input" placeholder="Your Email Address">
-<button class="signup-btn">Join Waitlist</button>
+<input type="email" id="userEmail" class="signup-input" placeholder="Enter your email">
+<button class="signup-btn" onclick="showSuccess()">Join Waitlist</button>
 </div>
+<p id="successMsg" style="margin-top:20px; color: #FFD700; font-weight:bold; display:none;">Success! You have been added to the Lemat Hub waitlist.</p>
 </div>
 </section>
 
-<footer style="padding: 30px; text-align: center; font-size: 0.9rem; color: #888;">
-&copy; 2026 ልማት Hub. All Rights Reserved.
+<footer style="padding: 30px; text-align: center; font-size: 0.9rem; color: #888; background: #fff;">
+&copy; 2026 ልማት Hub. Empowering Ethiopia's Digital Future.
 </footer>
 
-</body>
-</html>
+<script>
+function showSuccess() {
+const email = document.getElementById('userEmail').value;
+if(email.includes('@')) {
+document.getElementById('successMsg').style.display = 'block';
+document.getElementById('userEmail').value = '';
+} else {
+alert('Please enter a valid email address.');
+}
+}
+</script>
