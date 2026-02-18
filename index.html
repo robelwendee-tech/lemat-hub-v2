@@ -12,41 +12,53 @@ nav { background: white; padding: 15px 5%; display: flex; justify-content: space
 .btn-join { background: #2E7D32; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; }
 .hero { padding: 60px 5%; background: white; }
 .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: #003973; }
-.btn-start { background: #2E7D32; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; }
+.btn-start { background: #2E7D32; color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; border: none; cursor: pointer; }
 .content-grid { display: flex; align-items: flex-start; margin-top: 50px; gap: 40px; flex-wrap: wrap; }
 .text-side { flex: 1.5; min-width: 300px; }
 .impact-box { flex: 1; min-width: 300px; background: #FFD700; padding: 60px 20px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 .impact-box h2 { font-size: 3.5rem; margin: 0; color: #003973; }
 .features { display: flex; justify-content: space-around; padding: 50px 5%; flex-wrap: wrap; background: #f1f1f1; }
 .card { background: white; padding: 30px; border-radius: 10px; width: 280px; margin: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+.signup-section { padding: 80px 5%; text-align: center; background: #003973; color: white; }
+.signup-container { max-width: 600px; margin: 0 auto; }
+.signup-input { padding: 15px; width: 70%; border-radius: 5px 0 0 5px; border: none; font-size: 1rem; }
+.signup-btn { padding: 15.5px 25px; background: #2E7D32; color: white; border: none; border-radius: 0 5px 5px 0; font-weight: bold; cursor: pointer; font-size: 1rem; }
 </style>
 </head>
 <body>
+
 <nav>
 <div class="logo">ልማት Hub</div>
 <div class="btn-join">Join Now</div>
 </nav>
+
 <section class="hero">
 <h1>ልማት Hub</h1>
 <p style="font-size: 1.4rem; color: #555;">Empowering Ethiopia's Students for a Global Future</p>
-<a href="#" class="btn-start">Start Learning Now</a>
-<div class="content-grid">
-<div class="text-side">
-<h3 style="color: #2E7D32; font-size: 1.8rem;">The Problem</h3>
-<p>Ethiopian talent is vast, but students often face a <strong>critical disconnect</strong> from the 2026 global economy. Traditional training systems frequently lack access to high-demand AI and digital skills. Furthermore, without a verified professional identity, many students struggle to enter the competitive international remote job market, leaving local potential untapped.</p>
-<h3 style="color: #003973; font-size: 1.8rem; margin-top: 30px;">Our Solution</h3>
-<p><strong>ልማት Hub</strong> acts as a transformative gateway. We offer <strong>customized, AI-powered learning paths</strong> that focus specifically on the skills global companies need right now. By integrating with Ethiopia's <strong>National ID (Fayda)</strong>, we provide a secure way for students to verify their credentials and identity, making it easier than ever to match local expertise with global opportunities.</p>
-</div>
-<div class="impact-box">
-<h2>130 Million</h2>
-<p style="font-weight: bold; font-size: 1.2rem;">Potential Lives Impacted</p>
-</div>
-</div>
+<button class="btn-start" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})">Start Learning Now</button>
+
 </section>
+
 <section class="features">
 <div class="card"><h3>AI Learning</h3><p>Personalized paths that evolve with your progress.</p></div>
 <div class="card"><h3>Fayda ID</h3><p>Secure, verified credentials for the global market.</p></div>
 <div class="card"><h3>Global Jobs</h3><p>Bridge the gap between your skills and remote careers.</p></div>
 </section>
+
+<section class="signup-section" id="signup">
+<div class="signup-container">
+<h2>Ready to join the future of work?</h2>
+<p>Enter your email to join the waitlist for our 2026 AI Training Program.</p>
+<div style="margin-top: 30px; display: flex; justify-content: center;">
+<input type="email" class="signup-input" placeholder="Your Email Address">
+<button class="signup-btn">Join Waitlist</button>
+</div>
+</div>
+</section>
+
+<footer style="padding: 30px; text-align: center; font-size: 0.9rem; color: #888;">
+&copy; 2026 ልማት Hub. All Rights Reserved.
+</footer>
+
 </body>
 </html>
