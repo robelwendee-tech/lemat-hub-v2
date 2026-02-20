@@ -12,21 +12,27 @@
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
         .btn-join { background: #2E7D32; color: white !important; padding: 8px 20px; border-radius: 5px; font-weight: bold; }
         
-        /* FAQ Styles */
-        .faq-section { padding: 80px 5%; background: white; text-align: center; }
-        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
-        .faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .faq-item h4 { color: #003973; margin-bottom: 5px; }
+        /* Home/Hero Section */
+        .hero { padding: 80px 5%; background: white; text-align: left; }
+        .hero h1 { font-size: 4rem; color: #003973; margin: 0; }
+        .btn-start { background: #2E7D32; color: white; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 25px; font-size: 1.2rem; }
 
-        /* Floating WhatsApp Button */
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 3000; }
+        /* Problem/Solution Section */
+        .impact-section { padding: 60px 5%; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; background: #f9f9f9; }
+        .impact-box { background: #FFD700; padding: 40px; border-radius: 15px; text-align: center; flex: 1; min-width: 300px; }
 
-        .signup-section { padding: 80px 5%; background: #003973; color: white; text-align: center; }
+        /* FAQ Section */
+        .faq-section { padding: 80px 5%; background: white; }
+        .faq-item { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .faq-item h3 { color: #003973; margin-bottom: 10px; }
+
+        /* Signup */
+        .signup-section { padding: 100px 5%; background: #003973; color: white; text-align: center; }
         .form-container { max-width: 500px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
         .signup-input { padding: 15px; width: 100%; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1rem; }
         .signup-btn { width: 100%; padding: 15px; background: #FFD700; color: #003973; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
 
-        footer { padding: 40px 5%; background: #222; color: white; text-align: center; }
+        footer { padding: 40px; background: #222; color: #fff; text-align: center; }
     </style>
 </head>
 <body>
@@ -34,20 +40,53 @@
 <nav>
     <a href="#" class="logo">ልማት Hub</a>
     <div class="nav-links">
+        <a href="#about">Home</a>
         <a href="#faq">FAQ</a>
         <a href="#signup" class="btn-join">Join Now</a>
     </div>
 </nav>
 
+<section class="hero" id="about">
+    <h1>ልማት Hub</h1>
+    <p style="font-size: 1.5rem; color: #555;">Empowering Ethiopia's Students for a Global Future.</p>
+    <a href="#signup" class="btn-start">Start Learning Now</a>
+</section>
+
+<section class="impact-section">
+    <div style="flex: 1; min-width: 300px;">
+        <h2 style="color: #003973;">The Problem</h2>
+        <p>Ethiopia has millions of talented students, but many lack the specific digital skills needed for the 2026 global job market.</p>
+    </div>
+    <div class="impact-box">
+        <h2 style="font-size: 3rem; margin: 0;">130 Million</h2>
+        <p style="font-weight: bold;">Potential Lives Impacted</p>
+    </div>
+</section>
+
 <section class="faq-section" id="faq">
-    <h2 style="color: #003973; margin-bottom: 40px;">Frequently Asked Questions</h2>
-    <div class="faq-container">
-        <div class="faq-item">
-            <h4>Is it free to join?</h4>
-            <p>Our community path is free. Pro features for 2026 job placement have limited subsidized spots.</p>
-        </div>
-        <div class="faq-item">
-            <h4>What is Fayda ID integration?</h4>
-            <p>We use Ethiopia's National ID to verify your certificates, making them globally recognized.</p>
-        </div>
-        <div
+    <h2 style="text-align: center; color: #003973; margin-bottom: 40px;">Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <h3>Is it free to join?</h3>
+        <p>Our community path is free. Pro features for 2026 job placement have limited spots.</p>
+    </div>
+    <div class="faq-item">
+        <h3>What is Fayda ID integration?</h3>
+        <p>We use Ethiopia's National ID to verify certificates, making them globally recognized.</p>
+    </div>
+</section>
+
+<section class="signup-section" id="signup">
+    <div class="form-container">
+        <h2>Join the Digital Revolution</h2>
+        <input type="text" placeholder="Full Name" class="signup-input">
+        <input type="email" placeholder="Email Address" class="signup-input">
+        <button class="signup-btn" onclick="alert('Application Submitted!')">Submit Application</button>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Lemat Hub. Building Ethiopia's Digital Future Together.</p>
+</footer>
+
+</body>
+</html>
