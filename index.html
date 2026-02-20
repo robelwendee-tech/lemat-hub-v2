@@ -12,15 +12,14 @@
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
         .btn-join { background: #2E7D32; color: white !important; padding: 8px 20px; border-radius: 5px; font-weight: bold; }
         
-        .hero { padding: 60px 5%; background: white; }
-        .hero h1 { font-size: 3.5rem; color: #003973; margin-bottom: 5px; }
+        /* FAQ Styles */
+        .faq-section { padding: 80px 5%; background: white; text-align: center; }
+        .faq-container { max-width: 800px; margin: 0 auto; text-align: left; }
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .faq-item h4 { color: #003973; margin-bottom: 5px; }
 
-        .pricing-section { padding: 60px 5%; background: #f1f1f1; text-align: center; }
-        .pricing-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
-        .price-box { background: white; padding: 40px; border-radius: 15px; width: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 2px solid transparent; }
-        .price-box.featured { border-color: #FFD700; transform: scale(1.05); }
-        .price-box h3 { color: #003973; font-size: 1.8rem; }
-        .price { font-size: 2.5rem; font-weight: bold; margin: 20px 0; color: #2E7D32; }
+        /* Floating WhatsApp Button */
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 3000; }
 
         .signup-section { padding: 80px 5%; background: #003973; color: white; text-align: center; }
         .form-container { max-width: 500px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
@@ -35,50 +34,20 @@
 <nav>
     <a href="#" class="logo">ልማት Hub</a>
     <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a href="#signup" class="btn-join">Join Now</a>
     </div>
 </nav>
 
-<section class="hero" id="about">
-    <h1>ልማት Hub</h1>
-    <p style="font-size: 1.4rem; color: #555;">The #1 Digital Skills Platform in Ethiopia.</p>
-</section>
-
-<section class="pricing-section" id="pricing">
-    <h2 style="color: #003973;">Choose Your Path</h2>
-    <div class="pricing-grid">
-        <div class="price-box">
-            <h3>Community</h3>
-            <div class="price">Free</div>
-            <p>✓ Basic AI Introduction</p>
-            <p>✓ Community Forum Access</p>
-            <p>✓ Weekly Newsletters</p>
+<section class="faq-section" id="faq">
+    <h2 style="color: #003973; margin-bottom: 40px;">Frequently Asked Questions</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <h4>Is it free to join?</h4>
+            <p>Our community path is free. Pro features for 2026 job placement have limited subsidized spots.</p>
         </div>
-        <div class="price-box featured">
-            <h3>Pro 2026</h3>
-            <div class="price">Limited</div>
-            <p>✓ Full Python Mastery</p>
-            <p>✓ Verified Fayda ID Badge</p>
-            <p>✓ Global Job Placement</p>
+        <div class="faq-item">
+            <h4>What is Fayda ID integration?</h4>
+            <p>We use Ethiopia's National ID to verify your certificates, making them globally recognized.</p>
         </div>
-    </div>
-</section>
-
-<section class="signup-section" id="signup">
-    <div class="form-container">
-        <h2>Join the Digital Revolution</h2>
-        <p>Apply now for the next cohort.</p>
-        <input type="text" placeholder="Full Name" class="signup-input">
-        <input type="email" placeholder="Email Address" class="signup-input">
-        <button class="signup-btn" onclick="alert('Your spot is reserved!')">Secure My Spot</button>
-    </div>
-</section>
-
-<footer>
-    <p>&copy; 2026 ልማት Hub Ethiopia. Building the future.</p>
-</footer>
-
-</body>
-</html>
+        <div
