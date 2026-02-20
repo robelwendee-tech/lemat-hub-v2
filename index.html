@@ -5,40 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Ethiopia 2026</title>
     <style>
-        /* General Styles */
         * { scroll-behavior: smooth; box-sizing: border-box; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
         
-        /* Navigation */
         nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
         .btn-join { background: #2E7D32; color: white !important; padding: 10px 25px; border-radius: 5px; font-weight: bold; }
 
-        /* Hero Section */
         .hero { padding: 100px 5%; background: white; border-bottom: 8px solid #FFD700; }
         .hero h1 { font-size: 4.5rem; color: #003973; margin: 0; }
-        .hero p { font-size: 1.5rem; color: #555; max-width: 800px; margin: 20px 0; }
-        .btn-start { background: #2E7D32; color: white; padding: 15px 35px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 1.2rem; }
+        .btn-start { background: #2E7D32; color: white; padding: 15px 35px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; }
 
-        /* Founder Section */
+        /* Curriculum Table Style */
+        .curriculum-section { padding: 80px 5%; background: #fff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        th { background: #003973; color: white; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
+        tr:hover { background-color: #f1f7ff; }
+
         .founder-section { padding: 80px 5%; background: #f1f1f1; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-        .founder-img { width: 180px; height: 180px; border-radius: 50%; border: 5px solid #003973; background: white; padding: 5px; }
-        .founder-text { flex: 1; min-width: 300px; }
+        .founder-img { width: 150px; height: 150px; border-radius: 50%; border: 5px solid #003973; }
 
-        /* Expanded FAQ Section */
-        .faq-section { padding: 80px 5%; background: white; }
-        .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-item { margin-bottom: 25px; border-left: 5px solid #003973; padding: 10px 0 10px 20px; background: #f9f9f9; border-radius: 0 10px 10px 0; }
-        .faq-item h3 { color: #003973; margin: 0 0 10px 0; }
+        .faq-section { padding: 80px 5%; background: #f9f9f9; }
+        .faq-item { margin-bottom: 20px; border-left: 5px solid #003973; padding: 10px 20px; background: white; border-radius: 0 8px 8px 0; }
 
-        /* Signup Section */
         .signup-section { padding: 80px 5%; background: #003973; color: white; text-align: center; }
         .form-container { max-width: 500px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
-        .signup-input { padding: 15px; width: 100%; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1rem; }
-        .signup-btn { width: 100%; padding: 15px; background: #FFD700; color: #003973; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
-        
-        footer { text-align: center; padding: 30px; background: #222; color: #fff; }
+        .signup-input { padding: 15px; width: 100%; border-radius: 5px; border: none; margin-bottom: 15px; }
+        .signup-btn { width: 100%; padding: 15px; background: #FFD700; color: #003973; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -47,7 +42,7 @@
     <a href="#home" class="logo">ልማት Hub</a>
     <div class="nav-links">
         <a href="#home">Home</a>
-        <a href="#founder">Founder</a>
+        <a href="#curriculum">Curriculum</a>
         <a href="#faq">FAQ</a>
         <a href="#signup" class="btn-join">Join Now</a>
     </div>
@@ -55,60 +50,72 @@
 
 <section class="hero" id="home">
     <h1>ልማት Hub</h1>
-    <p>Empowering Ethiopia's Students for a Global Future. Mastering AI, Python, and remote work for 2026.</p>
-    <a href="#signup" class="btn-start">Start Learning Now</a>
+    <p style="font-size: 1.5rem; color: #555;">Mastering AI, Python, and Remote Work for Ethiopia's 2026 Future.</p>
+    <a href="#signup" class="btn-start">Apply Now</a>
+</section>
+
+<section class="curriculum-section" id="curriculum">
+    <h2 style="color: #003973; text-align: center; font-size: 2.5rem;">The 2026 Roadmap</h2>
+    <p style="text-align: center; color: #666;">Our 12-week intensive track designed for Ethiopian students.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Weeks</th>
+                <th>Module Topic</th>
+                <th>Learning Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1 - 4</td>
+                <td>Python Fundamentals</td>
+                <td>Logic, Data Structures, and Automation</td>
+            </tr>
+            <tr>
+                <td>5 - 8</td>
+                <td>AI & Data Science</td>
+                <td>Prompt Engineering & Data Analysis</td>
+            </tr>
+            <tr>
+                <td>9 - 12</td>
+                <td>Remote Career Prep</td>
+                <td>Global Portfolios & 2026 Job Matching</td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 <section class="founder-section" id="founder">
     <img src="https://img.icons8.com/ios-filled/150/003973/user-male-circle.png" class="founder-img" alt="Founder">
-    <div class="founder-text">
-        <h2 style="color: #003973; font-size: 2.2rem;">A Message from the Founder</h2>
-        <p style="font-size: 1.1rem;">"Building the bridge for 1 million Ethiopian developers." We are dedicated to ensuring every student has access to the digital economy.</p>
+    <div>
+        <h2 style="color: #003973;">A Message from the Founder</h2>
+        <p>"Training the next 1 million Ethiopian developers starts here."</p>
     </div>
 </section>
 
 <section class="faq-section" id="faq">
-    <div class="faq-container">
-        <h2 style="color: #003973; font-size: 2.5rem; text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <h3>Is a Fayda ID required?</h3>
-            <p>Yes. To access our 2026 job placement services, you must provide a Fayda ID for student verification.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>What skills will I learn?</h3>
-            <p>We focus on high-demand skills: Python Programming, AI Prompt Engineering, and Remote Collaboration tools.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Are there any costs?</h3>
-            <p>Our foundational courses are free. Advanced certification tracks are subsidized for high-performing students.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>How long are the programs?</h3>
-            <p>Standard tracks run for 12 weeks, with flexible evening sessions designed for active students.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>Can I work for international companies?</h3>
-            <p>Yes, our primary goal is to connect trained Ethiopian developers with global remote work opportunities in 2026.</p>
-        </div>
+    <h2 style="color: #003973; text-align: center; margin-bottom: 30px;">FAQs</h2>
+    <div class="faq-item">
+        <h3>Is Fayda ID required?</h3>
+        <p>Yes, it is necessary for identity verification in the 2026 track.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Is this remote?</h3>
+        <p>Classes are hybrid (online + local hubs) with a focus on remote job placement.</p>
     </div>
 </section>
 
 <section class="signup-section" id="signup">
     <div class="form-container">
-        <h2>Join the Digital Revolution</h2>
-        <input type="text" placeholder="Full Name" class="signup-input">
-        <input type="email" placeholder="Enter your email" class="signup-input">
-        <button class="signup-btn" onclick="alert('Thank you for joining!')">Get Started Today</button>
+        <h2>Start Your Journey</h2>
+        <input type="text" placeholder="Your Full Name" class="signup-input">
+        <input type="email" placeholder="Your Email Address" class="signup-input">
+        <button class="signup-btn" onclick="alert('Success! We will contact you soon.')">Submit Application</button>
     </div>
 </section>
 
-<footer>
-    <p>&copy; 2026 ልማት Hub | Building Ethiopia's Digital Excellence.</p>
+<footer style="text-align: center; padding: 20px; background: #222; color: #fff;">
+    <p>&copy; 2026 ልማት Hub Ethiopia</p>
 </footer>
 
 </body>
