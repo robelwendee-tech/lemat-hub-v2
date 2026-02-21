@@ -1,167 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Ethiopia 2026</title>
-    <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --white: #ffffff; --green: #28a745; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #333; line-height: 1.6; }
+<style>
+    /* ... (Keep your other CSS the same) ... */
 
-        .ticker { background: var(--yellow); color: var(--blue); padding: 12px; font-weight: bold; text-align: center; font-size: 0.9rem; position: sticky; top: 0; z-index: 2000; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 43px; z-index: 1000; }
-        .logo { font-size: 26px; font-weight: bold; color: var(--blue); text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--blue); font-weight: 600; font-size: 0.9rem; }
-        .lang-select { padding: 5px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
+    /* UPDATED TICKER STYLING FOR MOVEMENT */
+    .ticker { 
+        background: var(--yellow); 
+        color: var(--blue); 
+        padding: 12px 0; /* Vertical padding only */
+        font-weight: bold; 
+        font-size: 0.9rem; 
+        position: sticky; 
+        top: 0; 
+        z-index: 2000; 
+        overflow: hidden; /* Hides text when it leaves the screen area */
+        white-space: nowrap; /* Keeps text in one long line */
+    }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
+    .ticker-content {
+        display: inline-block;
+        padding-left: 100%; /* Starts the text off-screen to the right */
+        animation: scroll-ticker 20s linear infinite; /* Adjust '20s' to change speed */
+    }
 
-        .hero { background: var(--blue); color: white; padding: 70px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 60px; }
-        .id-input { width: 90%; max-width: 450px; padding: 18px; margin: 20px 0; border-radius: 12px; border: none; font-size: 1.1rem; text-align: center; }
-        .v-btn { background: var(--yellow); color: var(--blue); padding: 18px 50px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+    @keyframes scroll-ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); } /* Moves text completely off-screen to the left */
+    }
+</style>
 
-        .section-h { color: var(--blue); margin: 60px 0 30px; border-left: 8px solid var(--yellow); padding-left: 20px; text-align: left; }
-        
-        /* VISUAL TRACKS GRID */
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 15px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .t-box:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-top: 5px solid var(--yellow); }
-        .t-img { width: 100%; height: 140px; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .t-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); }
-        .t-info { padding: 20px; text-align: left; }
-        .t-info b { display: block; color: var(--blue); font-size: 1.15rem; margin-bottom: 8px; }
-        .t-info small { color: #666; font-size: 0.85rem; }
-
-        /* ABOUT & CONTACT */
-        .card { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; border-bottom: 5px solid var(--blue); margin-bottom: 30px; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
-        .send-btn { background: var(--blue); color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; }
-
-        footer { background: #0a0a0a; color: white; padding: 60px 8%; border-top: 8px solid var(--yellow); margin-top: 80px; text-align: center; }
-    </style>
-</head>
-<body>
-
-<div class="ticker" id="tk">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA ID</div>
-
-<nav>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div class="nav-links">
-        <a href="#about" id="na">About</a>
-        <a href="#tracks" id="nt">Tracks</a>
-        <a href="#contact" id="nc">Contact</a>
-        <select class="lang-select" onchange="upd(this.value)">
-            <option value="en">EN</option>
-            <option value="am">አማ</option>
-            <option value="om">OR</option>
-        </select>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="hero">
-        <h1 id="ht">Ethiopia's 2026 Digital Mission</h1>
-        <p id="hs">National ID Verification Portal</p>
-        <input type="number" class="id-input" id="id-pl" placeholder="Enter Fayda ID">
-        <br>
-        <button class="v-btn" id="vb">VERIFY & ENTER</button>
-    </div>
-
-    <h2 class="section-h" id="about">About the Mission</h2>
-    <div class="card" style="border-left: 8px solid var(--yellow);">
-        <p id="abp">ልማት Hub is the central engine for Ethiopia’s Digital 2026 Strategy. Our mission is to equip 1 million citizens with world-class AI, Cyber Security, and Software Engineering skills.</p>
-    </div>
-
-    <h2 class="section-h" id="tracks">Official Tracks (10)</h2>
-    <div class="tracks-grid" id="tl"></div>
-
-    <h2 class="section-h" id="contact">Contact Us</h2>
-    <div class="info-grid">
-        <div class="card">
-            <h3 id="ch">Get in Touch</h3>
-            <form class="contact-form" style="margin-top:20px;">
-                <input type="text" id="fn" placeholder="Full Name">
-                <input type="email" id="em" placeholder="Email Address">
-                <textarea id="ms" rows="4" placeholder="How can we help?"></textarea>
-                <button type="button" class="send-btn" id="snb">Send Message</button>
-            </form>
-        </div>
-        <div class="card" style="background:var(--blue); color:white;">
-            <h3 id="ah">Headquarters</h3>
-            <p>National ICT Park, Addis Ababa</p>
-            <p>support@lemathub.et</p>
-        </div>
+<div class="ticker" id="tk">
+    <div class="ticker-content">
+        MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW • 
     </div>
 </div>
-
-<footer>
-    <p>© 2026 ልማት Hub | Official Fayda National ID Partner</p>
-</footer>
-
-<script>
-    const images = [
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80", // AI
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80", // Cyber
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80", // Web
-        "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=400&q=80", // Data
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80", // Cloud
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80", // Mobile
-        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=400&q=80", // Blockchain
-        "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?auto=format&fit=crop&w=400&q=80", // UI/UX
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80", // IoT
-        "https://images.unsplash.com/photo-1559526324-4b87b5e36e41?auto=format&fit=crop&w=400&q=80"  // Fintech
-    ];
-
-    const data = {
-        en: {
-            tk: "MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA ID",
-            ht: "Ethiopia's 2026 Digital Mission", hs: "National ID Verification Portal",
-            id: "Enter Fayda ID", vb: "VERIFY & ENTER", na: "About", nt: "Tracks", nc: "Contact",
-            abp: "ልማት Hub is the central engine for Ethiopia’s Digital 2026 Strategy. We equip citizens with AI and Engineering skills linked to National ID certification.",
-            ch: "Get in Touch", fn: "Full Name", em: "Email", ms: "Message...", snb: "Send Message", ah: "Headquarters",
-            tr: ["AI Engineering", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
-        },
-        am: {
-            tk: "ተልዕኮ 2026፡ ምዝገባ ተከፍቷል • በፋይዳ መታወቂያ የተረጋገጠ",
-            ht: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", hs: "የብሔራዊ መታወቂያ ማረጋገጫ ፖርታል",
-            id: "የፋይዳ መታወቂያ ያስገቡ", vb: "አረጋግጥ እና ግባ", na: "ስለ እኛ", nt: "ትራኮች", nc: "እውቂያ",
-            abp: "ልማት Hub ለኢትዮጵያ የ2026 ዲጂታል ስትራቴጂ ማዕከላዊ ሞተር ነው። ዜጎችን በብሔራዊ መታወቂያ የምስክር ወረቀት ከኤአይ እና ኢንጂነሪንግ ክህሎቶች ጋር እናስታጥቃለን።",
-            ch: "ያግኙን", fn: "ሙሉ ስም", em: "ኢሜል", ms: "መልዕክት...", snb: "መልዕክት ላክ", ah: "ዋና መሥሪያ ቤት",
-            tr: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"]
-        },
-        om: {
-            tk: "ERGA 2026: GALMEEN BANAMEERA • FAYDA ID'N MIRKANAAYE",
-            ht: "Ergaa Diigitalaa Itoophiyaa 2026", hs: "Waraqaa Eenyummaa Mirkaneessuuf",
-            id: "Koodii Fayda galchaa", vb: "MIRKANEESSI & SEENI", na: "Waa'ee Keenya", nt: "Track'ota", nc: "Quunnamtii",
-            abp: "ልማት Hub moोटora giddu-galeessaa Istaatireejii Diigitalaa Itoophiyaa 2026 ti. Lammilee dandeettii AI fi Injiinariingii waraqaa eenyummaa waliin ni qopheessina.",
-            ch: "Nu Quunnamaa", fn: "Maqaa Guutuu", em: "Imeelii", ms: "Ergaa...", snb: "Ergaa Ergi", ah: "Waajjira Ol'aanaa",
-            tr: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
-        }
-    };
-
-    function upd(l) {
-        const c = data[l];
-        document.getElementById('tk').innerText = c.tk; document.getElementById('ht').innerText = c.ht;
-        document.getElementById('hs').innerText = c.hs; document.getElementById('id-pl').placeholder = c.id;
-        document.getElementById('vb').innerText = c.vb; document.getElementById('na').innerText = c.na;
-        document.getElementById('nt').innerText = c.nt; document.getElementById('nc').innerText = c.nc;
-        document.getElementById('abp').innerText = c.abp; document.getElementById('ch').innerText = c.ch;
-        document.getElementById('fn').placeholder = c.fn; document.getElementById('em').placeholder = c.em;
-        document.getElementById('ms').placeholder = c.ms; document.getElementById('snb').innerText = c.snb;
-        document.getElementById('ah').innerText = c.ah;
-        const g = document.getElementById('tl'); g.innerHTML = "";
-        c.tr.forEach((t, i) => { 
-            g.innerHTML += `
-                <div class="t-box">
-                    <div class="t-img"><img src="${images[i]}" alt="${t}"></div>
-                    <div class="t-info"><b>${t}</b><small>Mission 2026 Track</small></div>
-                </div>`;
-        });
-    }
-    upd('en');
-</script>
-</body>
-</html>
