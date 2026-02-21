@@ -3,36 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Ethiopia 2026 Elite</title>
+    <title>ልማት Hub | Ethiopia 2026</title>
     <style>
-        /* --- DESIGN STYLES --- */
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
         
-        /* Navigation Bar */
         nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
         .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; }
 
-        /* Sections */
         section { padding: 80px 5%; text-align: center; border-bottom: 1px solid #eee; }
         .hero { background: #f8f9fa; }
         
-        /* Course Grid [Step 2 & 3] */
+        /* Table Styles */
+        table { width: 100%; max-width: 800px; margin: 20px auto; border-collapse: collapse; text-align: left; }
+        th, td { padding: 15px; border-bottom: 1px solid #ddd; }
+        th { background: #003973; color: white; }
+
+        /* Course Cards */
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
-        .course-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #003973; text-align: left; transition: 0.3s; }
-        .course-card:hover { transform: translateY(-10px); }
-        .course-tag { background: #eef2f7; color: #003973; padding: 5px 10px; font-size: 0.8rem; font-weight: bold; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+        .course-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #003973; text-align: left; }
+        
+        .faq-item { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 10px; text-align: left; border-left: 5px solid #003973; }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="#" class="logo">ልማት Hub</a>
+    <a href="#home" class="logo">ልማት Hub</a>
     <div class="nav-links">
         <a href="#home">Home</a>
-        <a href="#courses">Extended Courses</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#courses">Courses</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
         <a href="#signup" class="btn-join">Verify Fayda ID</a>
     </div>
 </nav>
@@ -42,12 +47,8 @@
     <p>Ethiopia's 2026 Digital Mission. Powered by National ID.</p>
 </section>
 
-<section id="courses">
-    <h2 style="color: #003973; font-size: 2.5rem;">Specialized 2026 Tracks</h2>
-    <div class="course-grid">
-        <div class="course-card">
-            <span class="course-tag">SECURITY</span>
-            <h3>Cyber Defense</h3>
-            <p>Master national-grade encryption and threat detection for 2026 systems.</p>
-        </div>
-        <div class="course
+<section id="signup" style="background: #003973; color: white;">
+    <div style="max-width: 500px; margin: 0 auto; border: 2px solid #FFD700; padding: 30px; border-radius: 15px;">
+        <h2>Fayda One-Click Sync</h2>
+        <input type="text" placeholder="Enter Fayda ID" style="width:100%; padding:15px; margin:20px 0; border-radius:8px;">
+        <button style="width:100%; padding:15px; background:#FFD700; color:#003973; font-weight:bold; border:none; border-radius:8px;">VERIFY & JOIN</button>
