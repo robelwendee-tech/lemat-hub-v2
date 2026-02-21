@@ -27,4 +27,77 @@
         .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
 
         /* Table */
-        .table-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px
+        .table-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow-x: auto; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
+        th { background: #003973; color: white; padding: 15px; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
+        .view-btn { background: #003973; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; border: none; }
+
+        footer { background: #111; color: white; padding: 40px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div>
+        <a href="#schedule" style="margin-right:20px; text-decoration:none; color:#333;">Roadmap</a>
+        <a href="#signup" class="btn-join">Join Academy</a>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <h1>ልማት Hub</h1>
+    <p>Ethiopia's 2026 Elite Digital Mission.</p>
+</section>
+
+<section class="fayda-section" id="signup">
+    <div class="fayda-card">
+        <div id="fayda-input-group">
+            <h2>Fayda One-Click Sync</h2>
+            <p>Enter your National ID to verify your eligibility.</p>
+            <input type="text" id="id-input" placeholder="ID Number (e.g., ET-001...)" class="fayda-input">
+            <button class="fayda-btn" onclick="verifyID()">VERIFY & JOIN PROGRAM</button>
+        </div>
+        <div id="success-message">
+            <h2>✓ Identity Verified!</h2>
+            <p>Welcome to the 2026 Cohort. Check your email for orientation details.</p>
+            <button class="fayda-btn" style="background: white; color: #003973;" onclick="window.location.reload()">Reset</button>
+        </div>
+    </div>
+</section>
+
+<section id="schedule">
+    <h2 style="color:#003973;">Elite Academy Roadmap</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr><th>Weeks</th><th>Module</th><th>Outcome</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1 - 4</td><td><b>Python mastery</b></td><td>Automation Scripts.</td><td><button class="view-btn" onclick="alert('Module 1: Logic, Data Structures, and API integration.')">Details</button></td></tr>
+                <tr><td>5 - 8</td><td><b>AI Engineering</b></td><td>LLM Engineering.</td><td><button class="view-btn" onclick="alert('Module 2: Fine-tuning models and Prompt Engineering.')">Details</button></td></tr>
+                <tr><td>9 - 12</td><td><b>Global Placement</b></td><td>2026 Remote Career.</td><td><button class="view-btn" onclick="alert('Module 3: Portfolio building and interview prep.')">Details</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
+</footer>
+
+<script>
+    function verifyID() {
+        const input = document.getElementById('id-input').value;
+        if(input.length > 5) {
+            document.getElementById('fayda-input-group').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+        } else {
+            alert('Please enter a valid Fayda ID');
+        }
+    }
+</script>
+
+</body>
+</html>
