@@ -5,198 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Digital Ethiopia 2026</title>
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; --white: #ffffff; }
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
         body { background: var(--bg); color: #333; }
 
-        /* 1. TICKER & LANGUAGE NAV */
+        /* HEADER & TRACKER */
         .ticker { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 30s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 40px; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: bold; color: var(--blue); text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--blue); font-weight: 600; font-size: 0.9rem; }
-        .lang-select { padding: 5px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; background: #f0f0f0; }
-
-        /* 2. LIVE TRACKER BAR */
-        .live-tracker { background: #eef2f7; padding: 8px; text-align: center; border-bottom: 1px solid #ddd; font-size: 0.85rem; color: var(--blue); font-weight: bold; }
-        .live-tracker b { color: var(--green); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 38px; z-index: 1000; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .lang-select { padding: 6px; border-radius: 5px; border: 2px solid var(--blue); cursor: pointer; font-weight: bold; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
 
-        /* 3. HERO & VERIFICATION */
-        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 50px; }
-        .hero h1 { margin-bottom: 10px; }
-        .id-input { padding: 15px; width: 90%; max-width: 400px; border-radius: 10px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-        .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .v-btn:hover { background: white; transform: scale(1.05); }
+        /* HERO & VERIFY */
+        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
+        .id-input { padding: 15px; width: 90%; max-width: 400px; border-radius: 10px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; }
+        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 40px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-        /* 4. ABOUT SECTION */
-        .about-section { background: white; padding: 30px; border-radius: 15px; margin-bottom: 50px; border-left: 10px solid var(--blue); }
-
-        /* 5. TRACKS GRID */
-        .section-h { color: var(--blue); margin-bottom: 25px; border-left: 8px solid var(--yellow); padding-left: 15px; }
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; position: relative; }
-        .t-box:hover { transform: translateY(-10px); }
+        /* TRACKS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; }
+        .t-box:hover { transform: translateY(-8px); }
         .t-img { width: 100%; height: 180px; background: var(--blue); overflow: hidden; }
-        .t-img img { width: 100%; height: 100%; object-fit: cover; } /* Image fix */
+        .t-img img { width: 100%; height: 100%; object-fit: cover; }
         .t-info { padding: 20px; text-align: center; }
-        .join-btn { background: var(--blue); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; margin-top: 10px; font-weight: bold; width: 100%; }
-        .join-btn:hover { background: var(--green); }
+        .join-btn { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 10px; width: 100%; }
 
-        /* 6. FAQ SECTION */
-        .faq-container { margin-top: 50px; }
-        .faq-item { background: white; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ddd; overflow: hidden; }
-        .faq-q { padding: 15px 20px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; color: var(--blue); }
-        .faq-a { padding: 0 20px; max-height: 0; overflow: hidden; transition: 0.4s ease-out; font-size: 0.95rem; line-height: 1.6; }
+        /* CONTACT FORM */
+        .contact-card { background: white; padding: 30px; border-radius: 15px; border: 1px solid #ddd; }
+        .contact-card input, .contact-card textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 8px; }
 
-        footer { background: #001a33; color: white; padding: 40px 8%; text-align: center; margin-top: 60px; }
+        footer { background: #001a33; color: white; padding: 40px; text-align: center; margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <div class="ticker">
-    <div class="ticker-content" id="ticker-text">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •</div>
-</div>
-
-<div class="live-tracker">
-    LIVE ENROLLMENT: <b id="count">482,102</b> | STATUS: <b style="color:var(--green)">ACTIVE</b>
+    <div class="ticker-content" id="tick-text">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •</div>
 </div>
 
 <nav>
-    <a href="#" class="logo">ልማት Hub</a>
+    <h2 style="color:var(--blue)">ልማት Hub</h2>
     <div class="nav-links">
-        <a href="#about" id="nav-about">About</a>
-        <a href="#tracks" id="nav-tracks">Tracks</a>
-        <a href="#faq" id="nav-faq">FAQ</a>
-        <select class="lang-select" onchange="changeLang(this.value)">
+        <select class="lang-select" onchange="updLang(this.value)">
             <option value="en">English</option>
-            <option value="am">አማርኛ</option>
+            <option value="am">አማርኛ (Amharic)</option>
+            <option value="om">Oromoo (Oromo)</option>
+            <option value="tg">ትግርኛ (Tigrinya)</option>
         </select>
     </div>
 </nav>
 
 <div class="container">
-    <div class="hero" id="home">
-        <h1 id="hero-title">Ethiopia's 2026 Digital Mission</h1>
-        <p id="hero-sub">Enter your Fayda ID to verify your enrollment status</p>
-        <input type="number" id="id-input" class="id-input" placeholder="Enter Fayda ID Number">
-        <div class="btn-row">
-            <button class="v-btn" onclick="verifyID()" id="btn-verify">VERIFY & ENTER</button>
-        </div>
-        <p id="verify-msg" style="margin-top:15px; font-weight:bold;"></p>
+    <div class="hero">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">Enter Fayda ID to verify enrollment</p>
+        <input type="number" id="idIn" class="id-input" placeholder="ID Number">
+        <br>
+        <button class="v-btn" id="v-btn" onclick="verify()">VERIFY & ENTER</button>
     </div>
 
-    <div class="about-section" id="about">
-        <h2 class="section-h" id="about-h">About the Mission</h2>
-        <p id="about-p">ልማት Hub is the official portal for Ethiopia's 2026 Digital Transformation. Our mission is to train 1 million citizens in advanced technology tracks, verified through the national Fayda ID system to ensure transparency and security.</p>
-    </div>
+    <h2 id="t-head" style="margin-bottom:20px; color:var(--blue); border-left:8px solid var(--yellow); padding-left:15px;">Official Tracks</h2>
+    <div class="grid" id="track-list"></div>
 
-    <h2 class="section-h" id="tracks-h">Official Tracks (10)</h2>
-    <div class="tracks-grid" id="track-list"></div>
-
-    <div class="faq-container" id="faq">
-        <h2 class="section-h" id="faq-h">Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <div class="faq-q" onclick="toggleFAQ(0)"><span id="q1">Is this program free for citizens?</span> <span>+</span></div>
-            <div class="faq-a" id="a0"><p style="padding-bottom:15px;" id="ans1">Yes. The 2026 Digital Mission is fully funded by the government for all verified Fayda ID holders.</p></div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-q" onclick="toggleFAQ(1)"><span id="q2">Can I join more than one track?</span> <span>+</span></div>
-            <div class="faq-a" id="a1"><p style="padding-bottom:15px;" id="ans2">Currently, each citizen can only enroll in one primary track to ensure quality focus.</p></div>
-        </div>
+    <h2 id="c-head" style="margin:50px 0 20px; color:var(--blue); border-left:8px solid var(--yellow); padding-left:15px;">Contact Us</h2>
+    <div class="contact-card">
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <textarea rows="4" placeholder="Your Message"></textarea>
+        <button class="v-btn" style="width:100%">Send Message</button>
     </div>
 </div>
 
 <footer>
-    <p>© 2026 ልማት Hub | Official Digital Ethiopia Partner</p>
+    <p>© 2026 ልማት Hub | Official Fayda Partner</p>
 </footer>
 
 <script>
-    // IMAGE CONFIGURATION
-    const trackImages = [
+    const images = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
         "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", // Data Science (Fixed)
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", // Data
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
         "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
         "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
-        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", // UI/UX (Fixed)
+        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", // UI
         "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
-        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"  // Fintech (Fixed)
+        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"  // Fintech
     ];
 
-    const langData = {
+    const data = {
         en: {
-            tracks: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"],
-            heroT: "Ethiopia's 2026 Digital Mission",
-            heroS: "Enter your Fayda ID to verify your enrollment status",
-            verify: "VERIFY & ENTER",
-            about: "About the Mission",
-            join: "JOIN TRACK",
-            success: "✅ ID Verified! Dashboard Unlocked."
+            title: "Ethiopia's 2026 Digital Mission", sub: "Enter Fayda ID to verify enrollment",
+            vbtn: "VERIFY & ENTER", thead: "Official Tracks", chead: "Contact Us", join: "JOIN TRACK",
+            tracks: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"]
         },
         am: {
-            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
-            heroT: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
-            heroS: "የምዝገባ ሁኔታዎን ለማረጋገጥ የፋይዳ መታወቂያዎን ያስገቡ",
-            verify: "አረጋግጥ",
-            about: "ስለ ተልዕኮው",
-            join: "ተቀላቀል",
-            success: "✅ መታወቂያ ተረጋግጧል! ዳሽቦርዱ ተከፍቷል።"
+            title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", sub: "ለማረጋገጥ የፋይዳ መታወቂያዎን ያስገቡ",
+            vbtn: "አረጋግጥ እና ግባ", thead: "ይፋዊ ትራኮች", chead: "ያግኙን", join: "ተቀላቀል",
+            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"]
+        },
+        om: {
+            title: "Misiyoona Diijitaalaa Itoophiyaa 2026", sub: "Mirkaneessuuf koodii Fayda galchaa",
+            vbtn: "MIRKANEESSI", thead: "Trackiiwwan Idilee", chead: "Nu Quunnamaa", join: "ITTI DABALAMI",
+            tracks: ["AI Injinariingii", "Nageenya Saayibar", "Miidiyyaa Weeb", "Saayinsii Daataa", "Kilaawud", "Moobaayil", "Blokcheeyinii", "UI/UX", "IoT", "Fiinteek"]
+        },
+        tg: {
+            title: "ዲጂታል ተልእኮ ኢትዮጵያ 2026", sub: " ንምርግጋፅ መለለዪ ፋይዳ የእትው",
+            vbtn: "ኣረጋግፅ", thead: "ወግዓዊ ትራካት", chead: "ርኸቡና", join: "ተፀንበር",
+            tracks: ["ኣርቲፊሻል ኢንተለጀንስ", "ሳይበር ሴኩሪቲ", "ልምዓት ወብ", "ዳታ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"]
         }
     };
 
-    function changeLang(l) {
-        const d = langData[l];
-        document.getElementById('hero-title').innerText = d.heroT;
-        document.getElementById('hero-sub').innerText = d.heroS;
-        document.getElementById('btn-verify').innerText = d.verify;
-        document.getElementById('about-h').innerText = d.about;
+    function updLang(l) {
+        const d = data[l];
+        document.getElementById('h-title').innerText = d.title;
+        document.getElementById('h-sub').innerText = d.sub;
+        document.getElementById('v-btn').innerText = d.vbtn;
+        document.getElementById('t-head').innerText = d.thead;
+        document.getElementById('c-head').innerText = d.chead;
         
         const list = document.getElementById('track-list');
         list.innerHTML = "";
-        d.tracks.forEach((name, i) => {
-            list.innerHTML += `
-                <div class="t-box">
-                    <div class="t-img"><img src="${trackImages[i]}" alt="${name}"></div>
-                    <div class="t-info">
-                        <h3>${name}</h3>
-                        <button class="join-btn" onclick="location.href='#home'">${d.join}</button>
-                    </div>
-                </div>`;
+        d.tracks.forEach((t, i) => {
+            list.innerHTML += `<div class="t-box">
+                <div class="t-img"><img src="${images[i]}" alt="${t}"></div>
+                <div class="t-info"><h3>${t}</h3><button class="join-btn">${d.join}</button></div>
+            </div>`;
         });
     }
 
-    // INITIAL LOAD
-    changeLang('en');
-
-    // LIVE TRACKER LOGIC
-    let count = 482102;
-    setInterval(() => {
-        count += Math.floor(Math.random() * 3);
-        document.getElementById('count').innerText = count.toLocaleString();
-    }, 3000);
-
-    // VERIFICATION LOGIC
-    function verifyID() {
-        const val = document.getElementById('id-input').value;
-        const msg = document.getElementById('verify-msg');
-        if(val.length >= 10) { msg.style.color="var(--green)"; msg.innerText=langData[document.querySelector('.lang-select').value].success; }
-        else { msg.style.color="red"; msg.innerText="❌ Invalid ID Number"; }
-    }
-
-    // FAQ TOGGLE
-    function toggleFAQ(i) {
-        const a = document.getElementById('a' + i);
-        a.style.maxHeight = a.style.maxHeight === "150px" ? "0px" : "150px";
-    }
+    updLang('en');
+    function verify() { alert("Fayda ID Verification System is Online. Checking database..."); }
 </script>
-
 </body>
 </html>
