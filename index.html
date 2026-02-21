@@ -6,21 +6,104 @@
     <title>ልማት Hub | Ethiopia 2026</title>
     <style>
         * { scroll-behavior: smooth; box-sizing: border-box; }
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
         
         /* Navigation */
         nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
-        .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; cursor: pointer; }
-        .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.9rem; }
+        .btn-join { background: #2E7D32; color: white !important; padding: 8px 15px; border-radius: 5px; text-decoration: none; }
 
-        section { padding: 100px 5%; width: 100%; border-bottom: 1px solid #eee; display: block; }
-        
+        section { padding: 80px 5%; width: 100%; border-bottom: 1px solid #eee; display: block; position: relative; }
         .hero { text-align: center; }
-        .hero h1 { font-size: 3.5rem; color: #003973; margin: 0; }
+        .hero h1 { font-size: 3rem; color: #003973; margin: 0; }
 
         /* Fayda Card */
         .fayda-section { background: #003973; color: white; text-align: center; }
-        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
-        .fayda-input { padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 20px; font-size: 1.2rem; text-align: center; border: none; }
-        .fayda-btn { width: 100%; padding:
+        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 30px; border-radius: 15px; background: rgba(255,255,255,0.05); }
+        .fayda-input { padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 20px; font-size: 1rem; text-align: center; border: none; }
+        .fayda-btn { width: 100%; padding: 15px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
+
+        /* Table Fix for Mobile */
+        .table-container { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th { background: #003973; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+
+        /* FAQ & Contact */
+        .faq-item { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #003973; }
+        .contact-box { background: #f4f4f4; padding: 20px; border-radius: 10px; text-align: center; border: 1px solid #ddd; }
+        
+        footer { background: #111; color: white; padding: 40px 5%; text-align: center; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="nav-links">
+        <a href="#schedule">Schedule</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="#signup" class="btn-join">Join</a>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <h1>ልማት Hub</h1>
+    <p>Ethiopia's 2026 Digital Mission. Powered by Fayda ID.</p>
+</section>
+
+<section class="fayda-section" id="signup">
+    <div class="fayda-card">
+        <h2>Fayda ID Sync</h2>
+        <p>Your profile is verified via National ID.</p>
+        <input type="text" placeholder="Enter Fayda ID" class="fayda-input">
+        <button class="fayda-btn" onclick="alert('System Connecting to Fayda...')">VERIFY NOW</button>
+    </div>
+</section>
+
+<section id="schedule">
+    <h2 style="text-align:center; color:#003973;">12-Week Roadmap</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr><th>Weeks</th><th>Module</th><th>Outcome</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1 - 4</td><td><b>Python</b></td><td>Automation Scripts.</td></tr>
+                <tr><td>5 - 8</td><td><b>AI Mastery</b></td><td>LLM Engineering.</td></tr>
+                <tr><td>9 - 12</td><td><b>Jobs</b></td><td>International Placement.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="faq">
+    <h2 style="text-align:center; color:#003973;">FAQ</h2>
+    <div style="max-width: 700px; margin: 0 auto;">
+        <div class="faq-item">
+            <h3>Is it official?</h3>
+            <p>Yes, we are a 2026 Fayda partner.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is it free?</h3>
+            <p>Contact support for scholarship details.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 style="text-align:center; color:#003973;">Contact</h2>
+    <div class="contact-box">
+        <p><b>Email:</b> support@lemathub.et</p>
+        <p><b>Location:</b> Addis Ababa, Ethiopia</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 ልማት Hub | Fayda Authorized</p>
+</footer>
+
+</body>
+</html>
