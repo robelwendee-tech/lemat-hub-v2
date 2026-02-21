@@ -5,138 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Ethiopia 2026</title>
     <style>
-        /* --- DESIGN STYLES --- */
+        /* --- GLOBAL STYLES --- */
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; text-align: center; }
         
         /* NAVIGATION & LANGUAGE */
-        nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.9rem; }
-        .lang-btn { margin-left: 15px; color: #003973; font-weight: bold; border: 1px solid #003973; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
-        .btn-verify { background: #2E7D32; color: white !important; padding: 8px 15px; border-radius: 5px; margin-left: 15px; }
+        nav { background: #fff; padding: 20px 5%; display: flex; justify-content: space-around; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid #eee; }
+        nav a { text-decoration: none; color: #003973; font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
+        .lang-btn { color: #003973; font-weight: bold; border: 2px solid #003973; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-verify { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; }
 
-        section { padding: 80px 5%; text-align: center; border-bottom: 1px solid #eee; }
-        .hero { background: #f8f9fa; }
+        section { padding: 60px 5%; border-bottom: 1px solid #eee; }
         
         /* FAYDA VERIFY BOX */
-        .fayda-section { background: #003973; color: white; }
-        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
-        .fayda-input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; color: #333; }
-        .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
+        .fayda-section { background: #003973; color: white; padding: 80px 5%; }
+        .fayda-card { max-width: 500px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 10px; }
+        .fayda-input { width: 80%; padding: 12px; margin: 20px 0; border-radius: 4px; border: none; font-size: 1rem; }
+        .fayda-btn { padding: 12px 30px; background: #FFD700; color: #003973; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 1rem; }
 
         /* ROADMAP TABLE */
-        .table-container { max-width: 800px; margin: 30px auto; overflow-x: auto; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { background: #003973; color: white; padding: 18px; }
-        td { padding: 18px; border-bottom: 1px solid #eee; }
+        .roadmap-table { width: 80%; margin: 30px auto; border-collapse: collapse; background: white; }
+        .roadmap-table th { background: #003973; color: white; padding: 15px; }
+        .roadmap-table td { border: 1px solid #ddd; padding: 12px; }
 
         /* COURSE CARDS */
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
-        .course-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #003973; text-align: left; }
-        .tag { background: #eef2f7; color: #003973; padding: 5px 10px; font-size: 0.8rem; font-weight: bold; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+        .course-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px; }
+        .course-card { border: 1px solid #ddd; padding: 30px; width: 250px; border-top: 5px solid #003973; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .course-card h3 { margin-bottom: 10px; color: #333; }
 
         /* FAQ */
-        .faq-item { background: #f9f9f9; padding: 25px; border-radius: 8px; margin-bottom: 15px; text-align: left; border-left: 5px solid #003973; max-width: 800px; margin: 0 auto 15px auto; }
+        .faq-section { max-width: 600px; margin: 0 auto; text-align: center; }
         
-        footer { background: #111; color: white; padding: 50px; text-align: center; }
+        footer { background: #111; color: white; padding: 40px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="#home" class="logo">ልማት Hub</a>
-    <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#courses">Courses</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-        <span class="lang-btn">EN | አማርኛ</span> <a href="#signup" class="btn-verify">Verify ID</a>
-    </div>
+    <a href="#home">Home</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#courses">Courses</a>
+    <a href="#faq">FAQ</a>
+    <span class="lang-btn">EN | አማርኛ</span> <a href="#signup" class="btn-verify">Verify ID</a>
 </nav>
 
-<section id="home" class="hero">
-    <h1>ልማት Hub</h1>
-    <p>Ethiopia's 2026 Digital Mission. Powered by National ID.</p>
+<section id="home">
+    <h1 style="font-size: 2.5rem; color: #003973;">ልማት Hub</h1>
+    <p>Ethiopia's 2026 Digital Mission.</p>
 </section>
 
 <section id="signup" class="fayda-section">
     <div class="fayda-card">
         <h2>Fayda One-Click Sync</h2>
-        <p>Verification gateway for elite tracks.</p>
         <input type="text" placeholder="Enter Fayda ID" class="fayda-input">
-        <button class="fayda-btn">VERIFY & JOIN</button>
+        <br>
+        <button class="fayda-btn">VERIFY</button>
     </div>
 </section>
 
 <section id="schedule">
-    <h2 style="color:#003973;">12-Week Roadmap</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr><th>Weeks</th><th>Module</th><th>Outcome</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>1 - 4</td><td><b>Python Foundations</b></td><td>Advanced Automation.</td></tr>
-                <tr><td>5 - 8</td><td><b>AI Engineering</b></td><td>Building Custom LLMs.</td></tr>
-                <tr><td>9 - 12</td><td><b>Global Careers</b></td><td>Job Placement.</td></tr>
-            </tbody>
-        </table>
-    </div>
+    <h2>12-Week Roadmap</h2>
+    <table class="roadmap-table">
+        <thead>
+            <tr><th>Weeks</th><th>Goal</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1-4</td><td>Python Foundations</td></tr>
+            <tr><td>5-8</td><td>AI Engineering</td></tr>
+            <tr><td>9-12</td><td>Global Jobs</td></tr>
+        </tbody>
+    </table>
 </section>
 
 <section id="courses">
-    <h2 style="color: #003973; font-size: 2.5rem;">Specialized 2026 Tracks</h2>
+    <h2>Our Courses</h2>
     <div class="course-grid">
         <div class="course-card">
-            <span class="tag">SECURITY</span>
-            <h3>Cyber Defense</h3>
-            <p>Master national-grade encryption.</p>
+            <h3>Cyber</h3>
+            <p>Security</p>
         </div>
         <div class="course-card">
-            <span class="tag">DATA</span>
-            <h3>Big Data Analytics</h3>
-            <p>Analyze massive datasets in the cloud.</p>
+            <h3>Data</h3>
+            <p>Analytics</p>
         </div>
         <div class="course-card">
-            <span class="tag">CLOUD</span>
-            <h3>Cloud Architecture</h3>
-            <p>Design scalable systems for transformation.</p>
+            <h3>Cloud</h3>
+            <p>Arch</p>
         </div>
         <div class="course-card">
-            <span class="tag">DEV</span>
-            <h3>Software Engineering</h3>
-            <p>Build enterprise-grade apps.</p>
-        </div>
-        <div class="course-card">
-            <span class="tag">WEB3</span>
-            <h3>Blockchain Dev</h3>
-            <p>Develop smart contracts for Digital Birr.</p>
+            <h3>Web3</h3>
+            <p>Blockchain</p>
         </div>
     </div>
 </section>
 
-<section id="faq">
-    <h2 style="color: #003973; margin-bottom: 30px;">FAQ</h2>
-    <div class="faq-item">
-        <h3>Is Fayda ID mandatory?</h3>
-        <p>Yes, all tracks require a verified National ID.</p>
-    </div>
-    <div class="faq-item">
-        <h3>Will I receive a certificate?</h3>
-        <p>Yes, a digital credential linked to your Fayda profile.</p>
-    </div>
-</section>
-
-<section id="contact">
-    <h2 style="color:#003973;">Contact Us</h2>
-    <p>Email: <b>contact@lemathub.et</b> | Addis Ababa, Ethiopia</p>
+<section id="faq" class="faq-section">
+    <h2>FAQ</h2>
+    <p><strong>Is it free?</strong> Yes.</p>
+    <p><strong>Is ID required?</strong> Yes, Fayda ID.</p>
 </section>
 
 <footer>
-    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
+    <p>&copy; 2026 ልማት Hub | Ethiopia's Digital Future</p>
 </footer>
 
 </body>
