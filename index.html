@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Ethiopia</title>
+    <title>ልማት Hub | Digital Ethiopia 2026</title>
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background: var(--bg); overflow-x: hidden; }
 
-        /* MOVING TICKER */
+        /* 1. MOVING TICKER */
         .ticker { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* HERO & LAYOUT */
+        /* 2. NAVIGATION */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--blue); text-decoration: none; }
+
+        /* 3. HERO SECTION */
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
         .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
-        
-        /* TRACKS WITH STABLE IMAGES */
+        .id-input { padding: 15px; width: 80%; max-width: 400px; border-radius: 10px; border: none; margin: 20px 0; text-align: center; font-size: 1rem; }
+        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 40px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+
+        /* 4. TRACK CARDS CONFIGURATION */
         .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; }
         .t-box:hover { transform: translateY(-10px); }
         .t-img { width: 100%; height: 180px; background: var(--blue); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .t-img img { width: 100%; height: 100%; object-fit: cover; } /* Prevents stretching */
-        .t-info { padding: 20px; font-weight: bold; color: var(--blue); text-align: center; }
+        .t-img img { width: 100%; height: 100%; object-fit: cover; } /* Fixes stretching */
+        .t-info { padding: 20px; font-weight: bold; color: var(--blue); text-align: center; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -35,17 +40,19 @@
 </div>
 
 <nav>
-    <h2 style="color:#003973">ልማት Hub</h2>
-    <div style="font-weight:bold; color:#003973">About &nbsp; Tracks &nbsp; Contact</div>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div style="font-weight:bold; color:#003973; display:flex; gap:15px;">
+        <span>About</span><span>Tracks</span><span>Contact</span>
+    </div>
 </nav>
 
 <div class="container">
     <div class="hero">
         <h1>Ethiopia's 2026 Digital Mission</h1>
         <p>National ID Verification Portal</p>
-        <input type="text" placeholder="Enter Fayda ID" style="padding:15px; width:80%; max-width:400px; border-radius:10px; border:none; margin:20px 0; text-align:center;">
+        <input type="text" class="id-input" placeholder="Enter Fayda ID">
         <br>
-        <button style="background:var(--yellow); color:var(--blue); padding:15px 40px; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">VERIFY & ENTER</button>
+        <button class="v-btn">VERIFY & ENTER</button>
     </div>
 
     <h2 style="color:var(--blue); margin-bottom:30px; border-left:8px solid var(--yellow); padding-left:15px;">Official Tracks</h2>
@@ -53,7 +60,7 @@
 </div>
 
 <script>
-    // These specific URLs are chosen for maximum reliability
+    // These 10 links include the "3 Remaining" fixes for Data Science, UI/UX, and Fintech
     const trackImages = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
@@ -70,10 +77,14 @@
     const names = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"];
 
     const list = document.getElementById('track-list');
+    
     names.forEach((name, i) => {
+        // BACKUP SYSTEM: If an image fails, it generates a colored block with the track name
         list.innerHTML += `
             <div class="t-box">
-                <div class="t-img"><img src="${trackImages[i]}" alt="${name}"></div>
+                <div class="t-img">
+                    <img src="${trackImages[i]}" alt="${name}" onerror="this.parentElement.innerHTML='<div style=color:white;font-weight:bold;text-align:center;padding:20px>${name} Image</div>'">
+                </div>
                 <div class="t-info">${name}</div>
             </div>`;
     });
