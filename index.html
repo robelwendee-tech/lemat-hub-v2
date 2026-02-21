@@ -5,115 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Digital Ethiopia 2026</title>
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8fafc; --white: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background: var(--bg); color: #1e293b; line-height: 1.6; }
+        :root { --eth-blue: #003973; --eth-gold: #FFD700; --eth-green: #2e7d32; --light: #f8f9fa; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background: #eef2f5; color: #333; }
 
-        /* HEADER & LANG */
-        header { background: var(--white); height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-size: 24px; font-weight: 800; color: var(--blue); text-decoration: none; }
-        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--blue); font-weight: 600; font-size: 0.9rem; }
-        .lang-btn { background: var(--blue); color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-left: 15px; }
+        /* HEADER */
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); sticky; top: 0; z-index: 1000; }
+        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--eth-blue); font-size: 1.5rem; }
+        
+        .lang-switcher { display: flex; gap: 5px; }
+        .lang-btn { padding: 5px 10px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+        .lang-btn.active { background: var(--eth-blue); color: white; border-color: var(--eth-blue); }
 
-        /* SECTIONS */
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .section-box { background: white; padding: 40px; border-radius: 25px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        h2 { color: var(--blue); margin-bottom: 20px; font-size: 2rem; border-left: 8px solid var(--yellow); padding-left: 15px; }
+        /* DASHBOARD BOX */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .dashboard-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1); border-top: 8px solid var(--eth-gold); }
+        
+        .dash-header { background: var(--eth-blue); color: white; padding: 30px; text-align: center; }
+        .status-badge { display: inline-block; padding: 6px 15px; background: rgba(255,255,255,0.2); border-radius: 20px; font-size: 0.8rem; margin-top: 10px; border: 1px solid rgba(255,255,255,0.3); }
 
-        /* SCHEDULE TABLE */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: var(--blue); color: white; text-align: left; padding: 15px; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-        .status-badge { background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .dash-body { padding: 40px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .info-item { background: #f1f5f9; padding: 20px; border-radius: 12px; border-left: 4px solid var(--eth-blue); }
+        .info-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; font-weight: bold; }
+        .info-value { font-size: 1.1rem; font-weight: 700; color: var(--eth-blue); margin-top: 5px; }
 
-        /* TRACKER GRID */
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .track-card { border: 1px solid #e2e8f0; padding: 20px; border-radius: 15px; transition: 0.3s; }
-        .track-card:hover { border-color: var(--yellow); background: #fffcf0; }
+        /* INPUT SCREEN */
+        .verify-box { text-align: center; padding: 20px; }
+        .fayda-input { width: 100%; max-width: 400px; padding: 18px; border-radius: 12px; border: 2px solid #cbd5e1; font-size: 1.5rem; text-align: center; letter-spacing: 5px; margin: 20px 0; }
+        .fayda-input:focus { outline: none; border-color: var(--eth-blue); box-shadow: 0 0 0 4px rgba(0,57,115,0.1); }
+        
+        /* ACTIONS */
+        .action-btns { display: flex; flex-direction: column; gap: 10px; }
+        .btn-main { background: var(--eth-blue); color: white; padding: 18px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .btn-main:hover { background: #002a55; }
+        .btn-outline { background: none; border: 1.5px solid #cbd5e1; color: #64748b; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 15px; }
 
-        footer { text-align: center; padding: 60px 20px; background: var(--blue); color: white; margin-top: 50px; }
+        /* TRACKER LIST */
+        .track-list { margin-top: 30px; }
+        .track-opt { display: flex; align-items: center; justify-content: space-between; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .track-opt:hover { border-color: var(--eth-blue); background: #f8fafc; }
+
+        footer { text-align: center; margin-top: 40px; padding-bottom: 40px; color: #94a3b8; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">ልማት Hub</a>
-    <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#tracks">Tracks</a>
-        <a href="#schedule">Schedule</a>
-        <button class="lang-btn" onclick="toggleLang()">አማርኛ / EN</button>
-    </nav>
+    <div class="logo-area">◈ ልማት Hub</div>
+    <div class="lang-switcher">
+        <button class="lang-btn" onclick="setLang('en')" id="en-btn">EN</button>
+        <button class="lang-btn" onclick="setLang('am')" id="am-btn">አማር</button>
+        <button class="lang-btn" onclick="setLang('om')" id="om-btn">OR</button>
+        <button class="lang-btn" onclick="setLang('ti')" id="ti-btn">ትግር</button>
+    </div>
 </header>
 
 <div class="container">
-    
-    <div class="section-box" id="about">
-        <h2 id="about-h">About the Mission</h2>
-        <p id="about-p">ልማት Hub is the central portal for Ethiopia’s 2026 Digital Transformation. Our goal is to equip 1 million citizens with future-ready skills in AI, Cyber Security, and Software Engineering to build a digital-first economy.</p>
-    </div>
-
-    <div class="section-box" id="tracks">
-        <h2 id="tracks-h">Available Tracks</h2>
-        <div class="track-grid">
-            <div class="track-card"><h3>AI Engineering</h3><p>Master machine learning and neural networks.</p></div>
-            <div class="track-card"><h3>Cyber Security</h3><p>Protect the nation's digital infrastructure.</p></div>
-            <div class="track-card"><h3>Fullstack Web</h3><p>Build the next generation of Ethiopian platforms.</p></div>
-            <div class="track-card"><h3>Fintech</h3><p>Innovate in digital payments and banking.</p></div>
+    <div class="dashboard-card" id="main-ui">
         </div>
-    </div>
-
-    <div class="section-box" id="schedule">
-        <h2 id="sched-h">Mission Schedule 2026</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Phase</th>
-                    <th>Timeline</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Registration & Fayda Verification</td>
-                    <td>Jan - March 2026</td>
-                    <td><span class="status-badge">OPEN</span></td>
-                </tr>
-                <tr>
-                    <td>Bootcamp Phase 1</td>
-                    <td>April - June 2026</td>
-                    <td>Upcoming</td>
-                </tr>
-                <tr>
-                    <td>Advanced Specialization</td>
-                    <td>July - Oct 2026</td>
-                    <td>Upcoming</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+    <footer>National Digital ID Program & Ministry of Innovation (2026)</footer>
 </div>
 
-<footer>
-    <p>© 2026 ልማት Hub | National Digital Initiative</p>
-</footer>
-
 <script>
-    let currentLang = 'en';
+    const dictionary = {
+        en: { welcome: "Digital Mission 2026", sub: "National Enrollment Dashboard", enter: "Enter 10-Digit Fayda ID", verify: "Verify & Continue", status: "Not Enrolled", id_label: "Fayda ID", track_label: "Selected Track", date_label: "Enrollment Date", change: "Change/Reset ID", join: "Select Your Track", success: "Enrollment Successful" },
+        am: { welcome: "ዲጂታል ተልዕኮ 2026", sub: "ብሔራዊ የምዝገባ ዳሽቦርድ", enter: "ባለ 10 አሃዝ የፋይዳ መታወቂያ ያስገቡ", verify: "አረጋግጥና ቀጥል", status: "ያልተመዘገበ", id_label: "የፋይዳ መታወቂያ", track_label: "የተመረጠ ትራክ", date_label: "የምዝገባ ቀን", change: "መታወቂያ ቀይር", join: "ትራክ ይምረጡ", success: "ምዝገባው ተሳክቷል" },
+        om: { welcome: "Misiyoona Diijitaalaa 2026", sub: "Daashboordii Galmeessa Biyyoolessaa", enter: "ID Faydaa diijitii 10 galchaa", verify: "Mirkaneessi & Itti fuf", status: "Kan hin galmeeffamne", id_label: "ID Faydaa", track_label: "Kallattii Filatame", date_label: "Guyyaa Galmeessaa", change: "ID Jijjiiri", join: "Kallattii Filadhu", success: "Galmeessi Milkaa'eera" },
+        ti: { welcome: "ዲጂታል ሚሽን 2026", sub: "ብሄራዊ ዳሽቦርድ ምዝገባ", enter: "ባዓል 10 ኣሃዝ ፋይዳ መለለዪ የእትዉ", verify: "ኣረጋግፅን ቀፅልን", status: "ዘይተመዝገበ", id_label: "መለለዪ ፋይዳ", track_label: "ዝተመረፀ ትራክ", date_label: "ዕለት ምዝገባ", change: "መለለዪ ቀይር", join: "ትራክ ይምረጡ", success: "ምዝገባ ተሳኺዑ" }
+    };
 
-    function toggleLang() {
-        if (currentLang === 'en') {
-            document.getElementById('about-h').innerText = "ስለ ተልዕኮው";
-            document.getElementById('about-p').innerText = "ልማት Hub ለኢትዮጵያ 2026 ዲጂታል ትራንስፎርሜሽን ማዕከላዊ ፖርታል ነው። ግባችን 1 ሚሊዮን ዜጎችን በሰው ሰራሽ አስተውሎት፣ በሳይበር ደህንነት እና በሶፍትዌር ኢንጂነሪንግ ለወደፊት ዝግጁ የሆኑ ክህሎቶችን ማስታጠቅ ነው።";
-            document.getElementById('tracks-h').innerText = "የሚገኙ ትራኮች";
-            document.getElementById('sched-h').innerText = "የተልዕኮ መርሃ ግብር 2026";
-            currentLang = 'am';
+    const tracks = ["AI Engineering", "Cyber Security", "Cloud Computing", "Software Dev"];
+    let currentLang = localStorage.getItem('hubLang') || 'en';
+
+    function setLang(l) {
+        currentLang = l;
+        localStorage.setItem('hubLang', l);
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(l + '-btn').classList.add('active');
+        render();
+    }
+
+    function render() {
+        const ui = document.getElementById('main-ui');
+        const d = dictionary[currentLang];
+        const saved = localStorage.getItem('userEnroll');
+
+        if (!saved) {
+            // VERIFICATION SCREEN
+            ui.innerHTML = `
+                <div class="dash-header">
+                    <h1>${d.welcome}</h1>
+                    <p>${d.sub}</p>
+                </div>
+                <div class="dash-body">
+                    <div class="verify-box">
+                        <p>${d.enter}</p>
+                        <input type="number" id="f-id" class="fayda-input" placeholder="----------" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);">
+                        <div class="track-list">
+                            <p style="margin-bottom:15px; font-weight:bold;">${d.join}:</p>
+                            ${tracks.map(t => `<div class="track-opt" onclick="processEnroll('${t}')"><span>${t}</span> ➔</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
         } else {
-            location.reload(); // Quickest way to reset to English for this demo
+            // DASHBOARD SCREEN
+            const info = JSON.parse(saved);
+            ui.innerHTML = `
+                <div class="dash-header">
+                    <h1>${d.welcome}</h1>
+                    <div class="status-badge">● Verified Profile</div>
+                </div>
+                <div class="dash-body">
+                    <div class="info-grid">
+                        <div class="info-item"><div class="info-label">${d.id_label}</div><div class="info-value">${info.id}</div></div>
+                        <div class="info-item"><div class="info-label">${d.track_label}</div><div class="info-value">${info.track}</div></div>
+                        <div class="info-item"><div class="info-label">${d.date_label}</div><div class="info-value">${info.date}</div></div>
+                        <div class="info-item"><div class="info-label">Status</div><div class="info-value" style="color:var(--eth-green)">Active</div></div>
+                    </div>
+                    <button class="btn-outline" onclick="reset()">✕ ${d.change}</button>
+                </div>
+            `;
         }
     }
-</script>
 
+    function processEnroll(track) {
+        const id = document.getElementById('f-id').value;
+        const d = dictionary[currentLang];
+        if (id.length !== 10) { alert(d.enter); return; }
+        
+        const data = { id, track, date: new Date().toLocaleDateString() };
+        localStorage.setItem('userEnroll', JSON.stringify(data));
+        render();
+    }
+
+    function reset() {
+        localStorage.removeItem('userEnroll');
+        render();
+    }
+
+    setLang(currentLang);
+</script>
 </body>
 </html>
