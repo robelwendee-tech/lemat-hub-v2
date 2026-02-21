@@ -5,75 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Mission 2026</title>
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #eef2f5; --white: #ffffff; }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #333; overflow-x: hidden; }
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f0f4f8; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #333; line-height: 1.6; }
 
-        /* 1. ANIMATED TICKER */
-        .ticker-wrap { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: 800; position: sticky; top: 0; z-index: 2000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        /* 1. TICKER */
+        .ticker-wrap { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: 800; position: sticky; top: 0; z-index: 2000; overflow: hidden; }
         .ticker-move { display: inline-block; white-space: nowrap; padding-left: 100%; animation: ticker 25s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 2. PREMIUM HEADER */
-        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; position: sticky; top: 44px; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .logo { font-size: 28px; font-weight: 900; color: var(--blue); text-decoration: none; letter-spacing: -1px; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; margin-left: 25px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--blue); }
-        .lang-select { background: none; border: 2px solid var(--blue); padding: 5px 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        /* 2. HEADER */
+        header { background: var(--white); height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; position: sticky; top: 45px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 26px; font-weight: 900; color: var(--blue); text-decoration: none; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; margin-left: 20px; transition: 0.3s; }
+        .lang-select { border: 2px solid var(--blue); padding: 5px 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-        /* 3. HERO WITH GLASS EFFECT */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .hero { 
-            background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%); 
-            color: white; padding: 80px 40px; border-radius: 30px; text-align: center; 
-            position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,57,115,0.2); 
-        }
-        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%); }
+        /* 3. HERO SECTION */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .hero { background: var(--blue); color: white; padding: 70px 30px; border-radius: 30px; text-align: center; box-shadow: 0 15px 35px rgba(0,57,115,0.2); border-bottom: 8px solid var(--yellow); }
+        .id-input { padding: 18px; width: 90%; max-width: 450px; border-radius: 15px; border: none; margin: 25px 0; font-size: 1.2rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        .id-input { 
-            background: rgba(255, 255, 255, 1); border: 4px solid transparent; 
-            padding: 18px; width: 90%; max-width: 450px; border-radius: 15px; 
-            margin: 25px 0; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .id-input:focus { border-color: var(--yellow); outline: none; transform: scale(1.02); }
-
-        /* 4. TRACK CARDS (CLIENT VIEW) */
-        .section-h { font-size: 2.2rem; color: var(--blue); margin-bottom: 30px; font-weight: 800; display: flex; align-items: center; gap: 15px; }
-        .section-h::after { content: ''; flex: 1; height: 2px; background: rgba(0,0,0,0.05); }
-        
+        /* 4. TRACKS GRID */
+        .section-h { font-size: 2rem; color: var(--blue); margin: 60px 0 30px; border-left: 10px solid var(--yellow); padding-left: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
-        .card { 
-            background: white; border-radius: 25px; overflow: hidden; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 1px solid rgba(0,0,0,0.03); position: relative;
-        }
-        .card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .card { background: var(--white); border-radius: 25px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; text-align: center; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .card img { width: 100%; height: 200px; object-fit: cover; }
         .card-body { padding: 30px; }
-        .card h3 { margin-bottom: 15px; color: var(--blue); font-size: 1.4rem; }
-        
-        .btn { 
-            background: var(--yellow); color: var(--blue); border: none; 
-            padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; 
-            width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-        }
-        .btn:hover { background: var(--blue); color: white; transform: translateY(-2px); }
+        .btn { background: var(--yellow); color: var(--blue); border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; }
 
-        /* 5. CONTACT & FOOTER */
-        .contact-box { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        footer { background: var(--blue); color: white; padding: 60px 20px; text-align: center; margin-top: 80px; }
+        /* 5. ABOUT & CONTACT */
+        .content-box { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        footer { background: #002244; color: white; padding: 50px 20px; text-align: center; margin-top: 80px; }
     </style>
 </head>
 <body>
 
-<div class="ticker-wrap"><div class="ticker-move" id="ticker-text">MISSION 2026: ENROLLING 1,000,000 CITIZENS...</div></div>
+<div class="ticker-wrap"><div class="ticker-move" id="ticker-text">LOADING CITIZEN DATA...</div></div>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
     <div class="nav-links">
-        <a href="#about" id="nav-a">About</a>
-        <a href="#tracks" id="nav-t">Tracks</a>
+        <a href="#about" id="n-about">About</a>
+        <a href="#tracks" id="n-tracks">Tracks</a>
         <select class="lang-select" id="langPicker" onchange="updLang(this.value)">
             <option value="en">English</option>
             <option value="am">አማርኛ</option>
@@ -84,77 +58,68 @@
 
 <div class="container">
     <div class="hero">
-        <h1 id="h-title" style="font-size: 3rem; margin-bottom: 10px;">Ethiopia's 2026 Digital Mission</h1>
-        <p id="h-sub" style="opacity: 0.9; font-size: 1.1rem;">Secure your future in the global digital economy</p>
-        <input type="number" id="id-box" class="id-input" placeholder="Enter Fayda ID to Verify">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">Enter Fayda ID to begin your professional journey</p>
+        <input type="number" id="id-box" class="id-input" placeholder="Enter 10-Digit Fayda ID">
     </div>
 
-    <div id="tracks" style="margin-top: 80px;">
+    <div id="about">
+        <h2 class="section-h" id="a-head">About Us</h2>
+        <div class="content-box"><p id="a-text">ልማት Hub is the central portal for the Digital Ethiopia 2026 initiative, connecting citizens with world-class technology tracks.</p></div>
+    </div>
+
+    <div id="tracks">
         <h2 class="section-h" id="t-head">Official Tracks</h2>
         <div class="grid" id="track-list"></div>
     </div>
 </div>
 
 <footer>
-    <h2 style="color: var(--yellow); margin-bottom: 15px;">ልማት Hub</h2>
-    <p>Empowering a million citizens for a digital future.</p>
-    <p style="margin-top: 20px; opacity: 0.6; font-size: 0.9rem;">© 2026 Ministry of Innovation & Technology Partnership</p>
+    <h2 style="color:var(--yellow)">ልማት Hub</h2>
+    <p>© 2026 Mission 2026 Partnership</p>
 </footer>
 
 <script>
-    /* THE CLIENT BRAIN */
+    /* THE BRAIN ENGINE */
     const images = ["https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"];
 
     const data = {
-        en: { title: "Ethiopia's 2026 Digital Mission", tracks: "Official Tracks", join: "JOIN MISSION", welcome: "Success! Verified for: ", goal: "Citizens Enrolled: ", wait: "Verifying Fayda ID..." },
-        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", tracks: "ይፋዊ ትራኮች", join: "ተልዕኮውን ተቀላቀል", welcome: "ተሳክቷል! የተረጋገጠው ለ፡ ", goal: "የተመዘገቡ ዜጎች፡ ", wait: "መታወቂያውን በመመርመር ላይ..." },
-        om: { title: "Misiyoona Diijitaalaa 2026", tracks: "Kallattiiwwan", join: "MISIYONICHATTI MAKKAMI", welcome: "Milkaa'eera! Kallattiin kee: ", goal: "Lammilee Galmeeffaman: ", wait: "ID Mirkaneessaa Jira..." }
+        en: { title: "Ethiopia's 2026 Digital Mission", about: "About Us", tracks: "Official Tracks", join: "JOIN TRACK", welcome: "Success! Verified for: ", goal: "Citizens Registered: ", names: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"] },
+        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", about: "ስለ እኛ", tracks: "ይፋዊ ትራኮች", join: "ተቀላቀል", welcome: "ተሳክቷል! የተረጋገጠው ለ፡ ", goal: "የተመዘገቡ ዜጎች፡ ", names: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] },
+        om: { title: "Misiyoona Diijitaalaa 2026", about: "Waa'ee Keenya", tracks: "Kallattiiwwan", join: "MAKKAMI", welcome: "Milkaa'eera! Kallattiin: ", goal: "Lammilee Galmeeffaman: ", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] }
     };
 
-    const trackNames = {
-        en: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud Computing", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT", "Fintech"],
-        am: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ኮምፒውቲንግ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
-        om: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile", "Blockchain", "UI/UX", "IoT", "Fintech"]
-    };
-
-    // COUNTER
-    let count = 852104;
+    let count = 852400;
     setInterval(() => {
         count += Math.floor(Math.random() * 2);
-        const l = localStorage.getItem('hubLang') || 'en';
+        let l = localStorage.getItem('hubLang') || 'en';
         document.getElementById('ticker-text').innerText = `${data[l].goal} ${count.toLocaleString()} / 1,000,000`;
     }, 3000);
 
-    function handleJoin(track) {
-        const id = document.getElementById('id-box').value;
-        const l = localStorage.getItem('hubLang') || 'en';
-        if(id.length !== 10) { alert("Enter 10-digit Fayda ID."); return; }
-        
-        document.getElementById('id-box').placeholder = data[l].wait;
-        document.getElementById('id-box').disabled = true;
-        
-        setTimeout(() => {
-            localStorage.setItem('userEnroll', JSON.stringify({id, track}));
-            location.reload();
-        }, 2000);
+    function handleJoin(t) {
+        let id = document.getElementById('id-box').value;
+        if(id.length !== 10) { alert("Please enter 10-digit ID"); return; }
+        localStorage.setItem('userEnroll', JSON.stringify({id, t}));
+        location.reload();
     }
 
     function updLang(l) {
         localStorage.setItem('hubLang', l);
-        const d = data[l];
+        let d = data[l];
         document.getElementById('h-title').innerText = d.title;
+        document.getElementById('a-head').innerText = d.about;
         document.getElementById('t-head').innerText = d.tracks;
         
-        const list = document.getElementById('track-list');
+        let list = document.getElementById('track-list');
         list.innerHTML = "";
-        trackNames[l].forEach((n, i) => {
+        d.names.forEach((n, i) => {
             list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${n}</h3><button class="btn" onclick="handleJoin('${n}')">${d.join}</button></div></div>`;
         });
 
-        const saved = localStorage.getItem('userEnroll');
+        let saved = localStorage.getItem('userEnroll');
         if(saved) {
-            const info = JSON.parse(saved);
-            document.getElementById('h-sub').innerHTML = `<b style="color:var(--yellow); font-size:1.4rem;">${d.welcome}${info.track}</b>`;
+            let info = JSON.parse(saved);
+            document.getElementById('h-sub').innerHTML = `<b style="color:var(--yellow); font-size:1.2rem;">${d.welcome}${info.t}</b>`;
             document.getElementById('id-box').style.display = 'none';
         }
     }
