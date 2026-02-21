@@ -3,84 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Live Mission Portal</title>
+    <title>ልማት Hub | Mission 2026 Portal</title>
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); }
+        body { background: var(--bg); color: #333; }
 
-        /* 1. MOVING TICKER */
+        /* TICKER & STATS */
         .ticker { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 2. LIVE UPDATES BAR */
-        .live-stats { background: #eef2f7; padding: 10px; text-align: center; border-bottom: 1px solid #ddd; display: flex; justify-content: center; gap: 30px; font-size: 0.9rem; color: var(--blue); }
-        .stat-item b { color: var(--green); }
-
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
         
-        /* 3. HERO & BUTTONS */
+        /* HERO & VERIFY ID SECTION */
         .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
-        .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
-        .cert-btn { background: var(--green); color: white; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .id-input { padding: 15px; width: 80%; max-width: 400px; border-radius: 10px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; }
+        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 40px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .v-btn:hover { background: white; }
 
-        /* 4. TRACKS GRID */
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center; }
-        .t-img { width: 100%; height: 180px; background: var(--blue); overflow: hidden; }
+        /* SCHEDULE SECTION */
+        .section-h { color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
+        .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .sched-card { background: white; padding: 20px; border-radius: 12px; border-bottom: 4px solid var(--blue); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .sched-card b { display: block; color: var(--blue); font-size: 1.1rem; }
+
+        /* FAQ SECTION */
+        .faq-item { background: white; margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+        .faq-question { padding: 15px; background: #fff; cursor: pointer; display: flex; justify-content: space-between; font-weight: bold; color: var(--blue); }
+        .faq-answer { padding: 0 15px; max-height: 0; overflow: hidden; transition: 0.3s ease-out; background: #f9f9f9; color: #666; }
+
+        /* TRACK CARDS */
+        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .t-box { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; }
+        .t-img { width: 100%; height: 160px; background: var(--blue); }
         .t-img img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* 5. CERTIFICATE MODAL */
-        #certModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; }
-        .cert-card { background: white; width: 90%; max-width: 600px; padding: 40px; border: 10px solid var(--blue); position: relative; text-align: center; border-radius: 5px; }
-        .cert-card h2 { color: var(--blue); margin-bottom: 20px; }
-        .close-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 24px; }
     </style>
 </head>
 <body>
 
 <div class="ticker">
-    <div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • CLAIM YOUR CERTIFICATE NOW •</div>
-</div>
-
-<div class="live-stats">
-    <div class="stat-item">Live Enrolled: <b id="count">482,102</b></div>
-    <div class="stat-item">Status: <b style="color:var(--green)">Online</b></div>
+    <div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION •</div>
 </div>
 
 <div class="container">
     <div class="hero">
-        <h1>Ethiopia's 2026 Digital Mission</h1>
-        <p>National ID Verification Portal</p>
-        <div class="btn-group">
-            <button class="v-btn">VERIFY FAYDA ID</button>
-            <button class="cert-btn" onclick="showCert()">VIEW CERTIFICATE</button>
-        </div>
+        <h1>Verify Your Mission ID</h1>
+        <p>Enter your Fayda National ID to unlock your dashboard</p>
+        <input type="number" id="faydaID" class="id-input" placeholder="0000 0000 0000">
+        <br>
+        <button class="v-btn" onclick="verifyID()">VERIFY & ENTER</button>
+        <p id="v-msg" style="margin-top:15px; font-weight:bold;"></p>
     </div>
 
-    <h2 style="color:var(--blue); margin-bottom:30px; border-left:8px solid var(--yellow); padding-left:15px;">Official Tracks</h2>
-    <div class="tracks-grid" id="track-list"></div>
-</div>
+    <h2 class="section-h">Weekly Mission Schedule</h2>
+    <div class="schedule-grid">
+        <div class="sched-card"><b>Monday</b> 09:00 AM<br>AI Fundamentals</div>
+        <div class="sched-card"><b>Wednesday</b> 02:00 PM<br>Cyber Security Lab</div>
+        <div class="sched-card"><b>Friday</b> 10:00 AM<br>Fintech Seminar</div>
+    </div>
 
-<div id="certModal">
-    <div class="cert-card">
-        <span class="close-btn" onclick="closeCert()">&times;</span>
-        <div style="border: 2px solid var(--yellow); padding: 20px;">
-            <h1 style="color: var(--blue);">CERTIFICATE OF COMPLETION</h1>
-            <p>This is to certify that a <b>Verified Fayda ID Holder</b> has successfully completed the</p>
-            <h2 style="margin: 20px 0;">DIGITAL ETHIOPIA 2026 MISSION</h2>
-            <div style="display:flex; justify-content: space-between; margin-top: 40px;">
-                <span>Date: Feb 2026</span>
-                <span style="color:var(--blue); font-weight: bold;">Verified by ልማት Hub</span>
-            </div>
+    <h2 class="section-h">Your Learning Tracks</h2>
+    <div class="tracks-grid" id="track-list"></div>
+
+    <h2 class="section-h">Frequently Asked Questions</h2>
+    <div id="faq-container">
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(0)">How do I get my certificate? <span>+</span></div>
+            <div class="faq-answer" id="faq0"><p style="padding:15px">Certificates are issued automatically after completing your chosen track and verifying your Fayda ID.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(1)">Is this program free? <span>+</span></div>
+            <div class="faq-answer" id="faq1"><p style="padding:15px">Yes, the 2026 Digital Mission is fully funded for verified Ethiopian citizens.</p></div>
         </div>
     </div>
 </div>
 
 <script>
-    // FIXED STABLE LINKS
+    // STABLE IMAGE ARRAY
     const trackImages = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
@@ -96,25 +96,33 @@
 
     const names = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"];
 
+    // Populate Tracks
     const list = document.getElementById('track-list');
     names.forEach((name, i) => {
-        list.innerHTML += `
-            <div class="t-box">
-                <div class="t-img"><img src="${trackImages[i]}" alt="${name}"></div>
-                <div style="padding:15px; font-weight:bold; color:#003973">${name}</div>
-            </div>`;
+        list.innerHTML += `<div class="t-box">
+            <div class="t-img"><img src="${trackImages[i]}" alt="${name}"></div>
+            <div style="padding:15px; font-weight:bold; color:#003973">${name}</div>
+        </div>`;
     });
 
-    // Certificate Logic
-    function showCert() { document.getElementById('certModal').style.display = 'flex'; }
-    function closeCert() { document.getElementById('certModal').style.display = 'none'; }
+    // ID Verification Simulation
+    function verifyID() {
+        const id = document.getElementById('faydaID').value;
+        const msg = document.getElementById('v-msg');
+        if(id.length < 10) {
+            msg.style.color = "red";
+            msg.innerText = "❌ Invalid ID. Please check your Fayda card.";
+        } else {
+            msg.style.color = "#28a745";
+            msg.innerText = "✅ ID Verified! Accessing Mission Portal...";
+        }
+    }
 
-    // Live Update Logic (Increments number every few seconds)
-    let count = 482102;
-    setInterval(() => {
-        count += Math.floor(Math.random() * 5);
-        document.getElementById('count').innerText = count.toLocaleString();
-    }, 3000);
+    // FAQ Toggle Logic
+    function toggleFAQ(index) {
+        const ans = document.getElementById('faq' + index);
+        ans.style.maxHeight = ans.style.maxHeight === "100px" ? "0px" : "100px";
+    }
 </script>
 
 </body>
