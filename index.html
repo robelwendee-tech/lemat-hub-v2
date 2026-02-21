@@ -38,4 +38,140 @@
         /* FOOTER */
         footer { background: #111; color: #ccc; padding: 60px 5% 30px; border-top: 6px solid var(--yellow); }
         .f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
-        .f-col
+        .f-col h4 { color: var(--yellow); margin-bottom: 20px; font-size: 0.9rem; }
+        .f-bottom { border-top: 1px solid #333; margin-top: 40px; padding-top: 20px; text-align: center; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="ticker" id="ticker">MISSION 2026: Enrollment Open for Verified Citizens • Digital Ethiopia Strategy</div>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="nav-right" style="display:flex; align-items:center; gap:15px;">
+        <div class="lang-bar">
+            <button class="lang-btn" onclick="translatePage('en')">EN</button>
+            <button class="lang-btn" onclick="translatePage('am')">አማ</button>
+            <button class="lang-btn" onclick="translatePage('om')">ORM</button>
+        </div>
+        <a href="#" class="join-btn" id="join-btn">JOIN NOW</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="portal-card">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">National ID Verification Portal</p>
+        <input type="number" class="id-input" id="id-box" placeholder="Enter Fayda ID to access dashboard">
+        <br>
+        <button class="v-btn" id="v-btn">VERIFY & ENTER</button>
+    </div>
+
+    <div class="dashboard-options">
+        <div class="opt-card">
+            <h4 id="opt-1-t">Course Progress</h4>
+            <p id="opt-1-p">0% Completed (Verification Required)</p>
+        </div>
+        <div class="opt-card">
+            <h4 id="opt-2-t">Digital Certificates</h4>
+            <p id="opt-2-p">Linked to Fayda ID</p>
+        </div>
+        <div class="opt-card">
+            <h4 id="opt-3-t">Support Center</h4>
+            <p id="opt-3-p">24/7 Live Agent Access</p>
+        </div>
+    </div>
+
+    <h2 class="grid-title" id="t-head">Official Specializations (10 Tracks)</h2>
+    <div class="tracks-grid" id="track-container">
+        </div>
+</div>
+
+<footer>
+    <div class="f-grid">
+        <div class="f-col">
+            <h4>ልማት Hub</h4>
+            <p id="f-about">Building the tech workforce of 2026.</p>
+        </div>
+        <div class="f-col">
+            <h4 id="f-links">Quick Links</h4>
+            <p>Mission Statement</p>
+            <p>Curriculum</p>
+        </div>
+        <div class="f-col">
+            <h4 id="f-contact">Contact Us</h4>
+            <p>Email: contact@lemathub.et</p>
+            <p>Addis Ababa, Ethiopia</p>
+        </div>
+    </div>
+    <div class="f-bottom">
+        <p id="f-copy">© 2026 ልማት Hub | Official Fayda National ID Partner</p>
+        <p style="margin-top:5px; opacity:0.6;" id="f-motto">Empowering Ethiopia's Digital Transformation</p>
+    </div>
+</footer>
+
+<script>
+    const data = {
+        en: {
+            ticker: "MISSION 2026: Enrollment Open for Verified Citizens • Digital Ethiopia Strategy",
+            join: "JOIN NOW",
+            title: "Ethiopia's 2026 Digital Mission",
+            sub: "National ID Verification Portal",
+            btn: "VERIFY & ENTER",
+            opt1T: "Course Progress", opt1P: "0% Completed",
+            opt2T: "Certificates", opt2P: "Linked to Fayda ID",
+            opt3T: "Support Center", opt3P: "Live Agent Access",
+            tHead: "Official Specializations (10 Tracks)",
+            tracks: ["AI Engineering", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
+        },
+        am: {
+            ticker: "ተልዕኮ 2026፡ ለተረጋገጡ ዜጎች ምዝገባ ተከፍቷል • የዲጂታል ኢትዮጵያ ስትራቴጂ",
+            join: "አሁን ይቀላቀሉ",
+            title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
+            sub: "የብሔራዊ መታወቂያ ማረጋገጫ ፖርታል",
+            btn: "አረጋግጥ እና ግባ",
+            opt1T: "የትምህርት ሂደት", opt1P: "0% ተጠናቋል",
+            opt2T: "የምስክር ወረቀቶች", opt2P: "ከፋይዳ መታወቂያ ጋር የተያያዘ",
+            opt3T: "የድጋፍ ማዕከል", opt3P: "የቀጥታ ወኪል እገዛ",
+            tHead: "ኦፊሴላዊ የሥልጠና ዘርፎች (10 ትራኮች)",
+            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"]
+        },
+        om: {
+            ticker: "ERGA 2026: Galmeen lammilee mirkanaa'aniif banameera • Tooftaa Itoophiyaa",
+            join: "AMMA SEENI",
+            title: "Ergaa Diigitalaa Itoophiyaa 2026",
+            sub: "Waraqaa Eenyummaa Mirkaneessuuf",
+            btn: "MIRKANEESSI & SEENI",
+            opt1T: "Adeemsa Leenjii", opt1P: "0% kan xumurame",
+            opt2T: "Waraqaa Ragaa", opt2P: "Fayda ID waliin walqabata",
+            opt3T: "Giddugala Deeggarsaa", opt3P: "Tajaajila Agentaa Kallattii",
+            tHead: "Leenjiiwwan Ofisiyawaa (Track 10)",
+            tracks: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
+        }
+    };
+
+    function translatePage(lang) {
+        const l = data[lang];
+        document.getElementById('ticker').innerText = l.ticker;
+        document.getElementById('join-btn').innerText = l.join;
+        document.getElementById('h-title').innerText = l.title;
+        document.getElementById('h-sub').innerText = l.sub;
+        document.getElementById('v-btn').innerText = l.btn;
+        document.getElementById('opt-1-t').innerText = l.opt1T; document.getElementById('opt-1-p').innerText = l.opt1P;
+        document.getElementById('opt-2-t').innerText = l.opt2T; document.getElementById('opt-2-p').innerText = l.opt2P;
+        document.getElementById('opt-3-t').innerText = l.opt3T; document.getElementById('opt-3-p').innerText = l.opt3P;
+        document.getElementById('t-head').innerText = l.tHead;
+
+        const grid = document.getElementById('track-container');
+        grid.innerHTML = "";
+        l.tracks.forEach(t => {
+            grid.innerHTML += `<div class="track"><b>${t}</b><p style="font-size:0.8rem; color:#666; margin-top:5px;">Mission 2026 Track</p></div>`;
+        });
+    }
+
+    // Default Load
+    translatePage('en');
+</script>
+
+</body>
+</html>
