@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official</title>
+    <title>ልማት Hub | Official Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
@@ -14,20 +14,25 @@
         
         .main-container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
         
-        /* LOGIN CARD */
-        .login-box { background: #003973; color: white; padding: 50px; border-radius: 15px; text-align: center; border: 3px solid #FFD700; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        /* LOGIN PAGE STYLES */
+        .login-box { background: #003973; color: white; padding: 50px; border-radius: 15px; text-align: center; border: 3px solid #FFD700; }
         .fayda-input { width: 100%; max-width: 400px; padding: 15px; margin: 25px 0; border-radius: 8px; border: none; font-size: 1.2rem; text-align: center; }
-        .verify-btn { background: #FFD700; color: #003973; padding: 18px 40px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
-        .verify-btn:hover { background: #fff; transform: translateY(-3px); }
+        .verify-btn { background: #FFD700; color: #003973; padding: 18px 40px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 1.1rem; }
 
         /* DASHBOARD (Hidden by default) */
         #dashboard { display: none; }
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .stat-card { background: white; padding: 25px; border-radius: 12px; border-left: 8px solid #FFD700; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .welcome-banner { background: #003973; color: white; padding: 40px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        
+        /* 10 TRACKS GRID INSIDE DASHBOARD */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { background: white; padding: 25px; border-radius: 12px; border-top: 5px solid #003973; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; }
+        .card i { color: #003973; font-size: 1.5rem; margin-bottom: 10px; }
+        .card h4 { color: #003973; margin-bottom: 5px; }
+        .card p { font-size: 0.85rem; color: #666; }
 
         /* FAQ */
-        .faq-section { margin-top: 60px; text-align: left; background: #fff; padding: 40px; border-radius: 15px; }
-        .faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .faq-section { margin-top: 60px; background: #fff; padding: 40px; border-radius: 15px; }
+        .faq-item { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px; text-align: left; }
 
         footer { background: #111; color: white; padding: 60px 5%; text-align: center; border-top: 6px solid #FFD700; margin-top: 80px; }
     </style>
@@ -43,12 +48,9 @@
 <div class="main-container">
 
     <div id="login-page">
-        <h2 style="text-align: center; margin-bottom: 10px;">Ethiopia's 2026 Digital Mission</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 40px;">Powered by National ID Verification.</p>
-        
         <div class="login-box">
             <h2 style="color: #FFD700;">Portal Login</h2>
-            <p>Enter your Fayda ID to access your specialized 2026 dashboard.</p>
+            <p>Enter Fayda ID to access your specialized 2026 dashboard.</p>
             <input type="number" id="id-field" class="fayda-input" placeholder="00000000">
             <br>
             <button class="verify-btn" onclick="checkID()">VERIFY & ENTER</button>
@@ -62,7 +64,7 @@
     </div>
 
     <div id="dashboard">
-        <div style="background: #003973; color: white; padding: 40px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="welcome-banner">
             <div>
                 <h1>Welcome Back, Citizen</h1>
                 <p>Status: <span style="color: #FFD700; font-weight: bold;">Verified Profile</span></p>
@@ -70,10 +72,18 @@
             <i class="fas fa-user-check fa-4x" style="color: #FFD700;"></i>
         </div>
 
-        <div class="stat-grid">
-            <div class="stat-card"><h4>Assigned Track</h4><p style="font-size: 1.2rem; font-weight: bold;">AI Engineering</p></div>
-            <div class="stat-card"><h4>Progress</h4><p style="font-size: 1.2rem; font-weight: bold;">0% Complete</p></div>
-            <div class="stat-card"><h4>Next Lesson</h4><p style="font-size: 1.2rem; font-weight: bold;">The 2026 Pillars</p></div>
+        <h3 style="color: #003973; margin: 40px 0 20px;">Your Available 2026 Tracks</h3>
+        <div class="grid">
+            <div class="card"><i class="fas fa-robot"></i><h4>AI Engineering</h4><p>Neural networks and GenAI.</p></div>
+            <div class="card"><i class="fas fa-shield-alt"></i><h4>Cyber Security</h4><p>National defense systems.</p></div>
+            <div class="card"><i class="fas fa-code"></i><h4>Full-Stack</h4><p>Web app architecture.</p></div>
+            <div class="card"><i class="fas fa-database"></i><h4>Data Science</h4><p>Big data and analytics.</p></div>
+            <div class="card"><i class="fas fa-cloud"></i><h4>Cloud DevOps</h4><p>Scalable infrastructure.</p></div>
+            <div class="card"><i class="fas fa-mobile-alt"></i><h4>Mobile Dev</h4><p>iOS and Android apps.</p></div>
+            <div class="card"><i class="fas fa-link"></i><h4>Blockchain</h4><p>Secure digital ledgers.</p></div>
+            <div class="card"><i class="fas fa-paint-brush"></i><h4>UI/UX Design</h4><p>Product experience.</p></div>
+            <div class="card"><i class="fas fa-microchip"></i><h4>IoT Systems</h4><p>Smart hardware.</p></div>
+            <div class="card"><i class="fas fa-landmark"></i><h4>Fintech</h4><p>Digital banking tools.</p></div>
         </div>
         
         <button class="verify-btn" style="margin-top: 40px;" onclick="location.reload()">LOGOUT</button>
@@ -83,7 +93,6 @@
 
 <footer>
     <p>© 2026 ልማት Hub | Official Fayda National ID Partner</p>
-    <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">Empowering Ethiopia's Digital Transformation.</p>
 </footer>
 
 <script>
@@ -92,7 +101,6 @@
         if(input.length < 4) {
             alert("Please enter a valid Fayda ID");
         } else {
-            // HIDE LOGIN, SHOW DASHBOARD
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             window.scrollTo(0,0);
