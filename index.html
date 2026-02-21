@@ -57,4 +57,51 @@
 
 <section id="signup" class="fayda-area">
     <div class="fayda-card" id="status-box">
-        <h2 style="
+        <h2 style="color: #FFD700;">National ID Verification</h2>
+        <p>Verify your Fayda ID to unlock all 10 specialized courses.</p>
+        <input type="number" placeholder="Enter Fayda ID" id="id-input" class="fayda-input">
+        <button class="fayda-btn" onclick="startVerify()">VERIFY & UNLOCK</button>
+    </div>
+</section>
+
+<section id="courses" style="background: #f9f9f9;">
+    <h2 style="color: #003973; font-size: 2.5rem;">The 2026 Curriculum</h2>
+    <p>Choose your specialization from our 10 official tracks:</p>
+    <div class="grid">
+        <div class="card"><h3>1. AI Engineering</h3><p>Machine Learning & Neural Networks</p></div>
+        <div class="card"><h3>2. Cyber Security</h3><p>Network Defense & Ethical Hacking</p></div>
+        <div class="card"><h3>3. Data Science</h3><p>Big Data & Predictive Analytics</p></div>
+        <div class="card"><h3>4. Cloud DevOps</h3><p>AWS & Azure Infrastructure</p></div>
+        <div class="card"><h3>5. Full-Stack Dev</h3><p>Modern Web Architecture</p></div>
+        <div class="card"><h3>6. Blockchain</h3><p>Smart Contracts & Web3</p></div>
+        <div class="card"><h3>7. Mobile Apps</h3><p>iOS & Android Development</p></div>
+        <div class="card"><h3>8. IoT Systems</h3><p>Smart Hardware Integration</p></div>
+        <div class="card"><h3>9. UI/UX Design</h3><p>Digital Product Experience</p></div>
+        <div class="card"><h3>10. Fintech</h3><p>Digital Payment Systems</p></div>
+    </div>
+</section>
+
+<section id="faq">
+    <h2 style="color: #003973; margin-bottom: 40px;">Frequently Asked Questions</h2>
+    <div class="faq-box">
+        <div class="faq-item"><strong>Is this program free?</strong><p>Yes, it is fully funded by the Digital Ethiopia 2026 initiative for verified citizens.</p></div>
+        <div class="faq-item"><strong>Is Fayda ID required?</strong><p>Yes, all certifications are linked to your National ID for verification.</p></div>
+        <div class="faq-item"><strong>Can I take multiple tracks?</strong><p>Citizens can enroll in one primary track at a time to ensure high-quality learning.</p></div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 ልማት Hub | Official Fayda Partner</p>
+    <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">Building the future of Ethiopia's Tech Ecosystem.</p>
+</footer>
+
+<script>
+    function startVerify() {
+        const val = document.getElementById('id-input').value;
+        if(val.length < 5) { alert("Invalid ID"); return; }
+        document.getElementById('status-box').innerHTML = "<h2 style='color:#FFD700'>Verified!</h2><p>Access Granted to all 10 Courses.</p>";
+    }
+</script>
+
+</body>
+</html>
