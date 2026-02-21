@@ -7,36 +7,29 @@
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f0f4f8; --white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); color: #333; line-height: 1.6; }
+        body { background: var(--bg); color: #333; }
 
-        /* HEADER & TICKER */
         .ticker { background: var(--yellow); color: var(--blue); padding: 10px; font-weight: bold; text-align: center; }
         header { background: var(--white); height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 24px; font-weight: 800; color: var(--blue); text-decoration: none; }
 
-        /* HERO SECTION */
         .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .hero { background: var(--blue); color: white; padding: 50px 20px; border-radius: 30px; text-align: center; border-bottom: 8px solid var(--yellow); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .hero { background: var(--blue); color: white; padding: 50px 20px; border-radius: 30px; text-align: center; border-bottom: 8px solid var(--yellow); position: relative; }
         
-        /* INPUT AREA */
         .input-group { display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 25px; flex-wrap: wrap; }
         .id-input { padding: 15px; width: 280px; border-radius: 12px; border: none; font-size: 1.1rem; text-align: center; }
         .verify-btn { background: var(--yellow); color: var(--blue); border: none; padding: 15px 30px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .verify-btn.ready { background: #28a745; color: white; }
 
-        /* SOCIAL SHARE GRID */
         .share-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .s-btn { padding: 12px; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; font-size: 0.85rem; text-align: center; transition: 0.2s; border: none; cursor: pointer; }
-        .s-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+        .s-btn { padding: 12px; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; font-size: 0.85rem; text-align: center; border: none; cursor: pointer; }
         
-        .tg { background: #0088cc; }
-        .wa { background: #25D366; }
-        .fb { background: #1877F2; }
-        .xx { background: #000000; }
-        .li { background: #0A66C2; }
-        .cp { background: #64748b; }
+        .tg { background: #0088cc; } .wa { background: #25D366; } .fb { background: #1877F2; } .xx { background: #000000; } .li { background: #0A66C2; } .cp { background: #64748b; }
+        
+        /* THE RETURN BUTTON */
+        .return-btn { background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 8px 15px; border-radius: 8px; cursor: pointer; margin-top: 20px; font-size: 0.8rem; }
+        .return-btn:hover { background: white; color: var(--blue); }
 
-        /* TRACKS */
         .section-h { font-size: 1.8rem; color: var(--blue); margin: 40px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
@@ -45,12 +38,11 @@
         .join-btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
 
         footer { text-align: center; padding: 40px; }
-        .clear-btn { background: none; border: 1px solid #ccc; color: #999; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="ticker">ETHIOPIA DIGITAL MISSION 2026 • 1,000,000 CITIZENS</div>
+<div class="ticker">MISSION 2026 • OFFICIAL ENROLLMENT PORTAL</div>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
@@ -59,8 +51,8 @@
 <div class="container">
     <div class="hero" id="hero-box">
         <h1>Ethiopia's 2026 Digital Mission</h1>
-        <p id="instruction">Enter 10-Digit Fayda ID to Verify</p>
-        <div class="input-group" id="input-area">
+        <p>Enter 10-Digit Fayda ID to Verify</p>
+        <div class="input-group">
             <input type="number" id="id-box" class="id-input" placeholder="0000000000" oninput="checkInput(this.value)">
             <button onclick="verifyNow()" id="v-btn" class="verify-btn">VERIFY</button>
         </div>
@@ -74,7 +66,6 @@
 
 <footer>
     <p>© 2026 ልማት Hub</p>
-    <button class="clear-btn" onclick="resetAll()">Reset Data</button>
 </footer>
 
 <script>
@@ -89,43 +80,45 @@
 
     function verifyNow() {
         if(document.getElementById('id-box').value.length !== 10) { alert("Enter 10 digits."); return; }
-        alert("ID Verified! Choose a track below.");
+        alert("Verified!");
     }
 
     function enroll(track) {
         const id = document.getElementById('id-box').value;
-        if(id.length !== 10) { alert("Verify ID first."); return; }
+        if(id.length !== 10) { alert("Please verify ID first."); return; }
         localStorage.setItem('userEnroll', JSON.stringify({id, track}));
         location.reload();
     }
 
-    function resetAll() { localStorage.removeItem('userEnroll'); location.reload(); }
+    // THE RETURN FUNCTION
+    function goBack() {
+        localStorage.removeItem('userEnroll');
+        location.reload();
+    }
 
     window.onload = function() {
-        // Load Tracks
         const list = document.getElementById('track-list');
         trackNames.forEach((n, i) => {
             list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${n}</h3><button class="join-btn" onclick="enroll('${n}')">JOIN MISSION</button></div></div>`;
         });
 
-        // Check Invisible Memory
         const saved = localStorage.getItem('userEnroll');
         if(saved) {
             const info = JSON.parse(saved);
-            const msg = `I am officially enrolled in ${info.track} for Ethiopia's 2026 Mission!`;
+            const msg = `I enrolled in ${info.track} for Ethiopia's 2026 Mission!`;
             const url = window.location.href;
 
             document.getElementById('hero-box').innerHTML = `
-                <h1 style="color:var(--yellow)">CONGRATULATIONS!</h1>
-                <p>You are verified for <b>${info.track}</b></p>
+                <h1 style="color:var(--yellow)">YOU ARE ENROLLED!</h1>
+                <p>Track: <b>${info.track}</b></p>
                 <div class="share-grid">
                     <a href="https://t.me/share/url?url=${url}&text=${msg}" target="_blank" class="s-btn tg">Telegram</a>
                     <a href="https://wa.me/?text=${msg}${url}" target="_blank" class="s-btn wa">WhatsApp</a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" class="s-btn fb">Facebook</a>
-                    <a href="https://twitter.com/intent/tweet?text=${msg}&url=${url}" target="_blank" class="s-btn xx">X / Twitter</a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${url}" target="_blank" class="s-btn li">LinkedIn</a>
-                    <button onclick="navigator.clipboard.writeText('${url}');alert('Link Copied!')" class="s-btn cp">Copy Link</button>
+                    <a href="https://twitter.com/intent/tweet?text=${msg}&url=${url}" target="_blank" class="s-btn xx">X</a>
+                    <button onclick="navigator.clipboard.writeText('${url}');alert('Copied!')" class="s-btn cp">Copy Link</button>
                 </div>
+                <button class="return-btn" onclick="goBack()">← Return / Change Track</button>
             `;
             document.getElementById('tracks-container').style.display = 'none';
         }
