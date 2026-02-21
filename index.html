@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Ethiopia 2026 Elite</title>
     <style>
-        /* --- STEP 2: STYLES --- */
+        /* --- DESIGN STYLES --- */
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
+        
+        /* Navigation Bar */
         nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
         .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; }
+
+        /* Sections */
         section { padding: 80px 5%; text-align: center; border-bottom: 1px solid #eee; }
+        .hero { background: #f8f9fa; }
         
-        /* Course Grid Styles */
+        /* Course Grid [Step 2 & 3] */
         .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
         .course-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #003973; text-align: left; transition: 0.3s; }
         .course-card:hover { transform: translateY(-10px); }
@@ -27,12 +32,12 @@
     <a href="#" class="logo">ልማት Hub</a>
     <div class="nav-links">
         <a href="#home">Home</a>
-        <a href="#courses">Courses</a>
+        <a href="#courses">Extended Courses</a>
         <a href="#signup" class="btn-join">Verify Fayda ID</a>
     </div>
 </nav>
 
-<section id="home" style="background: #f8f9fa;">
+<section id="home" class="hero">
     <h1>ልማት Hub</h1>
     <p>Ethiopia's 2026 Digital Mission. Powered by National ID.</p>
 </section>
@@ -43,19 +48,6 @@
         <div class="course-card">
             <span class="course-tag">SECURITY</span>
             <h3>Cyber Defense</h3>
-            <p>Master national-grade encryption and threat detection.</p>
+            <p>Master national-grade encryption and threat detection for 2026 systems.</p>
         </div>
-        <div class="course-card">
-            <span class="course-tag">DATA</span>
-            <h3>Big Data Analytics</h3>
-            <p>Analyze massive datasets using cloud-native infrastructure.</p>
-        </div>
-    </div>
-</section>
-
-<footer style="padding: 40px; text-align: center; background: #111; color: white;">
-    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
-</footer>
-
-</body>
-</html>
+        <div class="course
