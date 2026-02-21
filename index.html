@@ -30,4 +30,69 @@
         /* FAYDA SYNC */
         .fayda-section { padding: 80px 5%; background: #003973; color: white; text-align: center; }
         .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
-        .fayda-input { padding: 15px; width: 100%; border-radius: 5px;
+        .fayda-input { padding: 15px; width: 100%; border-radius: 5px; margin-bottom: 20px; font-size: 1.2rem; text-align: center; border: none; }
+        .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#home" class="logo">ልማት Hub</a>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#roadmap">Schedule</a>
+        <a href="#signup" class="btn-join">Verify Fayda ID</a>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <h1>ልማት Hub</h1>
+    <p>Ethiopia's 2026 Digital Mission. Empowering Students for the Future.</p>
+    <a href="#signup" class="btn-start">Claim Your Spot Now</a>
+</section>
+
+<section class="roadmap-section" id="roadmap">
+    <h2 style="color: #003973; text-align: center; font-size: 2.5rem;">The 12-Week Roadmap</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Weeks</th>
+                <th>Module Topic</th>
+                <th>Learning Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="week-tag">1 - 4</span></td>
+                <td><b>Python Mastery</b></td>
+                <td>Core Logic & Automation Scripts</td>
+            </tr>
+            <tr>
+                <td><span class="week-tag">5 - 8</span></td>
+                <td><b>AI Integration</b></td>
+                <td>Prompt Engineering & LLM Tools</td>
+            </tr>
+            <tr>
+                <td><span class="week-tag">9 - 12</span></td>
+                <td><b>Career Prep</b></td>
+                <td>Remote Work & 2026 Job Matching</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="fayda-section" id="signup">
+    <div class="fayda-card">
+        <h2>Fayda One-Click Sync</h2>
+        <p>No forms needed. We sync your profile from the National ID system.</p>
+        <input type="text" placeholder="Enter Fayda ID Number" class="fayda-input">
+        <button class="fayda-btn" onclick="alert('Profile Synced Successfully!')">VERIFY & JOIN PROGRAM</button>
+    </div>
+</section>
+
+<footer style="text-align: center; padding: 30px; background: #222; color: #fff;">
+    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
+</footer>
+
+</body>
+</html>
