@@ -3,96 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Ethiopia 2026</title>
+    <title>ልማት Hub | Mission 2026</title>
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #333; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); overflow-x: hidden; }
 
-        /* HEADER & TICKER */
-        .ticker { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
+        /* HEADER & LOGO */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 1000; }
+        .logo-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-circle { width: 40px; height: 40px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--yellow); font-weight: bold; border: 2px solid var(--yellow); }
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--blue); letter-spacing: -1px; }
+
+        /* TICKER */
+        .ticker { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        .live-bar { background: #fff; padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: center; gap: 30px; font-size: 0.85rem; font-weight: 600; }
-        .live-bar span b { color: var(--green); }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
-
-        /* HERO & VERIFY */
-        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
-        .id-input { padding: 15px; width: 90%; max-width: 400px; border-radius: 10px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; }
-        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin: 5px; }
-        .cert-btn { background: var(--green); color: white; padding: 15px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin: 5px; }
-
-        /* SCHEDULE & TRACKS */
-        .section-h { color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        /* HERO & TRANSITION */
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; transition: 0.5s; }
+        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 24px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,57,115,0.2); }
         
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); }
-        .card-img { width: 100%; height: 150px; background: var(--blue); }
+        /* INPUT BOX */
+        .id-input { padding: 18px; width: 90%; max-width: 400px; border-radius: 12px; border: 3px solid transparent; margin: 20px 0; text-align: center; font-size: 1.2rem; transition: 0.3s; }
+        .id-input:focus { border-color: var(--yellow); outline: none; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+
+        /* BUTTONS */
+        .v-btn { background: var(--yellow); color: var(--blue); padding: 18px 40px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; transform: scale(1); transition: 0.2s; }
+        .v-btn:active { transform: scale(0.95); }
+        
+        /* LOADING SPINNER */
+        #loader { display: none; margin: 20px auto; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--yellow); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* TRACK CARDS */
+        .section-h { color: var(--blue); margin: 40px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; font-size: 1.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; opacity: 0.3; pointer-events: none; transition: 1s; }
+        .grid.active { opacity: 1; pointer-events: all; }
+
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--yellow); }
+        .card-img { width: 100%; height: 180px; background: var(--blue); }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .card-info { padding: 15px; font-weight: bold; text-align: center; color: var(--blue); }
-
-        /* FAQ */
-        .faq-item { background: white; margin-bottom: 10px; border-radius: 10px; border: 1px solid #ddd; }
-        .faq-q { padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; }
-        .faq-a { padding: 0 15px; max-height: 0; overflow: hidden; transition: 0.3s; background: #fdfdfd; font-size: 0.95rem; }
-
-        /* MODAL */
-        #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; align-items:center; justify-content:center; }
-        .modal-content { background: white; padding: 40px; border: 10px solid var(--blue); max-width: 600px; width: 90%; text-align: center; position: relative; }
+        .card-info { padding: 20px; font-weight: bold; text-align: center; color: var(--blue); font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-<div class="ticker"><div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •</div></div>
+<nav>
+    <a href="#" class="logo-box">
+        <div class="logo-circle">ል</div>
+        <div class="logo-text">ልማት Hub</div>
+    </a>
+    <div style="font-weight:700; color:var(--blue); font-size:0.9rem;">2026 MISSION</div>
+</nav>
 
-<div class="live-bar">
-    <span>Live Enrollment: <b id="count">482,102</b></span>
-    <span>Status: <b>Active</b></span>
-</div>
+<div class="ticker"><div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • ACCESS YOUR PORTAL NOW •</div></div>
 
-<div class="container">
-    <div class="hero">
-        <h1>Fayda ID Verification</h1>
-        <p>Unlock your Digital 2026 Dashboard</p>
-        <input type="number" id="idIn" class="id-input" placeholder="Enter Fayda ID Number">
+<div class="container" id="main-content">
+    <div class="hero" id="hero-box">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Portal Entry</h1>
+        <p style="opacity: 0.9;">Verify your Fayda ID to unlock track selection</p>
+        
+        <input type="number" id="idField" class="id-input" placeholder="Enter Fayda ID Number">
+        <div id="loader"></div>
         <br>
-        <button class="v-btn" onclick="verify()">VERIFY & ENTER</button>
-        <button class="cert-btn" onclick="openCert()">VIEW CERTIFICATE</button>
-        <p id="msg" style="margin-top:15px; font-weight:bold;"></p>
+        <button class="v-btn" id="verifyBtn" onclick="startVerification()">VERIFY & ENTER</button>
+        <p id="statusMsg" style="margin-top:20px; font-weight:bold;"></p>
     </div>
 
-    <h2 class="section-h">Mission Schedule</h2>
-    <div class="grid">
-        <div class="card" style="padding:20px"><b>Monday</b><br>AI Engineering</div>
-        <div class="card" style="padding:20px"><b>Wednesday</b><br>Cyber Security</div>
-        <div class="card" style="padding:20px"><b>Friday</b><br>Fintech & IoT</div>
-    </div>
-
-    <h2 class="section-h">Learning Tracks</h2>
-    <div class="grid" id="track-list"></div>
-
-    <h2 class="section-h">FAQ</h2>
-    <div class="faq-item">
-        <div class="faq-q" onclick="toggleF(0)">Is the certificate internationally recognized? <span>+</span></div>
-        <div class="faq-a" id="f0"><p style="padding:15px">Yes, the 2026 Mission certificate is backed by national digital standards.</p></div>
-    </div>
-</div>
-
-<div id="modal">
-    <div class="modal-content">
-        <span style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:24px" onclick="closeCert()">&times;</span>
-        <h1 style="color:var(--blue)">MISSION CERTIFICATE</h1>
-        <p style="margin:20px 0">Awarded to a Verified Fayda ID Holder</p>
-        <div style="border: 2px solid var(--yellow); padding: 15px;">Digital Ethiopia 2026</div>
+    <div id="portal-area">
+        <h2 class="section-h">Your Dashboard Tracks</h2>
+        <div class="grid" id="track-grid">
+            </div>
     </div>
 </div>
 
 <script>
-    const images = [
+    const trackImages = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
         "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
@@ -104,33 +92,50 @@
         "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
         "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"  // Fintech
     ];
-    const names = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"];
+    const trackNames = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud Computing", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"];
 
-    const list = document.getElementById('track-list');
-    names.forEach((n, i) => {
-        list.innerHTML += `<div class="card">
-            <div class="card-img"><img src="${images[i]}" alt="${n}"></div>
-            <div class="card-info">${n}</div>
-        </div>`;
+    // 1. Initial Populate
+    const grid = document.getElementById('track-grid');
+    trackNames.forEach((name, i) => {
+        grid.innerHTML += `
+            <div class="card">
+                <div class="card-img"><img src="${trackImages[i]}" alt="${name}"></div>
+                <div class="card-info">${name}</div>
+            </div>`;
     });
 
-    function verify() {
-        const val = document.getElementById('idIn').value;
-        const msg = document.getElementById('msg');
-        if(val.length >= 10) { msg.style.color="var(--green)"; msg.innerText="✅ Verification Successful!"; }
-        else { msg.style.color="red"; msg.innerText="❌ Invalid ID Number"; }
+    // 2. ENTRY ANIMATION LOGIC
+    function startVerification() {
+        const idVal = document.getElementById('idField').value;
+        const btn = document.getElementById('verifyBtn');
+        const loader = document.getElementById('loader');
+        const msg = document.getElementById('statusMsg');
+
+        if(idVal.length < 10) {
+            msg.style.color = "#ff4d4d";
+            msg.innerText = "❌ Please enter a valid 10-digit Fayda ID";
+            return;
+        }
+
+        // Start Transition
+        btn.style.display = "none";
+        loader.style.display = "block";
+        msg.style.color = "white";
+        msg.innerText = "Connecting to Fayda Database...";
+
+        setTimeout(() => {
+            loader.style.display = "none";
+            msg.style.color = "var(--yellow)";
+            msg.innerText = "✅ ID VERIFIED! Welcome to ልማት Hub.";
+            
+            // "Move In" Effect
+            document.getElementById('track-grid').classList.add('active');
+            document.getElementById('hero-box').style.background = "var(--green)";
+            
+            // Smooth scroll to the dashboard
+            window.scrollTo({ top: 600, behavior: 'smooth' });
+        }, 2000);
     }
-
-    function toggleF(i) {
-        const a = document.getElementById('f' + i);
-        a.style.maxHeight = a.style.maxHeight === "100px" ? "0px" : "100px";
-    }
-
-    function openCert() { document.getElementById('modal').style.display='flex'; }
-    function closeCert() { document.getElementById('modal').style.display='none'; }
-
-    let c = 482102;
-    setInterval(() => { c += Math.floor(Math.random()*3); document.getElementById('count').innerText = c.toLocaleString(); }, 3000);
 </script>
 </body>
 </html>
