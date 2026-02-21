@@ -47,4 +47,156 @@
         .f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
         .f-col h4 { color: var(--yellow); margin-bottom: 25px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
         .f-col p { color: #aaa; font-size: 0.9rem; margin-bottom: 12px; }
-        .f-bottom { border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; text-align: center; color
+        .f-bottom { border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; text-align: center; color: #666; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<div class="ticker" id="tk">ENROLLMENT OPEN: DIGITAL ETHIOPIA 2026 STRATEGY • VERIFIED BY FAYDA ID</div>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="nav-right">
+        <select class="lang-select" onchange="upd(this.value)">
+            <option value="en">English</option>
+            <option value="am">አማርኛ</option>
+            <option value="om">Afaan Oromoo</option>
+        </select>
+        <a href="#" class="join-btn" id="jb">JOIN NOW</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero">
+        <h1 id="ht">Ethiopia's 2026 Digital Mission</h1>
+        <p id="hs">National ID Verification Portal</p>
+        <input type="number" class="id-input" id="id-pl" placeholder="Enter Fayda ID to access dashboard">
+        <br>
+        <button class="v-btn" id="vb">VERIFY & ENTER</button>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card"><h4 id="o1">Course Progress</h4><p id="o1s">0% Complete</p></div>
+        <div class="stat-card"><h4 id="o2">Digital Certificates</h4><p id="o2s">Linked to National ID</p></div>
+        <div class="stat-card"><h4 id="o3">Notification Center</h4><p id="o3s">No New Alerts</p></div>
+    </div>
+
+    <h2 class="section-h" id="th">Official Specializations (10 Tracks)</h2>
+    <div class="grid" id="tl"></div>
+
+    <div class="faq-box">
+        <h2 class="section-h" id="fh">Frequently Asked Questions</h2>
+        <div id="fl"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="f-grid">
+        <div class="f-col">
+            <h4>ልማት Hub</h4>
+            <p id="fa">Building the tech workforce of 2026 for a digital Ethiopia.</p>
+        </div>
+        <div class="f-col">
+            <h4 id="flk">Quick Links</h4>
+            <p>Mission Statement</p>
+            <p>Curriculum 2026</p>
+            <p>Privacy Policy</p>
+        </div>
+        <div class="f-col">
+            <h4 id="fc">Contact Us</h4>
+            <p>Email: info@lemathub.et</p>
+            <p>Addis Ababa, Ethiopia</p>
+        </div>
+    </div>
+    <div class="f-bottom">
+        <p id="cp">© 2026 ልማት Hub | Official Fayda National ID Partner</p>
+        <p style="margin-top:8px;">Empowering Ethiopia's Digital Transformation</p>
+    </div>
+</footer>
+
+<script>
+    const lang = {
+        en: {
+            tk: "MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA ID",
+            jb: "JOIN NOW",
+            ht: "Ethiopia's 2026 Digital Mission",
+            hs: "National ID Verification Portal",
+            id: "Enter Fayda ID to access dashboard",
+            vb: "VERIFY & ENTER",
+            o1: "Course Progress", o1s: "0% Complete",
+            o2: "Certificates", o2s: "Linked to National ID",
+            o3: "Notifications", o3s: "No New Alerts",
+            th: "Official Specializations (10 Tracks)",
+            fh: "Frequently Asked Questions",
+            fa: "Building the tech workforce of 2026 for a digital Ethiopia.",
+            tr: ["AI Engineering", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile App Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
+            faq: [
+                {q: "Is this program free?", a: "Yes, all 2026 mission tracks are funded for verified citizens."},
+                {q: "Is ID required?", a: "Yes, a valid Fayda ID is mandatory for national certification."}
+            ]
+        },
+        am: {
+            tk: "ተልዕኮ 2026፡ ምዝገባ ተከፍቷል • በፋይዳ መታወቂያ የተረጋገጠ",
+            jb: "አሁን ይቀላቀሉ",
+            ht: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
+            hs: "የብሔራዊ መታወቂያ ማረጋገጫ ፖርታል",
+            id: "ዳሽቦርድ ለመድረስ የፋይዳ መታወቂያ ያስገቡ",
+            vb: "አረጋግጥ እና ግባ",
+            o1: "የትምህርት ሂደት", o1s: "0% ተጠናቋል",
+            o2: "የምስክር ወረቀቶች", o2s: "ከብሔራዊ መታወቂያ ጋር የተያያዘ",
+            o3: "ማሳወቂያዎች", o3s: "አዲስ መልዕክት የለም",
+            th: "ኦፊሴላዊ የሥልጠና ዘርፎች (10 ትራኮች)",
+            fh: "ተደጋጋሚ ጥያቄዎች",
+            fa: "ለዲጂታል ኢትዮጵያ የ2026 የቴክኖሎጂ የሰው ኃይል መገንባት።",
+            tr: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"],
+            faq: [
+                {q: "ይህ ፕሮግራም ነፃ ነው?", a: "አዎ፣ ሁሉም የ2026 ተልዕኮ ትራኮች ለተረጋገጡ ዜጎች በነፃ የቀረቡ ናቸው።"},
+                {q: "መታወቂያ ያስፈልጋል?", a: "አዎ፣ ለብሔራዊ የምስክር ወረቀት ትክክለኛ የፋይዳ መታወቂያ ግዴታ ነው።"}
+            ]
+        },
+        om: {
+            tk: "ERGA 2026: GALMEEN BANAMEERA • FAYDA ID'N MIRKANAAYE",
+            jb: "AMMA SEENI",
+            ht: "Ergaa Diigitalaa Itoophiyaa 2026",
+            hs: "Waraqaa Eenyummaa Mirkaneessuuf",
+            id: "Daashboordii banuuf koodii Fayda galchaa",
+            vb: "MIRKANEESSI & SEENI",
+            o1: "Adeemsa Leenjii", o1s: "0% kan xumurame",
+            o2: "Waraqaa Ragaa", o2s: "Fayda ID waliin walqabata",
+            o3: "Beeksisa", o3s: "Beeksisa haaraan hin jiru",
+            th: "Leenjiiwwan Ofisiyawaa (10)",
+            fh: "Gaaffiiwwan Yeroo Baay'ee Gaafataman",
+            fa: "Humni namaa teeknooloojii 2026 Itoophiyaa diigitalaaf ijaaruuf.",
+            tr: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
+            faq: [
+                {q: "Leenjiin kun bilisaa?", a: "Eeyyee, track'n hundi lammilee mirkanaa'aniif kaffalameera።"},
+                {q: "Fayda ID'n ni barbaachisaa?", a: "Eeyyee, waraqaa ragaa argachuuf Fayda ID'n dirqama።"}
+            ]
+        }
+    };
+
+    function upd(l) {
+        const c = lang[l];
+        document.getElementById('tk').innerText = c.tk;
+        document.getElementById('jb').innerText = c.jb;
+        document.getElementById('ht').innerText = c.ht;
+        document.getElementById('hs').innerText = c.hs;
+        document.getElementById('id-pl').placeholder = c.id;
+        document.getElementById('vb').innerText = c.vb;
+        document.getElementById('o1').innerText = c.o1; document.getElementById('o1s').innerText = c.o1s;
+        document.getElementById('o2').innerText = c.o2; document.getElementById('o2s').innerText = c.o2s;
+        document.getElementById('o3').innerText = c.o3; document.getElementById('o3s').innerText = c.o3s;
+        document.getElementById('th').innerText = c.th;
+        document.getElementById('fh').innerText = c.fh;
+        document.getElementById('fa').innerText = c.fa;
+
+        const g = document.getElementById('tl'); g.innerHTML = "";
+        c.tr.forEach(t => { g.innerHTML += `<div class="track"><b>${t}</b><small>Specialization Track</small></div>`; });
+
+        const f = document.getElementById('fl'); f.innerHTML = "";
+        c.faq.forEach(q => { f.innerHTML += `<div class="faq-item"><h3>${q.q}</h3><p>${q.a}</p></div>`; });
+    }
+    upd('en');
+</script>
+</body>
+</html>
