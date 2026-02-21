@@ -1,38 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Mission 2026</title>
+    <style>
+        /* CSS PART - DESIGN */
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f4f7f9; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #333; }
+
+        .ticker-wrap { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 2000; }
+        .ticker-move { display: inline-block; padding-left: 100%; animation: ticker-animation 30s linear infinite; }
+        @keyframes ticker-animation { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        header { background: var(--white); height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 40px; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--blue); text-decoration: none; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .lang-select { padding: 5px; border-radius: 5px; border: 1.5px solid var(--blue); }
+
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 24px; text-align: center; border-bottom: 8px solid var(--yellow); }
+        .id-input { padding: 15px; width: 85%; max-width: 400px; border-radius: 12px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        
+        .btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+        .section-h { color: var(--blue); margin: 40px 0 10px; border-left: 8px solid var(--yellow); padding-left: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+    <div class="ticker-move">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN NOW •</div>
+</div>
+
+<header>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="nav-links">
+        <a href="#about" style="text-decoration:none; color:#444; font-weight:600;">About</a>
+        <select class="lang-select" onchange="updLang(this.value)">
+            <option value="en">English</option>
+            <option value="am">አማርኛ</option>
+        </select>
+    </div>
+</header>
+
+<div class="container">
+    <div class="hero">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">Enter Fayda ID to verify enrollment status</p>
+        <input type="number" id="id-box" class="id-input" placeholder="Enter Fayda ID Number">
+    </div>
+
+    <div id="tracks">
+        <h2 class="section-h" id="t-head">Official Tracks</h2>
+        <div class="grid" id="track-list"></div>
+    </div>
+</div>
+
 <script>
-        // --- Invisible Data Logic --- 
-        // THIS WRAPPER TELLS THE BROWSER TO RUN THE CODE, NOT SHOW IT
+    /* INVISIBLE LOGIC - DATA STORAGE */
+    const images = [
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", 
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500",
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500",
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500",
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500",
+        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500",
+        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500",
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500",
+        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"
+    ];
 
-        function saveEnrollment(id, trackName) {
-            const enrollmentData = {
-                faydaID: id,
-                track: trackName,
-                date: new Date().toLocaleDateString()
-            };
-            localStorage.setItem('userEnrollment', JSON.stringify(enrollmentData));
+    const data = {
+        en: { title: "Ethiopia's 2026 Digital Mission", tracks: "Official Tracks", join: "JOIN TRACK", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] },
+        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", tracks: "ይፋዊ ትራኮች", join: "ተቀላቀል", names: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] }
+    };
+
+    function handleJoin(name) {
+        const id = document.getElementById('id-box').value;
+        if (id.length < 10) {
+            alert("Please enter a valid 10-digit Fayda ID first.");
+        } else {
+            localStorage.setItem('userEnrollment', JSON.stringify({id: id, track: name}));
+            alert("Successfully joined " + name + "!");
+            location.reload();
         }
+    }
 
-        function checkEnrollmentStatus() {
-            const savedData = localStorage.getItem('userEnrollment');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                document.getElementById('h-sub').innerText = `Welcome back! You are enrolled in: ${data.track}`;
-                document.getElementById('id-box').style.display = 'none'; 
-            }
-        }
+    function updLang(l) {
+        const d = data[l] || data.en;
+        document.getElementById('h-title').innerText = d.title;
+        document.getElementById('t-head').innerText = d.tracks;
+        const list = document.getElementById('track-list');
+        list.innerHTML = "";
+        d.names.forEach((n, i) => {
+            list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${n}</h3><button class="btn" onclick="handleJoin('${n}')">${d.join}</button></div></div>`;
+        });
+    }
 
-        function handleJoin(trackName) {
-            const idInput = document.getElementById('id-box').value;
-            if (idInput.length < 10) {
-                alert("Invalid Fayda ID. Please enter 10 digits.");
-                return;
-            }
-            saveEnrollment(idInput, trackName);
-            alert(`Success! You have been registered for ${trackName}.`);
-            location.reload(); 
-        }
+    // Check if user is already enrolled invisibly
+    const saved = localStorage.getItem('userEnrollment');
+    if (saved) {
+        const info = JSON.parse(saved);
+        document.getElementById('h-sub').innerText = "Welcome back! Enrolled in: " + info.track;
+        document.getElementById('id-box').style.display = 'none';
+    }
 
-        // Initialize the check when the page loads
-        window.onload = checkEnrollmentStatus;
-    </script>
+    updLang('en');
+</script>
 </body>
 </html>
