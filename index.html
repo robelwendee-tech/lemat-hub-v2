@@ -1,191 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Mission 2026</title>
-    <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --white: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); }
+:root {
+    --blue: #003973;
+    --yellow: #FFD700;
+    --bg: #f0f2f5;
+    --white: #ffffff;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
 
-        /* 1. TOP TICKER */
-        .ticker-wrap { background: var(--yellow); color: var(--blue); padding: 8px 0; font-weight: bold; overflow: hidden; white-space: nowrap; }
-        .ticker-move { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Inter', 'Segoe UI', sans-serif; 
+}
 
-        /* 2. NAVIGATION HEADER */
-        header { 
-            background: var(--white); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 8%; 
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo { font-size: 24px; font-weight: bold; color: var(--blue); text-decoration: none; }
-        .nav-links { display: flex; align-items: center; gap: 25px; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 500; font-size: 0.95rem; }
-        .lang-box { 
-            border: 1px solid #ccc; 
-            padding: 5px 10px; 
-            border-radius: 5px; 
-            background: #fff; 
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
+body { background: var(--bg); color: #333; line-height: 1.6; }
 
-        /* 3. HERO SECTION */
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 5%; }
-        .hero-box { 
-            background: var(--blue); 
-            border-radius: 20px; 
-            padding: 60px 20px; 
-            text-align: center; 
-            color: white; 
-            border: 4px solid var(--yellow); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .hero-box h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        .hero-box input { 
-            width: 80%; max-width: 400px; padding: 12px; 
-            border-radius: 8px; border: none; margin: 20px 0; 
-            text-align: center; font-size: 1rem; 
-        }
-        .verify-btn { 
-            background: var(--yellow); color: var(--blue); 
-            padding: 12px 35px; border: none; border-radius: 8px; 
-            font-weight: bold; cursor: pointer; transition: 0.3s;
-        }
-        .verify-btn:hover { background: white; }
+/* 1. TICKER REFINEMENT */
+.ticker-wrap {
+    background: var(--yellow);
+    color: var(--blue);
+    padding: 10px 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
 
-        /* 4. TRACKS GRID */
-        .section-title { 
-            color: var(--blue); margin: 50px 0 25px; 
-            padding-left: 15px; border-left: 8px solid var(--yellow); 
-        }
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .track-card { 
-            background: white; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center;
-        }
-        .track-img { width: 100%; height: 180px; background: var(--blue); }
-        .track-img img { width: 100%; height: 100%; object-fit: cover; }
-        .track-info { padding: 20px; }
-        .join-btn { 
-            background: var(--blue); color: white; width: 100%; 
-            padding: 10px; border: none; border-radius: 8px; 
-            margin-top: 15px; cursor: pointer; font-weight: bold;
-        }
+/* 2. PRO HEADER */
+header {
+    background: var(--white);
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
-        /* 5. MODAL */
-        #modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; align-items:center; justify-content:center; }
-        .modal-body { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; position: relative; }
-    </style>
-</head>
-<body>
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -1px;
+}
 
-<div class="ticker-wrap">
-    <div class="ticker-move" id="ticker-text">
-        MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •
-    </div>
-</div>
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
 
-<header>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#tracks">Tracks</a>
-        <a href="#contact">Contact</a>
-        <select class="lang-box" onchange="changeLang(this.value)">
-            <option value="en">EN</option>
-            <option value="am">አማ</option>
-            <option value="om">ORM</option>
-        </select>
-    </div>
-</header>
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-<div class="container">
-    <div class="hero-box">
-        <h1 id="hero-t">Ethiopia's 2026 Digital Mission</h1>
-        <p id="hero-s">Enter Fayda ID to verify</p>
-        <input type="number" id="id-in" placeholder="ID Number">
-        <br>
-        <button class="verify-btn" onclick="verify()" id="v-btn">VERIFY & ENTER</button>
-    </div>
+.nav-links a:hover { color: var(--blue); }
 
-    <h2 class="section-title" id="t-head">Official Tracks</h2>
-    <div class="tracks-grid" id="track-list"></div>
-</div>
+.lang-box {
+    padding: 8px 12px;
+    border: 2px solid var(--blue);
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    background: transparent;
+}
 
-<div id="modal">
-    <div class="modal-body">
-        <span onclick="closeM()" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px;">&times;</span>
-        <h2 id="m-title">Join Track</h2>
-        <p id="selected-track" style="margin: 10px 0; color: var(--blue); font-weight: bold;"></p>
-        <input type="text" placeholder="Full Name" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:5px;">
-        <button class="verify-btn" style="width:100%" onclick="alert('Enrolled Successfully!')">Confirm</button>
-    </div>
-</div>
+/* 3. MODERN HERO */
+.hero-box {
+    background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
+    border-radius: 24px;
+    padding: 80px 40px;
+    margin-top: 40px;
+    color: white;
+    text-align: center;
+    border-bottom: 8px solid var(--yellow);
+    box-shadow: var(--shadow);
+}
 
-<script>
-    // FIXED IMAGE LINKS
-    const trackImages = [
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", // Data
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
-        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
-        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", // UI
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
-        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"  // Fintech
-    ];
+.id-input {
+    width: 100%;
+    max-width: 450px;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
 
-    const langData = {
-        en: {
-            tracks: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"],
-            hT: "Ethiopia's 2026 Digital Mission", hS: "Enter Fayda ID to verify", vB: "VERIFY & ENTER", jB: "JOIN TRACK", tH: "Official Tracks"
-        },
-        am: {
-            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
-            hT: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", hS: "ለመግባት የፋይዳ መታወቂያዎን ያስገቡ", vB: "አረጋግጥ", jB: "ተቀላቀል", tH: "ይፋዊ ትራኮች"
-        }
-    };
+/* 4. TRACK CARDS */
+.tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
 
-    function changeLang(l) {
-        const d = langData[l] || langData.en;
-        document.getElementById('hero-t').innerText = d.hT;
-        document.getElementById('hero-s').innerText = d.hS;
-        document.getElementById('v-btn').innerText = d.vB;
-        document.getElementById('t-head').innerText = d.tH;
+.track-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+}
 
-        const list = document.getElementById('track-list');
-        list.innerHTML = "";
-        d.tracks.forEach((name, i) => {
-            list.innerHTML += `
-                <div class="track-card">
-                    <div class="track-img"><img src="${trackImages[i]}" alt="${name}"></div>
-                    <div class="track-info">
-                        <h3>${name}</h3>
-                        <button class="join-btn" onclick="openM('${name}')">${d.jB}</button>
-                    </div>
-                </div>`;
-        });
-    }
+.track-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
 
-    function openM(name) { 
-        document.getElementById('modal').style.display='flex'; 
-        document.getElementById('selected-track').innerText = name;
-    }
-    function closeM() { document.getElementById('modal').style.display='none'; }
-    function verify() { alert("Fayda ID Verified. Dashboard Loading..."); }
+.track-img {
+    height: 200px;
+    overflow: hidden;
+}
 
-    changeLang('en');
-</script>
-</body>
-</html>
+.track-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.track-card:hover .track-img img { transform: scale(1.1); }
+
+.track-info { padding: 25px; }
+
+.track-info h3 { color: var(--blue); margin-bottom: 15px; font-size: 1.4rem; }
+
+/* 5. SECTIONS & BUTTONS */
+.section-title {
+    font-size: 2rem;
+    color: var(--blue);
+    margin: 60px 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.section-title::before {
+    content: "";
+    width: 10px;
+    height: 40px;
+    background: var(--yellow);
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background: var(--yellow);
+    color: var(--blue);
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--white);
+    transform: scale(1.05);
+}
