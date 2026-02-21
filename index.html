@@ -3,39 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Mission 2026</title>
+    <title>ልማት Hub | Mission 2026</title>
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f4f7f9; --white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
         body { background: var(--bg); color: #333; }
+
+        /* TICKER */
         .ticker-wrap { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 2000; }
         .ticker-move { display: inline-block; padding-left: 100%; animation: ticker 30s linear infinite; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        /* HEADER */
         header { background: var(--white); height: 75px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 40px; z-index: 1000; }
         .logo { font-size: 26px; font-weight: 800; color: var(--blue); text-decoration: none; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .lang-select { padding: 6px; border-radius: 6px; border: 2px solid var(--blue); cursor: pointer; font-weight: bold; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 0.9rem; }
+        .lang-select { padding: 5px; border-radius: 6px; border: 2px solid var(--blue); cursor: pointer; }
+
+        /* SECTIONS */
         .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 25px; text-align: center; border-bottom: 8px solid var(--yellow); }
         .id-input { padding: 15px; width: 85%; max-width: 400px; border-radius: 12px; border: none; margin: 20px 0; text-align: center; font-size: 1.1rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
+        
+        .section-h { color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
         .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 25px; }
-        .btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
-        .contact-box { background: white; padding: 30px; border-radius: 20px; margin-top: 20px; }
+        .card-body { padding: 20px; }
+        
+        .btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
+        .btn:hover { background: var(--blue); color: white; }
+
+        .contact-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .contact-box input, .contact-box textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; }
-        footer { text-align: center; padding: 40px; color: #888; }
+
+        footer { text-align: center; padding: 40px; margin-top: 60px; color: #888; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
 
-<div class="ticker-wrap"><div class="ticker-move" id="ticker-text">LOADING MISSION DATA...</div></div>
+<div class="ticker-wrap"><div class="ticker-move" id="ticker-text">CONNECTING TO NATIONAL ID DATABASE...</div></div>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
     <div class="nav-links">
-        <a href="#about" style="text-decoration:none; color:#444;">About</a>
+        <a href="#about" id="nav-a">About</a>
+        <a href="#tracks" id="nav-t">Tracks</a>
+        <a href="#contact" id="nav-c">Contact</a>
         <select class="lang-select" id="langPicker" onchange="updLang(this.value)">
             <option value="en">English</option>
             <option value="am">አማርኛ</option>
@@ -51,61 +66,68 @@
         <input type="number" id="id-box" class="id-input" placeholder="10-Digit ID Number">
     </div>
 
+    <div id="about">
+        <h2 class="section-h" id="a-head">About the Mission</h2>
+        <p id="a-text" style="background:white; padding:25px; border-radius:15px; line-height:1.6;">ልማት Hub is the official training gateway for Digital Ethiopia 2026. Our goal is to empower 1 million citizens with high-tech skills.</p>
+    </div>
+
     <div id="tracks">
-        <h2 style="color:var(--blue); margin: 40px 0 20px;" id="t-head">Official Tracks</h2>
+        <h2 class="section-h" id="t-head">Official Tracks</h2>
         <div class="grid" id="track-list"></div>
     </div>
 
     <div id="contact">
-        <h2 style="color:var(--blue); margin: 40px 0 20px;" id="c-head">Contact Us</h2>
+        <h2 class="section-h" id="c-head">Contact Support</h2>
         <div class="contact-box">
-            <input type="text" placeholder="Name">
-            <textarea placeholder="Message" rows="3"></textarea>
-            <button class="btn" id="c-btn" style="width:auto; padding: 10px 30px;">Send Message</button>
+            <input type="text" id="c-name" placeholder="Full Name">
+            <textarea id="c-msg" placeholder="Message" rows="3"></textarea>
+            <button class="btn" id="c-btn" style="width:auto; padding: 10px 40px;">Send Inquiry</button>
         </div>
     </div>
 </div>
 
-<footer>© 2026 ልማት Hub</footer>
+<footer>
+    <p>© 2026 ልማት Hub | Digital Ethiopia Initiative</p>
+    <p style="font-size: 0.8rem; margin-top: 10px;">Verified by Fayda National ID System</p>
+</footer>
 
 <script>
-    /* --- INVISIBLE ENGINE --- */
+    /* --- THE INVISIBLE ENGINE --- */
     const images = ["https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"];
-    
+
     const data = {
-        en: { title: "Ethiopia's 2026 Digital Mission", tracks: "Official Tracks", contact: "Contact Us", join: "JOIN TRACK", wait: "Verifying...", goal: "Registered: ", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] },
-        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", tracks: "ይፋዊ ትራኮች", contact: "ያግኙን", join: "ተቀላቀል", wait: "በመፈተሽ ላይ...", goal: "የተመዘገቡ፡ ", names: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] },
-        om: { title: "Misiyoona Diijitaalaa 2026", tracks: "Kallattiiwwan", contact: "Nu Quunnamaa", join: "MAKKAMI", wait: "Mirkaneessaa...", goal: "Galmeeffaman: ", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] }
+        en: { title: "Ethiopia's 2026 Digital Mission", about: "About the Mission", tracks: "Official Tracks", contact: "Contact Support", join: "JOIN TRACK", goal: "Citizens Enrolled: ", wait: "Verifying...", names: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud Computing", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT", "Fintech"] },
+        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", about: "ስለ ተልዕኮው", tracks: "ይፋዊ ትራኮች", contact: "እኛን ያግኙ", join: "ተቀላቀል", goal: "የተመዘገቡ ዜጎች፡ ", wait: "በመፈተሽ ላይ...", names: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] },
+        om: { title: "Misiyoona Diijitaalaa 2026", about: "Waa'ee Misiyonichaa", tracks: "Kallattiiwwan", contact: "Nu Quunnamaa", join: "MAKKAMI", goal: "Lammilee Galmeeffaman: ", wait: "Mirkaneessaa...", names: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile", "Blockchain", "UI/UX Design", "IoT", "Fintech"] }
     };
 
-    // 1. LIVE COUNTER LOGIC
+    // 1. LIVE COUNTER
     let count = 842301;
-    function runCounter() {
+    setInterval(() => {
         count += Math.floor(Math.random() * 2);
         const l = localStorage.getItem('hubLang') || 'en';
-        document.getElementById('ticker-text').innerText = `${data[l].goal} ${count.toLocaleString()} / 1,000,000 CITIZENS`;
-    }
-    setInterval(runCounter, 3000);
+        document.getElementById('ticker-text').innerText = `${data[l].goal} ${count.toLocaleString()} / 1,000,000`;
+    }, 4000);
 
-    // 2. FAYDA VERIFIER LOGIC
-    function handleJoin(n) {
+    // 2. ID VERIFIER & MEMORY
+    function handleJoin(track) {
         const id = document.getElementById('id-box').value;
         const l = localStorage.getItem('hubLang') || 'en';
-        if(id.length !== 10) { alert("Enter 10-digit Fayda ID"); return; }
+        if(id.length !== 10) { alert("Invalid Fayda ID. Must be 10 digits."); return; }
         
         document.getElementById('id-box').disabled = true;
         document.getElementById('id-box').placeholder = data[l].wait;
         
         setTimeout(() => {
-            localStorage.setItem('userEnroll', JSON.stringify({id, n}));
-            alert("Success!");
+            localStorage.setItem('userEnroll', JSON.stringify({id, track}));
+            alert("Verification Successful!");
             location.reload();
         }, 2000);
     }
 
-    // 3. INVISIBLE EMAIL FEEDBACK
+    // 3. CONTACT FEEDBACK
     document.getElementById('c-btn').onclick = function() {
-        this.innerText = "Sent! ✓";
+        this.innerText = "Message Sent! ✓";
         this.style.background = "#28a745";
     };
 
@@ -113,17 +135,20 @@
         localStorage.setItem('hubLang', l);
         const d = data[l];
         document.getElementById('h-title').innerText = d.title;
+        document.getElementById('a-head').innerText = d.about;
         document.getElementById('t-head').innerText = d.tracks;
         document.getElementById('c-head').innerText = d.contact;
+        
         const list = document.getElementById('track-list');
         list.innerHTML = "";
-        d.names.forEach((name, i) => {
-            list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${name}</h3><button class="btn" onclick="handleJoin('${name}')">${d.join}</button></div></div>`;
+        d.names.forEach((n, i) => {
+            list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${n}</h3><button class="btn" onclick="handleJoin('${n}')">${d.join}</button></div></div>`;
         });
+
         const saved = localStorage.getItem('userEnroll');
         if(saved) {
             const info = JSON.parse(saved);
-            document.getElementById('h-sub').innerHTML = `<b>Welcome back. Track: ${info.n}</b>`;
+            document.getElementById('h-sub').innerHTML = `<b style="color:var(--yellow)">Welcome back! Verified for ${info.track}</b>`;
             document.getElementById('id-box').style.display = 'none';
         }
     }
