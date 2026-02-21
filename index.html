@@ -8,111 +8,19 @@
         * { scroll-behavior: smooth; box-sizing: border-box; }
         body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
         
-        /* Nav */
+        /* Navigation */
         nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
-        .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
+        .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; cursor: pointer; }
         .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; text-decoration: none; }
 
-        section { padding: 80px 5%; width: 100%; border-bottom: 1px solid #eee; display: block; clear: both; }
+        section { padding: 100px 5%; width: 100%; border-bottom: 1px solid #eee; display: block; }
         
-        /* Hero Section */
-        .hero { text-align: center; background: #fff; }
+        .hero { text-align: center; }
         .hero h1 { font-size: 3.5rem; color: #003973; margin: 0; }
 
         /* Fayda Card */
         .fayda-section { background: #003973; color: white; text-align: center; }
         .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
         .fayda-input { padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 20px; font-size: 1.2rem; text-align: center; border: none; }
-        .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
-
-        /* Roadmap Table */
-        .table-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th { background: #003973; color: white; padding: 15px; text-align: left; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-
-        /* FAQ & Contact Section */
-        .faq-item { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #003973; }
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .contact-card { background: white; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        
-        footer { background: #111; color: white; padding: 60px 5%; text-align: center; }
-        .socials a { color: #FFD700; text-decoration: none; margin: 0 15px; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-<nav>
-    <a href="#home" class="logo">ልማት Hub</a>
-    <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#schedule">Schedule</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-        <a href="#signup" class="btn-join">Verify Fayda ID</a>
-    </div>
-</nav>
-
-<section class="hero" id="home">
-    <h1>ልማት Hub</h1>
-    <p>The 2026 Digital Gateway for Ethiopia. Powered by National ID.</p>
-</section>
-
-<section class="fayda-section" id="signup">
-    <div class="fayda-card">
-        <h2>Fayda One-Click Sync</h2>
-        <p>No forms needed. We sync your profile from the National ID system.</p>
-        <input type="text" placeholder="Enter Fayda ID Number" class="fayda-input">
-        <button class="fayda-btn" onclick="alert('Profile Found!')">VERIFY & JOIN PROGRAM</button>
-    </div>
-</section>
-
-<section id="schedule">
-    <h2 style="text-align:center; color:#003973; font-size: 2.5rem; margin-bottom: 30px;">Your 12-Week Roadmap</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr><th>Weeks</th><th>Module Topic</th><th>Learning Outcome</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>1 - 4</td><td><b>Python Foundations</b></td><td>Logic, Automation, and Scripting.</td></tr>
-                <tr><td>5 - 8</td><td><b>AI Development</b></td><td>Prompt Engineering & LLM Integration.</td></tr>
-                <tr><td>9 - 12</td><td><b>Career Path</b></td><td>International Placement & 2026 Jobs.</td></tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<section id="faq">
-    <h2 style="text-align:center; color:#003973;">Frequently Asked Questions</h2>
-    <div style="max-width: 800px; margin: 0 auto;">
-        <div class="faq-item">
-            <h3>Is my Fayda ID data secure?</h3>
-            <p>Yes, we only access verified status through the official government gateway.</p>
-        </div>
-        <div class="faq-item">
-            <h3>Do I need prior experience?</h3>
-            <p>No, the program is designed to take you from beginner to expert in 12 weeks.</p>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <h2 style="text-align:center; color:#003973;">Contact Us</h2>
-    <div class="contact-grid">
-        <div class="contact-card"><h3>Email</h3><p>support@lemathub.et</p></div>
-        <div class="contact-card"><h3>Location</h3><p>Addis Ababa, Ethiopia</p></div>
-    </div>
-</section>
-
-<footer>
-    <h3>Connect With Us</h3>
-    <div class="socials">
-        <a href="#">TELEGRAM</a> | <a href="#">LINKEDIN</a> | <a href="#">FACEBOOK</a>
-    </div>
-    <p style="margin-top:20px;">&copy; 2026 ልማት Hub | Official Fayda Partner</p>
-</footer>
-
-</body>
-</html>
+        .fayda-btn { width: 100%; padding:
