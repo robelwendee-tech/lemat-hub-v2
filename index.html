@@ -1,87 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Fixed Images</title>
-    <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background: var(--bg); padding: 20px; }
-
-        .tracks-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-
-        .t-box { 
-            background: white; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            border: 1px solid #ddd;
-        }
-
-        /* THE IMAGE CONFIGURATION FIX */
-        .t-img { 
-            width: 100%; 
-            height: 160px; 
-            background: #002b56; /* Dark blue fallback if image fails */
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .t-img img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* This makes sure photos fill the box */
-            display: block;
-        }
-
-        .t-info { padding: 15px; text-align: center; font-weight: bold; color: var(--blue); }
-    </style>
-</head>
-<body>
-
-    <h2 style="text-align:center; color:#003973; margin-bottom:30px;">Official Tracks</h2>
-    <div class="tracks-grid" id="track-list"></div>
-
-<script>
-    // These 10 links are tested and active as of Feb 2026
-    const trackImages = [
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
-        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
-        "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", // Data Science
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
-        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
-        "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500", // UI/UX
-        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
-        "https://images.unsplash.com/photo-1559526324-4b87b5e36e41?w=500"  // Fintech
-    ];
-
-    const trackNames = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"];
-
-    const list = document.getElementById('track-list');
-
-    trackNames.forEach((name, i) => {
-        list.innerHTML += `
-            <div class="t-box">
-                <div class="t-img">
-                    <img src="${trackImages[i]}" alt="${name}" onerror="this.style.display='none'">
-                    <span style="color:white; position:absolute; font-size:12px;">Image Loading...</span>
-                </div>
-                <div class="t-info">${name}</div>
-            </div>
-        `;
-    });
-</script>
-
-</body>
-</html>
+const trackImages = [
+    "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
+    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
+    "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
+    "https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy9tZXNleS9sci9mcmVlLXBob3RvLTIxMDI1NjctaW1hZ2UuanBn.jpg", // Data Science (FIXED)
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
+    "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
+    "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
+    "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?w=500", // UI/UX
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
+    "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3AtNDAyLXBhaWRzbi1taXgtMDY0LmpwZw.jpg"  // Fintech (FIXED)
+];
