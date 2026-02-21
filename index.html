@@ -8,22 +8,23 @@
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
         
-        /* Nav & Language Option */
+        /* Navigation */
         nav { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
         .nav-links { display: flex; align-items: center; }
         .nav-links a { text-decoration: none; color: #333; margin-left: 20px; font-weight: 500; }
-        .lang-switch { margin-left: 20px; color: #003973; font-weight: bold; border: 1px solid #003973; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; }
-
-        section { padding: 100px 5%; text-align: center; border-bottom: 1px solid #eee; }
         
-        /* Verify ID Box */
+        /* Language Button */
+        .lang-switch { margin-left: 20px; color: #003973; font-weight: bold; border: 1px solid #003973; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+        .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; margin-left: 20px; }
+
+        section { padding: 80px 5%; text-align: center; border-bottom: 1px solid #eee; }
+        
+        /* Fayda Section */
         .fayda-section { background: #003973; color: white; }
         .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; background: rgba(255,255,255,0.05); }
         .fayda-input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; }
         .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
 
-        /* Course Cards */
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
-        .course-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,
+        /* Courses */
+        .course-grid { display: grid; grid-template-columns: repeat(
