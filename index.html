@@ -1,23 +1,127 @@
-<div class="hero">
-    <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
-    <p id="h-sub">Enter your Fayda ID and click Verify</p>
-    
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <input type="number" id="id-box" class="id-input" placeholder="Enter 10-Digit ID">
-        <button onclick="verifyOnly()" class="btn" style="width: auto; padding: 0 30px; margin: 25px 0; height: 60px;">VERIFY</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Mission 2026</title>
+    <style>
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8fafc; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #1e293b; }
+
+        /* HEADER & TICKER */
+        .ticker { background: var(--yellow); color: var(--blue); padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 2000; }
+        header { background: var(--white); height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 8%; position: sticky; top: 40px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 24px; font-weight: 800; color: var(--blue); text-decoration: none; }
+        .lang-select { border: 2px solid var(--blue); padding: 5px 10px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* HERO - THE BLUE BOX */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 30px; text-align: center; border-bottom: 8px solid var(--yellow); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        
+        /* THE INPUT AREA FIX */
+        .input-group { display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 25px; flex-wrap: wrap; }
+        .id-input { padding: 15px; width: 300px; border-radius: 12px; border: none; font-size: 1.1rem; text-align: center; }
+        .verify-btn { background: var(--yellow); color: var(--blue); border: none; padding: 15px 30px; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; }
+        .verify-btn:hover { background: white; transform: scale(1.05); }
+
+        /* TRACKS */
+        .section-h { font-size: 2rem; color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 25px; }
+        .join-btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
+
+        footer { text-align: center; padding: 50px; color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="ticker" id="ticker-text">CONNECTING TO NATIONAL NETWORK...</div>
+
+<header>
+    <a href="#" class="logo">ልማት Hub</a>
+    <select class="lang-select" id="langPicker" onchange="updLang(this.value)">
+        <option value="en">English</option>
+        <option value="am">አማርኛ</option>
+        <option value="om">Oromoo</option>
+    </select>
+</header>
+
+<div class="container">
+    <div class="hero">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">Enter your Fayda ID and click Verify</p>
+        
+        <div class="input-group">
+            <input type="number" id="id-box" class="id-input" placeholder="Enter 10-Digit ID">
+            <button onclick="verifyID()" class="verify-btn" id="v-btn">VERIFY</button>
+        </div>
+    </div>
+
+    <div id="tracks">
+        <h2 class="section-h" id="t-head">Official Tracks</h2>
+        <div class="grid" id="track-list"></div>
     </div>
 </div>
 
-<script>
-// ADD THIS NEW FUNCTION TO YOUR INVISIBLE LOGIC
-function verifyOnly() {
-    const idInput = document.getElementById('id-box').value;
-    if (idInput.length !== 10) {
-        alert("Please enter exactly 10 digits.");
-        return;
-    }
-    alert("ID Verified! Now scroll down and select your Track.");
-}
+<footer>© 2026 ልማት Hub | Ministry of Innovation & Technology</footer>
 
-// Keep your existing handleJoin function below...
+<script>
+    const images = ["https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"];
+
+    const data = {
+        en: { title: "Ethiopia's 2026 Digital Mission", tracks: "Official Tracks", join: "JOIN TRACK", verified: "Verified! Scroll down.", goal: "Enrolled: ", error: "Enter 10 digits.", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] },
+        am: { title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", tracks: "ይፋዊ ትራኮች", join: "ተቀላቀል", verified: "ተረጋግጧል! ወደ ታች ይውረዱ።", goal: "ተመዝጋቢ፡ ", error: "10 አሃዝ ያስገቡ።", names: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] },
+        om: { title: "Misiyoona Diijitaalaa 2026", tracks: "Kallattiiwwan", join: "MAKKAMI", verified: "Mirkaneeffameera!", goal: "Galmeeffame: ", error: "Digitii 10 galchaa.", names: ["AI", "Cyber", "Web", "Data", "Cloud", "Mobile", "Block", "UI/UX", "IoT", "Fintech"] }
+    };
+
+    // 1. INVISIBLE VERIFY LOGIC
+    function verifyID() {
+        const id = document.getElementById('id-box').value;
+        const l = localStorage.getItem('hubLang') || 'en';
+        if (id.length !== 10) { alert(data[l].error); return; }
+        
+        document.getElementById('v-btn').innerText = "✓";
+        document.getElementById('v-btn').style.background = "#28a745";
+        document.getElementById('v-btn').style.color = "white";
+        alert(data[l].verified);
+    }
+
+    // 2. INVISIBLE ENROLL LOGIC
+    function handleJoin(trackName) {
+        const id = document.getElementById('id-box').value;
+        const l = localStorage.getItem('hubLang') || 'en';
+        if (id.length !== 10) { alert(data[l].error); return; }
+
+        localStorage.setItem('userEnroll', JSON.stringify({id, track: trackName}));
+        location.reload();
+    }
+
+    // 3. UI SYNC
+    function updLang(l) {
+        localStorage.setItem('hubLang', l);
+        const d = data[l];
+        document.getElementById('h-title').innerText = d.title;
+        document.getElementById('t-head').innerText = d.tracks;
+        
+        const list = document.getElementById('track-list');
+        list.innerHTML = "";
+        d.names.forEach((n, i) => {
+            list.innerHTML += `<div class="card"><img src="${images[i]}"><div class="card-body"><h3>${n}</h3><button class="join-btn" onclick="handleJoin('${n}')">${d.join}</button></div></div>`;
+        });
+
+        const saved = localStorage.getItem('userEnroll');
+        if(saved) {
+            const info = JSON.parse(saved);
+            document.getElementById('h-sub').innerHTML = `<b style="color:var(--yellow)">Success! You are in: ${info.track}</b>`;
+            document.getElementById('id-box').parentElement.style.display = 'none';
+        }
+    }
+
+    updLang(localStorage.getItem('hubLang') || 'en');
 </script>
+</body>
+</html>
