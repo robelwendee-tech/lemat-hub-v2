@@ -8,43 +8,43 @@
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; text-align: center; }
         
-        /* TICKER */
+        /* 1. TOP TICKER */
         .ticker-wrap { background: #FFD700; color: #003973; padding: 12px 0; overflow: hidden; font-weight: bold; position: fixed; width: 100%; top: 0; z-index: 2000; }
         .ticker { display: inline-block; white-space: nowrap; animation: marquee 30s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* NAVIGATION */
+        /* 2. NAVIGATION */
         nav { background: #fff; padding: 15px 5%; display: flex; justify-content: flex-end; align-items: center; position: sticky; top: 40px; z-index: 1000; border-bottom: 2px solid #f0f0f0; }
         .logo { margin-right: auto; font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
         nav a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.9rem; }
-        
-        /* GOLD JOIN NOW BUTTON */
         .join-btn { background: #FFD700 !important; color: #003973 !important; padding: 10px 22px; border-radius: 50px; font-weight: 800; text-transform: uppercase; border: 2px solid #003973; box-shadow: 0 4px 0 #003973; text-decoration: none; }
 
         section { padding: 80px 5%; border-bottom: 1px solid #eee; min-height: 400px; }
+
+        /* 3. NATIONAL ID AREA */
         .fayda-area { background: #003973; color: white; padding: 100px 5%; }
-        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
+        .fayda-card { max-width: 650px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
         .fayda-input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; color: #333; }
         .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
 
+        /* 4. ROADMAP & TRACKS */
         .roadmap-table { width: 100%; max-width: 800px; margin: 30px auto; border-collapse: collapse; background: white; }
         .roadmap-table th { background: #003973; color: white; padding: 15px; }
-        .roadmap-table td { border: 1px solid #ddd; padding: 15px; font-weight: bold; color: #333; }
-        
+        .roadmap-table td { border: 1px solid #ddd; padding: 15px; font-weight: bold; }
         .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
         .card { border: 1px solid #ddd; padding: 30px; width: 220px; border-top: 6px solid #003973; background: #fff; border-radius: 8px; }
 
+        /* 5. FAQ & FOOTER */
         .faq-box { max-width: 700px; margin: 0 auto; text-align: left; }
         .faq-item { margin-bottom: 25px; }
         .faq-item strong { color: #003973; font-size: 1.1rem; display: block; }
-
         footer { background: #111; color: white; padding: 60px 5%; border-top: 5px solid #FFD700; }
     </style>
 </head>
 <body>
 
 <div class="ticker-wrap">
-    <div class="ticker">ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 • Verified by Fayda National ID • Join the Mission!</div>
+    <div class="ticker">ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda National ID • Join today!</div>
 </div>
 
 <nav>
@@ -62,15 +62,13 @@
 </section>
 
 <section id="about" style="background: #f9f9f9;">
-    <div style="max-width: 800px; margin: 0 auto;">
-        <h2 style="color: #003973; margin-bottom: 20px;">Our Mission</h2>
-        <p>ልማት Hub is the training engine for the Digital Ethiopia 2026 Strategy, providing world-class tech skills to verified citizens.</p>
-    </div>
+    <h2 style="color: #003973; margin-bottom: 20px;">Our Mission</h2>
+    <p>ልማት Hub is the official training engine for the Digital Ethiopia 2026 Strategy, providing world-class tech skills to verified citizens.</p>
 </section>
 
 <section id="signup" class="fayda-area">
     <div class="fayda-card" id="status-box">
-        <h2 style="color: #FFD700;">National ID Verification</h2>
+        <h2 style="color: #FFD700; font-size: 2rem;">National ID Verification</h2>
         <p>Verify your Fayda ID to unlock the full 2026 curriculum.</p>
         <input type="number" placeholder="Enter Fayda ID" id="id-input" class="fayda-input">
         <button class="fayda-btn" onclick="startVerify()">VERIFY & JOIN</button>
@@ -89,36 +87,4 @@
     </table>
 </section>
 
-<section id="courses" style="background: #f9f9f9;">
-    <h2>Specialized Tracks</h2>
-    <div class="grid">
-        <div class="card"><h3>Cyber</h3><p>Security</p></div>
-        <div class="card"><h3>AI</h3><p>Engineering</p></div>
-        <div class="card)<h3>Data</h3><p>Science</p></div>
-        <div class="card"><h3>Cloud</h3><p>DevOps</p></div>
-    </div>
-</section>
-
-<section id="faq">
-    <h2>FAQ</h2>
-    <div class="faq-box">
-        <div class="faq-item"><strong>Is this free?</strong><p>Yes, all programs are fully funded for citizens.</p></div>
-        <div class="faq-item"><strong>Is Fayda ID required?</strong><p>Yes, for security and certification purposes.</p></div>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 ልማት Hub | Official Fayda Partner</p>
-    <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">Empowering the next generation of Ethiopian Tech Leaders.</p>
-</footer>
-
-<script>
-    function startVerify() {
-        const val = document.getElementById('id-input').value;
-        if(val.length < 5) { alert("Invalid ID"); return; }
-        document.getElementById('status-box').innerHTML = "<h2 style='color:#FFD700'>Verified!</h2><p>Welcome to the mission.</p>";
-    }
-</script>
-
-</body>
-</html>
+<section id="courses" style="background: #f9f9
