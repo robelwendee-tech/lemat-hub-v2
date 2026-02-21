@@ -1,85 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Full Mission Portal</title>
-    <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); }
-
-        /* TICKER */
-        .ticker { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: bold; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 2000; }
-        .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-        /* LAYOUT */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
-        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
-        
-        /* TRACK CARDS */
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center; transition: 0.3s; }
-        .t-box:hover { transform: translateY(-10px); }
-        .t-img { width: 100%; height: 180px; background: var(--blue); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .t-img img { width: 100%; height: 100%; object-fit: cover; }
-        .t-info { padding: 20px; font-weight: bold; color: var(--blue); font-size: 1.2rem; }
-    </style>
-</head>
-<body>
-
-<div class="ticker">
-    <div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •</div>
-</div>
-
-<nav>
-    <h2 style="color:#003973">ልማት Hub</h2>
-    <div style="display:flex; gap:20px; font-weight:bold; color:#003973">
-        <span>About</span><span>Tracks</span><span>Contact</span>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="hero">
-        <h1>Ethiopia's 2026 Digital Mission</h1>
-        <p>National ID Verification Portal</p>
-        <input type="text" placeholder="Enter Fayda ID" style="padding:15px; width:80%; max-width:400px; border-radius:10px; border:none; margin:20px 0; text-align:center;">
-        <br>
-        <button style="background:var(--yellow); color:var(--blue); padding:15px 40px; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">VERIFY & ENTER</button>
-    </div>
-
-    <h2 style="color:var(--blue); margin-bottom:30px; border-left:8px solid var(--yellow); padding-left:15px;">Official Tracks</h2>
-    <div class="tracks-grid" id="track-list"></div>
-</div>
-
 <script>
-    // FIXED IMAGE LINKS FOR DATA SCIENCE AND FINTECH
+    // These 10 links are high-stability versions to ensure no empty boxes
     const trackImages = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
         "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
-        "https://images.unsplash.com/photo-1518186239751-2477ef79e89d?w=500", // Data Science (FIXED)
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=500", // Data Science (FIXED)
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
         "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
         "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
-        "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?w=500", // UI/UX
+        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=500", // UI/UX (FIXED)
         "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
-        "https://images.unsplash.com/photo-1611974717483-585824cca670?w=500"  // Fintech (FIXED)
+        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?auto=compress&cs=tinysrgb&w=500"  // Fintech (FIXED)
     ];
 
     const names = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"];
 
     const list = document.getElementById('track-list');
+    list.innerHTML = ""; // Clears the list first to prevent duplicates
+    
     names.forEach((name, i) => {
         list.innerHTML += `
             <div class="t-box">
-                <div class="t-img"><img src="${trackImages[i]}" alt="${name}"></div>
+                <div class="t-img">
+                    <img src="${trackImages[i]}" alt="${name}" onerror="this.src='https://via.placeholder.com/500x300/003973/FFFFFF?text=${name}'">
+                </div>
                 <div class="t-info">${name}</div>
             </div>`;
     });
 </script>
-
-</body>
-</html>
