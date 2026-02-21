@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Full Multi-Lang Portal</title>
+    <title>ልማት Hub | Enrollment Portal</title>
     <style>
         :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
         body { background: var(--bg); color: #333; }
 
-        /* HEADER & NAV */
+        /* HEADER */
         .ticker { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
         .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 30s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 38px; z-index: 1000; }
-        .nav-links { display: flex; gap: 20px; align-items: center; font-weight: 600; }
-        .nav-links a { text-decoration: none; color: var(--blue); }
-        .lang-select { padding: 6px; border-radius: 5px; border: 2px solid var(--blue); cursor: pointer; }
+        .lang-select { padding: 6px; border-radius: 5px; border: 2px solid var(--blue); cursor: pointer; font-weight: bold; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
 
-        /* SECTIONS */
-        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 40px; }
+        /* TRACKS GRID */
         .section-h { color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
-        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; text-align: center; }
+        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; text-align: center; }
+        .t-box:hover { transform: translateY(-8px); }
         .t-img { width: 100%; height: 180px; background: var(--blue); }
         .t-img img { width: 100%; height: 100%; object-fit: cover; }
         
-        .btn { background: var(--yellow); color: var(--blue); padding: 12px 30px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
-        
-        .card { background: white; padding: 25px; border-radius: 15px; border: 1px solid #ddd; }
-        .faq-item { border-bottom: 1px solid #eee; padding: 15px 0; }
-        
-        footer { background: #001a33; color: white; padding: 30px; text-align: center; margin-top: 50px; }
+        .btn { background: var(--yellow); color: var(--blue); padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:hover { background: var(--blue); color: white; }
+
+        /* ENROLLMENT MODAL */
+        #joinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; position: relative; text-align: center; }
+        .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
+
+        /* FAQ */
+        .faq-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; border: 1px solid #ddd; }
+        .faq-ans { display: none; padding-top: 10px; color: #666; font-size: 0.95rem; border-top: 1px solid #eee; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -45,8 +47,6 @@
 <nav>
     <h2 style="color:var(--blue)">ልማት Hub</h2>
     <div class="nav-links">
-        <a href="#about" id="nav-a">About</a>
-        <a href="#tracks" id="nav-t">Tracks</a>
         <select class="lang-select" onchange="updLang(this.value)">
             <option value="en">English</option>
             <option value="am">አማርኛ</option>
@@ -57,40 +57,23 @@
 </nav>
 
 <div class="container">
-    <div class="hero">
-        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
-        <p id="h-sub">Enter Fayda ID to verify enrollment</p>
-        <input type="number" id="idIn" style="padding:15px; width:80%; max-width:400px; border-radius:10px; border:none; margin:20px 0; text-align:center;" placeholder="ID Number">
-        <br>
-        <button class="btn" style="width:auto" id="v-btn">VERIFY & ENTER</button>
-    </div>
+    <h2 class="section-h" id="t-head">Official Tracks</h2>
+    <div class="grid" id="track-list"></div>
 
-    <div id="about">
-        <h2 class="section-h" id="a-head">About Us</h2>
-        <div class="card"><p id="a-text">We are building the future of Ethiopia through technology.</p></div>
-    </div>
-
-    <div id="tracks">
-        <h2 class="section-h" id="t-head">Official Tracks</h2>
-        <div class="grid" id="track-list"></div>
-    </div>
-
-    <div id="faq">
-        <h2 class="section-h" id="f-head">FAQ</h2>
-        <div class="card" id="faq-list"></div>
-    </div>
-
-    <div id="contact">
-        <h2 class="section-h" id="c-head">Contact Us</h2>
-        <div class="card">
-            <input type="text" id="c-name" placeholder="Name" style="width:100%; padding:10px; margin-bottom:10px;">
-            <textarea id="c-msg" placeholder="Message" style="width:100%; padding:10px; margin-bottom:10px;"></textarea>
-            <button class="btn" id="c-btn">Send</button>
-        </div>
-    </div>
+    <h2 class="section-h" id="f-head">FAQ</h2>
+    <div id="faq-list"></div>
 </div>
 
-<footer><p>© 2026 ልማት Hub</p></footer>
+<div id="joinModal">
+    <div class="modal-content">
+        <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:24px;">&times;</span>
+        <h2 id="m-title">Join Track</h2>
+        <p id="m-sub" style="margin-bottom:15px; color:var(--blue); font-weight:bold;"></p>
+        <input type="text" id="regName" placeholder="Full Name">
+        <input type="number" id="regID" placeholder="Fayda ID Number">
+        <button class="btn" onclick="submitEnroll()" id="m-btn">Confirm Enrollment</button>
+    </div>
+</div>
 
 <script>
     const images = [
@@ -108,59 +91,68 @@
 
     const data = {
         en: {
-            navA: "About", navT: "Tracks", hT: "Ethiopia's 2026 Digital Mission", hS: "Enter Fayda ID to verify", vB: "VERIFY & ENTER",
-            aH: "About Us", aT: "We are empowering 1 million Ethiopians with digital skills for the year 2026.",
-            tH: "Official Tracks", fH: "FAQ", cH: "Contact Us", jB: "JOIN TRACK", cS: "Send",
+            tH: "Official Tracks", fH: "FAQ", jB: "JOIN TRACK", mT: "Join Mission", mB: "Confirm Enrollment",
             tracks: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"],
-            faqs: ["How to join?", "Is it free?"]
+            faqs: [
+                {q: "Is it free?", a: "Yes, it is 100% free for all citizens."},
+                {q: "How long is the training?", a: "Each track lasts for 12 weeks."}
+            ]
         },
         am: {
-            navA: "ስለ እኛ", navT: "ትራኮች", hT: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", hS: "ለመግባት የፋይዳ መታወቂያዎን ያስገቡ", vB: "አረጋግጥ እና ግባ",
-            aH: "ስለ እኛ", aT: "ለ 2026 ዓ.ም 1 ሚሊዮን ኢትዮጵያውያንን በዲጂታል ክህሎት እያበቃን እንገኛለን።",
-            tH: "ይፋዊ ትራኮች", fH: "ተደጋጋሚ ጥያቄዎች", cH: "ያግኙን", jB: "ተቀላቀል", cS: "ላክ",
+            tH: "ይፋዊ ትራኮች", fH: "ተደጋጋሚ ጥያቄዎች", jB: "ተቀላቀል", mT: "ተልዕኮውን ይቀላቀሉ", mB: "ምዝገባውን አረጋግጥ",
             tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
-            faqs: ["እንዴት መቀላቀል እችላለሁ?", "ክፍያ አለው?"]
-        },
-        om: {
-            navA: "Waa'ee Keenya", navT: "Trackiiwwan", hT: "Misiyoona Diijitaalaa 2026", hS: "Mirkaneessuuf koodii Fayda galchaa", vB: "MIRKANEESSI",
-            aH: "Waa'ee Keenya", aT: "Bara 2026tti lammiilee Itiyoophiyaa miliyoona 1 dandeettii diijitaalaan qopheessaa jirra.",
-            tH: "Trackiiwwan Idilee", fH: "FAQ", cH: "Nu Quunnamaa", jB: "ITTI DABALAMI", cS: "Ergi",
-            tracks: ["AI Injinariingii", "Nageenya Saayibar", "Miidiyyaa Weeb", "Saayinsii Daataa", "Kilaawud", "Moobaayil", "Blokcheeyinii", "UI/UX", "IoT", "Fiinteek"],
-            faqs: ["Akkamitti makama?", "Kaffaltii qabaa?"]
-        },
-        tg: {
-            navA: "ብዛዕባና", navT: "ትራካት", hT: "ዲጂታል ተልእኮ 2026", hS: "ንምእታው መለለዪ ፋይዳ የእትው", vB: "ኣረጋግፅ",
-            aH: "ብዛዕባና", aT: "ን2026 ዓ.ም 1 ሚልዮን ኢትዮጵያውያን ብዲጂታል ክእለት ነብቅዕ ኣለና።",
-            tH: "ወግዓዊ ትራካት", fH: "ሕቶታትን መልስታትን", cH: "ርኸቡና", jB: "ተፀንበር", cS: "ለኣኽ",
-            tracks: ["ኣርቲፊሻል ኢንተለጀንስ", "ሳይበር ሴኩሪቲ", "ልምዓት ወብ", "ዳታ ሳይንስ", "ክላውድ", "ሞባይል", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
-            faqs: ["ከመይ ክፅንበር ይኽእል?", "ክፍሊት ኣለዎ?"]
+            faqs: [
+                {q: "ክፍያ አለው?", a: "አይ፣ ለሁሉም ዜጎች 100% ነፃ ነው።"},
+                {q: "ስልጠናው ለስንት ጊዜ ነው?", a: "እያንዳንዱ ትራክ ለ 12 ሳምንታት ይቆያል።"}
+            ]
         }
+        // Oromo and Tigrinya can be added following the same pattern
     };
 
     function updLang(l) {
-        const d = data[l];
-        document.getElementById('nav-a').innerText = d.navA;
-        document.getElementById('nav-t').innerText = d.navT;
-        document.getElementById('h-title').innerText = d.hT;
-        document.getElementById('h-sub').innerText = d.hS;
-        document.getElementById('v-btn').innerText = d.vB;
-        document.getElementById('a-head').innerText = d.aH;
-        document.getElementById('a-text').innerText = d.aT;
+        const d = data[l] || data['en'];
         document.getElementById('t-head').innerText = d.tH;
         document.getElementById('f-head').innerText = d.fH;
-        document.getElementById('c-head').innerText = d.cH;
-        document.getElementById('c-name').placeholder = d.navA === "About" ? "Name" : "ስም/Name";
-        document.getElementById('c-btn').innerText = d.cS;
+        document.getElementById('m-title').innerText = d.mT;
+        document.getElementById('m-btn').innerText = d.mB;
 
-        // Tracks
         const tList = document.getElementById('track-list'); tList.innerHTML = "";
         d.tracks.forEach((t, i) => {
-            tList.innerHTML += `<div class="t-box"><div class="t-img"><img src="${images[i]}"></div><div style="padding:15px"><b>${t}</b><button class="btn">${d.jB}</button></div></div>`;
+            tList.innerHTML += `<div class="t-box">
+                <div class="t-img"><img src="${images[i]}"></div>
+                <div style="padding:15px"><b>${t}</b><button class="btn" onclick="openModal('${t}')">${d.jB}</button></div>
+            </div>`;
         });
 
-        // FAQs
         const fList = document.getElementById('faq-list'); fList.innerHTML = "";
-        d.faqs.forEach(f => { fList.innerHTML += `<div class="faq-item"><b>${f}</b></div>`; });
+        d.faqs.forEach((f, i) => {
+            fList.innerHTML += `<div class="faq-card" onclick="toggleF(${i})">
+                <b>${f.q}</b><div id="ans${i}" class="faq-ans">${f.a}</div>
+            </div>`;
+        });
+    }
+
+    function openModal(track) {
+        document.getElementById('joinModal').style.display = 'flex';
+        document.getElementById('m-sub').innerText = track;
+    }
+
+    function closeModal() { document.getElementById('joinModal').style.display = 'none'; }
+
+    function toggleF(i) {
+        const a = document.getElementById('ans' + i);
+        a.style.display = a.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function submitEnroll() {
+        const name = document.getElementById('regName').value;
+        const id = document.getElementById('regID').value;
+        if(name && id.length >= 10) {
+            alert("Congratulations " + name + "! You are enrolled. Check your email for details.");
+            closeModal();
+        } else {
+            alert("Please enter full name and valid 10-digit Fayda ID.");
+        }
     }
 
     updLang('en');
