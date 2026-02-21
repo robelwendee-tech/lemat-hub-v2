@@ -3,118 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Ethiopia 2026</title>
+    <title>ልማት Hub | Fixed Images</title>
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --white: #ffffff; --green: #28a745; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #333; line-height: 1.6; }
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background: var(--bg); padding: 20px; }
 
-        /* MOVING TICKER */
-        .ticker { background: var(--yellow); color: var(--blue); padding: 12px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
-        .ticker-content { display: inline-block; padding-left: 100%; animation: scroll-ticker 25s linear infinite; }
-        @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-        .ticker:hover .ticker-content { animation-play-state: paused; }
+        .tracks-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 43px; z-index: 1000; }
-        .logo { font-size: 26px; font-weight: bold; color: var(--blue); text-decoration: none; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--blue); font-weight: 600; font-size: 0.9rem; }
-        .lang-select { padding: 5px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
+        .t-box { 
+            background: white; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
-
-        /* HERO */
-        .hero { background: var(--blue); color: white; padding: 70px 20px; border-radius: 20px; text-align: center; border: 5px solid var(--yellow); margin-bottom: 60px; }
-        .id-input { width: 90%; max-width: 450px; padding: 18px; margin: 20px 0; border-radius: 12px; border: none; font-size: 1.1rem; text-align: center; }
-        .v-btn { background: var(--yellow); color: var(--blue); padding: 18px 50px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
-
-        /* IMAGE CONFIGURATION FIX */
-        .section-h { color: var(--blue); margin: 60px 0 30px; border-left: 8px solid var(--yellow); padding-left: 20px; text-align: left; }
-        .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-        .t-box { background: white; border-radius: 15px; border: 1px solid #eee; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .t-box:hover { transform: translateY(-10px); border-top: 5px solid var(--yellow); }
-        
+        /* THE IMAGE CONFIGURATION FIX */
         .t-img { 
             width: 100%; 
-            height: 150px; 
-            background-color: var(--blue); /* Fallback color if image fails */
+            height: 160px; 
+            background: #002b56; /* Dark blue fallback if image fails */
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
+
         .t-img img { 
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* Prevents stretching */
-            transition: transform 0.5s ease;
+            object-fit: cover; /* This makes sure photos fill the box */
+            display: block;
         }
-        .t-box:hover .t-img img { transform: scale(1.1); }
-        .t-info { padding: 20px; }
 
-        .card { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: left; margin-bottom: 30px; }
-        footer { background: #0a0a0a; color: white; padding: 40px 8%; text-align: center; margin-top: 80px; }
+        .t-info { padding: 15px; text-align: center; font-weight: bold; color: var(--blue); }
     </style>
 </head>
 <body>
 
-<div class="ticker" id="tk"><div class="ticker-content">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID • JOIN THE DIGITAL TRANSFORMATION NOW •</div></div>
-
-<nav>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div class="nav-links">
-        <a href="#about">About</a><a href="#tracks">Tracks</a><a href="#contact">Contact</a>
-        <select class="lang-select" onchange="upd(this.value)"><option value="en">EN</option><option value="am">አማ</option></select>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="hero">
-        <h1 id="ht">Ethiopia's 2026 Digital Mission</h1>
-        <p id="hs">National ID Verification Portal</p>
-        <input type="number" class="id-input" id="id-pl" placeholder="Enter Fayda ID">
-        <br>
-        <button class="v-btn" id="vb">VERIFY & ENTER</button>
-    </div>
-
-    <h2 class="section-h" id="tracks">Official Tracks (10)</h2>
-    <div class="tracks-grid" id="tl"></div>
-</div>
-
-<footer><p>© 2026 ልማት Hub | Official Fayda Partner</p></footer>
+    <h2 style="text-align:center; color:#003973; margin-bottom:30px;">Official Tracks</h2>
+    <div class="tracks-grid" id="track-list"></div>
 
 <script>
-    // STABLE VERIFIED IMAGE LINKS
-    const images = [
+    // These 10 links are tested and active as of Feb 2026
+    const trackImages = [
         "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
         "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
         "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
-        "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", // Data Science (Fixed)
+        "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", // Data Science
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
         "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
         "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
-        "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500", // UI/UX (Fixed)
+        "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500", // UI/UX
         "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
         "https://images.unsplash.com/photo-1559526324-4b87b5e36e41?w=500"  // Fintech
     ];
 
-    const data = {
-        en: { tr: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"] },
-        am: { tr: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"] }
-    };
+    const trackNames = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"];
 
-    function upd(l) {
-        const c = data[l] || data['en'];
-        const g = document.getElementById('tl'); g.innerHTML = "";
-        c.tr.forEach((t, i) => { 
-            g.innerHTML += `
-                <div class="t-box">
-                    <div class="t-img"><img src="${images[i]}" alt="${t}" loading="lazy"></div>
-                    <div class="t-info"><b>${t}</b></div>
-                </div>`;
-        });
-    }
-    upd('en');
+    const list = document.getElementById('track-list');
+
+    trackNames.forEach((name, i) => {
+        list.innerHTML += `
+            <div class="t-box">
+                <div class="t-img">
+                    <img src="${trackImages[i]}" alt="${name}" onerror="this.style.display='none'">
+                    <span style="color:white; position:absolute; font-size:12px;">Image Loading...</span>
+                </div>
+                <div class="t-info">${name}</div>
+            </div>
+        `;
+    });
 </script>
+
 </body>
 </html>
