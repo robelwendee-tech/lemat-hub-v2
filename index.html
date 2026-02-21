@@ -81,4 +81,105 @@
             <h4 id="footer-about-title">ልማት Hub</h4>
             <p id="footer-about-text">Ethiopia's leading digital talent accelerator, building the tech workforce of 2026.</p>
         </div>
-        <div class="footer-col
+        <div class="footer-col">
+            <h4 id="footer-links-title">Quick Links</h4>
+            <p id="f-link-1">Mission Statement</p>
+            <p id="f-link-2">Curriculum</p>
+            <p id="f-link-3">Support Center</p>
+        </div>
+        <div class="footer-col">
+            <h4 id="footer-contact-title">Contact Us</h4>
+            <p>Email: contact@lemathub.et</p>
+            <p>Addis Ababa, Ethiopia</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p id="footer-copy">© 2026 ልማት Hub | Official Fayda National ID Partner</p>
+    </div>
+</footer>
+
+<script>
+    const translations = {
+        en: {
+            ticker: "ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda ID",
+            join: "JOIN NOW",
+            heroTitle: "Ethiopia's 2026 Digital Mission",
+            heroSub: "Powered by National ID Verification",
+            idPlaceholder: "Enter Fayda ID to access dashboard",
+            verifyBtn: "VERIFY & ENTER",
+            tracksTitle: "Official Specializations (10 Tracks)",
+            faqTitle: "Frequently Asked Questions",
+            footerAbout: "Ethiopia's leading digital talent accelerator, building the tech workforce of 2026.",
+            tracks: ["AI Engineering", "Cyber Security", "Full-Stack", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
+            faqs: [
+                { q: "Is this program free?", a: "Yes, it is fully funded by the Digital Ethiopia 2026 initiative." },
+                { q: "Is Fayda ID required?", a: "Yes, all certifications are linked to your National ID." }
+            ]
+        },
+        am: {
+            ticker: "ምዝገባ ተከፍቷል፡ የ2026 የዲጂታል ኢትዮጵያ ስትራቴጂ • በፋይዳ መታወቂያ የተረጋገጠ",
+            join: "አሁን ይቀላቀሉ",
+            heroTitle: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
+            heroSub: "በብሔራዊ መታወቂያ ማረጋገጫ የተደገፈ",
+            idPlaceholder: "ዳሽቦርድ ለመድረስ የፋይዳ መታወቂያ ያስገቡ",
+            verifyBtn: "አረጋግጥ እና ግባ",
+            tracksTitle: "ኦፊሴላዊ የሥልጠና ዘርፎች (10 ትራኮች)",
+            faqTitle: "ተደጋጋሚ ጥያቄዎች",
+            footerAbout: "የ2026 የቴክኖሎጂ የሰው ኃይልን በመገንባት ላይ የሚገኝ የኢትዮጵያ ቀዳሚ የዲጂታል ተሰጥኦ ማፋጠኛ።",
+            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"],
+            faqs: [
+                { q: "ይህ ፕሮግራም ነፃ ነው?", a: "አዎ፣ በዲጂታል ኢትዮጵያ 2026 ተነሳሽነት ሙሉ በሙሉ የተደገፈ ነው።" },
+                { q: "የፋይዳ መታወቂያ ያስፈልጋል?", a: "አዎ፣ ሁሉም የምስክር ወረቀቶች ከብሔራዊ መታወቂያዎ ጋር የተያያዙ ናቸው።" }
+            ]
+        },
+        om: {
+            ticker: "GALMEEN BANAMEERA: Tooftaa Itoophiyaa Diigitalaa 2026 • Fayda ID'n kan mirkanaa'e",
+            join: "AMMA SEENI",
+            heroTitle: "Ergaa Diigitalaa Itoophiyaa 2026",
+            heroSub: "Mirkaneessa Waraqaa Eenyummaa Bioolessaan kan deeggarame",
+            idPlaceholder: "Daashboordii banuuf koodii Fayda galchaa",
+            verifyBtn: "MIRKANEESSI & SEENI",
+            tracksTitle: "Leenjiiwwan Ofisiyawaa (Track 10)",
+            faqTitle: "Gaaffiiwwan Yeroo Baay'ee Gaafataman",
+            footerAbout: "Humni namaa teeknooloojii 2026 ijaaruuf dardaran dandeettii qaban guddisuuf kan hojjetu.",
+            tracks: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
+            faqs: [
+                { q: "Leenjiin kun bilisaa?", a: "Eeyyee, guutummaatti tajaajila Itoophiyaa Diigitalaa 2026'n kaffalameera." },
+                { q: "Fayda ID'n ni barbaachisaa?", a: "Eeyyee, waraqaan ragaa hundi waraqaa eenyummaa keessan waliin walqabata." }
+            ]
+        }
+    };
+
+    function changeLanguage(lang) {
+        const data = translations[lang];
+        document.getElementById('ticker-text').innerText = data.ticker;
+        document.getElementById('join-btn').innerText = data.join;
+        document.getElementById('hero-title').innerText = data.heroTitle;
+        document.getElementById('hero-sub').innerText = data.heroSub;
+        document.getElementById('id-placeholder').placeholder = data.idPlaceholder;
+        document.getElementById('verify-btn').innerText = data.verifyBtn;
+        document.getElementById('tracks-title').innerText = data.tracksTitle;
+        document.getElementById('faq-title').innerText = data.faqTitle;
+        document.getElementById('footer-about-text').innerText = data.footerAbout;
+
+        // Update Tracks
+        const grid = document.getElementById('tracks-grid');
+        grid.innerHTML = "";
+        data.tracks.forEach(t => {
+            grid.innerHTML += `<div class="card"><i class="fas fa-laptop-code"></i><h4>${t}</h4><p>Specialized Mission Track</p></div>`;
+        });
+
+        // Update FAQ
+        const faqList = document.getElementById('faq-list');
+        faqList.innerHTML = "";
+        data.faqs.forEach(f => {
+            faqList.innerHTML += `<div class="faq-item"><h3>${f.q}</h3><p>${f.a}</p></div>`;
+        });
+    }
+
+    // Initial Load
+    changeLanguage('en');
+</script>
+
+</body>
+</html>
