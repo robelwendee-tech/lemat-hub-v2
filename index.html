@@ -3,183 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Ethiopia 2026</title>
+    <title>ልማት Hub | Full Mission Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --light: #f8f9fa; }
+        :root { --blue: #003973; --yellow: #FFD700; --light: #f8f9fa; --success: #28a745; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: white; color: #333; line-height: 1.6; }
+        body { background: white; color: #333; }
 
-        /* HEADER COMPONENTS */
-        .ticker { background: var(--yellow); color: var(--blue); padding: 12px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 2000; font-size: 0.9rem; }
+        .ticker { background: var(--yellow); color: var(--blue); padding: 12px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 2000; }
         
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: white; border-bottom: 1px solid #eee; position: sticky; top: 40px; z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #eee; position: sticky; top: 40px; z-index: 1000; }
         .logo { font-size: 24px; font-weight: bold; color: var(--blue); text-decoration: none; }
+        .nav-right { display: flex; gap: 15px; align-items: center; }
         
-        .nav-right { display: flex; gap: 20px; align-items: center; }
-        .lang-select { padding: 5px 10px; border-radius: 5px; border: 1px solid #ddd; font-weight: bold; color: var(--blue); cursor: pointer; }
-        .join-btn { background: var(--yellow); color: var(--blue); padding: 10px 25px; border-radius: 50px; font-weight: bold; border: 2px solid var(--blue); text-decoration: none; box-shadow: 2px 2px 0px var(--blue); }
+        .lang-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; font-weight: bold; background: white; }
+        .join-btn { background: var(--yellow); color: var(--blue); padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 2px solid var(--blue); text-decoration: none; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 60px 5%; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
 
-        /* PORTAL CARD */
-        .login-section { background: var(--blue); color: white; padding: 60px 20px; border-radius: 15px; text-align: center; border: 3px solid var(--yellow); margin-bottom: 80px; }
-        .input-box { width: 90%; max-width: 450px; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; }
-        .verify-btn { background: var(--yellow); color: var(--blue); padding: 15px 40px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        /* HERO & LOGIN */
+        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 15px; text-align: center; border: 4px solid var(--yellow); margin-bottom: 50px; }
+        .id-input { width: 90%; max-width: 400px; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; }
+        .v-btn { background: var(--yellow); color: var(--blue); padding: 15px 40px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; }
+
+        /* ADDITIONAL OPTIONS (Progress & Notifications) */
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: var(--light); padding: 20px; border-radius: 10px; border-left: 5px solid var(--success); display: flex; align-items: center; gap: 15px; }
 
         /* 10 TRACKS */
-        .section-title { color: var(--blue); margin-bottom: 30px; font-size: 1.8rem; border-left: 5px solid var(--yellow); padding-left: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 80px; }
-        .card { background: var(--light); padding: 30px; border-radius: 12px; border-top: 5px solid var(--blue); }
-        .card i { font-size: 2rem; color: var(--blue); margin-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .track-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #eee; border-top: 5px solid var(--blue); position: relative; }
+        .badge { position: absolute; top: 10px; right: 10px; background: var(--success); color: white; font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; }
 
         /* FOOTER */
-        footer { background: #111; color: white; padding: 80px 8% 40px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-col h4 { color: var(--yellow); margin-bottom: 20px; text-transform: uppercase; font-size: 0.9rem; }
-        .footer-bottom { border-top: 1px solid #333; padding-top: 30px; text-align: center; color: #777; font-size: 0.85rem; margin-top: 40px; }
-    </style>
-</head>
-<body>
-
-<div class="ticker" id="ticker-text">ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda National ID</div>
-
-<nav>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div class="nav-right">
-        <select class="lang-select" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="am">አማርኛ</option>
-            <option value="om">Afaan Oromoo</option>
-        </select>
-        <a href="#" class="join-btn" id="join-btn">JOIN NOW</a>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="login-section">
-        <h1 id="hero-title">Ethiopia's 2026 Digital Mission</h1>
-        <p id="hero-sub">Powered by National ID Verification</p>
-        <input type="number" class="input-box" id="id-placeholder" placeholder="Enter Fayda ID to access dashboard">
-        <br>
-        <button class="verify-btn" id="verify-btn">VERIFY & ENTER</button>
-    </div>
-
-    <h2 class="section-title" id="tracks-title">Official Specializations (10 Tracks)</h2>
-    <div class="grid" id="tracks-grid">
-        </div>
-
-    <div class="faq-container" id="faq-section">
-        <h2 class="section-title" id="faq-title">Frequently Asked Questions</h2>
-        <div id="faq-list"></div>
-    </div>
-</div>
-
-<footer>
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4 id="footer-about-title">ልማት Hub</h4>
-            <p id="footer-about-text">Ethiopia's leading digital talent accelerator, building the tech workforce of 2026.</p>
-        </div>
-        <div class="footer-col">
-            <h4 id="footer-links-title">Quick Links</h4>
-            <p id="f-link-1">Mission Statement</p>
-            <p id="f-link-2">Curriculum</p>
-            <p id="f-link-3">Support Center</p>
-        </div>
-        <div class="footer-col">
-            <h4 id="footer-contact-title">Contact Us</h4>
-            <p>Email: contact@lemathub.et</p>
-            <p>Addis Ababa, Ethiopia</p>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p id="footer-copy">© 2026 ልማት Hub | Official Fayda National ID Partner</p>
-    </div>
-</footer>
-
-<script>
-    const translations = {
-        en: {
-            ticker: "ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda ID",
-            join: "JOIN NOW",
-            heroTitle: "Ethiopia's 2026 Digital Mission",
-            heroSub: "Powered by National ID Verification",
-            idPlaceholder: "Enter Fayda ID to access dashboard",
-            verifyBtn: "VERIFY & ENTER",
-            tracksTitle: "Official Specializations (10 Tracks)",
-            faqTitle: "Frequently Asked Questions",
-            footerAbout: "Ethiopia's leading digital talent accelerator, building the tech workforce of 2026.",
-            tracks: ["AI Engineering", "Cyber Security", "Full-Stack", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
-            faqs: [
-                { q: "Is this program free?", a: "Yes, it is fully funded by the Digital Ethiopia 2026 initiative." },
-                { q: "Is Fayda ID required?", a: "Yes, all certifications are linked to your National ID." }
-            ]
-        },
-        am: {
-            ticker: "ምዝገባ ተከፍቷል፡ የ2026 የዲጂታል ኢትዮጵያ ስትራቴጂ • በፋይዳ መታወቂያ የተረጋገጠ",
-            join: "አሁን ይቀላቀሉ",
-            heroTitle: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
-            heroSub: "በብሔራዊ መታወቂያ ማረጋገጫ የተደገፈ",
-            idPlaceholder: "ዳሽቦርድ ለመድረስ የፋይዳ መታወቂያ ያስገቡ",
-            verifyBtn: "አረጋግጥ እና ግባ",
-            tracksTitle: "ኦፊሴላዊ የሥልጠና ዘርፎች (10 ትራኮች)",
-            faqTitle: "ተደጋጋሚ ጥያቄዎች",
-            footerAbout: "የ2026 የቴክኖሎጂ የሰው ኃይልን በመገንባት ላይ የሚገኝ የኢትዮጵያ ቀዳሚ የዲጂታል ተሰጥኦ ማፋጠኛ።",
-            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"],
-            faqs: [
-                { q: "ይህ ፕሮግራም ነፃ ነው?", a: "አዎ፣ በዲጂታል ኢትዮጵያ 2026 ተነሳሽነት ሙሉ በሙሉ የተደገፈ ነው።" },
-                { q: "የፋይዳ መታወቂያ ያስፈልጋል?", a: "አዎ፣ ሁሉም የምስክር ወረቀቶች ከብሔራዊ መታወቂያዎ ጋር የተያያዙ ናቸው።" }
-            ]
-        },
-        om: {
-            ticker: "GALMEEN BANAMEERA: Tooftaa Itoophiyaa Diigitalaa 2026 • Fayda ID'n kan mirkanaa'e",
-            join: "AMMA SEENI",
-            heroTitle: "Ergaa Diigitalaa Itoophiyaa 2026",
-            heroSub: "Mirkaneessa Waraqaa Eenyummaa Bioolessaan kan deeggarame",
-            idPlaceholder: "Daashboordii banuuf koodii Fayda galchaa",
-            verifyBtn: "MIRKANEESSI & SEENI",
-            tracksTitle: "Leenjiiwwan Ofisiyawaa (Track 10)",
-            faqTitle: "Gaaffiiwwan Yeroo Baay'ee Gaafataman",
-            footerAbout: "Humni namaa teeknooloojii 2026 ijaaruuf dardaran dandeettii qaban guddisuuf kan hojjetu.",
-            tracks: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"],
-            faqs: [
-                { q: "Leenjiin kun bilisaa?", a: "Eeyyee, guutummaatti tajaajila Itoophiyaa Diigitalaa 2026'n kaffalameera." },
-                { q: "Fayda ID'n ni barbaachisaa?", a: "Eeyyee, waraqaan ragaa hundi waraqaa eenyummaa keessan waliin walqabata." }
-            ]
-        }
-    };
-
-    function changeLanguage(lang) {
-        const data = translations[lang];
-        document.getElementById('ticker-text').innerText = data.ticker;
-        document.getElementById('join-btn').innerText = data.join;
-        document.getElementById('hero-title').innerText = data.heroTitle;
-        document.getElementById('hero-sub').innerText = data.heroSub;
-        document.getElementById('id-placeholder').placeholder = data.idPlaceholder;
-        document.getElementById('verify-btn').innerText = data.verifyBtn;
-        document.getElementById('tracks-title').innerText = data.tracksTitle;
-        document.getElementById('faq-title').innerText = data.faqTitle;
-        document.getElementById('footer-about-text').innerText = data.footerAbout;
-
-        // Update Tracks
-        const grid = document.getElementById('tracks-grid');
-        grid.innerHTML = "";
-        data.tracks.forEach(t => {
-            grid.innerHTML += `<div class="card"><i class="fas fa-laptop-code"></i><h4>${t}</h4><p>Specialized Mission Track</p></div>`;
-        });
-
-        // Update FAQ
-        const faqList = document.getElementById('faq-list');
-        faqList.innerHTML = "";
-        data.faqs.forEach(f => {
-            faqList.innerHTML += `<div class="faq-item"><h3>${f.q}</h3><p>${f.a}</p></div>`;
-        });
-    }
-
-    // Initial Load
-    changeLanguage('en');
-</script>
-
-</body>
-</html>
+        footer { background: #111; color: white; padding: 60px 8%; margin-top: 60px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
+        .footer-bottom { border-top: 1px solid #333; padding-top: 20px; text-align: center; margin-top: 40px; color: #777
