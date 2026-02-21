@@ -38,4 +38,121 @@
         /* FOOTER */
         footer { background: #111; color: white; padding: 60px 8%; margin-top: 60px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
-        .footer-bottom { border-top: 1px solid #333; padding-top: 20px; text-align: center; margin-top: 40px; color: #777
+        .footer-bottom { border-top: 1px solid #333; padding-top: 20px; text-align: center; margin-top: 40px; color: #777; }
+    </style>
+</head>
+<body>
+
+<div class="ticker" id="ticker">MISSION 2026: Enrollment Open for Verified Citizens • Digital Ethiopia Strategy</div>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="nav-right">
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('am')">አማ</button>
+        <button class="lang-btn" onclick="setLang('om')">ORM</button>
+        <a href="#" class="join-btn" id="join-btn">JOIN NOW</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="hero">
+        <h1 id="h-title">Ethiopia's 2026 Digital Mission</h1>
+        <p id="h-sub">National ID Verification Portal</p>
+        <input type="number" class="id-input" id="id-box" placeholder="Enter Fayda ID">
+        <br>
+        <button class="v-btn" id="v-btn">VERIFY & ENTER</button>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <i class="fas fa-tasks fa-2x" style="color:var(--success)"></i>
+            <div><b id="opt-1">Course Progress</b><p>0% Completed</p></div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-certificate fa-2x" style="color:var(--blue)"></i>
+            <div><b id="opt-2">Certificates</b><p id="opt-2-sub">Verify ID first</p></div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-bell fa-2x" style="color:var(--yellow)"></i>
+            <div><b id="opt-3">Notifications</b><p>2 New Updates</p></div>
+        </div>
+    </div>
+
+    <h2 style="color:var(--blue); margin-bottom:20px; text-align:left;" id="t-head">Available Specializations</h2>
+    <div class="grid" id="track-list">
+        </div>
+
+    <div style="background:var(--light); padding:30px; border-radius:15px; text-align:left;">
+        <h3 id="f-head" style="color:var(--blue); margin-bottom:20px;">Portal FAQ</h3>
+        <p><b>Q: Is Fayda ID required?</b><br>Yes, it is mandatory for certification.</p>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col"><h4>ልማት Hub</h4><p>Building the tech workforce of 2026.</p></div>
+        <div class="footer-col"><h4>Contact</h4><p>Addis Ababa, Ethiopia</p><p>contact@lemathub.et</p></div>
+        <div class="footer-col"><h4>Links</h4><p>Curriculum</p><p>Mission 2026</p></div>
+    </div>
+    <div class="footer-bottom">© 2026 ልማት Hub | Official Fayda Partner</div>
+</footer>
+
+<script>
+    const content = {
+        en: {
+            ticker: "MISSION 2026: Enrollment Open for Verified Citizens • Digital Ethiopia Strategy",
+            title: "Ethiopia's 2026 Digital Mission",
+            sub: "National ID Verification Portal",
+            btn: "VERIFY & ENTER",
+            opt1: "Course Progress",
+            opt2: "Certificates",
+            opt3: "Notifications",
+            tHead: "Available Specializations",
+            tracks: ["AI Engineering", "Cyber Security", "Full-Stack", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
+        },
+        am: {
+            ticker: "ተልዕኮ 2026፡ ለተረጋገጡ ዜጎች ምዝገባ ተከፍቷል • የዲጂታል ኢትዮጵያ ስትራቴጂ",
+            title: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ",
+            sub: "የብሔራዊ መታወቂያ ማረጋገጫ ፖርታል",
+            btn: "አረጋግጥ እና ግባ",
+            opt1: "የትምህርት ሂደት",
+            opt2: "የምስክር ወረቀቶች",
+            opt3: "ማሳወቂያዎች",
+            tHead: "የሚገኙ የሥልጠና ዘርፎች",
+            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "ሙሉ የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ ዴቭኦፕስ", "የሞባይል መተግበሪያ", "ብሎክቼይን", "ዩአይ/ዩኤክስ ዲዛይን", "አይኦቲ ሲስተምስ", "ፊንቴክ"]
+        },
+        om: {
+            ticker: "ERGA 2026: Galmeen lammilee mirkanaa'aniif banameera • Tooftaa Itoophiyaa Diigitalaa",
+            title: "Ergaa Diigitalaa Itoophiyaa 2026",
+            sub: "Waraqaa Eenyummaa Mirkaneessuuf",
+            btn: "MIRKANEESSI & SEENI",
+            opt1: "Adeemsa Leenjii",
+            opt2: "Waraqaa Ragaa",
+            opt3: "Beeksisa",
+            tHead: "Leenjiiwwan Jiran",
+            tracks: ["AI Injiinariingii", "Cyber Security", "Full-Stack Web", "Data Science", "Cloud DevOps", "Mobile Dev", "Blockchain", "UI/UX Design", "IoT Systems", "Fintech"]
+        }
+    };
+
+    function setLang(l) {
+        const d = content[l];
+        document.getElementById('ticker').innerText = d.ticker;
+        document.getElementById('h-title').innerText = d.title;
+        document.getElementById('h-sub').innerText = d.sub;
+        document.getElementById('v-btn').innerText = d.btn;
+        document.getElementById('opt-1').innerText = d.opt1;
+        document.getElementById('opt-2').innerText = d.opt2;
+        document.getElementById('opt-3').innerText = d.opt3;
+        document.getElementById('t-head').innerText = d.tHead;
+        
+        const list = document.getElementById('track-list');
+        list.innerHTML = "";
+        d.tracks.forEach(t => {
+            list.innerHTML += `<div class="track-card"><span class="badge">2026</span><i class="fas fa-laptop-code fa-2x" style="color:var(--blue); margin-bottom:15px;"></i><h4>${t}</h4><p>Specialization</p></div>`;
+        });
+    }
+    setLang('en');
+</script>
+</body>
+</html>
