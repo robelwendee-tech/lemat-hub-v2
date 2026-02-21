@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Ethiopia 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; text-align: center; }
         
-        /* 1. ANNOUNCEMENT TICKER */
+        /* 1. TOP TICKER */
         .ticker-wrap { background: #FFD700; color: #003973; padding: 12px 0; overflow: hidden; font-weight: bold; position: fixed; width: 100%; top: 0; z-index: 2000; }
         .ticker { display: inline-block; white-space: nowrap; animation: marquee 30s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
@@ -16,7 +17,7 @@
         /* 2. NAVIGATION */
         nav { background: #fff; padding: 15px 5%; display: flex; justify-content: flex-end; align-items: center; position: sticky; top: 40px; z-index: 1000; border-bottom: 2px solid #f0f0f0; }
         .logo { margin-right: auto; font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
-        nav a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.9rem; }
+        nav a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
         .join-btn { background: #FFD700 !important; color: #003973 !important; padding: 10px 22px; border-radius: 50px; font-weight: 800; text-transform: uppercase; border: 2px solid #003973; box-shadow: 0 4px 0 #003973; text-decoration: none; }
 
         section { padding: 100px 5%; border-bottom: 1px solid #eee; }
@@ -28,32 +29,32 @@
         .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
         .fayda-btn:hover { background: #fff; transform: scale(1.02); }
 
-        /* 4. 10 COURSES GRID */
+        /* 4. 10 COURSES GRID WITH ICONS */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1200px; margin: 50px auto; }
-        .card { border: 1px solid #ddd; padding: 30px; border-top: 8px solid #003973; background: #fff; border-radius: 12px; transition: 0.3s; text-align: left; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .card h3 { color: #003973; margin-bottom: 12px; font-size: 1.2rem; }
-        .card p { font-size: 0.9rem; color: #666; }
+        .card { border: 1px solid #ddd; padding: 30px; border-top: 8px solid #003973; background: #fff; border-radius: 12px; transition: 0.3s; text-align: left; position: relative; overflow: hidden; }
+        .card i { font-size: 2rem; color: #003973; margin-bottom: 15px; display: block; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-top-color: #FFD700; }
+        .card h3 { font-size: 1.1rem; margin-bottom: 10px; color: #003973; }
+        .card p { font-size: 0.85rem; color: #666; }
 
         /* 5. FAQ SECTION */
-        .faq-box { max-width: 800px; margin: 0 auto; text-align: left; padding: 20px; }
+        .faq-box { max-width: 800px; margin: 0 auto; text-align: left; }
         .faq-item { margin-bottom: 30px; border-bottom: 2px solid #f9f9f9; padding-bottom: 20px; }
         .faq-item strong { color: #003973; font-size: 1.2rem; display: block; margin-bottom: 10px; }
-        .faq-item p { color: #555; font-size: 1rem; }
 
-        /* 6. PROFESSIONAL FOOTER */
+        /* 6. UPDATED PROFESSIONAL FOOTER */
         footer { background: #111; color: white; padding: 80px 5% 40px; border-top: 6px solid #FFD700; text-align: center; }
-        .footer-content { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; text-align: left; margin-bottom: 40px; }
-        .footer-col { flex: 1; min-width: 250px; margin-bottom: 20px; }
-        .footer-col h4 { color: #FFD700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .footer-col p, .footer-col a { color: #bbb; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 10px; }
-        .footer-bottom { border-top: 1px solid #333; padding-top: 30px; color: #777; font-size: 0.85rem; }
+        .footer-content { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; margin-bottom: 50px; }
+        .footer-col h4 { color: #FFD700; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1rem; }
+        .footer-col p, .footer-col a { color: #bbb; text-decoration: none; font-size: 0.95rem; display: block; margin-bottom: 12px; transition: 0.3s; }
+        .footer-col a:hover { color: #FFD700; padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid #333; padding-top: 30px; color: #777; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <div class="ticker-wrap">
-    <div class="ticker">ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda National ID • Join the Mission!</div>
+    <div class="ticker">ENROLLMENT OPEN: AI Engineering Cohort • Digital Ethiopia 2026 Strategy • Verified by Fayda National ID • Start your journey!</div>
 </div>
 
 <nav>
@@ -64,43 +65,41 @@
     <a href="#signup" class="join-btn">Join Now</a>
 </nav>
 
-<section id="home" style="padding-top: 150px; background: #fff;">
-    <h1 style="font-size: 4rem; color: #003973; margin-bottom: 10px;">ልማት Hub</h1>
+<section id="home" style="padding-top: 160px; background: #fff;">
+    <h1 style="font-size: 4rem; color: #003973;">ልማት Hub</h1>
     <p style="font-size: 1.4rem; color: #555;">Ethiopia's 2026 Digital Mission. Powered by National ID.</p>
 </section>
 
 <section id="signup" class="fayda-area">
     <div class="fayda-card" id="status-box">
         <h2 style="color: #FFD700; font-size: 2.2rem; margin-bottom: 15px;">National ID Verification</h2>
-        <p style="font-size: 1.1rem; opacity: 0.9;">Verify your Fayda ID to unlock all 10 specialized 2026 tracks.</p>
+        <p style="margin-bottom: 25px;">Enter your Fayda ID to unlock the full 2026 curriculum.</p>
         <input type="number" placeholder="Enter Fayda ID Number" id="id-input" class="fayda-input">
-        <button class="fayda-btn" onclick="startVerify()">VERIFY & UNLOCK COURSES</button>
+        <button class="fayda-btn" onclick="startVerify()">VERIFY & UNLOCK</button>
     </div>
 </section>
 
 <section id="courses" style="background: #fdfdfd;">
-    <h2 style="color: #003973; font-size: 2.5rem; margin-bottom: 10px;">The 10 Official Tracks</h2>
-    <p style="margin-bottom: 40px; color: #777;">World-class specializations for Ethiopia's digital future.</p>
+    <h2 style="color: #003973; font-size: 2.5rem; margin-bottom: 40px;">Official 2026 Specializations</h2>
     <div class="grid">
-        <div class="card"><h3>1. AI Engineering</h3><p>Master machine learning, neural networks, and generative AI models.</p></div>
-        <div class="card"><h3>2. Cyber Security</h3><p>Protect national infrastructure through ethical hacking and defense.</p></div>
-        <div class="card"><h3>3. Data Science</h3><p>Analyze big data to drive Ethiopia's economic growth decisions.</p></div>
-        <div class="card"><h3>4. Cloud DevOps</h3><p>Build and scale applications using global cloud infrastructures.</p></div>
-        <div class="card"><h3>5. Full-Stack Web</h3><p>Develop modern, high-performance web systems for the local market.</p></div>
-        <div class="card"><h3>6. Blockchain</h3><p>Implement secure, transparent ledger systems for digital finance.</p></div>
-        <div class="card"><h3>7. Mobile Apps</h3><p>Create native iOS and Android experiences for millions of citizens.</p></div>
-        <div class="card"><h3>8. IoT Systems</h3><p>Design smart hardware for agriculture and industrial automation.</p></div>
-        <div class="card"><h3>9. UI/UX Design</h3><p>Learn to design world-class digital products and user interfaces.</p></div>
-        <div class="card"><h3>10. Fintech Dev</h3><p>Build the next generation of digital payment and banking systems.</p></div>
+        <div class="card"><i class="fas fa-robot"></i><h3>1. AI Engineering</h3><p>Machine learning and generative neural networks.</p></div>
+        <div class="card"><i class="fas fa-shield-alt"></i><h3>2. Cyber Security</h3><p>National network defense and ethical hacking.</p></div>
+        <div class="card"><i class="fas fa-database"></i><h3>3. Data Science</h3><p>Advanced analytics and big data processing.</p></div>
+        <div class="card"><i class="fas fa-cloud"></i><h3>4. Cloud DevOps</h3><p>Building scalable global infrastructure.</p></div>
+        <div class="card"><i class="fas fa-code"></i><h3>5. Full-Stack Dev</h3><p>Enterprise-grade web application development.</p></div>
+        <div class="card"><i class="fas fa-link"></i><h3>6. Blockchain</h3><p>Secure digital ledger and Web3 technologies.</p></div>
+        <div class="card"><i class="fas fa-mobile-alt"></i><h3>7. Mobile Apps</h3><p>Native iOS and Android software development.</p></div>
+        <div class="card"><i class="fas fa-microchip"></i><h3>8. IoT Systems</h3><p>Smart hardware and industrial automation.</p></div>
+        <div class="card"><i class="fas fa-paint-brush"></i><h3>9. UI/UX Design</h3><p>Product experience and interface design.</p></div>
+        <div class="card"><i class="fas fa-landmark"></i><h3>10. Fintech Dev</h3><p>Digital payment and banking systems.</p></div>
     </div>
 </section>
 
 <section id="faq">
     <h2 style="color: #003973; font-size: 2.5rem; margin-bottom: 50px;">FAQ</h2>
     <div class="faq-box">
-        <div class="faq-item"><strong>Is this program free?</strong><p>Yes, all 10 tracks are fully funded for citizens as part of the 2026 Strategy.</p></div>
-        <div class="faq-item"><strong>Is Fayda ID required?</strong><p>Yes, all certifications and course access are tied to your National ID.</p></div>
-        <div class="faq-item"><strong>When do the cohorts start?</strong><p>New cohorts start the first Monday of every month. Check your dashboard after verification.</p></div>
+        <div class="faq-item"><strong>Is this program free?</strong><p>Yes, all 10 tracks are fully funded for citizens.</p></div>
+        <div class="faq-item"><strong>Is Fayda ID required?</strong><p>Yes, your National ID is mandatory for enrollment.</p></div>
     </div>
 </section>
 
@@ -112,19 +111,19 @@
         </div>
         <div class="footer-col">
             <h4>Quick Links</h4>
-            <a href="#about">Mission Statement</a>
-            <a href="#courses">Curriculum</a>
+            <a href="#home">Back to Top</a>
+            <a href="#courses">10 Specializations</a>
             <a href="#faq">Support Center</a>
         </div>
         <div class="footer-col">
             <h4>Contact Us</h4>
-            <p>Email: contact@lemathub.et</p>
-            <p>Location: Addis Ababa, Ethiopia</p>
+            <p><i class="fas fa-envelope"></i> contact@lemathub.et</p>
+            <p><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</p>
         </div>
     </div>
     <div class="footer-bottom">
         <p>© 2026 ልማት Hub | Official Fayda National ID Partner</p>
-        <p style="margin-top: 10px; font-size: 0.75rem;">Building the future of Ethiopia's Tech Ecosystem.</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">Empowering Ethiopia's Digital Transformation.</p>
     </div>
 </footer>
 
@@ -132,7 +131,7 @@
     function startVerify() {
         const val = document.getElementById('id-input').value;
         if(val.length < 5) { alert("Please enter a valid Fayda ID"); return; }
-        document.getElementById('status-box').innerHTML = "<h2 style='color:#FFD700'>ID Verified!</h2><p>Welcome, Citizen. You now have full access to all 10 tracks.</p>";
+        document.getElementById('status-box').innerHTML = "<h2 style='color:#FFD700'><i class='fas fa-check-circle'></i> Verified!</h2><p>Welcome, Citizen. Access to all 10 tracks is now open.</p>";
     }
 </script>
 
