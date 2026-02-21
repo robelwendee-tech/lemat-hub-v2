@@ -72,3 +72,53 @@
     <div class="fayda-card" id="status-box">
         <h2 style="color: #FFD700;">National ID Verification</h2>
         <p>Verify your Fayda ID to unlock the full 2026 curriculum.</p>
+        <input type="number" placeholder="Enter Fayda ID" id="id-input" class="fayda-input">
+        <button class="fayda-btn" onclick="startVerify()">VERIFY & JOIN</button>
+    </div>
+</section>
+
+<section id="schedule">
+    <h2>12-Week Roadmap</h2>
+    <table class="roadmap-table">
+        <thead><tr><th>Phase</th><th>Goal</th></tr></thead>
+        <tbody>
+            <tr><td>Weeks 1-4</td><td>Coding Foundations</td></tr>
+            <tr><td>Weeks 5-8</td><td>Advanced AI & Systems</td></tr>
+            <tr><td>Weeks 9-12</td><td>Global Employment</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="courses" style="background: #f9f9f9;">
+    <h2>Specialized Tracks</h2>
+    <div class="grid">
+        <div class="card"><h3>Cyber</h3><p>Security</p></div>
+        <div class="card"><h3>AI</h3><p>Engineering</p></div>
+        <div class="card)<h3>Data</h3><p>Science</p></div>
+        <div class="card"><h3>Cloud</h3><p>DevOps</p></div>
+    </div>
+</section>
+
+<section id="faq">
+    <h2>FAQ</h2>
+    <div class="faq-box">
+        <div class="faq-item"><strong>Is this free?</strong><p>Yes, all programs are fully funded for citizens.</p></div>
+        <div class="faq-item"><strong>Is Fayda ID required?</strong><p>Yes, for security and certification purposes.</p></div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 ልማት Hub | Official Fayda Partner</p>
+    <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">Empowering the next generation of Ethiopian Tech Leaders.</p>
+</footer>
+
+<script>
+    function startVerify() {
+        const val = document.getElementById('id-input').value;
+        if(val.length < 5) { alert("Invalid ID"); return; }
+        document.getElementById('status-box').innerHTML = "<h2 style='color:#FFD700'>Verified!</h2><p>Welcome to the mission.</p>";
+    }
+</script>
+
+</body>
+</html>
