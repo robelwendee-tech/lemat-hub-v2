@@ -1,170 +1,161 @@
-:root {
-    --blue: #003973;
-    --yellow: #FFD700;
-    --bg: #f0f2f5;
-    --white: #ffffff;
-    --shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Enrollment Portal</title>
+    <style>
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8f9fa; --green: #28a745; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #333; }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    font-family: 'Inter', 'Segoe UI', sans-serif; 
-}
+        /* HEADER */
+        .ticker { background: var(--yellow); color: var(--blue); padding: 10px 0; font-weight: bold; position: sticky; top: 0; z-index: 2000; overflow: hidden; white-space: nowrap; }
+        .ticker-content { display: inline-block; padding-left: 100%; animation: scroll 30s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-body { background: var(--bg); color: #333; line-height: 1.6; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 38px; z-index: 1000; }
+        .lang-select { padding: 6px; border-radius: 5px; border: 2px solid var(--blue); cursor: pointer; font-weight: bold; }
 
-/* 1. TICKER REFINEMENT */
-.ticker-wrap {
-    background: var(--yellow);
-    color: var(--blue);
-    padding: 10px 0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 5%; }
 
-/* 2. PRO HEADER */
-header {
-    background: var(--white);
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+        /* TRACKS GRID */
+        .section-h { color: var(--blue); margin: 50px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .t-box { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s; text-align: center; }
+        .t-box:hover { transform: translateY(-8px); }
+        .t-img { width: 100%; height: 180px; background: var(--blue); }
+        .t-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .btn { background: var(--yellow); color: var(--blue); padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:hover { background: var(--blue); color: white; }
 
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--blue);
-    letter-spacing: -1px;
-}
+        /* ENROLLMENT MODAL */
+        #joinModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; position: relative; text-align: center; }
+        .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
+        /* FAQ */
+        .faq-card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 10px; cursor: pointer; border: 1px solid #ddd; }
+        .faq-ans { display: none; padding-top: 10px; color: #666; font-size: 0.95rem; border-top: 1px solid #eee; margin-top: 10px; }
+    </style>
+</head>
+<body>
 
-.nav-links a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 600;
-    transition: 0.3s;
-}
+<div class="ticker"><div class="ticker-content" id="tick-text">MISSION 2026: ENROLLMENT OPEN • VERIFIED BY FAYDA NATIONAL ID •</div></div>
 
-.nav-links a:hover { color: var(--blue); }
+<nav>
+    <h2 style="color:var(--blue)">ልማት Hub</h2>
+    <div class="nav-links">
+        <select class="lang-select" onchange="updLang(this.value)">
+            <option value="en">English</option>
+            <option value="am">አማርኛ</option>
+            <option value="om">Oromoo</option>
+            <option value="tg">ትግርኛ</option>
+        </select>
+    </div>
+</nav>
 
-.lang-box {
-    padding: 8px 12px;
-    border: 2px solid var(--blue);
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    background: transparent;
-}
+<div class="container">
+    <h2 class="section-h" id="t-head">Official Tracks</h2>
+    <div class="grid" id="track-list"></div>
 
-/* 3. MODERN HERO */
-.hero-box {
-    background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
-    border-radius: 24px;
-    padding: 80px 40px;
-    margin-top: 40px;
-    color: white;
-    text-align: center;
-    border-bottom: 8px solid var(--yellow);
-    box-shadow: var(--shadow);
-}
+    <h2 class="section-h" id="f-head">FAQ</h2>
+    <div id="faq-list"></div>
+</div>
 
-.id-input {
-    width: 100%;
-    max-width: 450px;
-    padding: 18px;
-    border-radius: 12px;
-    border: 2px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.9);
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
+<div id="joinModal">
+    <div class="modal-content">
+        <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; cursor:pointer; font-size:24px;">&times;</span>
+        <h2 id="m-title">Join Track</h2>
+        <p id="m-sub" style="margin-bottom:15px; color:var(--blue); font-weight:bold;"></p>
+        <input type="text" id="regName" placeholder="Full Name">
+        <input type="number" id="regID" placeholder="Fayda ID Number">
+        <button class="btn" onclick="submitEnroll()" id="m-btn">Confirm Enrollment</button>
+    </div>
+</div>
 
-/* 4. TRACK CARDS */
-.tracks-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-}
+<script>
+    const images = [
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", // AI
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", // Cyber
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", // Web
+        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500", // Data
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", // Cloud
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", // Mobile
+        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500", // Blockchain
+        "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=500", // UI
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500", // IoT
+        "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?w=500"  // Fintech
+    ];
 
-.track-card {
-    background: var(--white);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: var(--shadow);
-    border: 1px solid #eee;
-}
+    const data = {
+        en: {
+            tH: "Official Tracks", fH: "FAQ", jB: "JOIN TRACK", mT: "Join Mission", mB: "Confirm Enrollment",
+            tracks: ["AI Engineering", "Cyber Security", "Web Dev", "Data Science", "Cloud", "Mobile Dev", "Blockchain", "UI/UX", "IoT", "Fintech"],
+            faqs: [
+                {q: "Is it free?", a: "Yes, it is 100% free for all citizens."},
+                {q: "How long is the training?", a: "Each track lasts for 12 weeks."}
+            ]
+        },
+        am: {
+            tH: "ይፋዊ ትራኮች", fH: "ተደጋጋሚ ጥያቄዎች", jB: "ተቀላቀል", mT: "ተልዕኮውን ይቀላቀሉ", mB: "ምዝገባውን አረጋግጥ",
+            tracks: ["አርቴፊሻል ኢንተለጀንስ", "የሳይበር ደህንነት", "የድር ልማት", "የመረጃ ሳይንስ", "ክላውድ", "ሞባይል ልማት", "ብሎክቼይን", "ዲዛይን", "አይኦቲ", "ፊንቴክ"],
+            faqs: [
+                {q: "ክፍያ አለው?", a: "አይ፣ ለሁሉም ዜጎች 100% ነፃ ነው።"},
+                {q: "ስልጠናው ለስንት ጊዜ ነው?", a: "እያንዳንዱ ትራክ ለ 12 ሳምንታት ይቆያል።"}
+            ]
+        }
+        // Oromo and Tigrinya can be added following the same pattern
+    };
 
-.track-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-}
+    function updLang(l) {
+        const d = data[l] || data['en'];
+        document.getElementById('t-head').innerText = d.tH;
+        document.getElementById('f-head').innerText = d.fH;
+        document.getElementById('m-title').innerText = d.mT;
+        document.getElementById('m-btn').innerText = d.mB;
 
-.track-img {
-    height: 200px;
-    overflow: hidden;
-}
+        const tList = document.getElementById('track-list'); tList.innerHTML = "";
+        d.tracks.forEach((t, i) => {
+            tList.innerHTML += `<div class="t-box">
+                <div class="t-img"><img src="${images[i]}"></div>
+                <div style="padding:15px"><b>${t}</b><button class="btn" onclick="openModal('${t}')">${d.jB}</button></div>
+            </div>`;
+        });
 
-.track-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: 0.5s;
-}
+        const fList = document.getElementById('faq-list'); fList.innerHTML = "";
+        d.faqs.forEach((f, i) => {
+            fList.innerHTML += `<div class="faq-card" onclick="toggleF(${i})">
+                <b>${f.q}</b><div id="ans${i}" class="faq-ans">${f.a}</div>
+            </div>`;
+        });
+    }
 
-.track-card:hover .track-img img { transform: scale(1.1); }
+    function openModal(track) {
+        document.getElementById('joinModal').style.display = 'flex';
+        document.getElementById('m-sub').innerText = track;
+    }
 
-.track-info { padding: 25px; }
+    function closeModal() { document.getElementById('joinModal').style.display = 'none'; }
 
-.track-info h3 { color: var(--blue); margin-bottom: 15px; font-size: 1.4rem; }
+    function toggleF(i) {
+        const a = document.getElementById('ans' + i);
+        a.style.display = a.style.display === 'block' ? 'none' : 'block';
+    }
 
-/* 5. SECTIONS & BUTTONS */
-.section-title {
-    font-size: 2rem;
-    color: var(--blue);
-    margin: 60px 0 30px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+    function submitEnroll() {
+        const name = document.getElementById('regName').value;
+        const id = document.getElementById('regID').value;
+        if(name && id.length >= 10) {
+            alert("Congratulations " + name + "! You are enrolled. Check your email for details.");
+            closeModal();
+        } else {
+            alert("Please enter full name and valid 10-digit Fayda ID.");
+        }
+    }
 
-.section-title::before {
-    content: "";
-    width: 10px;
-    height: 40px;
-    background: var(--yellow);
-    border-radius: 5px;
-}
-
-.btn-primary {
-    background: var(--yellow);
-    color: var(--blue);
-    padding: 15px 40px;
-    border-radius: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    cursor: pointer;
-    border: none;
-    transition: 0.3s;
-}
-
-.btn-primary:hover {
-    background: var(--white);
-    transform: scale(1.05);
-}
+    updLang('en');
+</script>
+</body>
+</html>
