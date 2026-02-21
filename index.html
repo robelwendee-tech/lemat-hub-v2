@@ -1,41 +1,38 @@
-// --- Invisible Data Logic ---
+<script>
+        // --- Invisible Data Logic --- 
+        // THIS WRAPPER TELLS THE BROWSER TO RUN THE CODE, NOT SHOW IT
 
-// 1. Function to save enrollment to browser memory
-function saveEnrollment(id, trackName) {
-    const enrollmentData = {
-        faydaID: id,
-        track: trackName,
-        date: new Date().toLocaleDateString()
-    };
-    // Save as a string in localStorage
-    localStorage.setItem('userEnrollment', JSON.stringify(enrollmentData));
-}
+        function saveEnrollment(id, trackName) {
+            const enrollmentData = {
+                faydaID: id,
+                track: trackName,
+                date: new Date().toLocaleDateString()
+            };
+            localStorage.setItem('userEnrollment', JSON.stringify(enrollmentData));
+        }
 
-// 2. Function to check if user is already enrolled on page load
-function checkEnrollmentStatus() {
-    const savedData = localStorage.getItem('userEnrollment');
-    if (savedData) {
-        const data = JSON.parse(savedData);
-        // Change the UI invisibly to show they are already in
-        document.getElementById('h-sub').innerText = `Welcome back! You are enrolled in: ${data.track}`;
-        document.getElementById('id-box').style.display = 'none'; 
-    }
-}
+        function checkEnrollmentStatus() {
+            const savedData = localStorage.getItem('userEnrollment');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('h-sub').innerText = `Welcome back! You are enrolled in: ${data.track}`;
+                document.getElementById('id-box').style.display = 'none'; 
+            }
+        }
 
-// 3. Improved Join Function
-function handleJoin(trackName) {
-    const idInput = document.getElementById('id-box').value;
-    
-    // Check if ID is 10 digits (Standard Fayda Length)
-    if (idInput.length < 10) {
-        alert("Invalid Fayda ID. Please enter 10 digits.");
-        return;
-    }
+        function handleJoin(trackName) {
+            const idInput = document.getElementById('id-box').value;
+            if (idInput.length < 10) {
+                alert("Invalid Fayda ID. Please enter 10 digits.");
+                return;
+            }
+            saveEnrollment(idInput, trackName);
+            alert(`Success! You have been registered for ${trackName}.`);
+            location.reload(); 
+        }
 
-    saveEnrollment(idInput, trackName);
-    alert(`Success! You have been invisibly registered for ${trackName}.`);
-    location.reload(); // Refresh to show updated status
-}
-
-// Call check on load
-window.onload = checkEnrollmentStatus;
+        // Initialize the check when the page loads
+        window.onload = checkEnrollmentStatus;
+    </script>
+</body>
+</html>
