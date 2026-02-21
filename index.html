@@ -1,7 +1,106 @@
-@media (max-width: 600px) {
-    nav { flex-direction: column; padding: 10px; }
-    nav a { margin: 5px 0; font-size: 0.8rem; }
-    .fayda-card { width: 95%; padding: 20px; }
-    .hero h1 { font-size: 2rem; }
-    .roadmap-table { font-size: 0.8rem; }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Ethiopia 2026</title>
+    <style>
+        /* --- CORE DESIGN --- */
+        * { scroll-behavior: smooth; box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; text-align: center; }
+        
+        .ticker-wrap { background: #FFD700; color: #003973; padding: 12px 0; overflow: hidden; font-weight: bold; }
+        .ticker { display: inline-block; white-space: nowrap; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        nav { background: #fff; padding: 15px 5%; display: flex; justify-content: flex-end; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid #f0f0f0; }
+        .logo { margin-right: auto; font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
+        nav a { text-decoration: none; color: #333; margin-left: 15px; font-weight: 500; font-size: 0.85rem; }
+        .lang-btn { margin-left: 15px; color: #003973; font-weight: bold; border: 1px solid #003973; padding: 5px 12px; border-radius: 4px; cursor: pointer; background: white; }
+        .btn-verify { background: #2E7D32; color: white !important; padding: 8px 18px; border-radius: 5px; margin-left: 15px; font-weight: bold; }
+
+        section { padding: 60px 5%; }
+        .fayda-area { background: #003973; color: white; padding: 80px 5%; }
+        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; transition: 0.3s; }
+        .fayda-input { width: 100%; padding: 15px; margin: 20px 0; border-radius: 8px; border: none; font-size: 1.1rem; text-align: center; color: #333; }
+        .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
+
+        /* STEP 1: MOBILE OPTIMIZATION */
+        @media (max-width: 600px) {
+            nav { flex-direction: column; padding: 10px; }
+            nav a { margin: 5px 0; font-size: 0.8rem; }
+            .fayda-card { width: 95%; padding: 20px; }
+            .hero h1 { font-size: 2rem; }
+        }
+
+        .roadmap-table { width: 95%; max-width: 850px; margin: 20px auto; border-collapse: collapse; background: white; }
+        .roadmap-table th { background: #003973; color: white; padding: 18px; }
+        .roadmap-table td { border: 1px solid #ddd; padding: 15px; }
+        
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px; }
+        .card { border: 1px solid #ddd; padding: 30px; width: 220px; border-top: 6px solid #003973; background: #fff; border-radius: 4px; }
+        footer { background: #111; color: white; padding: 40px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+    <div class="ticker">LATEST: Enrollment for AI Engineering now open! • 1 Million citizens verified via Fayda ID • Digital Ethiopia 2026 Strategy • Join the mission!</div>
+</div>
+
+<nav>
+    <a href="#" class="logo">ልማት Hub</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#courses">Courses</a>
+    <button class="lang-btn" onclick="toggleLang()">EN | አማርኛ</button>
+    <a href="#signup" class="btn-verify">Verify ID</a>
+</nav>
+
+<section id="home">
+    <h1 id="h-title" style="font-size: 2.8rem; color: #003973;">ልማት Hub</h1>
+    <p id="h-sub">Ethiopia's 2026 Digital Mission. Powered by National ID.</p>
+</section>
+
+<section id="signup" class="fayda-area">
+    <div class="fayda-card" id="status-box">
+        <h2 id="f-title">Fayda One-Click Sync</h2>
+        <p id="f-sub">Verification gateway for elite tracks.</p>
+        <input type="number" placeholder="Enter Fayda ID" id="id-input" class="fayda-input">
+        <button class="fayda-btn" id="f-btn" onclick="startVerify()">VERIFY & JOIN</button>
+    </div>
+</section>
+
+<section id="schedule">
+    <h2 id="r-title">12-Week Roadmap</h2>
+    <table class="roadmap-table">
+        <thead>
+            <tr><th id="th-w">Weeks</th><th id="th-g">Goal</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1-4</td><td>Python Foundations</td></tr>
+            <tr><td>5-8</td><td>AI Engineering</td></tr>
+            <tr><td>9-12</td><td>Global Jobs</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="courses">
+    <h2>Specialized Tracks</h2>
+    <div class="grid">
+        <div class="card"><h3>Cyber</h3><p>Security</p></div>
+        <div class="card"><h3>Data</h3><p>Analytics</p></div>
+        <div class="card"><h3>Cloud</h3><p>Arch</p></div>
+        <div class="card"><h3>Web3</h3><p>Blockchain</p></div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
+</footer>
+
+<script>
+    // LANGUAGE TOGGLE
+    let isAmh = false;
+    function toggleLang() {
+        isAmh = !isAmh;
+        document.getElementById('h-sub').innerText = isAmh ? "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ። በብሔራዊ መታወቂያ የተደገፈ።" : "Ethiopia's
