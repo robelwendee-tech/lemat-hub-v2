@@ -3,101 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Ethiopia 2026 Elite</title>
+    <title>ልማት Hub | Ethiopia 2026</title>
     <style>
-        * { scroll-behavior: smooth; box-sizing: border-box; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #fff; color: #333; }
+        /* This ensures nothing is hidden */
+        * { margin: 0; padding: 0; box-sizing: border-box; display: block; }
+        html, body { width: 100%; height: 100%; background-color: #ffffff; color: #333; font-family: sans-serif; }
         
-        /* Nav */
-        nav { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo { font-weight: bold; font-size: 1.8rem; color: #003973; text-decoration: none; }
-        .btn-join { background: #2E7D32; color: white !important; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; }
+        nav { background: #fff; padding: 20px; display: flex; justify-content: space-between; border-bottom: 2px solid #003973; position: sticky; top: 0; }
+        .logo { font-weight: bold; color: #003973; text-decoration: none; font-size: 1.5rem; }
+        
+        section { padding: 60px 20px; text-align: center; border-bottom: 1px solid #eee; }
+        .hero { background: #f4f4f4; }
+        
+        .fayda-card { max-width: 500px; margin: 20px auto; background: #003973; color: white; padding: 30px; border-radius: 10px; border: 2px solid #FFD700; }
+        .fayda-input { width: 100%; padding: 10px; margin: 15px 0; border-radius: 5px; border: none; }
+        .fayda-btn { width: 100%; padding: 15px; background: #FFD700; color: #003973; border: none; font-weight: bold; cursor: pointer; }
 
-        /* Sections */
-        section { padding: 80px 5%; border-bottom: 1px solid #eee; text-align: center; }
-        .hero { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-        .hero h1 { font-size: 3.5rem; color: #003973; margin-bottom: 10px; }
-
-        /* Fayda Card */
-        .fayda-section { background: #003973; color: white; }
-        .fayda-card { max-width: 600px; margin: 0 auto; border: 2px solid #FFD700; padding: 40px; border-radius: 15px; }
-        #fayda-input-group { display: block; }
-        #success-message { display: none; color: #FFD700; }
-        .fayda-input { padding: 15px; width: 100%; border-radius: 8px; margin-bottom: 20px; border: none; font-size: 1.2rem; text-align: center; }
-        .fayda-btn { width: 100%; padding: 18px; background: #FFD700; color: #003973; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.2rem; }
-
-        /* Table */
-        .table-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow-x: auto; margin-top: 30px; }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
-        th { background: #003973; color: white; padding: 15px; }
-        td { padding: 15px; border-bottom: 1px solid #eee; }
-        .view-btn { background: #003973; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; border: none; }
-
-        footer { background: #111; color: white; padding: 40px; }
+        table { width: 100%; max-width: 800px; margin: 20px auto; border-collapse: collapse; }
+        th, td { padding: 15px; border: 1px solid #ddd; text-align: left; }
+        th { background: #003973; color: white; }
     </style>
 </head>
 <body>
 
 <nav>
     <a href="#" class="logo">ልማት Hub</a>
-    <div>
-        <a href="#schedule" style="margin-right:20px; text-decoration:none; color:#333;">Roadmap</a>
-        <a href="#signup" class="btn-join">Join Academy</a>
-    </div>
+    <a href="#signup" style="background:#2E7D32; color:white; padding:10px; border-radius:5px; text-decoration:none;">Join Academy</a>
 </nav>
 
-<section class="hero" id="home">
+<section class="hero">
     <h1>ልማት Hub</h1>
-    <p>Ethiopia's 2026 Elite Digital Mission.</p>
+    <p>Ethiopia's 2026 Elite Digital Academy.</p>
 </section>
 
-<section class="fayda-section" id="signup">
+<section id="signup">
     <div class="fayda-card">
-        <div id="fayda-input-group">
-            <h2>Fayda One-Click Sync</h2>
-            <p>Enter your National ID to verify your eligibility.</p>
-            <input type="text" id="id-input" placeholder="ID Number (e.g., ET-001...)" class="fayda-input">
-            <button class="fayda-btn" onclick="verifyID()">VERIFY & JOIN PROGRAM</button>
-        </div>
-        <div id="success-message">
-            <h2>✓ Identity Verified!</h2>
-            <p>Welcome to the 2026 Cohort. Check your email for orientation details.</p>
-            <button class="fayda-btn" style="background: white; color: #003973;" onclick="window.location.reload()">Reset</button>
-        </div>
+        <h2>Fayda Registration</h2>
+        <p>Verified via National ID.</p>
+        <input type="text" placeholder="Enter Fayda ID" class="fayda-input">
+        <button class="fayda-btn" onclick="alert('Success!')">VERIFY & JOIN</button>
     </div>
 </section>
 
 <section id="schedule">
-    <h2 style="color:#003973;">Elite Academy Roadmap</h2>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr><th>Weeks</th><th>Module</th><th>Outcome</th><th>Action</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>1 - 4</td><td><b>Python mastery</b></td><td>Automation Scripts.</td><td><button class="view-btn" onclick="alert('Module 1: Logic, Data Structures, and API integration.')">Details</button></td></tr>
-                <tr><td>5 - 8</td><td><b>AI Engineering</b></td><td>LLM Engineering.</td><td><button class="view-btn" onclick="alert('Module 2: Fine-tuning models and Prompt Engineering.')">Details</button></td></tr>
-                <tr><td>9 - 12</td><td><b>Global Placement</b></td><td>2026 Remote Career.</td><td><button class="view-btn" onclick="alert('Module 3: Portfolio building and interview prep.')">Details</button></td></tr>
-            </tbody>
-        </table>
-    </div>
+    <h2>Program Roadmap</h2>
+    <table>
+        <thead>
+            <tr><th>Weeks</th><th>Module</th><th>Outcome</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1 - 4</td><td>Python Mastery</td><td>Logic & Scripts.</td></tr>
+            <tr><td>5 - 8</td><td>AI Engineering</td><td>LLM Mastery.</td></tr>
+            <tr><td>9 - 12</td><td>Placement</td><td>2026 Careers.</td></tr>
+        </tbody>
+    </table>
 </section>
 
-<footer>
-    <p>&copy; 2026 ልማት Hub | Official Fayda Partner</p>
-</footer>
-
-<script>
-    function verifyID() {
-        const input = document.getElementById('id-input').value;
-        if(input.length > 5) {
-            document.getElementById('fayda-input-group').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-        } else {
-            alert('Please enter a valid Fayda ID');
-        }
-    }
-</script>
-
-</body>
-</html>
+<footer style="padding: 40px; text-align: center; background: #
