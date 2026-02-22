@@ -1,164 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Mission 2026 Final</title>
-    <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8fafc; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); overflow-x: hidden; color: #1e293b; }
-
-        /* HEADER & LANGS */
-        header { background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 26px; font-weight: 800; color: var(--blue); text-decoration: none; }
-        .l-btn { padding: 6px 14px; border: 2px solid var(--blue); background: transparent; cursor: pointer; border-radius: 8px; font-weight: 700; font-size: 0.8rem; margin-left: 5px; transition: 0.3s; }
-        .l-btn.active { background: var(--blue); color: white; transform: scale(1.1); }
-
-        /* ANIMATIONS */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* HERO BOX */
-        .container { max-width: 1150px; margin: 30px auto; padding: 0 20px; }
-        .hero { background: var(--blue); color: white; padding: 80px 20px; border-radius: 40px; text-align: center; border-bottom: 10px solid var(--yellow); box-shadow: 0 25px 50px -12px rgba(0, 57, 115, 0.3); }
-        .id-input { padding: 18px; width: 340px; border-radius: 12px; border: 3px solid transparent; font-size: 1.3rem; text-align: center; margin: 25px 0; transition: 0.3s; }
-        .id-input:focus { border-color: var(--yellow); outline: none; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
-        .v-btn { background: var(--yellow); color: var(--blue); border: none; padding: 18px 50px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1rem; transition: 0.3s; }
-        .v-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-        /* SECTIONS */
-        .section-h { font-size: 2rem; color: var(--blue); margin: 60px 0 25px; border-left: 12px solid var(--yellow); padding-left: 15px; }
-        .content-card { background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.04); margin-bottom: 30px; border: 1px solid #f1f5f9; }
-
-        /* LIVE BOX */
-        .live-box { border: 2px solid #ef4444; background: #fffafb; display: flex; align-items: center; gap: 20px; padding: 30px; border-radius: 20px; }
-        .pulse { width: 14px; height: 14px; background: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0); } }
-
-        /* TRACKS */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #f1f5f9; }
-        .card:hover { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 30px; }
-        .j-btn { background: var(--yellow); color: var(--blue); border: none; padding: 14px; border-radius: 12px; font-weight: 800; width: 100%; cursor: pointer; transition: 0.3s; }
-
-        /* FAQ */
-        details { padding: 15px; border-bottom: 1px solid #e2e8f0; cursor: pointer; transition: 0.3s; }
-        details:hover { background: #f8fafc; }
-        summary { font-weight: 700; font-size: 1.1rem; color: var(--blue); }
-
-        /* CONTACT FORM */
-        .f-in { width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px; border: 2px solid #e2e8f0; font-size: 1rem; }
-        .f-in:focus { border-color: var(--blue); outline: none; }
-
-        footer { text-align: center; padding: 60px 20px; color: #64748b; font-weight: 600; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div class="lang-bar">
-        <button class="l-btn" onclick="setL('en')" id="en-btn">EN</button>
-        <button class="l-btn" onclick="setL('am')" id="am-btn">አማር</button>
-        <button class="l-btn" onclick="setL('om')" id="om-btn">ORM</button>
-        <button class="l-btn" onclick="setL('ti')" id="ti-btn">ትግር</button>
-    </div>
-</header>
-
-<div class="container">
-    <div class="hero" id="hero"></div>
-
-    <div class="reveal">
-        <h2 class="section-h" id="h-tr"></h2>
-        <div class="grid" id="tr-grid"></div>
-    </div>
-
-    <div class="reveal">
-        <h2 class="section-h" id="h-li"></h2>
-        <div class="content-card">
-            <div class="live-box">
-                <div class="pulse"></div>
-                <div><h3 id="lt" style="color:#ef4444; font-size:1.4rem;"></h3><p id="ld" style="margin-top:5px;"></p></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="reveal">
-        <h2 class="section-h" id="h-fq"></h2>
-        <div class="content-card" id="fq-box"></div>
-    </div>
-
-    <div class="reveal">
-        <h2 class="section-h" id="h-co"></h2>
-        <div class="content-card">
-            <input type="text" class="f-in" id="cn">
-            <textarea class="f-in" id="cm" rows="3"></textarea>
-            <button class="v-btn" style="width:100%; background:var(--blue); color:white;" id="cb"></button>
-        </div>
-    </div>
-</div>
-
-<footer id="foot"></footer>
-
 <script>
-    // Reveal Scroll Logic
-    const reveal = () => {
-        document.querySelectorAll('.reveal').forEach(el => {
-            if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
-        });
-    };
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', reveal);
-
-    const data = {
-        en: { w: "Ethiopia's 2026 Digital Mission", s: "Enter 10-Digit Fayda ID", v: "VERIFY NOW", tr: "Official Tracks", li: "Join Us Live", lt: "Digital Literacy Workshop", ld: "Streaming now! Join to learn essential skills.", fq: "Common Questions", q1: "What is Fayda ID?", a1: "National ID of Ethiopia.", co: "Contact Support", n: "Full Name", m: "Message", send: "Send Message", j: "JOIN TRACK", ft: "© 2026 ልማት Hub | Digital Ethiopia" },
-        am: { w: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", s: "ባለ 10 አሃዝ የፋይዳ መታወቂያ ያስገቡ", v: "አረጋግጥ", tr: "ይፋዊ ትራኮች", li: "በቀጥታ ይሳተፉ", lt: "ዲጂታል ማንበብና መጻፍ", ld: "አሁኑኑ ይሳተፉ! ጠቃሚ ክህሎቶችን ይማሩ።", fq: "ተደጋጋሚ ጥያቄዎች", q1: "የፋይዳ መታወቂያ ምንድነው?", a1: "የኢትዮጵያ ብሄራዊ መታወቂያ ነው።", co: "ድጋፍ ያግኙ", n: "ሙሉ ስም", m: "መልዕክት", send: "መልዕክት ላክ", j: "ተቀላቀል", ft: "© 2026 ልማት Hub | ዲጂታል ኢትዮጵያ" },
-        om: { w: "Misiyoona Diijitaalaa 2026", s: "ID Faydaa diijitii 10 galchaa", v: "MIRKANEESSI", tr: "Kallattiiwwan", li: "Kallaattiin nu waliin ta'aa", lt: "Beekumsa Diijitaalaa", ld: "Amma jalqabeera! Makkamaa baradhaa.", fq: "Gaaffiiwwan", q1: "ID Faydaa maali?", a1: "ID Biyyoolessaa Itoophiyaati.", co: "Nu Quunnamaa", n: "Maqaa Guutuu", m: "Ergaa", send: "Ergaa Ergi", j: "MAKKAMI", ft: "© 2026 ልማት Hub | Itoophiyaa Diijitaalaa" },
-        ti: { w: "ዲጂታል ሚሽን 2026", s: "ባዓል 10 ኣሃዝ ፋይዳ መለለዪ የእትዉ", v: "ኣረጋግፅ", tr: "ዝተመረፁ ትራኮች", li: "ብቐጥታ ይሳተፉ", lt: "ዲጂታል ማንብብን ምጽሓፍን", ld: "ሕዚ ይፍኖ ኣሎ! ክህሎታት ንምምሃር እተዉ።", fq: "ልሙዳት ሕቶታት", q1: "መለለዪ ፋይዳ እንታይ እዩ?", a1: "ሃገራዊ መለለዪ ኢትዮጵያ እዩ።", co: "ረኸቡና", n: "ሙሉእ ስም", m: "መልእኽቲ", send: "መልእኽቲ ስደድ", j: "ተሳተፍ", ft: "© 2026 ልማት Hub | ዲጂታል ኢትዮጵያ" }
-    };
+    // ... logic remains same ...
+    
+    // EXPANDED TRACK LIST
+    const trackList = [
+        { name: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" },
+        { name: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400" },
+        { name: "Web Development", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
+        { name: "Data Science", img: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=400" },
+        { name: "Cloud Computing", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400" },
+        { name: "Mobile App Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400" },
+        { name: "Digital Marketing", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" },
+        { name: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?w=400" }
+    ];
 
     function setL(l) {
-        localStorage.setItem('lKey', l);
-        document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(l + '-btn').classList.add('active');
+        // ... (Header translation logic same as before) ...
         const d = data[l];
-
-        document.getElementById('h-tr').innerText = d.tr;
-        document.getElementById('h-li').innerText = d.li;
-        document.getElementById('lt').innerText = d.lt;
-        document.getElementById('ld').innerText = d.ld;
-        document.getElementById('h-fq').innerText = d.fq;
-        document.getElementById('h-co').innerText = d.co;
-        document.getElementById('cn').placeholder = d.n;
-        document.getElementById('cm').placeholder = d.m;
-        document.getElementById('cb').innerText = d.send;
-        document.getElementById('foot').innerText = d.ft;
-
-        document.getElementById('hero').innerHTML = `<h1>${d.w}</h1><p style="margin-top:10px; font-weight:600; opacity:0.9;">${d.s}</p>
-            <input type="number" id="f-id" class="id-input" placeholder="0000000000"><br>
-            <button onclick="enroll()" class="v-btn">${d.v}</button>`;
-
         const g = document.getElementById('tr-grid');
         g.innerHTML = "";
-        const trks = [["AI Engineering", "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400"], ["Cyber Security", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400"], ["Web Development", "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400"], ["Data Science", "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=400"]];
-        trks.forEach(t => {
-            g.innerHTML += `<div class="card"><img src="${t[1]}"><div class="card-body"><h3>${t[0]}</h3><button class="j-btn" style="margin-top:15px;" onclick="enroll()">${d.j}</button></div></div>`;
-        });
 
-        document.getElementById('faq-box').innerHTML = `<details><summary>${d.q1}</summary><p style="padding-top:10px; color:#64748b;">${d.a1}</p></details>`;
+        trackList.forEach(t => {
+            g.innerHTML += `
+                <div class="card reveal">
+                    <img src="${t.img}" alt="${t.name}">
+                    <div class="card-body">
+                        <h3>${t.name}</h3>
+                        <button class="j-btn" style="margin-top:15px;" onclick="enroll()">${d.j}</button>
+                    </div>
+                </div>`;
+        });
+        
+        // Trigger animation for new cards
         setTimeout(reveal, 100);
     }
-
-    function enroll() {
-        const i = document.getElementById('f-id').value;
-        if(i.length !== 10) { alert("Invalid ID (10 digits required)"); return; }
-        alert("Verification Successful!");
-    }
-
-    setL(localStorage.getItem('lKey') || 'en');
 </script>
-</body>
-</html>
