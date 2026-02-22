@@ -3,44 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Digital Ethiopia</title>
+    <title>ልማት Hub | Motion Edition</title>
     <style>
-        :root { --blue: #003973; --yellow: #FFD700; --bg: #f4f7f9; --white: #ffffff; }
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f4f7f9; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-        body { background: var(--bg); color: #333; }
+        
+        body { background: var(--bg); overflow-x: hidden; }
 
-        /* HEADER */
-        header { background: white; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--blue); text-decoration: none; }
-        .lang-bar { display: flex; gap: 5px; }
-        .l-btn { padding: 5px 10px; border: 1.5px solid var(--blue); background: white; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 0.75rem; }
-        .l-btn.active { background: var(--blue); color: white; }
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* BLUE HERO DESIGN */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HEADER --- */
+        header { 
+            background: white; padding: 15px 8%; display: flex; justify-content: space-between; 
+            align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            position: sticky; top: 0; z-index: 1000;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        /* --- HERO SECTION --- */
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        .hero { background: var(--blue); color: white; padding: 60px 20px; border-radius: 35px; text-align: center; border-bottom: 8px solid var(--yellow); box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
-        .id-input { padding: 15px; width: 300px; border-radius: 12px; border: none; font-size: 1.2rem; text-align: center; margin: 20px 0; }
-        .v-btn { background: var(--yellow); color: var(--blue); border: none; padding: 15px 35px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        
+        .hero { 
+            background: var(--blue); color: white; padding: 80px 20px; border-radius: 35px; 
+            text-align: center; border-bottom: 8px solid var(--yellow); 
+            box-shadow: 0 20px 40px rgba(0,57,115,0.2);
+            animation: fadeInUp 0.8s ease-out;
+            transition: transform 0.3s ease;
+        }
+        .hero:hover { transform: translateY(-5px); }
 
-        /* CONTENT SECTIONS */
-        .section-h { font-size: 1.8rem; color: var(--blue); margin: 50px 0 20px; border-left: 10px solid var(--yellow); padding-left: 15px; }
-        .content-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .id-input { 
+            padding: 18px; width: 320px; border-radius: 12px; border: 2px solid transparent; 
+            font-size: 1.2rem; text-align: center; margin: 20px 0; outline: none;
+            transition: 0.3s;
+        }
+        .id-input:focus { border-color: var(--yellow); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
 
-        /* LIVE SECTION */
-        .live-box { border: 2px solid #ff4d4d; display: flex; align-items: center; gap: 15px; padding: 20px; border-radius: 15px; background: #fffafa; }
-        .pulse { width: 12px; height: 12px; background: #ff4d4d; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(255,77,77, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255,77,77, 0); } 100% { box-shadow: 0 0 0 0px rgba(255,77,77, 0); } }
+        /* --- TRACK CARDS WITH MOVEMENT --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        
+        .card { 
+            background: white; border-radius: 25px; overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover { transform: scale(1.05) translateY(-10px); box-shadow: 0 20px 30px rgba(0,0,0,0.1); }
+        
+        .card img { width: 100%; height: 180px; object-fit: cover; transition: 0.5s; }
+        .card:hover img { transform: scale(1.1); }
 
-        /* GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .join-btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
+        .join-btn { 
+            background: var(--yellow); color: var(--blue); border: none; 
+            padding: 15px; border-radius: 12px; font-weight: 800; width: 100%; 
+            cursor: pointer; transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .join-btn:active { transform: scale(0.95); }
 
-        /* FORM */
-        .form-input { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ddd; }
-        footer { text-align: center; padding: 40px; color: #888; border-top: 1px solid #eee; margin-top: 50px; }
+        /* --- LIVE PULSE --- */
+        .live-box { 
+            border: 2px solid #ff4d4d; display: flex; align-items: center; 
+            gap: 15px; padding: 25px; border-radius: 20px; background: #fffafa;
+            transition: 0.3s;
+        }
+        .live-box:hover { border-color: var(--blue); background: #f0f7ff; }
+
+        /* --- LANG SWITCHER --- */
+        .l-btn { 
+            padding: 8px 15px; border: 1.5px solid var(--blue); background: white; 
+            cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s;
+        }
+        .l-btn:hover { background: #e6f0ff; }
+        .l-btn.active { background: var(--blue); color: white; transform: scale(1.1); }
+
     </style>
 </head>
 <body>
@@ -58,126 +104,80 @@
 <div class="container">
     <div class="hero" id="hero-area"></div>
 
-    <h2 class="section-h" id="h-tracks"></h2>
-    <div class="grid" id="track-grid"></div>
+    <div class="reveal">
+        <h2 style="font-size: 2rem; color: var(--blue); margin: 50px 0 20px; border-left: 10px solid var(--yellow); padding-left: 15px;" id="h-tracks"></h2>
+        <div class="grid" id="track-grid"></div>
+    </div>
 
-    <h2 class="section-h" id="h-live"></h2>
-    <div class="content-card">
+    <div class="reveal" style="margin-top: 50px;">
+        <h2 style="font-size: 1.8rem; color: var(--blue); margin-bottom: 20px; border-left: 10px solid #ff4d4d; padding-left: 15px;" id="h-live"></h2>
         <div class="live-box">
-            <div class="pulse"></div>
+            <div style="width: 15px; height: 15px; background: #ff4d4d; border-radius: 50%; animation: pulse 2s infinite;"></div>
             <div>
                 <h3 id="live-title" style="color:#ff4d4d"></h3>
-                <p id="live-desc"></p>
-                <button class="v-btn" style="background:#ff4d4d; color:white; margin-top:10px; padding:10px 20px;" id="live-btn"></button>
+                <p id="live-desc" style="margin: 5px 0;"></p>
+                <button class="join-btn" style="background:#ff4d4d; color:white; width: auto; padding: 10px 25px;" id="live-btn"></button>
             </div>
         </div>
     </div>
-
-    <h2 class="section-h" id="h-faq"></h2>
-    <div class="content-card" id="faq-list"></div>
-
-    <h2 class="section-h" id="h-contact"></h2>
-    <div class="content-card">
-        <input type="text" class="form-input" id="f-name">
-        <input type="email" class="form-input" id="f-email">
-        <textarea class="form-input" id="f-msg" rows="4"></textarea>
-        <button class="v-btn" style="background:var(--blue); color:white; width:200px;" id="f-btn"></button>
-    </div>
 </div>
 
-<footer id="footer-text"></footer>
+<footer id="footer-text" style="text-align: center; padding: 60px; color: #999;"></footer>
 
 <script>
-    const dictionary = {
-        en: { 
-            welcome: "Ethiopia's 2026 Digital Mission", sub: "Enter 10-Digit Fayda ID", verify: "VERIFY", 
-            tracks: "Official Tracks", join: "JOIN MISSION", success: "Verified Member", reset: "Change ID",
-            liveH: "Join Us Live", liveT: "Next Webinar: Digital Literacy", liveD: "Starts today at 4:00 PM. Don't miss out!", liveB: "Join Meeting",
-            faqH: "Common Questions", q1: "What is Fayda ID?", a1: "It is the National Digital ID of Ethiopia.", q2: "Is it free?", a2: "Yes, all training is 100% free.",
-            contactH: "Contact Support", name: "Full Name", email: "Email Address", msg: "Message", send: "Send Message",
-            foot: "© 2026 ልማት Hub | Building Digital Ethiopia"
-        },
-        am: { 
-            welcome: "የኢትዮጵያ 2026 ዲጂታል ተልዕኮ", sub: "ባለ 10 አሃዝ የፋይዳ መታወቂያ ያስገቡ", verify: "አረጋግጥ", 
-            tracks: "ይፋዊ ትራኮች", join: "ተቀላቀል", success: "የተረጋገጠ አባል", reset: "መታወቂያ ቀይር",
-            liveH: "በቀጥታ ይሳተፉ", liveT: "ቀጣይ ዌቢናር፡ ዲጂታል ማንበብና መጻፍ", liveD: "ዛሬ ከቀኑ 10፡00 ሰዓት ይጀምራል። እንዳያመልጥዎ!", liveB: "ስብሰባውን ይቀላቀሉ",
-            faqH: "ተደጋጋሚ ጥያቄዎች", q1: "የፋይዳ መታወቂያ ምንድነው?", a1: "የኢትዮጵያ ብሄራዊ ዲጂታል መታወቂያ ነው።", q2: "ነፃ ነው?", a2: "አዎ፣ ሁሉም ስልጠናዎች 100% ነፃ ናቸው።",
-            contactH: "ድጋፍ ያግኙ", name: "ሙሉ ስም", email: "ኢሜል አድራሻ", msg: "መልዕክት", send: "መልዕክት ላክ",
-            foot: "© 2026 ልማት Hub | ዲጂታል ኢትዮጵያን መገንባት"
-        },
-        om: { 
-            welcome: "Misiyoona Diijitaalaa 2026", sub: "ID Faydaa diijitii 10 galchaa", verify: "MIRKANEESSI", 
-            tracks: "Kallattiiwwan", join: "MAKKAMI", success: "Mirkaneeffameera", reset: "ID Jijjiiri",
-            liveH: "Kallaattiin nu waliin ta'aa", liveT: "Webinar Itti Aanu: Beekumsa Diijitaalaa", liveD: "Har'a sa'aatii 10:00 irratti jalqaba. Hin dagatinaa!", liveB: "Walga'ii makkami",
-            faqH: "Gaaffiiwwan Baramaa", q1: "ID Faydaa maali?", a1: "ID Diijitaalaa Biyyoolessaa Itoophiyaati.", q2: "Inni bilisaa?", a2: "Eeyyee, leenjiin hundi 100% bilisa.",
-            contactH: "Nu quunnamaa", name: "Maqaa Guutuu", email: "Teessoo Imooyilii", msg: "Ergaa", send: "Ergaa Ergi",
-            foot: "© 2026 ልማት Hub | Itoophiyaa Diijitaalaa Ijaaruu"
-        },
-        ti: { 
-            welcome: "ዲጂታል ሚሽን 2026", sub: "ባዓል 10 ኣሃዝ ፋይዳ መለለዪ የእትዉ", verify: "ኣረጋግፅ", 
-            tracks: "ዝተመረፁ ትራኮች", join: "ተሳተፍ", success: "ዝተረጋገፀ ኣባል", reset: "መለለዪ ቀይር",
-            liveH: "ብቐጥታ ይሳተፉ", liveT: "ቀፃሊ ዌቢናር፡ ዲጂታል ማንብብን ምጽሓፍን", liveD: "ሎሚ ሰዓት 10፡00 ይጅምር። ከይመልኩም!", liveB: "ናብቲ ኣኼባ እተዉ",
-            faqH: "ልሙዳት ሕቶታት", q1: "መለለዪ ፋይዳ እንታይ እዩ?", a1: "ናይ ኢትዮጵያ ሃገራዊ ዲጂታል መለለዪ እዩ።", q2: "ነፃ ድዩ?", a2: "እወ፣ ኩሉ ስልጠና 100% ነፃ እዩ።",
-            contactH: "ሓገዝ ንምርካብ", name: "ሙሉእ ስም", email: "ኢሜል ኣድራሻ", msg: "መልእኽቲ", send: "መልእኽቲ ስደድ",
-            foot: "© 2026 ልማት Hub | ዲጂታል ኢትዮጵያ ምህናፅ"
-        }
-    };
+    // --- SCROLL REVEAL ENGINE ---
+    window.addEventListener('scroll', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(window_reveal => {
+            const windowHeight = window.innerHeight;
+            const revealTop = window_reveal.getBoundingClientRect().top;
+            const revealPoint = 150;
+            if (revealTop < windowHeight - revealPoint) {
+                window_reveal.classList.add('active');
+            }
+        });
+    });
 
-    const trackList = ["AI Engineering", "Cyber Security", "Web Dev", "Data Science"];
-    const trackImages = ["https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=500"];
+    const dictionary = {
+        en: { welcome: "Digital Mission 2026", sub: "Enter 10-Digit Fayda ID", verify: "VERIFY NOW", tracks: "Official Tracks", join: "JOIN TRACK", liveH: "Join Us Live", liveT: "Digital Literacy Webinar", liveD: "Live starting at 4:00 PM (EAT)", liveB: "Join Now", foot: "© 2026 ልማት Hub" },
+        am: { welcome: "ዲጂታል ተልዕኮ 2026", sub: "ባለ 10 አሃዝ የፋይዳ መታወቂያዎን ያስገቡ", verify: "አረጋግጥ", tracks: "ይፋዊ ትራኮች", join: "ተቀላቀል", liveH: "በቀጥታ ይሳተፉ", liveT: "ዲጂታል ማንበብና መጻፍ", liveD: "ዛሬ ከቀኑ 10፡00 ሰዓት ይጀምራል", liveB: "አሁን ይቀላቀሉ", foot: "© 2026 ልማት Hub" },
+        om: { welcome: "Misiyoona Diijitaalaa 2026", sub: "ID Faydaa diijitii 10 galchaa", verify: "MIRKANEESSI", tracks: "Kallattiiwwan", join: "MAKKAMI", liveH: "Kallaattiin nu waliin ta'aa", liveT: "Beekumsa Diijitaalaa", liveD: "Har'a sa'aatii 10:00 irratti jalqaba", liveB: "Makkami", foot: "© 2026 ልማት Hub" },
+        ti: { welcome: "ዲጂታል ሚሽን 2026", sub: "ባዓል 10 ኣሃዝ ፋይዳ መለለዪ የእትዉ", verify: "ኣረጋግፅ", tracks: "ዝተመረፁ ትራኮች", join: "ተሳተፍ", liveH: "ብቐጥታ ይሳተፉ", liveT: "ዲጂታል ማንብብን ምጽሓፍን", liveD: "ሎሚ ሰዓት 10፡00 ይጅምር", liveB: "ሕዚ እተዉ", foot: "© 2026 ልማት Hub" }
+    };
 
     function updateLang(lang) {
         localStorage.setItem('hubLang', lang);
         document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(lang + '-btn').classList.add('active');
         const d = dictionary[lang];
-        
+
         document.getElementById('h-tracks').innerText = d.tracks;
         document.getElementById('h-live').innerText = d.liveH;
-        document.getElementById('h-faq').innerText = d.faqH;
-        document.getElementById('h-contact').innerText = d.contactH;
         document.getElementById('live-title').innerText = d.liveT;
         document.getElementById('live-desc').innerText = d.liveD;
         document.getElementById('live-btn').innerText = d.liveB;
-        document.getElementById('f-name').placeholder = d.name;
-        document.getElementById('f-email').placeholder = d.email;
-        document.getElementById('f-msg').placeholder = d.msg;
-        document.getElementById('f-btn').innerText = d.send;
         document.getElementById('footer-text').innerText = d.foot;
 
-        document.getElementById('faq-list').innerHTML = `
-            <details style="margin-bottom:10px;"><summary style="font-weight:bold; cursor:pointer">${d.q1}</summary><p style="margin-top:5px; color:#666">${d.a1}</p></details>
-            <details><summary style="font-weight:bold; cursor:pointer">${d.q2}</summary><p style="margin-top:5px; color:#666">${d.a2}</p></details>
-        `;
-
-        const saved = localStorage.getItem('userEnroll');
         const hero = document.getElementById('hero-area');
-        if (!saved) {
-            hero.innerHTML = `<h1>${d.welcome}</h1><p style="margin-top:10px;">${d.sub}</p>
-                <input type="number" id="f-id" class="id-input" placeholder="0000000000"><br>
-                <button onclick="alert('Ready!')" class="v-btn">${d.verify}</button>`;
-        } else {
-            const info = JSON.parse(saved);
-            hero.innerHTML = `<h1 style="color:var(--yellow)">${d.success}</h1><p>${info.track} | ID: ${info.id}</p>
-                <button class="v-btn" style="margin-top:15px; background:rgba(255,255,255,0.2); border:1px solid white;" onclick="localStorage.removeItem('userEnroll'); updateLang('${lang}');">${d.reset}</button>`;
-        }
+        hero.innerHTML = `<h1>${d.welcome}</h1><p style="margin:15px 0;">${d.sub}</p>
+            <input type="number" id="f-id" class="id-input" placeholder="0000000000"><br>
+            <button onclick="enroll()" class="join-btn" style="width:200px; background:var(--yellow)">${d.verify}</button>`;
 
         const grid = document.getElementById('track-grid');
         grid.innerHTML = "";
-        trackList.forEach((t, i) => {
-            grid.innerHTML += `<div class="card"><img src="${trackImages[i]}"><div class="card-body"><h3>${t}</h3><button class="join-btn" onclick="enroll('${t}')">${d.join}</button></div></div>`;
+        ["AI Eng", "Cyber Sec", "Cloud", "Software"].forEach(t => {
+            grid.innerHTML += `<div class="card"><img src="https://via.placeholder.com/300x180"><div class="card-body"><h3>${t}</h3><button class="join-btn" onclick="enroll()">${d.join}</button></div></div>`;
         });
     }
 
-    function enroll(trackName) {
+    function enroll() {
         const id = document.getElementById('f-id').value;
-        const current = localStorage.getItem('hubLang') || 'en';
-        if(id.length !== 10) { alert(dictionary[current].sub); return; }
-        localStorage.setItem('userEnroll', JSON.stringify({id, track: trackName}));
-        updateLang(current);
+        if(id.length !== 10) { alert("Enter 10 Digits"); return; }
+        alert("Enrolled Successfully!");
     }
 
     updateLang(localStorage.getItem('hubLang') || 'en');
 </script>
+
 </body>
 </html>
