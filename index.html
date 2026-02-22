@@ -1,36 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Digital Ethiopia 2026</title>
+    <style>
+        :root { --blue: #003973; --yellow: #FFD700; --bg: #f8fafc; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: #1e293b; overflow-x: hidden; }
+
+        /* HEADER */
+        header { background: #fff; padding: 15px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--blue); text-decoration: none; }
+        .l-btn { padding: 6px 12px; border: 2px solid var(--blue); background: transparent; cursor: pointer; border-radius: 8px; font-weight: 700; margin-left: 5px; }
+        .l-btn.active { background: var(--blue); color: white; transform: scale(1.1); }
+
+        /* ANIMATION */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* HERO */
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .hero { background: var(--blue); color: white; padding: 70px 20px; border-radius: 35px; text-align: center; border-bottom: 8px solid var(--yellow); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .id-input { padding: 16px; width: 300px; border-radius: 12px; border: none; font-size: 1.2rem; text-align: center; margin: 20px 0; outline: none; }
+        .v-btn { background: var(--yellow); color: var(--blue); border: none; padding: 16px 45px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .v-btn:hover { transform: scale(1.05); }
+
+        /* SECTIONS */
+        .section-h { font-size: 1.8rem; color: var(--blue); margin: 50px 0 20px; border-left: 10px solid var(--yellow); padding-left: 15px; }
+        .content-card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+
+        /* LIVE */
+        .live-box { border: 2px solid #ef4444; background: #fffafa; display: flex; align-items: center; gap: 15px; padding: 25px; border-radius: 20px; }
+        .pulse { width: 12px; height: 12px; background: #ef4444; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0px rgba(239, 68, 68, 0); } }
+
+        /* GRID */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 25px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 150px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .j-btn { background: var(--yellow); color: var(--blue); border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; cursor: pointer; }
+
+        footer { text-align: center; padding: 50px; color: #94a3b8; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">ልማት Hub</a>
+    <div class="lang-bar">
+        <button class="l-btn" onclick="setL('en')" id="en-btn">EN</button>
+        <button class="l-btn" onclick="setL('am')" id="am-btn">አማር</button>
+        <button class="l-btn" onclick="setL('om')" id="om-btn">ORM</button>
+        <button class="l-btn" onclick="setL('ti')" id="ti-btn">ትግር</button>
+    </div>
+</header>
+
+<div class="container">
+    <div class="hero" id="hero-area"></div>
+
+    <div class="reveal">
+        <h2 class="section-h" id="h-tr"></h2>
+        <div class="grid" id="tr-grid"></div>
+    </div>
+
+    <div class="reveal">
+        <h2 class="section-h" id="h-li"></h2>
+        <div class="content-card">
+            <div class="live-box">
+                <div class="pulse"></div>
+                <div><h3 id="lt" style="color:#ef4444"></h3><p id="ld" style="margin-top:5px;"></p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reveal">
+        <h2 class="section-h" id="h-fq"></h2>
+        <div class="content-card" id="faq-box"></div>
+    </div>
+
+    <div class="reveal">
+        <h2 class="section-h" id="h-co"></h2>
+        <div class="content-card">
+            <input type="text" placeholder="Name" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ddd;">
+            <button class="v-btn" style="width:100%; background:var(--blue); color:white;" id="cb"></button>
+        </div>
+    </div>
+</div>
+
+<footer id="foot"></footer>
+
 <script>
-    // ... logic remains same ...
-    
-    // EXPANDED TRACK LIST
-    const trackList = [
-        { name: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400" },
-        { name: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400" },
-        { name: "Web Development", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" },
-        { name: "Data Science", img: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?w=400" },
-        { name: "Cloud Computing", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400" },
-        { name: "Mobile App Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400" },
-        { name: "Digital Marketing", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400" },
-        { name: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?w=400" }
+    // Animation logic
+    function reveal() {
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add('active');
+        });
+    }
+    window.addEventListener('scroll', reveal);
+
+    const tracks = [
+        {en: "AI Engineering", am: "AI ኢንጂነሪንግ", om: "AI Injinariingii", ti: "AI ኢንጂነሪንግ"},
+        {en: "Cyber Security", am: "ሳይበር ደህንነት", om: "Nageenya Saayibar", ti: "ሳይበር ደህንነት"},
+        {en: "Web Dev", am: "ዌብሳይት ልማት", om: "Webii Guddisuu", ti: "ዌብሳይት ልማት"},
+        {en: "Data Science", am: "ዳታ ሳይንስ", om: "Saayinsii Daataa", ti: "ዳታ ሳይንስ"},
+        {en: "Cloud Systems", am: "ክላውድ ሲስተም", om: "Sistama Klaawud", ti: "ክላውድ ሲስተም"},
+        {en: "Mobile Apps", am: "ሞባይል መተግበሪያ", om: "Appii Moobaayilaa", ti: "ሞባይል መተግበሪያ"},
+        {en: "Digital Market", am: "ዲጂታል ማርኬቲንግ", om: "Maarketiingii Diijitaalaa", ti: "ዲጂታል ማርኬቲንግ"},
+        {en: "UI/UX Design", am: "ዲዛይን", om: "Diizaayinii", ti: "ዲዛይን"}
     ];
 
+    const data = {
+        en: {w:"Digital Mission 2026", s:"Enter 10-Digit Fayda ID", v:"VERIFY", tr:"Official Tracks", li:"Join Us Live", lt:"Workshop Live", ld:"Streaming now", fq:"FAQ", co:"Contact", j:"JOIN", ft:"© 2026 ልማት Hub", cb:"Send Message"},
+        am: {w:"ዲጂታል ተልዕኮ 2026", s:"ባለ 10 አሃዝ የፋይዳ መታወቂያ ያስገቡ", v:"አረጋግጥ", tr:"ይፋዊ ትራኮች", li:"በቀጥታ ይሳተፉ", lt:"ዎርክሾፕ", ld:"አሁን እየተላለፈ ነው", fq:"ጥያቄዎች", co:"ያግኙን", j:"ተቀላቀል", ft:"© 2026 ልማት Hub", cb:"መልዕክት ላክ"},
+        om: {w:"Misiyoona Diijitaalaa 2026", s:"ID Faydaa diijitii 10 galchaa", v:"MIRKANEESSI", tr:"Kallattiiwwan", li:"Kallaattiin nu waliin", lt:"Workshop", ld:"Amma jalqabeera", fq:"Gaaffiiwwan", co:"Nu Quunnamaa", j:"MAKKAMI", ft:"© 2026 ልማት Hub", cb:"Ergaa Ergi"},
+        ti: {w:"ዲጂታል ሚሽን 2026", s:"ባዓል 10 ኣሃዝ ፋይዳ መለለዪ የእትዉ", v:"ኣረጋግፅ", tr:"ዝተመረፁ ትራኮች", li:"ብቐጥታ ይሳተፉ", lt:"ዎርክሾፕ", ld:"ሕዚ ይፍኖ ኣሎ", fq:"ሕቶታት", co:"ረኸቡና", j:"ተሳተፍ", ft:"© 2026 ልማት Hub", cb:"መልእኽቲ ስደድ"}
+    };
+
     function setL(l) {
-        // ... (Header translation logic same as before) ...
+        localStorage.setItem('hubLang', l);
+        document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(l + '-btn').classList.add('active');
         const d = data[l];
+
+        document.getElementById('h-tr').innerText = d.tr;
+        document.getElementById('h-li').innerText = d.li;
+        document.getElementById('lt').innerText = d.lt;
+        document.getElementById('ld').innerText = d.ld;
+        document.getElementById('h-fq').innerText = d.fq;
+        document.getElementById('h-co').innerText = d.co;
+        document.getElementById('cb').innerText = d.cb;
+        document.getElementById('foot').innerText = d.ft;
+
+        document.getElementById('hero-area').innerHTML = `<h1>${d.w}</h1><p style="margin-top:10px;">${d.s}</p>
+            <input type="number" id="f-id" class="id-input" placeholder="0000000000"><br>
+            <button onclick="enroll()" class="v-btn">${d.v}</button>`;
+
         const g = document.getElementById('tr-grid');
         g.innerHTML = "";
-
-        trackList.forEach(t => {
-            g.innerHTML += `
-                <div class="card reveal">
-                    <img src="${t.img}" alt="${t.name}">
-                    <div class="card-body">
-                        <h3>${t.name}</h3>
-                        <button class="j-btn" style="margin-top:15px;" onclick="enroll()">${d.j}</button>
-                    </div>
-                </div>`;
+        tracks.forEach(t => {
+            g.innerHTML += `<div class="card"><img src="https://via.placeholder.com/300x150/003973/FFFFFF?text=${t.en}"><div class="card-body"><h3>${t[l]}</h3><button class="j-btn" style="margin-top:15px;" onclick="enroll()">${d.j}</button></div></div>`;
         });
         
-        // Trigger animation for new cards
+        document.getElementById('faq-box').innerHTML = `<details><summary>${d.fq} 1</summary><p style="padding:10px;">Mission 2026 info.</p></details>`;
         setTimeout(reveal, 100);
     }
+
+    function enroll() {
+        const id = document.getElementById('f-id').value;
+        if(id.length !== 10) { alert("Invalid ID"); return; }
+        alert("Enrolled!");
+    }
+
+    setL(localStorage.getItem('hubLang') || 'en');
 </script>
+</body>
+</html>
