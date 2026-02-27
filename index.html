@@ -1,89 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Career Edition</title>
-    <style>
-        :root { --dark: #0f172a; --accent: #38bdf8; --yellow: #FFD700; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--dark); color: #f8fafc; line-height: 1.6; }
-        header { background: rgba(15, 23, 42, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-size: 24px; font-weight: 900; color: var(--accent); text-decoration: none; }
-        nav a { color: #cbd5e1; margin-left: 20px; text-decoration: none; font-weight: 600; cursor: pointer; }
-        .yellow-tracker { background: var(--yellow); color: #000; padding: 10px; font-weight: 800; overflow: hidden; white-space: nowrap; }
-        .scrolling-text { display: inline-block; animation: scroll 30s linear infinite; }
-        @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .hero { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid rgba(255,255,255,0.1); padding: 60px 20px; border-radius: 30px; text-align: center; margin-bottom: 40px; }
-        .id-input { background: rgba(255,255,255,0.05); border: 2px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 12px; font-size: 1.1rem; text-align: center; margin: 20px 0; }
-        .v-btn { background: var(--accent); color: #0f172a; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-        .section-h { font-size: 1.8rem; margin: 40px 0 20px; border-left: 8px solid var(--yellow); padding-left: 15px; color: #fff; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .card { background: rgba(30, 41, 59, 0.7); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-        .card img { width: 100%; height: 150px; object-fit: cover; }
-        .card-body { padding: 15px; }
-        .tech-stack { font-size: 0.75rem; color: var(--accent); margin-top: 5px; }
-        .career-path { font-size: 0.7rem; background: rgba(56, 189, 248, 0.1); padding: 4px 8px; border-radius: 8px; display: inline-block; margin-top: 10px; color: #fff; border: 1px solid rgba(56,189,248,0.3); }
-        .faq-card { background: rgba(30, 41, 59, 0.7); padding: 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        details { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        summary { font-weight: bold; color: var(--accent); }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="#" class="logo">ልማት Hub</a>
-    <nav>
-        <a href="#tr-grid">Tracks</a>
-        <a href="#h-faq">FAQ</a>
-        <a onclick="alert('Digital Ethiopia 2026: Career Technical Initiative')">About Us</a>
-    </nav>
-</header>
-
-<div class="yellow-tracker">
-    <div class="scrolling-text">New Career Tracks: AI, Cyber, Web, Data, Cloud, Mobile, Networking, UI/UX, Blockchain, and Marketing. | Register today.</div>
-</div>
-
-<div class="container">
-    <div class="hero">
-        <h1>Career Technical Hub</h1>
-        <p style="color:#94a3b8;">Verify your 10-Digit Fayda ID to access professional training.</p>
-        <input type="number" id="f-id" class="id-input" placeholder="0000000000"><br>
-        <button onclick="alert('Verification logic active')" class="v-btn">START CAREER</button>
-    </div>
-
-    <h2 class="section-h">Official Career Tracks</h2>
-    <div class="grid" id="tr-grid"></div>
-
-    <h2 class="section-h" id="h-faq">Career FAQ</h2>
-    <div class="faq-card" id="faq-list"></div>
-</div>
-
-<footer style="text-align:center; padding:40px; color:#475569; border-top: 1px solid rgba(255,255,255,0.05);">
-    © 2026 ልማት Hub | Developed by Robel
-</footer>
-
 <script>
     const tracks = [
-        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", tech: "Python, TensorFlow", job: "AI Specialist"},
-        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400", tech: "Ethical Hacking", job: "Security Analyst"},
+        {n: "Modern Carpentry", img: "https://images.unsplash.com/photo-1621290621119-7d1c103bc3f1?w=400", tech: "Furniture Design, Power Tools", job: "Master Carpenter"},
+        {n: "Electrical Systems", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=400", tech: "Wiring, Solar Installation", job: "Lead Electrician"},
+        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", tech: "Python, Machine Learning", job: "AI Specialist"},
+        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400", tech: "Network Defense", job: "Security Analyst"},
+        {n: "Plumbing Tech", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=400", tech: "Piping, Water Management", job: "Senior Plumber"},
         {n: "Web Systems", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", tech: "React, Node.js", job: "Full-Stack Dev"},
-        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400", tech: "SQL, ML Models", job: "Data Architect"},
-        {n: "Cloud Architecture", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400", tech: "AWS, Kubernetes", job: "Cloud Engineer"},
-        {n: "Mobile App Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400", tech: "Flutter, Firebase", job: "App Developer"},
-        {n: "Network Eng.", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc51?w=400", tech: "Cisco, Routing", job: "Network Admin"},
-        {n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400", tech: "Figma, Research", job: "Product Designer"},
-        {n: "Blockchain Tech", img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400", tech: "Solidity, Web3", job: "DApp Developer"},
-        {n: "Digital Marketing", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400", tech: "SEO, Analytics", job: "Growth Lead"}
+        {n: "Auto Mechanics", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400", tech: "Diagnostics, Hybrid Engines", job: "Vehicle Technician"},
+        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400", tech: "Big Data, SQL", job: "Data Architect"},
+        {n: "Welding & Metal", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400", tech: "ARC Welding, Fabrication", job: "Metal Specialist"},
+        {n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400", tech: "Figma, User Research", job: "Product Designer"}
     ];
 
     const faqs = [
-        {q: "How do I choose a track?", a: "Each track is designed for specific career paths. We recommend starting with your area of interest."},
-        {q: "Is there a certification fee?", a: "No, all certificates are provided free of charge by the 2026 Digital Mission."},
-        {q: "Can I access labs on mobile?", a: "Yes, our virtual lab environment is mobile-responsive for learning on the go."},
-        {q: "How many hours per week?", a: "We recommend 10-15 hours per week for steady progress."},
-        {q: "Who are the mentors?", a: "Mentors are industry professionals currently working in the Ethiopian tech sector."}
+        {q: "Are technical tools provided?", a: "Yes, for trade tracks like Carpentry, physical toolkits are provided at local hubs."},
+        {q: "What is the Career focus?", a: "Each track leads to a specific job role in Ethiopia's growing economy."},
+        {q: "Is Fayda ID mandatory?", a: "Yes, it is used to track your progress and award certificates."},
+        {q: "How long is each course?", a: "Trade courses (like Carpentry) are 6 months including hands-on training."},
+        {q: "Is there placement help?", a: "Graduates are connected to national construction and tech projects."}
     ];
 
     function init() {
@@ -92,9 +26,9 @@
             <div class="card">
                 <img src="${t.img}">
                 <div class="card-body">
-                    <div style="font-weight:bold;">${t.n}</div>
-                    <div class="tech-stack">${t.tech}</div>
-                    <div class="career-path">${t.job}</div>
+                    <div style="font-weight:bold; font-size:1.1rem;">${t.n}</div>
+                    <div class="tech-stack" style="color:#38bdf8; font-size:0.75rem;">${t.tech}</div>
+                    <div class="career-path" style="background:rgba(56,189,248,0.1); padding:4px 8px; border-radius:8px; display:inline-block; margin-top:10px; font-size:0.7rem; color:#fff;">${t.job}</div>
                 </div>
             </div>
         `).join('');
@@ -107,8 +41,5 @@
             </details>
         `).join('');
     }
-
     init();
 </script>
-</body>
-</html>
