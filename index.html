@@ -1,45 +1,25 @@
-<script>
-    const tracks = [
-        {n: "Modern Carpentry", img: "https://images.unsplash.com/photo-1621290621119-7d1c103bc3f1?w=400", tech: "Furniture Design, Power Tools", job: "Master Carpenter"},
-        {n: "Electrical Systems", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=400", tech: "Wiring, Solar Installation", job: "Lead Electrician"},
-        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", tech: "Python, Machine Learning", job: "AI Specialist"},
-        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400", tech: "Network Defense", job: "Security Analyst"},
-        {n: "Plumbing Tech", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=400", tech: "Piping, Water Management", job: "Senior Plumber"},
-        {n: "Web Systems", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", tech: "React, Node.js", job: "Full-Stack Dev"},
-        {n: "Auto Mechanics", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400", tech: "Diagnostics, Hybrid Engines", job: "Vehicle Technician"},
-        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400", tech: "Big Data, SQL", job: "Data Architect"},
-        {n: "Welding & Metal", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400", tech: "ARC Welding, Fabrication", job: "Metal Specialist"},
-        {n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400", tech: "Figma, User Research", job: "Product Designer"}
-    ];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Official 2026</title>
+    <style>
+        :root { --dark: #0f172a; --accent: #38bdf8; --yellow: #FFD700; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--dark); color: #f8fafc; line-height: 1.6; }
+        
+        /* HEADER */
+        header { background: rgba(15, 23, 42, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-size: 24px; font-weight: 900; color: var(--accent); text-decoration: none; }
+        nav a { color: #cbd5e1; margin-left: 20px; text-decoration: none; font-weight: 600; cursor: pointer; }
 
-    const faqs = [
-        {q: "Are technical tools provided?", a: "Yes, for trade tracks like Carpentry, physical toolkits are provided at local hubs."},
-        {q: "What is the Career focus?", a: "Each track leads to a specific job role in Ethiopia's growing economy."},
-        {q: "Is Fayda ID mandatory?", a: "Yes, it is used to track your progress and award certificates."},
-        {q: "How long is each course?", a: "Trade courses (like Carpentry) are 6 months including hands-on training."},
-        {q: "Is there placement help?", a: "Graduates are connected to national construction and tech projects."}
-    ];
+        /* TRACKER */
+        .yellow-tracker { background: var(--yellow); color: #000; padding: 10px; font-weight: 800; overflow: hidden; white-space: nowrap; }
+        .scrolling-text { display: inline-block; animation: scroll 30s linear infinite; }
+        @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-    function init() {
-        const g = document.getElementById('tr-grid');
-        g.innerHTML = tracks.map(t => `
-            <div class="card">
-                <img src="${t.img}">
-                <div class="card-body">
-                    <div style="font-weight:bold; font-size:1.1rem;">${t.n}</div>
-                    <div class="tech-stack" style="color:#38bdf8; font-size:0.75rem;">${t.tech}</div>
-                    <div class="career-path" style="background:rgba(56,189,248,0.1); padding:4px 8px; border-radius:8px; display:inline-block; margin-top:10px; font-size:0.7rem; color:#fff;">${t.job}</div>
-                </div>
-            </div>
-        `).join('');
-
-        const f = document.getElementById('faq-list');
-        f.innerHTML = faqs.map(item => `
-            <details>
-                <summary>${item.q}</summary>
-                <p style="padding-top:10px; color:#94a3b8;">${item.a}</p>
-            </details>
-        `).join('');
-    }
-    init();
-</script>
+        /* HERO */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .hero { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid rgba(255,255,255,0.1); padding: 60px 20px; border-radius: 30px; text-align: center; margin-bottom: 40px; }
+        .id-input { background: rgba(255
