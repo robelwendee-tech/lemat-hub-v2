@@ -9,141 +9,126 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background: var(--dark); color: white; line-height: 1.6; }
         
-        /* Premium Header & Ticker */
-        header { background: rgba(7, 11, 20, 0.95); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        header { background: rgba(7, 11, 20, 0.95); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo { font-size: 24px; font-weight: 800; color: var(--accent); text-decoration: none; }
-        .ticker { background: var(--yellow); color: #000; padding: 10px; font-weight: 700; text-align: center; font-size: 0.9rem; }
-
-        /* Fayda ID Hero */
-        .hero { padding: 50px 20px; text-align: center; background: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent); }
-        .id-input { background: rgba(255,255,255,0.05); border: 2px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 12px; text-align: center; font-size: 1.2rem; outline: none; margin-bottom: 15px; }
-        .v-btn { background: var(--accent); color: #000; border: none; padding: 15px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-
-        /* Grid & Track Cards */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; cursor: pointer; }
-        .card:hover { border-color: var(--accent); transform: translateY(-8px); }
-        .card img { width: 100%; height: 160px; object-fit: cover; background: #1e293b; }
-        .card-body { padding: 20px; }
         
-        .badge { display: inline-block; margin-top: 10px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; background: #374151; }
-        .enrolled { background: var(--success); }
+        /* New Job Board Section */
+        .job-section { background: rgba(56, 189, 248, 0.05); padding: 30px 5%; border-bottom: 1px solid var(--accent); }
+        .job-tag { background: var(--yellow); color: black; padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
 
-        /* Pop-up Syllabus */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
-        .modal-box { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--accent); max-width: 450px; width: 100%; }
-        .cert-btn { background: var(--yellow); color: black; display: none; margin-top: 10px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        
+        /* Photo-less Card Design */
+        .card { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); opacity: 0.3; }
+        
+        .status-badge { display: inline-block; margin-top: 15px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; background: #374151; }
+        .enrolled { background: var(--success); color: white; }
+
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .modal-box { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--accent); max-width: 450px; width: 90%; }
+        .v-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 15px; }
     </style>
 </head>
 <body>
 
 <header><a href="#" class="logo">ልማት Hub</a></header>
-<div class="ticker">Official Digital Ethiopia 2026 Portal | 15 Certified Tracks | Verify Fayda ID to Sync</div>
 
-<div class="hero">
-    <h1>Identity Verification</h1>
-    <input type="number" id="f-input" class="id-input" placeholder="Enter Fayda ID"><br>
-    <button class="v-btn" onclick="saveFayda()">SYNC PROGRESS</button>
+<div class="job-section">
+    <h2>Live Job Board (2026)</h2>
+    <div id="job-container" style="display: flex; gap: 15px; overflow-x: auto; padding: 10px 0;">
+        </div>
 </div>
 
 <div class="container">
-    <h2 style="margin-bottom:25px;">Available Career Tracks</h2>
+    <h2 style="margin-bottom: 20px;">15 Career Tracks</h2>
     <div class="grid" id="main-grid"></div>
 </div>
 
-<div id="syllabus-modal" class="modal">
+<div id="modal" class="modal">
     <div class="modal-box">
-        <h2 id="m-name" style="color:var(--accent);"></h2>
-        <ul id="m-lessons" style="margin: 20px 0; list-style: none; line-height: 2;"></ul>
-        <button id="main-action" class="v-btn" style="width:100%;" onclick="startTrack()">ENROLL NOW</button>
-        <button id="cert-btn" class="v-btn cert-btn" style="width:100%;" onclick="downloadCert()">DOWNLOAD CERTIFICATE</button>
-        <button class="v-btn" style="background:#374151; color:white; width:100%; margin-top:10px;" onclick="closeM()">CLOSE</button>
+        <h2 id="m-title" style="color:var(--accent);"></h2>
+        <ul id="m-list" style="margin: 20px 0; list-style: none; line-height: 2;"></ul>
+        <button id="enroll-btn" class="v-btn" onclick="processEnroll()">ENROLL NOW</button>
+        <button class="v-btn" style="background:#374151; color:white;" onclick="closeM()">CLOSE</button>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", lessons: ["Wood Science", "Safety Standards", "Furniture Joinery"]},
-        {id: 2, n: "Electrical Systems", job: "Electrician", lessons: ["Wiring Theory", "Safety Codes", "Grid Installation"]},
-        {id: 3, n: "AI Engineering", job: "AI Specialist", lessons: ["Neural Networks", "Python AI", "Model Training"]},
-        {id: 4, n: "Cyber Security", job: "Security Expert", lessons: ["Network Defense", "Ethical Hacking", "Encryption"]},
-        {id: 5, n: "Web Systems", job: "Full-Stack Dev", lessons: ["HTML/CSS/JS", "Node.js", "Cloud Deployment"]},
-        {id: 6, n: "Solar Tech", job: "Solar Installer", lessons: ["PV Systems", "Battery Storage", "Inverter Tech"]},
-        {id: 7, n: "Auto Mechanics", job: "Technician", lessons: ["Engine Repair", "Hybrid Systems", "Diagnostics"]},
-        {id: 8, n: "UI/UX Design", job: "Product Designer", lessons: ["User Research", "Figma Design", "Prototyping"]},
-        {id: 9, n: "Data Science", job: "Data Scientist", lessons: ["Big Data", "Statistics", "Machine Learning"]},
-        {id: 10, n: "Masonry Tech", job: "Master Mason", lessons: ["Brick Laying", "Concrete Mix", "Building Plans"]},
-        {id: 11, n: "Welding & Metal", job: "Welder", lessons: ["MIG/TIG Welding", "Fabrication", "Blueprint Reading"]},
-        {id: 12, n: "Cloud Architect", job: "Cloud Engineer", lessons: ["AWS/Azure", "DevOps", "Cyber Resilience"]},
-        {id: 13, n: "Network Admin", job: "Network Engineer", lessons: ["Routing", "Switching", "Infrastructure"]},
-        {id: 14, n: "Mobile Dev", job: "App Developer", lessons: ["Flutter/React", "Swift/Kotlin", "API Sync"]},
-        {id: 15, n: "Plumbing Tech", job: "Master Plumber", lessons: ["Piping Systems", "Drainage", "Installation"]}
+        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", s: ["Safety", "Joinery", "Wood Science"]},
+        {id: 2, n: "Electrical Systems", job: "Electrician", s: ["Circuits", "Wiring", "Solar"]},
+        {id: 3, n: "AI Engineering", job: "AI Specialist", s: ["Python", "Models", "Neural Nets"]},
+        {id: 4, n: "Cyber Security", job: "Security Expert", s: ["Hacking", "Defend", "Encryption"]},
+        {id: 5, n: "Auto Mechanics", job: "Auto Tech", s: ["Engines", "Brakes", "Diagnostics"]},
+        {id: 6, n: "Web Systems", job: "Full-Stack Dev", s: ["HTML/CSS", "Node", "Database"]},
+        {id: 7, n: "Solar Tech", job: "Installer", s: ["PV Panels", "Grid", "Battery"]},
+        {id: 8, n: "UI/UX Design", job: "Designer", s: ["Figma", "Research", "Prototyping"]},
+        {id: 9, n: "Data Science", job: "Scientist", s: ["Math", "Big Data", "Viz"]},
+        {id: 10, n: "Masonry Tech", job: "Master Mason", s: ["Bricks", "Concrete", "Plans"]},
+        {id: 11, n: "Welding", job: "Welder", s: ["MIG/TIG", "Safety", "Fabrication"]},
+        {id: 12, n: "Cloud Arch", job: "Cloud Engineer", s: ["AWS", "DevOps", "Scaling"]},
+        {id: 13, n: "Network Admin", job: "Network Engineer", s: ["Routing", "Cloud", "Security"]},
+        {id: 14, n: "Mobile Dev", job: "App Developer", s: ["Flutter", "React", "Sync"]},
+        {id: 15, n: "Plumbing Tech", job: "Master Plumber", s: ["Piping", "Drains", "Repair"]}
+    ];
+
+    const jobs = [
+        {tid: 1, co: "Ethio-Construction", pos: "Lead Carpenter", sal: "25k ETB"},
+        {tid: 2, co: "Addis Electric", pos: "Grid Technician", sal: "30k ETB"},
+        {tid: 3, co: "Tech-Hub AA", pos: "Junior AI Dev", sal: "45k ETB"},
+        {tid: 6, co: "Digital Solutions", pos: "Web Developer", sal: "35k ETB"}
     ];
 
     let currentId = null;
 
-    window.onload = () => {
-        const saved = localStorage.getItem('faydaID');
-        if(saved) document.getElementById('f-input').value = saved;
-        render();
-    };
-
-    function saveFayda() {
-        const val = document.getElementById('f-input').value;
-        if(val.length >= 10) {
-            localStorage.setItem('faydaID', val); // Invisible Part
-            alert("ID Synced Successfully");
-        }
-    }
-
     function render() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+        
+        // Render Tracks
         document.getElementById('main-grid').innerHTML = tracks.map(t => {
             const isE = enrolled.includes(t.id);
             return `
-                <div class="card" onclick="openS(${t.id})">
-                    <img src="https://via.placeholder.com/400x200/1e293b/38bdf8?text=${t.n}">
-                    <div class="card-body">
-                        <h3>${t.n}</h3>
-                        <p style="font-size:0.8rem; opacity:0.6;">Goal: ${t.job}</p>
-                        <div class="badge ${isE ? 'enrolled' : ''}">${isE ? '✓ ENROLLED' : 'VIEW LESSONS'}</div>
-                    </div>
+                <div class="card" onclick="openM(${t.id})">
+                    <h3 style="color:var(--accent);">${t.n}</h3>
+                    <p style="font-size:0.8rem; opacity:0.6;">${t.job}</p>
+                    <div class="status-badge ${isE ? 'enrolled' : ''}">${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}</div>
                 </div>`;
         }).join('');
+
+        // Render Jobs based on Enrollment
+        const availableJobs = jobs.filter(j => enrolled.includes(j.tid));
+        document.getElementById('job-container').innerHTML = availableJobs.length ? availableJobs.map(j => `
+            <div style="background:var(--card); padding:15px; border-radius:12px; min-width:200px; border:1px solid var(--yellow);">
+                <span class="job-tag">OPENING</span>
+                <div style="font-weight:bold;">${j.pos}</div>
+                <div style="font-size:0.8rem; opacity:0.7;">${j.co} • ${j.sal}</div>
+            </div>
+        `).join('') : `<p style="opacity:0.5;">Enroll in a course to see matching jobs...</p>`;
     }
 
-    function openS(id) {
+    function openM(id) {
         currentId = id;
         const track = tracks.find(t => t.id === id);
-        const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        
-        document.getElementById('m-name').innerText = track.n;
-        document.getElementById('m-lessons').innerHTML = track.lessons.map(l => `<li>▹ ${l}</li>`).join('');
-        
-        const isE = enrolled.includes(id);
-        document.getElementById('main-action').innerText = isE ? "CONTINUE TRACK" : "ENROLL NOW";
-        document.getElementById('cert-btn').style.display = isE ? "block" : "none";
-        document.getElementById('syllabus-modal').style.display = 'flex';
+        document.getElementById('m-title').innerText = track.n;
+        document.getElementById('m-list').innerHTML = track.s.map(i => `<li>▹ ${i}</li>`).join('');
+        document.getElementById('modal').style.display = 'flex';
     }
 
-    function startTrack() {
+    function processEnroll() {
         let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
         if(!enrolled.includes(currentId)) {
             enrolled.push(currentId);
-            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Persistence
-            render();
+            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Invisible memory
         }
         closeM();
+        render();
     }
 
-    function downloadCert() {
-        const track = tracks.find(t => t.id === currentId);
-        const fayda = localStorage.getItem('faydaID') || "VERIFY ID FIRST";
-        alert(`Generating Certificate for ${track.n}\nStudent ID: ${fayda}\nStatus: Certified 2026`);
-    }
-
-    function closeM() { document.getElementById('syllabus-modal').style.display = 'none'; }
+    function closeM() { document.getElementById('modal').style.display = 'none'; }
+    render();
 </script>
 </body>
 </html>
