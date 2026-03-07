@@ -1,134 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
-    <style>
-        :root { --dark: #070b14; --accent: #38bdf8; --success: #10b981; --yellow: #fbbf24; --card: #111827; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--dark); color: white; line-height: 1.6; }
-        
-        header { background: rgba(7, 11, 20, 0.95); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-size: 24px; font-weight: 800; color: var(--accent); text-decoration: none; }
-        
-        /* New Job Board Section */
-        .job-section { background: rgba(56, 189, 248, 0.05); padding: 30px 5%; border-bottom: 1px solid var(--accent); }
-        .job-tag { background: var(--yellow); color: black; padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        
-        /* Photo-less Card Design */
-        .card { background: var(--card); border-radius: 20px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); opacity: 0.3; }
-        
-        .status-badge { display: inline-block; margin-top: 15px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; background: #374151; }
-        .enrolled { background: var(--success); color: white; }
-
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .modal-box { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--accent); max-width: 450px; width: 90%; }
-        .v-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 15px; }
-    </style>
-</head>
-<body>
-
-<header><a href="#" class="logo">ልማት Hub</a></header>
-
-<div class="job-section">
-    <h2>Live Job Board (2026)</h2>
-    <div id="job-container" style="display: flex; gap: 15px; overflow-x: auto; padding: 10px 0;">
-        </div>
-</div>
-
-<div class="container">
-    <h2 style="margin-bottom: 20px;">15 Career Tracks</h2>
-    <div class="grid" id="main-grid"></div>
-</div>
-
-<div id="modal" class="modal">
-    <div class="modal-box">
-        <h2 id="m-title" style="color:var(--accent);"></h2>
-        <ul id="m-list" style="margin: 20px 0; list-style: none; line-height: 2;"></ul>
-        <button id="enroll-btn" class="v-btn" onclick="processEnroll()">ENROLL NOW</button>
-        <button class="v-btn" style="background:#374151; color:white;" onclick="closeM()">CLOSE</button>
-    </div>
-</div>
+<style>
+    /* New Job Card Design with Icons */
+    .job-card {
+        background: var(--card);
+        padding: 20px;
+        border-radius: 16px;
+        min-width: 260px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: 0.3s;
+    }
+    .job-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    
+    .job-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(251, 191, 36, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+    
+    /* Apply Button */
+    .apply-btn {
+        background: var(--yellow);
+        color: black;
+        border: none;
+        padding: 8px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+</style>
 
 <script>
-    const tracks = [
-        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", s: ["Safety", "Joinery", "Wood Science"]},
-        {id: 2, n: "Electrical Systems", job: "Electrician", s: ["Circuits", "Wiring", "Solar"]},
-        {id: 3, n: "AI Engineering", job: "AI Specialist", s: ["Python", "Models", "Neural Nets"]},
-        {id: 4, n: "Cyber Security", job: "Security Expert", s: ["Hacking", "Defend", "Encryption"]},
-        {id: 5, n: "Auto Mechanics", job: "Auto Tech", s: ["Engines", "Brakes", "Diagnostics"]},
-        {id: 6, n: "Web Systems", job: "Full-Stack Dev", s: ["HTML/CSS", "Node", "Database"]},
-        {id: 7, n: "Solar Tech", job: "Installer", s: ["PV Panels", "Grid", "Battery"]},
-        {id: 8, n: "UI/UX Design", job: "Designer", s: ["Figma", "Research", "Prototyping"]},
-        {id: 9, n: "Data Science", job: "Scientist", s: ["Math", "Big Data", "Viz"]},
-        {id: 10, n: "Masonry Tech", job: "Master Mason", s: ["Bricks", "Concrete", "Plans"]},
-        {id: 11, n: "Welding", job: "Welder", s: ["MIG/TIG", "Safety", "Fabrication"]},
-        {id: 12, n: "Cloud Arch", job: "Cloud Engineer", s: ["AWS", "DevOps", "Scaling"]},
-        {id: 13, n: "Network Admin", job: "Network Engineer", s: ["Routing", "Cloud", "Security"]},
-        {id: 14, n: "Mobile Dev", job: "App Developer", s: ["Flutter", "React", "Sync"]},
-        {id: 15, n: "Plumbing Tech", job: "Master Plumber", s: ["Piping", "Drains", "Repair"]}
-    ];
+    // Logic to show icons for specific jobs
+    const jobIcons = {
+        1: "🪚", // Carpentry
+        2: "⚡", // Electrical
+        3: "🤖", // AI
+        6: "🌐"  // Web
+    };
 
-    const jobs = [
-        {tid: 1, co: "Ethio-Construction", pos: "Lead Carpenter", sal: "25k ETB"},
-        {tid: 2, co: "Addis Electric", pos: "Grid Technician", sal: "30k ETB"},
-        {tid: 3, co: "Tech-Hub AA", pos: "Junior AI Dev", sal: "45k ETB"},
-        {tid: 6, co: "Digital Solutions", pos: "Web Developer", sal: "35k ETB"}
-    ];
-
-    let currentId = null;
-
-    function render() {
+    function renderJobs() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+        const container = document.getElementById('job-container');
         
-        // Render Tracks
-        document.getElementById('main-grid').innerHTML = tracks.map(t => {
-            const isE = enrolled.includes(t.id);
-            return `
-                <div class="card" onclick="openM(${t.id})">
-                    <h3 style="color:var(--accent);">${t.n}</h3>
-                    <p style="font-size:0.8rem; opacity:0.6;">${t.job}</p>
-                    <div class="status-badge ${isE ? 'enrolled' : ''}">${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}</div>
-                </div>`;
-        }).join('');
-
-        // Render Jobs based on Enrollment
-        const availableJobs = jobs.filter(j => enrolled.includes(j.tid));
-        document.getElementById('job-container').innerHTML = availableJobs.length ? availableJobs.map(j => `
-            <div style="background:var(--card); padding:15px; border-radius:12px; min-width:200px; border:1px solid var(--yellow);">
-                <span class="job-tag">OPENING</span>
-                <div style="font-weight:bold;">${j.pos}</div>
-                <div style="font-size:0.8rem; opacity:0.7;">${j.co} • ${j.sal}</div>
+        const matchingJobs = jobs.filter(j => enrolled.includes(j.tid));
+        
+        container.innerHTML = matchingJobs.length ? matchingJobs.map(j => `
+            <div class="job-card">
+                <div class="job-icon">${jobIcons[j.tid] || '💼'}</div>
+                <div>
+                    <span class="job-tag">OPENING</span>
+                    <div style="font-weight:bold; color:white;">${j.pos}</div>
+                    <div style="font-size:0.8rem; opacity:0.7;">${j.co} • ${j.sal}</div>
+                </div>
+                <button class="apply-btn" onclick="applyToJob('${j.pos}')">APPLY WITH FAYDA ID</button>
             </div>
-        `).join('') : `<p style="opacity:0.5;">Enroll in a course to see matching jobs...</p>`;
+        `).join('') : `<p style="opacity:0.5; padding: 20px;">Enroll in tracks to unlock matching jobs...</p>`;
     }
 
-    function openM(id) {
-        currentId = id;
-        const track = tracks.find(t => t.id === id);
-        document.getElementById('m-title').innerText = track.n;
-        document.getElementById('m-list').innerHTML = track.s.map(i => `<li>▹ ${i}</li>`).join('');
-        document.getElementById('modal').style.display = 'flex';
+    function applyToJob(jobTitle) {
+        const id = localStorage.getItem('faydaID') || "NOT LINKED";
+        alert(`Application Sent for: ${jobTitle}\nUsing Fayda ID: ${id}\nStatus: Pending Review`);
     }
-
-    function processEnroll() {
-        let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        if(!enrolled.includes(currentId)) {
-            enrolled.push(currentId);
-            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Invisible memory
-        }
-        closeM();
-        render();
-    }
-
-    function closeM() { document.getElementById('modal').style.display = 'none'; }
-    render();
+    
+    // Call renderJobs inside your existing render function
 </script>
-</body>
-</html>
