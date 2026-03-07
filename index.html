@@ -2,90 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Official 2026</title>
     <style>
-        /* Restoring Original Dark Theme */
+        /* OFFICIAL 2026 DARK THEME */
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --success: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-        .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
-        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; margin-left: 5px; }
+        /* HEADER & LANGUAGE */
+        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; background: var(--bg); }
+        .logo { color: var(--accent); font-size: 24px; font-weight: 800; text-decoration: none; }
+        .lang-btns { display: flex; gap: 8px; }
+        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 14px; }
 
-        .ticker { background: var(--yellow); color: black; padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: bold; font-size: 14px; letter-spacing: 0.5px; }
 
-        /* National Career Hub Hero */
-        .hero { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
-        .hero h1 { font-size: 42px; margin-bottom: 10px; }
-        .id-input { background: rgba(255,255,255,0.05); border: 1px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 10px; text-align: center; font-size: 18px; margin-bottom: 15px; outline: none; }
-        .v-btn { background: var(--accent); color: black; border: none; padding: 15px 40px; border-radius: 10px; font-weight: 900; cursor: pointer; }
+        /* NATIONAL CAREER HUB HERO */
+        .hero { padding: 70px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
+        .hero h1 { font-size: 46px; margin: 0 0 10px 0; font-weight: 800; }
+        .hero p { opacity: 0.7; margin-bottom: 30px; }
+        .id-input { background: rgba(255,255,255,0.05); border: 1.5px solid var(--accent); color: white; padding: 18px; width: 320px; border-radius: 12px; text-align: center; font-size: 20px; outline: none; transition: 0.3s; }
+        .v-btn { background: var(--accent); color: black; border: none; padding: 18px 45px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
 
-        /* Job Board & Grid */
-        .job-section { background: rgba(56, 189, 248, 0.03); padding: 25px 5%; border-bottom: 1px solid var(--accent); }
-        .job-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
-        .job-card { background: var(--card); border: 1px solid var(--yellow); padding: 15px; border-radius: 12px; min-width: 240px; }
+        /* LIVE JOB BOARD */
+        .job-section { background: rgba(56, 189, 248, 0.03); padding: 30px 5%; border-bottom: 1px solid var(--accent); }
+        .job-grid { display: flex; gap: 18px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; }
+        .job-card { background: var(--card); border: 1.5px solid var(--yellow); padding: 20px; border-radius: 15px; min-width: 260px; }
+        .tag-open { background: var(--yellow); color: black; font-size: 11px; font-weight: 900; padding: 3px 8px; border-radius: 5px; }
 
-        .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        /* 15 CAREER TRACKS */
+        .container { padding: 50px 5%; }
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: var(--card); border-radius: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; position: relative; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card-img { width: 100%; height: 190px; object-fit: cover; background: #1e293b; }
+        .card-body { padding: 25px; }
         
-        /* Image Course Cards */
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        .card-img { width: 100%; height: 180px; object-fit: cover; background: #1e293b; }
-        .card-body { padding: 20px; }
-        
-        .action-btn { background: var(--accent); color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
-        .enrolled-btn { background: var(--success); color: white; }
+        .action-btn { background: var(--accent); color: black; border: none; padding: 14px; border-radius: 10px; font-weight: 800; width: 100%; cursor: pointer; margin-top: 15px; font-size: 15px; }
+        .enrolled-style { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .enrolled-btn { background: var(--success) !important; color: white !important; }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
-    <div>
-        <button class="lang-btn" onclick="setLang('am')">አማርኛ</button>
-        <button class="lang-btn" onclick="setLang('en')">English</button>
+    <div class="lang-btns">
+        <button class="lang-btn" onclick="translateLang('am')">አማርኛ</button>
+        <button class="lang-btn" onclick="translateLang('en')">English</button>
     </div>
 </header>
 
-<div class="ticker">Digital Ethiopia 2026 | National Career Portal | 15 Certified Tracks</div>
+<div class="ticker">Digital Ethiopia 2026 | National Career Portal | 15 Certified Tracks | Verify via Fayda ID</div>
 
 <div class="hero">
-    <h1 id="h-title">National Career Hub</h1>
-    <p id="h-sub">Verify your Fayda ID to begin</p>
+    <h1 id="hero-main">National Career Hub</h1>
+    <p id="hero-sub">Verify your Fayda ID to begin your journey</p>
     <input type="number" id="f-input" class="id-input" placeholder="Enter 10 Digits"><br>
-    <button class="v-btn" onclick="verify()">VERIFY IDENTITY</button>
+    <button class="v-btn" onclick="verifyID()">Verify Identity</button>
 </div>
 
 <div class="job-section">
-    <h3 style="margin:0 0 15px 0; color:var(--accent);">Live Job Board (2026)</h3>
-    <div class="job-grid" id="job-grid"></div>
+    <h3 style="margin:0 0 20px 0; color:var(--accent); font-size: 22px;">Live Job Board (2026)</h3>
+    <div class="job-grid" id="job-list">
+        </div>
 </div>
 
 <div class="container">
-    <h2 id="t-header">Your Professional Tracks</h2>
-    <div class="track-grid" id="track-grid"></div>
+    <h2 id="track-title" style="margin-bottom: 35px; font-size: 30px;">15 Career Tracks</h2>
+    <div class="track-grid" id="track-display"></div>
 </div>
 
 <script>
+    /* MASTER DATA LIST */
     const tracks = [
         {id: 1, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", co: "Ethio-Build", sal: "25k ETB"},
         {id: 2, n: "Electrical Systems", g: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", co: "Addis Power", sal: "30k ETB"},
-        {id: 3, n: "AI Engineering", g: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", co: "Tech-Hub", sal: "45k ETB"}
-        // ... all 15 tracks go here
+        {id: 3, n: "AI Engineering", g: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", co: "Tech-Hub AA", sal: "45k ETB"},
+        {id: 4, n: "Cyber Security", g: "Security Expert", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", co: "Cyber-Safeguard", sal: "40k ETB"},
+        {id: 5, n: "Web Systems", g: "Full-Stack Dev", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", co: "Digital Addis", sal: "35k ETB"},
+        {id: 6, n: "Solar Tech", g: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", co: "SunPower ET", sal: "32k ETB"},
+        {id: 7, n: "Auto Mechanics", g: "Auto Tech", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", co: "Mojo Motors", sal: "28k ETB"},
+        {id: 8, n: "UI/UX Design", g: "Product Designer", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", co: "Design Studio", sal: "38k ETB"},
+        {id: 9, n: "Data Science", g: "Data Scientist", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", co: "Data-Link", sal: "42k ETB"},
+        {id: 10, n: "Masonry Tech", g: "Master Mason", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", co: "Urban Stone", sal: "24k ETB"},
+        {id: 11, n: "Welding Tech", g: "Welder", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", co: "Metal-Works", sal: "26k ETB"},
+        {id: 12, n: "Cloud Arch", g: "Cloud Engineer", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", co: "Cloud-ET", sal: "50k ETB"},
+        {id: 13, n: "Network Admin", g: "Network Engineer", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", co: "Ethio-Net", sal: "36k ETB"},
+        {id: 14, n: "Mobile Dev", g: "App Developer", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", co: "App-Zone", sal: "40k ETB"},
+        {id: 15, n: "Plumbing Tech", g: "Master Plumber", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", co: "Flow-Fix", sal: "22k ETB"}
     ];
 
-    function render() {
+    function renderPortal() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
         
-        // Render Image Cards
-        document.getElementById('track-grid').innerHTML = tracks.map(t => {
+        /* 15 TRACKS RENDER */
+        document.getElementById('track-display').innerHTML = tracks.map(t => {
             const isE = enrolled.includes(t.id);
             return `
-                <div class="card" style="${isE ? 'border-color:var(--success)' : ''}">
-                    <img src="${t.img}" class="card-img" alt="${t.n}">
+                <div class="card ${isE ? 'enrolled-style' : ''}">
+                    <img src="${t.img}" class="card-img" alt="${t.n}" onerror="this.src='https://via.placeholder.com/400x200/0f172a/38bdf8?text=${t.n}'">
                     <div class="card-body">
-                        <h3>${t.n}</h3>
-                        <p style="opacity:0.6; font-size:14px;">Goal: ${t.g}</p>
+                        <h3 style="margin:0; font-size:22px;">${t.n}</h3>
+                        <p style="opacity:0.6; font-size:14px; margin:10px 0;">Goal: ${t.g}</p>
                         <button class="action-btn ${isE ? 'enrolled-btn' : ''}" onclick="enroll(${t.id})">
                             ${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}
                         </button>
@@ -93,37 +112,45 @@
                 </div>`;
         }).join('');
 
-        // Render Job Board
-        const active = tracks.filter(t => enrolled.includes(t.id));
-        document.getElementById('job-grid').innerHTML = active.length ? active.map(j => `
-            <div class="job-card">
-                <span style="background:var(--yellow); color:black; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">OPENING</span>
-                <h4 style="margin:10px 0 5px 0;">${j.g}</h4>
-                <div style="font-size:12px; opacity:0.7;">${j.co} • ${j.sal}</div>
-            </div>`).join('') : '<p style="opacity:0.5;">Enroll in a track to unlock jobs...</p>';
+        /* JOB BOARD RENDER */
+        const activeJobs = tracks.filter(t => enrolled.includes(t.id));
+        const jobBox = document.getElementById('job-list');
+        if(activeJobs.length > 0) {
+            jobBox.innerHTML = activeJobs.map(j => `
+                <div class="job-card">
+                    <span class="tag-open">OPENING</span>
+                    <h4 style="margin:12px 0 5px 0; font-size:18px;">${j.g}</h4>
+                    <div style="font-size:13px; opacity:0.8;">${j.co} • ${j.sal}</div>
+                </div>`).join('');
+        } else {
+            jobBox.innerHTML = '<p style="opacity:0.5;">Enroll in a career track to see live job openings...</p>';
+        }
     }
 
-    function verify() {
+    function verifyID() {
         const val = document.getElementById('f-input').value;
-        if(val.length === 10) { 
-            localStorage.setItem('faydaID', val); 
-            alert("ID Verified"); 
-        } else { alert("Enter 10 Digits"); }
+        if(val.length === 10) {
+            localStorage.setItem('faydaID', val); // Persistent ID
+            alert("Fayda ID Verified Successfully");
+        } else { alert("Error: Please enter exactly 10 digits"); }
     }
 
     function enroll(id) {
         let list = JSON.parse(localStorage.getItem('enrolled')) || [];
-        if(!list.includes(id)) list.push(id);
-        localStorage.setItem('enrolled', JSON.stringify(list));
-        render();
+        if(!list.includes(id)) {
+            list.push(id);
+            localStorage.setItem('enrolled', JSON.stringify(list)); // Save progress
+            renderPortal();
+        }
     }
 
-    function setLang(l) {
-        document.getElementById('h-title').innerText = l === 'am' ? 'ብሔራዊ የሥራ ማዕከል' : 'National Career Hub';
-        document.getElementById('t-header').innerText = l === 'am' ? 'የሙያ ትራኮች' : 'Your Professional Tracks';
+    function translateLang(l) {
+        document.getElementById('hero-main').innerText = l === 'am' ? 'ብሔራዊ የሥራ ማዕከል' : 'National Career Hub';
+        document.getElementById('track-title').innerText = l === 'am' ? '15 የሙያ መስኮች' : '15 Career Tracks';
+        document.getElementById('hero-sub').innerText = l === 'am' ? 'ለመጀመር የእርስዎን ፋይዳ መለያ ያረጋግጡ' : 'Verify your Fayda ID to begin your journey';
     }
 
-    render();
+    renderPortal();
 </script>
 </body>
 </html>
