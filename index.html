@@ -4,33 +4,35 @@
     <meta charset="UTF-8">
     <title>ልማት Hub | Official 2026</title>
     <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --success: #10b981; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* Top Navigation & Language */
-        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; background: var(--bg); border-bottom: 1px solid #1e293b; }
+        /* Nav & Language */
+        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
         .logo { color: var(--accent); font-size: 22px; font-weight: 800; text-decoration: none; }
-        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; margin-left: 5px; }
 
         .ticker { background: var(--yellow); color: black; padding: 10px; text-align: center; font-weight: bold; font-size: 13px; }
 
-        /* Professional Hero Section */
-        .hero { padding: 80px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
-        .hero h1 { font-size: 48px; margin-bottom: 10px; letter-spacing: -1px; }
-        .id-input { background: rgba(255,255,255,0.05); border: 1px solid var(--accent); color: white; padding: 18px; width: 340px; border-radius: 12px; text-align: center; font-size: 20px; margin-bottom: 20px; outline: none; }
-        .v-btn { background: var(--accent); color: black; border: none; padding: 18px 45px; border-radius: 12px; font-weight: 900; cursor: pointer; transition: 0.3s; }
-        .v-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+        /* Job Board */
+        .job-section { background: rgba(56, 189, 248, 0.03); padding: 25px 5%; border-bottom: 1px solid var(--accent); }
+        .job-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
+        .job-card { background: var(--card); border: 1px solid var(--yellow); padding: 15px; border-radius: 12px; min-width: 240px; }
 
-        /* The 15 Tracks Grid with Images */
-        .container { padding: 50px 5%; }
+        /* Hero */
+        .hero { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
+        .id-input { background: rgba(255,255,255,0.05); border: 1px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 10px; text-align: center; font-size: 18px; margin-bottom: 15px; }
+        .v-btn { background: var(--accent); color: black; border: none; padding: 15px 40px; border-radius: 10px; font-weight: 900; cursor: pointer; }
+
+        /* 15 Tracks with Images */
+        .container { padding: 40px 5%; }
         .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; }
-        .card:hover { border-color: var(--accent); }
-        .card-img { width: 100%; height: 180px; background: #1e293b; object-fit: cover; }
-        .card-body { padding: 25px; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .card-img { width: 100%; height: 170px; object-fit: cover; background: #1e293b; }
+        .card-body { padding: 20px; }
         
-        .status-btn { background: #1e293b; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
-        .enrolled { background: #10b981 !important; color: white; }
+        .action-btn { background: var(--accent); color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
+        .cert-btn { background: var(--success); color: white; margin-top: 8px; display: none; }
     </style>
 </head>
 <body>
@@ -38,76 +40,97 @@
 <header>
     <a href="#" class="logo">ልማት Hub</a>
     <div>
-        <button class="lang-btn" onclick="alert('አማርኛ ተመርጧል')">አማርኛ</button>
-        <button class="lang-btn">English</button>
+        <button class="lang-btn" onclick="setLang('am')">አማርኛ</button>
+        <button class="lang-btn" onclick="setLang('en')">English</button>
     </div>
 </header>
 
-<div class="ticker">Digital Ethiopia 2026 | 15 Certified Career Tracks | Verify via Fayda ID</div>
+<div class="ticker">Digital Ethiopia 2026 | National Career Portal | Verified by Fayda ID</div>
 
 <div class="hero">
-    <h1 id="hero-title">National Career Hub</h1>
-    <p id="hero-sub">Verify your Fayda ID to begin your professional journey</p>
+    <h1 id="h-title">National Career Hub</h1>
     <input type="number" id="f-input" class="id-input" placeholder="Enter 10 Digits"><br>
     <button class="v-btn" onclick="verify()">VERIFY IDENTITY</button>
 </div>
 
+<div class="job-section">
+    <h3 style="margin:0 0 15px 0; color:var(--accent);">Live Job Board</h3>
+    <div class="job-grid" id="job-grid"></div>
+</div>
+
 <div class="container">
-    <h2 style="margin-bottom: 30px; font-size: 28px;">Your Professional Tracks</h2>
-    <div class="track-grid" id="grid"></div>
+    <h2 style="margin-bottom:25px;">Professional Tracks</h2>
+    <div class="track-grid" id="track-grid"></div>
 </div>
 
 <script>
-    // THE FULL 15 TRACKS LIST
     const tracks = [
-        {id: 1, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500"},
-        {id: 2, n: "Electrical Systems", g: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500"},
-        {id: 3, n: "AI Engineering", g: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500"},
-        {id: 4, n: "Cyber Security", g: "Security Expert", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500"},
-        {id: 5, n: "Web Systems", g: "Full-Stack Dev", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500"},
-        {id: 6, n: "Solar Tech", g: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500"},
-        {id: 7, n: "Auto Mechanics", g: "Auto Tech", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500"},
-        {id: 8, n: "UI/UX Design", g: "Product Designer", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500"},
-        {id: 9, n: "Data Science", g: "Data Scientist", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500"},
-        {id: 10, n: "Masonry Tech", g: "Master Mason", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500"},
-        {id: 11, n: "Welding", g: "Welder", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500"},
-        {id: 12, n: "Cloud Arch", g: "Cloud Engineer", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500"},
-        {id: 13, n: "Network Admin", g: "Network Engineer", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"},
-        {id: 14, n: "Mobile Dev", g: "App Developer", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500"},
-        {id: 15, n: "Plumbing Tech", g: "Master Plumber", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500"}
+        {id:1, n:"Modern Carpentry", g:"Master Carpenter", img:"https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400", co:"Ethio-Build", sal:"25k ETB"},
+        {id:2, n:"Electrical Systems", g:"Electrician", img:"https://images.unsplash.com/photo-1621905231727-07442373e43d?w=400", co:"Addis Power", sal:"30k ETB"},
+        {id:3, n:"AI Engineering", g:"AI Specialist", img:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400", co:"Tech-Hub", sal:"45k ETB"},
+        {id:4, n:"Cyber Security", g:"Security Expert", img:"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400", co:"Cyber-Safe", sal:"40k ETB"},
+        {id:5, n:"Web Systems", g:"Full-Stack Dev", img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400", co:"Digital Addis", sal:"35k ETB"},
+        {id:6, n:"Solar Tech", g:"Solar Installer", img:"https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400", co:"SunPower ET", sal:"32k ETB"},
+        {id:7, n:"Auto Mechanics", g:"Auto Tech", img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400", co:"Mojo Motors", sal:"28k ETB"},
+        {id:8, n:"UI/UX Design", g:"Product Designer", img:"https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400", co:"Design Studio", sal:"38k ETB"},
+        {id:9, n:"Data Science", g:"Data Scientist", img:"https://images.unsplash.com/photo-1551288049-bbbda536339a?w=400", co:"Data-Link", sal:"42k ETB"},
+        {id:10, n:"Masonry Tech", g:"Master Mason", img:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400", co:"Urban Stone", sal:"24k ETB"},
+        {id:11, n:"Welding", g:"Welder", img:"https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400", co:"Metal-Work", sal:"26k ETB"},
+        {id:12, n:"Cloud Arch", g:"Cloud Engineer", img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400", co:"Cloud-ET", sal:"50k ETB"},
+        {id:13, n:"Network Admin", g:"Network Engineer", img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400", co:"Ethio-Net", sal:"36k ETB"},
+        {id:14, n:"Mobile Dev", g:"App Developer", img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400", co:"App-Zone", sal:"40k ETB"},
+        {id:15, n:"Plumbing Tech", g:"Master Plumber", img:"https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=400", co:"Flow-Fix", sal:"22k ETB"}
     ];
 
     function render() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        document.getElementById('grid').innerHTML = tracks.map(t => {
+        
+        // Tracks
+        document.getElementById('track-grid').innerHTML = tracks.map(t => {
             const isE = enrolled.includes(t.id);
             return `
-                <div class="card">
+                <div class="card" style="${isE ? 'border-color:var(--success)' : ''}">
                     <img src="${t.img}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200/0f172a/38bdf8?text=${t.n}'">
                     <div class="card-body">
-                        <h3 style="margin:0; color:white;">${t.n}</h3>
-                        <p style="opacity:0.6; font-size:14px; margin:10px 0;">Goal: ${t.g}</p>
-                        <button class="status-btn ${isE ? 'enrolled' : ''}" onclick="enroll(${t.id})">
-                            ${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}
+                        <h3>${t.n}</h3>
+                        <p style="opacity:0.6; font-size:14px;">Goal: ${t.g}</p>
+                        <button class="action-btn" onclick="enroll(${t.id})" style="${isE ? 'background:var(--success); color:white;' : ''}">
+                            ${isE ? '✓ ENROLLED' : 'ENROLL NOW'}
+                        </button>
+                        <button class="action-btn cert-btn" id="cert-${t.id}" style="display:${isE ? 'block' : 'none'}" onclick="cert('${t.n}')">
+                            DOWNLOAD CERTIFICATE
                         </button>
                     </div>
                 </div>`;
         }).join('');
+
+        // Jobs
+        const myJobs = tracks.filter(t => enrolled.includes(t.id));
+        document.getElementById('job-grid').innerHTML = myJobs.length ? myJobs.map(j => `
+            <div class="job-card">
+                <span style="background:var(--yellow); color:black; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">OPENING</span>
+                <h4 style="margin:10px 0 5px 0;">${j.g}</h4>
+                <div style="font-size:12px; opacity:0.7;">${j.co} • ${j.sal}</div>
+            </div>`).join('') : '<p style="opacity:0.5;">Enroll to unlock matching jobs...</p>';
     }
 
     function verify() {
         const val = document.getElementById('f-input').value;
-        if(val.length === 10) {
-            localStorage.setItem('faydaID', val); // Saves progress
-            alert("Fayda ID Verified");
-        } else { alert("Please enter 10 digits"); }
+        if(val.length === 10) { localStorage.setItem('faydaID', val); alert("ID Linked"); }
     }
 
     function enroll(id) {
         let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
         if(!enrolled.includes(id)) enrolled.push(id);
-        localStorage.setItem('enrolled', JSON.stringify(enrolled));
+        localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Invisible save
         render();
+    }
+
+    function cert(name) { alert(`Downloading Official 2026 Certificate for: ${name}\nID: ${localStorage.getItem('faydaID') || 'No ID Linked'}`); }
+
+    function setLang(lang) {
+        document.getElementById('h-title').innerText = lang === 'am' ? 'ብሔራዊ የሥራ ማዕከል' : 'National Career Hub';
+        alert(lang === 'am' ? 'ቋንቋ ተቀይሯል' : 'Language changed to English');
     }
 
     render();
