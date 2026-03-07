@@ -4,25 +4,34 @@
     <meta charset="UTF-8">
     <title>ልማት Hub | Official 2026</title>
     <style>
-        /* CSS FIX: Restores the dark theme */
-        :root { --dark: #05080f; --accent: #38bdf8; --yellow: #fbbf24; --card: #0f172a; }
-        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        /* Original Dark Theme Colors */
+        :root { 
+            --bg: #05080f; 
+            --card-bg: #0f172a; 
+            --accent: #38bdf8; 
+            --success: #10b981; 
+            --yellow: #fbbf24; 
+        }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
         
-        header { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { color: var(--accent); font-size: 24px; font-weight: 800; text-decoration: none; }
+        header { padding: 25px 5%; display: flex; align-items: center; border-bottom: 1px solid #1e293b; }
+        .logo { color: var(--accent); font-size: 24px; font-weight: bold; text-decoration: none; }
 
-        /* Job Board Styling */
-        .job-section { padding: 30px 5%; border-bottom: 1px solid var(--accent); background: rgba(56,189,248,0.03); }
+        /* Horizontal Job Board */
+        .job-section { background: rgba(56, 189, 248, 0.03); padding: 30px 5%; border-bottom: 1px solid var(--accent); }
         .job-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
-        .job-card { background: var(--card); border: 1px solid var(--yellow); padding: 15px; border-radius: 12px; min-width: 220px; }
-        .tag { background: var(--yellow); color: black; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
+        .job-card { background: var(--card-bg); border: 1px solid var(--yellow); padding: 15px; border-radius: 12px; min-width: 240px; }
+        .tag { background: var(--yellow); color: black; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
 
-        /* Tracks Styling */
+        /* Career Tracks Grid */
         .container { padding: 40px 5%; }
         .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .btn { background: var(--accent); color: black; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; }
-        .enrolled { border-color: #10b981; }
+        .card { background: var(--card-bg); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .card h3 { color: var(--accent); margin-top: 0; }
+        
+        .enroll-btn { background: var(--accent); color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px; }
+        .card.enrolled { border-color: var(--success); }
+        .enrolled-btn { background: var(--success); color: white; }
     </style>
 </head>
 <body>
@@ -30,59 +39,65 @@
 <header><a href="#" class="logo">ልማት Hub</a></header>
 
 <div class="job-section">
-    <h2 style="margin-top:0;">Live Job Board (2026)</h2>
+    <h2 style="margin: 0 0 20px 0;">Live Job Board (2026)</h2>
     <div class="job-grid" id="job-list">
         </div>
 </div>
 
 <div class="container">
-    <h2>15 Career Tracks</h2>
+    <h2 style="margin-bottom: 30px;">15 Career Tracks</h2>
     <div class="track-grid" id="track-list"></div>
 </div>
 
 <script>
-    /* JAVASCRIPT FIX: Restores the interactive logic */
     const tracks = [
         {id: 1, n: "Modern Carpentry", job: "Master Carpenter", co: "Ethio-Construction", sal: "25k ETB"},
         {id: 2, n: "Electrical Systems", job: "Electrician", co: "Addis Electric", sal: "30k ETB"},
         {id: 3, n: "AI Engineering", job: "AI Specialist", co: "Tech-Hub AA", sal: "45k ETB"},
-        {id: 4, n: "Cyber Security", job: "Security Expert", co: "Cyber-Safeguard", sal: "40k ETB"}
+        {id: 4, n: "Cyber Security", job: "Security Expert", co: "Cyber-Safeguard", sal: "40k ETB"},
+        {id: 5, n: "Auto Mechanics", job: "Auto Tech", co: "Mojo Motors", sal: "28k ETB"},
+        {id: 6, n: "Web Systems", job: "Full-Stack Dev", co: "Digital Addis", sal: "35k ETB"}
     ];
 
     function render() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
         
-        // Render Tracks
-        document.getElementById('track-list').innerHTML = tracks.map(t => `
-            <div class="card ${enrolled.includes(t.id) ? 'enrolled' : ''}">
-                <h3 style="color:var(--accent);">${t.n}</h3>
-                <p style="opacity:0.6; font-size:14px;">Target: ${t.job}</p>
-                <button class="btn" onclick="enroll(${t.id})">
-                    ${enrolled.includes(t.id) ? '✓ ENROLLED' : 'VIEW SYLLABUS'}
-                </button>
-            </div>
-        `).join('');
+        // Render Career Tracks
+        document.getElementById('track-list').innerHTML = tracks.map(t => {
+            const isE = enrolled.includes(t.id);
+            return `
+                <div class="card ${isE ? 'enrolled' : ''}">
+                    <h3>${t.n}</h3>
+                    <p style="opacity: 0.6; font-size: 14px;">Target: ${t.job}</p>
+                    <button class="enroll-btn ${isE ? 'enrolled-btn' : ''}" onclick="toggleEnroll(${t.id})">
+                        ${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}
+                    </button>
+                </div>`;
+        }).join('');
 
-        // Render Jobs
+        // Render Job Board
         const jobContainer = document.getElementById('job-list');
-        const activeJobs = tracks.filter(t => enrolled.includes(t.id));
+        const myJobs = tracks.filter(t => enrolled.includes(t.id));
         
-        if(activeJobs.length > 0) {
-            jobContainer.innerHTML = activeJobs.map(j => `
+        if(myJobs.length > 0) {
+            jobContainer.innerHTML = myJobs.map(j => `
                 <div class="job-card">
-                    <span class="tag">OPENING</span>
-                    <h4 style="margin: 10px 0 5px 0;">${j.job}</h4>
-                    <div style="font-size:12px; opacity:0.8;">${j.co} • ${j.sal}</div>
-                </div>
-            `).join('');
+                    <span class="tag">Opening</span>
+                    <h4 style="margin: 12px 0 5px 0;">${j.job}</h4>
+                    <div style="font-size: 12px; opacity: 0.7;">${j.co} • ${j.sal}</div>
+                </div>`).join('');
         } else {
-            jobContainer.innerHTML = '<p style="opacity:0.5;">Enroll in a track to see job openings...</p>';
+            jobContainer.innerHTML = '<p style="opacity: 0.5;">Enroll in a track to see matching jobs...</p>';
         }
     }
 
-    function enroll(id) {
+    function toggleEnroll(id) {
         let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        if(!enrolled.includes(id)) enrolled.push(id);
+        if(!enrolled.includes(id)) {
+            enrolled.push(id);
+        } else {
+            enrolled = enrolled.filter(item => item !== id); // Allows toggling for testing
+        }
         localStorage.setItem('enrolled', JSON.stringify(enrolled));
         render();
     }
