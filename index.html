@@ -1,37 +1,13 @@
 <style>
-    :root {
-        --dark: #070b14;
-        --card-bg: #111827;
-        --accent: #38bdf8;
-        --glass: rgba(255, 255, 255, 0.05);
-    }
-
-    /* Your glass-morphism and header styles go here */
-    header {
-        background: rgba(7, 11, 20, 0.85);
-        backdrop-filter: blur(15px);
-        border-bottom: 1px solid var(--glass);
-    }
-
-    /* This stops images from being pure black if they fail */
-    .card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        background: linear-gradient(45deg, #1e293b, #070b14);
-    }
+    :root { --dark: #070b14; --accent: #38bdf8; }
+    /* Paste your CSS here */
+    .card img { background: #1e293b; } /* Prevents black boxes */
 </style>
 
-<header> ... </header>
-<div class="grid"> ... </div>
+<header> ልማት Hub </header>
+<div id="course-grid"></div>
 
 <script>
-    // Your renderGrid and Fayda ID saving logic goes here
-    function handleVerify() {
-        const id = document.querySelector('.id-input').value;
-        if (id.length === 10) {
-            localStorage.setItem('faydaID', id); // The Invisible Part
-            alert('Verified!');
-        }
-    }
+    /* Paste your Fayda ID logic here */
+    function verify() { localStorage.setItem('faydaID', '0000000000'); }
 </script>
