@@ -2,128 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | Official 2026</title>
+    <title>ልማት Hub | All 15 Tracks</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --success: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
         header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
         .logo { color: var(--accent); font-size: 24px; font-weight: 800; text-decoration: none; }
-        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 6px 14px; border-radius: 6px; cursor: pointer; margin-left: 10px; }
+        .lang-btn { background: #1e293b; color: white; border: 1px solid var(--accent); padding: 6px 14px; border-radius: 6px; cursor: pointer; }
 
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: bold; font-size: 14px; }
+        /* Hero */
+        .hero { padding: 50px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
+        .id-input { background: rgba(255,255,255,0.05); border: 1.5px solid var(--accent); color: white; padding: 15px; width: 280px; border-radius: 12px; text-align: center; font-size: 18px; margin-bottom: 10px; }
 
-        /* Hero & Grid */
-        .hero { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, #111827, #05080f); }
-        .id-input { background: rgba(255,255,255,0.05); border: 1.5px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 12px; text-align: center; font-size: 18px; margin-bottom: 15px; outline: none; }
-        .v-btn { background: var(--accent); color: black; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 900; cursor: pointer; }
-
-        .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        
-        /* Course Cards */
-        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; cursor: pointer; }
-        .card:hover { border-color: var(--accent); transform: scale(1.02); }
-        .card-img { width: 100%; height: 180px; object-fit: cover; background: #1e293b; }
+        /* Grid */
+        .container { padding: 30px 5%; }
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .card-img { width: 100%; height: 160px; object-fit: cover; }
         .card-body { padding: 20px; }
-        
-        .status-badge { background: var(--success); color: white; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; display: none; margin-bottom: 10px; width: fit-content; }
 
-        /* NEW: Learning Player */
-        #learning-view { display: none; padding: 40px 5%; max-width: 1000px; margin: 0 auto; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--accent); position: relative; }
-        .back-btn { background: #1e293b; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-bottom: 20px; }
+        /* Learning Player */
+        #learning-view { display: none; padding: 40px 5%; text-align: center; }
+        .video-placeholder { width: 100%; max-width: 800px; aspect-ratio: 16/9; background: #000; margin: 20px auto; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
-    <div>
-        <button class="lang-btn" onclick="setLang('am')">አማርኛ</button>
-        <button class="lang-btn" onclick="setLang('en')">English</button>
-    </div>
+    <button class="lang-btn" onclick="toggleLang()">አማርኛ / EN</button>
 </header>
-
-<div class="ticker">Digital Ethiopia 2026 | Start Learning Today | Progress Saved via Fayda ID</div>
 
 <div id="main-view">
     <div class="hero">
         <h1 id="h-title">National Career Hub</h1>
-        <input type="number" id="f-input" class="id-input" placeholder="Enter 10 Digits"><br>
-        <button class="v-btn" onclick="verify()">VERIFY IDENTITY</button>
+        <input type="number" id="f-input" class="id-input" placeholder="Enter 10-Digit ID">
     </div>
 
     <div class="container">
-        <h2 id="t-header">15 Career Tracks</h2>
+        <h2 id="t-header">15 Professional Tracks</h2>
         <div class="track-grid" id="track-grid"></div>
     </div>
 </div>
 
 <div id="learning-view">
-    <button class="back-btn" onclick="closeLearning()">← Back to Dashboard</button>
-    <h2 id="learn-title">Course Title</h2>
-    <div class="video-box">
-        <div style="text-align:center;">
-            <p style="font-size:24px; color:var(--accent);">▶</p>
-            <p>Module 1: Professional Introduction</p>
-        </div>
+    <button onclick="closeLearning()" style="background:var(--accent); padding:10px 20px; border-radius:8px; cursor:pointer;">← Back</button>
+    <h2 id="learn-name">Course Name</h2>
+    <div class="video-placeholder">
+        <div style="font-size:50px; color:var(--accent);">▶</div>
     </div>
-    <div style="margin-top:20px; padding:20px; background:var(--card); border-radius:15px;">
-        <h3>Course Syllabus</h3>
-        <ul id="syl-list" style="opacity:0.8; line-height:2;"></ul>
-    </div>
+    <p>Loading Video Module 1...</p>
 </div>
 
 <script>
+    /* ALL 15 TRACKS RESTORED */
     const tracks = [
-        {id: 1, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", syl: ["Safety Protocols", "Material Selection", "Blueprint Reading", "Advanced Finishing"]},
-        {id: 2, n: "Electrical Systems", g: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", syl: ["Circuit Basics", "Residential Wiring", "Solar Integration", "Fault Testing"]},
-        {id: 3, n: "AI Engineering", g: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", syl: ["Python Data Structures", "Neural Networks", "LLM Integration", "Model Deployment"]},
-        {id: 4, n: "Cyber Security", g: "Security Expert", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", syl: ["Network Security", "Ethical Hacking", "Cryptography", "Incident Response"]}
-        // Add all 15 tracks here...
+        {id: 1, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400"},
+        {id: 2, n: "Electrical Systems", g: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=400"},
+        {id: 3, n: "AI Engineering", g: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400"},
+        {id: 4, n: "Cyber Security", g: "Security Expert", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400"},
+        {id: 5, n: "Web Systems", g: "Full-Stack Dev", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400"},
+        {id: 6, n: "Solar Tech", g: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"},
+        {id: 7, n: "Auto Mechanics", g: "Auto Tech", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400"},
+        {id: 8, n: "UI/UX Design", g: "Product Designer", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400"},
+        {id: 9, n: "Data Science", g: "Data Scientist", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=400"},
+        {id: 10, n: "Masonry Tech", g: "Master Mason", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400"},
+        {id: 11, n: "Welding Tech", g: "Industrial Welder", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400"},
+        {id: 12, n: "Cloud Arch", g: "Cloud Engineer", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
+        {id: 13, n: "Network Admin", g: "Network Engineer", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400"},
+        {id: 14, n: "Mobile Dev", g: "App Developer", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400"},
+        {id: 15, n: "Plumbing Tech", g: "Master Plumber", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=400"}
     ];
 
     function render() {
-        const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        document.getElementById('track-grid').innerHTML = tracks.map(t => {
-            const isE = enrolled.includes(t.id);
-            return `
-                <div class="card" onclick="startLearning(${t.id})">
-                    <img src="${t.img}" class="card-img" alt="${t.n}">
-                    <div class="card-body">
-                        <div class="status-badge" style="display:${isE ? 'block' : 'none'}">ENROLLED</div>
-                        <h3 style="margin:0;">${t.n}</h3>
-                        <p style="opacity:0.6; font-size:14px; margin:10px 0;">Goal: ${t.g}</p>
-                        <p style="color:var(--accent); font-size:12px; font-weight:bold;">${isE ? 'CONTINUE LEARNING →' : 'CLICK TO ENROLL'}</p>
-                    </div>
-                </div>`;
-        }).join('');
+        document.getElementById('track-grid').innerHTML = tracks.map(t => `
+            <div class="card" onclick="startLearning('${t.n}')">
+                <img src="${t.img}" class="card-img" alt="${t.n}">
+                <div class="card-body">
+                    <h3 style="margin:0;">${t.n}</h3>
+                    <p style="opacity:0.6; font-size:14px; margin:10px 0;">Goal: ${t.g}</p>
+                    <p style="color:var(--accent); font-weight:bold;">TOUCH TO START LEARNING →</p>
+                </div>
+            </div>`).join('');
     }
 
-    function startLearning(id) {
-        let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        if(!enrolled.includes(id)) {
-            enrolled.push(id);
-            localStorage.setItem('enrolled', JSON.stringify(enrolled));
-        }
-
-        const track = tracks.find(t => t.id === id);
+    function startLearning(name) {
         document.getElementById('main-view').style.display = 'none';
         document.getElementById('learning-view').style.display = 'block';
-        document.getElementById('learn-title').innerText = track.n;
-        document.getElementById('syl-list').innerHTML = track.syl.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('learn-name').innerText = name;
     }
 
     function closeLearning() {
         document.getElementById('main-view').style.display = 'block';
         document.getElementById('learning-view').style.display = 'none';
-        render();
-    }
-
-    function verify() {
-        const val = document.getElementById('f-input').value;
-        if(val.length === 10) { localStorage.setItem('faydaID', val); alert("ID Verified"); }
     }
 
     render();
