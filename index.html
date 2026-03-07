@@ -1,50 +1,75 @@
-<style>
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; }
-    .card { background: #111827; border-radius: 20px; padding: 15px; border: 1px solid #38bdf8; cursor: pointer; transition: 0.3s; }
-    .card:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
-    .status-badge { font-size: 0.7rem; padding: 4px 8px; border-radius: 5px; background: #374151; color: white; margin-top: 10px; display: inline-block; }
-    .enrolled { background: #10b981 !important; } /* Green for enrolled */
-</style>
-
-<div class="container">
-    <h2 id="h-tr">Active Career Tracks</h2>
-    <div class="grid" id="course-grid"></div>
-</div>
-
-<script>
-    const tracks = [
-        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", syllabus: "Module 1: Wood Science, Module 2: Framing"},
-        {id: 2, n: "Electrical Systems", job: "Electrician", syllabus: "Module 1: Safety, Module 2: Circuits"},
-        {id: 3, n: "AI Engineering", job: "AI Specialist", syllabus: "Module 1: Python, Module 2: Neural Networks"}
-    ];
-
-    function renderGrid() {
-        const enrolledTracks = JSON.parse(localStorage.getItem('enrolled')) || [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* ALL YOUR CSS MUST BE INSIDE THESE TAGS */
+        :root { --dark: #070b14; --accent: #38bdf8; --success: #10b981; }
+        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; padding: 5%; }
         
-        document.getElementById('course-grid').innerHTML = tracks.map(t => {
-            const isEnrolled = enrolledTracks.includes(t.id);
-            return `
-                <div class="card" onclick="enroll(${t.id})">
-                    <h3 style="color:#38bdf8;">${t.n}</h3>
-                    <p style="font-size:0.9rem;">Target: ${t.job}</p>
-                    <div class="status-badge ${isEnrolled ? 'enrolled' : ''}">
-                        ${isEnrolled ? '✓ ENROLLED' : 'CLICK TO START'}
-                    </div>
-                </div>`;
-        }).join('');
-    }
-
-    function enroll(id) {
-        let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        if(!enrolled.includes(id)) {
-            enrolled.push(id);
-            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Saves to browser memory
-            alert("Success! You have started this career track.");
-            renderGrid();
-        } else {
-            alert("You are already taking this course.");
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        
+        /* Premium Card Design */
+        .card { 
+            background: #111827; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 20px; 
+            padding: 25px; 
+            transition: 0.3s;
+            cursor: pointer;
         }
-    }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        
+        /* Enrollment Badge */
+        .status-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 15px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: #374151;
+        }
+        .enrolled { background: var(--success); color: white; }
+    </style>
+</head>
+<body>
 
-    renderGrid();
-</script>
+    <h1>Active Career Tracks</h1>
+    <div class="grid" id="course-grid"></div>
+
+    <script>
+        // ALL YOUR LOGIC MUST BE INSIDE THESE TAGS
+        const tracks = [
+            {id: 1, n: "Modern Carpentry", job: "Master Carpenter"},
+            {id: 2, n: "Electrical Systems", job: "Electrician"},
+            {id: 3, n: "AI Engineering", job: "AI Specialist"}
+        ];
+
+        function renderGrid() {
+            const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+            document.getElementById('course-grid').innerHTML = tracks.map(t => {
+                const isEnrolled = enrolled.includes(t.id);
+                return `
+                    <div class="card" onclick="enroll(${t.id})">
+                        <h2 style="color:var(--accent);">${t.n}</h2>
+                        <p style="opacity:0.7;">Target: ${t.job}</p>
+                        <div class="status-badge ${isEnrolled ? 'enrolled' : ''}">
+                            ${isEnrolled ? '✓ ENROLLED' : 'CLICK TO START'}
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function enroll(id) {
+            let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+            if(!enrolled.includes(id)) {
+                enrolled.push(id);
+                localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Invisible Part
+                renderGrid();
+            }
+        }
+
+        renderGrid();
+    </script>
+</body>
+</html>
