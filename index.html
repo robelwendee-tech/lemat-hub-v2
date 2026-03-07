@@ -9,109 +9,105 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background: var(--dark); color: white; line-height: 1.6; }
         
-        /* Premium Header */
-        header { background: rgba(7, 11, 20, 0.95); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* Premium Header & Ticker */
+        header { background: rgba(7, 11, 20, 0.95); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo { font-size: 24px; font-weight: 800; color: var(--accent); text-decoration: none; }
+        .ticker { background: var(--yellow); color: #000; padding: 10px; font-weight: 700; text-align: center; font-size: 0.9rem; }
 
-        /* Ticker */
-        .ticker { background: var(--yellow); color: #000; padding: 10px; font-weight: 700; overflow: hidden; white-space: nowrap; text-align: center; }
-
-        /* Hero ID Section */
-        .hero { padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, rgba(56, 189, 248, 0.05), transparent); }
+        /* Fayda ID Hero */
+        .hero { padding: 50px 20px; text-align: center; background: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent); }
         .id-input { background: rgba(255,255,255,0.05); border: 2px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 12px; text-align: center; font-size: 1.2rem; outline: none; margin-bottom: 15px; }
-        .v-btn { background: var(--accent); color: #000; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
+        .v-btn { background: var(--accent); color: #000; border: none; padding: 15px 30px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
 
-        /* Grid & Cards */
+        /* Grid & Track Cards */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; cursor: pointer; position: relative; }
-        .card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .card img { width: 100%; height: 180px; object-fit: cover; background: #1e293b; }
+        .card { background: var(--card); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; cursor: pointer; }
+        .card:hover { border-color: var(--accent); transform: translateY(-8px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; background: #1e293b; }
         .card-body { padding: 20px; }
         
-        /* Enrolled Status */
-        .status-badge { display: inline-block; margin-top: 10px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; background: #374151; }
-        .enrolled { background: var(--success); color: white; }
+        .badge { display: inline-block; margin-top: 10px; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; background: #374151; }
+        .enrolled { background: var(--success); }
 
-        /* Syllabus Modal */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
-        .modal-box { background: var(--card); padding: 40px; border-radius: 24px; border: 1px solid var(--accent); max-width: 500px; width: 100%; }
+        /* Pop-up Syllabus */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
+        .modal-box { background: var(--card); padding: 30px; border-radius: 24px; border: 1px solid var(--accent); max-width: 450px; width: 100%; }
+        .cert-btn { background: var(--yellow); color: black; display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <header><a href="#" class="logo">ልማት Hub</a></header>
-<div class="ticker">Digital Ethiopia 2026 | 15 Certified Career Tracks | Progress Tracked via Fayda ID</div>
+<div class="ticker">Official Digital Ethiopia 2026 Portal | 15 Certified Tracks | Verify Fayda ID to Sync</div>
 
 <div class="hero">
-    <h1 style="font-size: 2.5rem; margin-bottom: 15px;">National Career Hub</h1>
-    <p style="opacity: 0.6; margin-bottom: 20px;">Verify your Fayda ID to begin</p>
-    <input type="number" id="fayda-input" class="id-input" placeholder="Enter 10 Digits"><br>
-    <button class="v-btn" onclick="verifyID()">VERIFY IDENTITY</button>
+    <h1>Identity Verification</h1>
+    <input type="number" id="f-input" class="id-input" placeholder="Enter Fayda ID"><br>
+    <button class="v-btn" onclick="saveFayda()">SYNC PROGRESS</button>
 </div>
 
 <div class="container">
-    <h1 style="margin-bottom: 30px;">Your Professional Tracks</h1>
-    <div class="grid" id="course-grid"></div>
+    <h2 style="margin-bottom:25px;">Available Career Tracks</h2>
+    <div class="grid" id="main-grid"></div>
 </div>
 
-<div id="modal" class="modal">
+<div id="syllabus-modal" class="modal">
     <div class="modal-box">
-        <h2 id="m-title" style="color:var(--accent); margin-bottom:20px;"></h2>
-        <ul id="m-list" style="list-style: none; line-height: 2.2; margin-bottom: 30px;"></ul>
-        <button id="enroll-btn" class="v-btn" style="width: 100%;" onclick="doEnroll()">START TRACK</button>
-        <button class="v-btn" style="background: #374151; color: white; margin-top: 15px; width: 100%;" onclick="closeM()">CLOSE</button>
+        <h2 id="m-name" style="color:var(--accent);"></h2>
+        <ul id="m-lessons" style="margin: 20px 0; list-style: none; line-height: 2;"></ul>
+        <button id="main-action" class="v-btn" style="width:100%;" onclick="startTrack()">ENROLL NOW</button>
+        <button id="cert-btn" class="v-btn cert-btn" style="width:100%;" onclick="downloadCert()">DOWNLOAD CERTIFICATE</button>
+        <button class="v-btn" style="background:#374151; color:white; width:100%; margin-top:10px;" onclick="closeM()">CLOSE</button>
     </div>
 </div>
 
 <script>
-    // FULL 15 TRACKS RESTORED
     const tracks = [
-        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600", s: ["Wood Science", "Power Tools", "Furniture Design"]},
-        {id: 2, n: "Electrical Systems", job: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600", s: ["Wiring Theory", "Safety Codes", "Solar Install"]},
-        {id: 3, n: "AI Engineering", job: "AI Specialist", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600", s: ["Machine Learning", "Neural Nets", "Python AI"]},
-        {id: 4, n: "Cyber Security", job: "Security Expert", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600", s: ["Ethical Hacking", "Encryption", "Firewalls"]},
-        {id: 5, n: "UI/UX Design", job: "Product Designer", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600", s: ["User Research", "Figma", "Prototyping"]},
-        {id: 6, n: "Auto Mechanics", job: "Auto Technician", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", s: ["Engines", "Brakes", "Hybrid Tech"]},
-        {id: 7, n: "Web Systems", job: "Full-Stack Dev", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", s: ["Frontend", "Backend", "APIs"]},
-        {id: 8, n: "Solar Tech", job: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?w=600", s: ["PV Panels", "Inverters", "Battery Systems"]},
-        {id: 9, n: "Network Admin", job: "Network Engineer", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", s: ["Cloud Infrastructure", "Routing", "Linux"]},
-        {id: 10, n: "Masonry Tech", job: "Master Mason", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600", s: ["Brickwork", "Concrete", "Blueprints"]},
-        {id: 11, n: "Welding & Metal", job: "Welder", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600", s: ["Arc Welding", "MIG/TIG", "Fabrication"]},
-        {id: 12, n: "Cloud Architect", job: "Cloud Engineer", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600", s: ["AWS/Azure", "DevOps", "Scaling"]},
-        {id: 13, n: "Data Science", job: "Data Scientist", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600", s: ["Statistics", "Big Data", "Visualization"]},
-        {id: 14, n: "Mobile Dev", job: "App Developer", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600", s: ["Flutter", "React Native", "iOS/Android"]},
-        {id: 15, n: "Plumbing Tech", job: "Master Plumber", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600", s: ["Piping", "Drainage", "Maintenance"]}
+        {id: 1, n: "Modern Carpentry", job: "Master Carpenter", lessons: ["Wood Science", "Safety Standards", "Furniture Joinery"]},
+        {id: 2, n: "Electrical Systems", job: "Electrician", lessons: ["Wiring Theory", "Safety Codes", "Grid Installation"]},
+        {id: 3, n: "AI Engineering", job: "AI Specialist", lessons: ["Neural Networks", "Python AI", "Model Training"]},
+        {id: 4, n: "Cyber Security", job: "Security Expert", lessons: ["Network Defense", "Ethical Hacking", "Encryption"]},
+        {id: 5, n: "Web Systems", job: "Full-Stack Dev", lessons: ["HTML/CSS/JS", "Node.js", "Cloud Deployment"]},
+        {id: 6, n: "Solar Tech", job: "Solar Installer", lessons: ["PV Systems", "Battery Storage", "Inverter Tech"]},
+        {id: 7, n: "Auto Mechanics", job: "Technician", lessons: ["Engine Repair", "Hybrid Systems", "Diagnostics"]},
+        {id: 8, n: "UI/UX Design", job: "Product Designer", lessons: ["User Research", "Figma Design", "Prototyping"]},
+        {id: 9, n: "Data Science", job: "Data Scientist", lessons: ["Big Data", "Statistics", "Machine Learning"]},
+        {id: 10, n: "Masonry Tech", job: "Master Mason", lessons: ["Brick Laying", "Concrete Mix", "Building Plans"]},
+        {id: 11, n: "Welding & Metal", job: "Welder", lessons: ["MIG/TIG Welding", "Fabrication", "Blueprint Reading"]},
+        {id: 12, n: "Cloud Architect", job: "Cloud Engineer", lessons: ["AWS/Azure", "DevOps", "Cyber Resilience"]},
+        {id: 13, n: "Network Admin", job: "Network Engineer", lessons: ["Routing", "Switching", "Infrastructure"]},
+        {id: 14, n: "Mobile Dev", job: "App Developer", lessons: ["Flutter/React", "Swift/Kotlin", "API Sync"]},
+        {id: 15, n: "Plumbing Tech", job: "Master Plumber", lessons: ["Piping Systems", "Drainage", "Installation"]}
     ];
 
     let currentId = null;
 
-    // Load saved ID
     window.onload = () => {
         const saved = localStorage.getItem('faydaID');
-        if(saved) document.getElementById('fayda-input').value = saved;
+        if(saved) document.getElementById('f-input').value = saved;
         render();
     };
 
-    function verifyID() {
-        const val = document.getElementById('fayda-input').value;
-        if(val.length === 10) {
-            localStorage.setItem('faydaID', val); // Invisible memory
-            alert("Identity Verified");
-        } else { alert("Enter 10 digits"); }
+    function saveFayda() {
+        const val = document.getElementById('f-input').value;
+        if(val.length >= 10) {
+            localStorage.setItem('faydaID', val); // Invisible Part
+            alert("ID Synced Successfully");
+        }
     }
 
     function render() {
         const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        document.getElementById('course-grid').innerHTML = tracks.map(t => {
+        document.getElementById('main-grid').innerHTML = tracks.map(t => {
             const isE = enrolled.includes(t.id);
             return `
                 <div class="card" onclick="openS(${t.id})">
-                    <img src="${t.img}" onerror="this.src='https://via.placeholder.com/400x200/1e293b/38bdf8?text=${t.n}'">
+                    <img src="https://via.placeholder.com/400x200/1e293b/38bdf8?text=${t.n}">
                     <div class="card-body">
                         <h3>${t.n}</h3>
-                        <p style="font-size: 0.8rem; opacity: 0.6;">Goal: ${t.job}</p>
-                        <div class="status-badge ${isE ? 'enrolled' : ''}">${isE ? '✓ ENROLLED' : 'VIEW SYLLABUS'}</div>
+                        <p style="font-size:0.8rem; opacity:0.6;">Goal: ${t.job}</p>
+                        <div class="badge ${isE ? 'enrolled' : ''}">${isE ? '✓ ENROLLED' : 'VIEW LESSONS'}</div>
                     </div>
                 </div>`;
         }).join('');
@@ -120,22 +116,34 @@
     function openS(id) {
         currentId = id;
         const track = tracks.find(t => t.id === id);
-        document.getElementById('m-title').innerText = track.n;
-        document.getElementById('m-list').innerHTML = track.s.map(i => `<li>▹ ${i}</li>`).join('');
-        document.getElementById('modal').style.display = 'flex';
+        const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+        
+        document.getElementById('m-name').innerText = track.n;
+        document.getElementById('m-lessons').innerHTML = track.lessons.map(l => `<li>▹ ${l}</li>`).join('');
+        
+        const isE = enrolled.includes(id);
+        document.getElementById('main-action').innerText = isE ? "CONTINUE TRACK" : "ENROLL NOW";
+        document.getElementById('cert-btn').style.display = isE ? "block" : "none";
+        document.getElementById('syllabus-modal').style.display = 'flex';
     }
 
-    function doEnroll() {
+    function startTrack() {
         let enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
         if(!enrolled.includes(currentId)) {
             enrolled.push(currentId);
-            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Invisible memory
+            localStorage.setItem('enrolled', JSON.stringify(enrolled)); // Persistence
             render();
         }
         closeM();
     }
 
-    function closeM() { document.getElementById('modal').style.display = 'none'; }
+    function downloadCert() {
+        const track = tracks.find(t => t.id === currentId);
+        const fayda = localStorage.getItem('faydaID') || "VERIFY ID FIRST";
+        alert(`Generating Certificate for ${track.n}\nStudent ID: ${fayda}\nStatus: Certified 2026`);
+    }
+
+    function closeM() { document.getElementById('syllabus-modal').style.display = 'none'; }
 </script>
 </body>
 </html>
