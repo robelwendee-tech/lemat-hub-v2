@@ -3,105 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Interactive Fix</title>
+    <title>ልማት Hub | Official 2026</title>
     <style>
-        :root { --dark: #0f172a; --accent: #38bdf8; --yellow: #FFD700; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--dark); color: #f8fafc; line-height: 1.6; }
+        :root { --dark: #070b14; --card-bg: #111827; --accent: #38bdf8; --yellow: #fbbf24; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--dark); color: #f3f4f6; overflow-x: hidden; }
         
-        /* TICKER & HEADER */
-        header { background: rgba(15, 23, 42, 0.98); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-size: 24px; font-weight: 900; color: var(--accent); text-decoration: none; }
-        .yellow-tracker { background: var(--yellow); color: #000; padding: 10px; font-weight: 800; overflow: hidden; white-space: nowrap; }
-        .scrolling-text { display: inline-block; animation: scroll 35s linear infinite; }
+        /* HEADER & TICKER */
+        header { background: rgba(7, 11, 20, 0.9); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(12px); }
+        .logo { font-size: 24px; font-weight: 800; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .yellow-ticker { background: var(--yellow); color: #000; padding: 12px; font-weight: 700; overflow: hidden; white-space: nowrap; font-size: 0.9rem; }
+        .scrolling-text { display: inline-block; animation: scroll 40s linear infinite; }
         @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-        /* GRID */
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-        .card { background: #1e293b; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
-        .card-body { padding: 15px; }
+        /* GRID SYSTEM */
+        .container { max-width: 1250px; margin: 40px auto; padding: 0 25px; }
+        .section-title { font-size: 2rem; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        .section-title::before { content: ""; width: 6px; height: 35px; background: var(--yellow); border-radius: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        
+        /* CARDS */
+        .card { background: var(--card-bg); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .card img { width: 100%; height: 170px; object-fit: cover; filter: brightness(0.9); transition: 0.4s; }
+        .card:hover img { filter: brightness(1.1); }
+        .card-body { padding: 20px; }
+        .track-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .tech-tags { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 12px; }
+        .job-badge { background: rgba(56, 189, 248, 0.1); color: #fff; padding: 6px 14px; border-radius: 12px; font-size: 0.75rem; border: 1px solid rgba(56,189,248,0.2); display: inline-block; }
 
-        /* THE MODAL (MADE VISIBLE) */
-        #modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); 
-            display: none; /* Controlled by JS */
-            justify-content: center; align-items: center; 
-            z-index: 9999; /* Higher than everything else */
-            backdrop-filter: blur(10px); 
-        }
-        .modal-box { 
-            background: #1e293b; padding: 30px; border-radius: 25px; 
-            max-width: 450px; width: 90%; 
-            border: 3px solid var(--accent); /* Thick border to make it visible */
-            text-align: center; box-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
-        }
-        .progress-bar { width: 100%; height: 10px; background: #000; border-radius: 10px; margin: 20px 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--yellow); width: 0%; transition: 1.5s ease; }
+        /* MODAL (THE INVISIBLE PART) */
+        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(15px); padding: 20px; }
+        .modal-box { background: rgba(31, 41, 55, 0.7); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 32px; max-width: 500px; width: 100%; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .progress-cont { margin: 25px 0; }
+        .bar-bg { width: 100%; height: 12px; background: #000; border-radius: 20px; overflow: hidden; margin-top: 8px; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #818cf8); width: 0%; transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .btn-enroll { background: var(--yellow); color: #000; width: 100%; padding: 16px; border: none; border-radius: 16px; font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-enroll:hover { transform: scale(1.02); filter: brightness(1.1); }
     </style>
 </head>
 <body>
 
 <header>
     <a href="#" class="logo">ልማት Hub</a>
-    <div style="font-size: 0.8rem; color: var(--accent);">2026 OFFICIAL</div>
+    <div style="display: flex; gap: 10px;">
+        <button style="background: var(--accent); color: #000; border: none; padding: 8px 15px; border-radius: 10px; font-weight: bold; cursor: pointer;">EN</button>
+        <button style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 10px; cursor: pointer;">አማር</button>
+    </div>
 </header>
 
-<div class="yellow-tracker">
-    <div class="scrolling-text">Touch a course to view details. | 15 Tracks restored. | Verified by Robel.</div>
+<div class="yellow-ticker">
+    <div class="scrolling-text">15 Career Tracks Active | Certified by Digital Ethiopia 2026 | New Vocational Workshops opening in Addis Ababa and Dire Dawa.</div>
 </div>
 
 <div class="container">
+    <h2 class="section-title">15 Career Tracks</h2>
     <div class="grid" id="course-grid"></div>
 </div>
 
 <div id="modal-overlay" onclick="closeModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <h2 id="m-title" style="color:var(--accent); margin-bottom:5px;"></h2>
-        <p id="m-job" style="color:#94a3b8; margin-bottom:15px;"></p>
-        <div class="progress-bar"><div id="m-fill" class="progress-fill"></div></div>
-        <p style="text-align:left; font-size:0.9rem;"><strong>What you learn:</strong><br><span id="m-syl"></span></p>
-        <button onclick="closeModal()" style="margin-top:20px; background:var(--accent); color:#000; border:none; padding:10px 30px; border-radius:10px; font-weight:bold; cursor:pointer;">CLOSE</button>
+        <h2 id="m-title" style="color:var(--accent); font-size:1.8rem;"></h2>
+        <p id="m-job" style="color:#94a3b8; font-weight:600; margin-top:5px;"></p>
+        
+        <div class="progress-cont">
+            <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+                <span>Course Completion</span>
+                <span id="m-perc" style="color:var(--yellow); font-weight:700;"></span>
+            </div>
+            <div class="bar-bg"><div id="m-fill" class="bar-fill"></div></div>
+        </div>
+
+        <div style="text-align:left; background:rgba(0,0,0,0.2); padding:20px; border-radius:20px; margin-bottom:20px;">
+            <p style="color:var(--yellow); font-size:0.8rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Core Syllabus</p>
+            <p id="m-syl" style="font-size:0.95rem; line-height:1.7; color:#d1d5db;"></p>
+        </div>
+        
+        <button class="btn-enroll" onclick="alert('Enrollment Successful!')">ENROLL NOW</button>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {n: "Modern Carpentry", img: "https://images.unsplash.com/photo-1621290621119-7d1c103bc3f1?w=500", job: "Master Carpenter", syl: "Safety, Furniture Design, Finishing"},
-        {n: "Electrical Systems", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", job: "Electrician", syl: "Solar Wiring, Circuit Design, Testing"},
-        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500", job: "AI Specialist", syl: "Neural Networks, Python, ML Models"},
-        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", job: "Security Officer", syl: "Network Defense, Hacking Ethics, Audit"},
-        {n: "Auto Mechanics", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", job: "Technician", syl: "EV Diagnostics, Engine Repair, Hybrid"},
-        {n: "Web Systems", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", job: "Full-Stack Dev", syl: "React, Node.js, Database API"},
-        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500", job: "Data Architect", syl: "SQL Analysis, Predictive Models, Big Data"},
-        {n: "Welding & Metal", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", job: "Metal Expert", syl: "Arc/MIG Welding, Blueprint, Metal Safety"}
+        {n: "Modern Carpentry", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600", tech: "Woodwork, CAD", job: "Master Carpenter", syl: "Mastery of power tools, furniture blueprinting, and sustainable wood finishing techniques."},
+        {n: "Electrical Systems", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600", tech: "Solar, Smart Grid", job: "Certified Electrician", syl: "Domestic wiring, industrial smart-grid maintenance, and solar panel grid integration."},
+        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600", tech: "Python, ML", job: "AI Specialist", syl: "Deep learning models, neural network architecture, and natural language processing."},
+        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600", tech: "Defense, Hacking", job: "Security Auditor", syl: "Ethical hacking, network intrusion detection, and advanced data encryption."},
+        {n: "Auto Mechanics", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", tech: "EV Diagnostics", job: "Automotive Tech", syl: "Internal combustion maintenance and advanced Electric Vehicle (EV) powertrain diagnostics."},
+        {n: "Web Systems", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", tech: "React, Node.js", job: "Full-Stack Dev", syl: "Building scalable cloud applications using modern JavaScript frameworks and SQL/NoSQL."},
+        {n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600", tech: "Figma, Research", job: "Product Designer", syl: "User psychology, high-fidelity prototyping in Figma, and usability testing workflows."},
+        {n: "Solar Tech", img: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?w=600", tech: "PV Panels, Battery", job: "Renewable Expert", syl: "Solar PV installation, battery storage management, and off-grid power design."},
+        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600", tech: "SQL, Analysis", job: "Data Scientist", syl: "Statistical modeling, big data visualization, and predictive business analytics."},
+        {n: "Mobile Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600", tech: "Flutter, iOS", job: "App Developer", syl: "Cross-platform mobile architecture and real-time backend integration using Firebase."},
+        {n: "Network Admin", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", tech: "Cisco, Cloud", job: "Network Engineer", syl: "Enterprise routing, switching, and cloud infrastructure management with AWS."},
+        {n: "Masonry Tech", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600", tech: "Construction", job: "Structural Mason", syl: "Advanced stone cutting, structural foundation build, and earthquake-resistant masonry."},
+        {n: "Welding & Metal", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600", tech: "MIG/TIG", job: "Metal Fabricator", syl: "Industrial welding techniques, metal stress testing, and custom metal fabrication."},
+        {n: "Cloud Architect", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600", tech: "AWS, Azure", job: "Cloud Solutions", syl: "Serverless architecture, containerization with Docker, and cloud security protocols."},
+        {n: "Graphic Design", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600", tech: "Adobe Suite", job: "Creative Director", syl: "Visual branding, typography systems, and advanced digital illustration techniques."}
     ];
 
     function render() {
         document.getElementById('course-grid').innerHTML = tracks.map((t, i) => `
             <div class="card" onclick="openModal(${i})">
-                <img src="${t.img}">
+                <img src="${t.img}" onerror="this.src='https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600'">
                 <div class="card-body">
-                    <div style="font-weight:bold;">${t.n}</div>
-                    <div style="font-size:0.7rem; color:var(--accent);">${t.job}</div>
+                    <div class="track-name">${t.n}</div>
+                    <div class="tech-tags">${t.tech}</div>
+                    <div class="job-badge">${t.job}</div>
                 </div>
             </div>`).join('');
     }
 
     function openModal(i) {
         const t = tracks[i];
+        const p = Math.floor(Math.random() * 70) + 15;
         document.getElementById('m-title').innerText = t.n;
         document.getElementById('m-job').innerText = t.job;
         document.getElementById('m-syl').innerText = t.syl;
+        document.getElementById('m-perc').innerText = p + "%";
         document.getElementById('modal-overlay').style.display = 'flex';
-        
-        // Animating the progress bar
-        setTimeout(() => {
-            document.getElementById('m-fill').style.width = (Math.random() * 60 + 20) + "%";
-        }, 100);
+        setTimeout(() => { document.getElementById('m-fill').style.width = p + "%"; }, 50);
     }
 
     function closeModal() {
