@@ -1,75 +1,50 @@
-<style>
-    /* New Job Card Design with Icons */
-    .job-card {
-        background: var(--card);
-        padding: 20px;
-        border-radius: 16px;
-        min-width: 260px;
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        transition: 0.3s;
-    }
-    .job-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
-    
-    .job-icon {
-        width: 40px;
-        height: 40px;
-        background: rgba(251, 191, 36, 0.1);
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 5px;
-    }
-    
-    /* Apply Button */
-    .apply-btn {
-        background: var(--yellow);
-        color: black;
-        border: none;
-        padding: 8px;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 0.8rem;
-        margin-top: 5px;
-    }
-</style>
-
-<script>
-    // Logic to show icons for specific jobs
-    const jobIcons = {
-        1: "🪚", // Carpentry
-        2: "⚡", // Electrical
-        3: "🤖", // AI
-        6: "🌐"  // Web
-    };
-
-    function renderJobs() {
-        const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
-        const container = document.getElementById('job-container');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* THIS TAG STOPS THE WHITE SCREEN */
+        :root { --dark: #070b14; --accent: #38bdf8; --yellow: #fbbf24; }
+        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        const matchingJobs = jobs.filter(j => enrolled.includes(j.tid));
+        .job-section { background: rgba(56, 189, 248, 0.05); padding: 20px 5%; border-bottom: 1px solid var(--accent); }
+        .job-card { background: #111827; padding: 15px; border-radius: 12px; border: 1px solid var(--yellow); min-width: 220px; }
         
-        container.innerHTML = matchingJobs.length ? matchingJobs.map(j => `
-            <div class="job-card">
-                <div class="job-icon">${jobIcons[j.tid] || '💼'}</div>
-                <div>
-                    <span class="job-tag">OPENING</span>
-                    <div style="font-weight:bold; color:white;">${j.pos}</div>
-                    <div style="font-size:0.8rem; opacity:0.7;">${j.co} • ${j.sal}</div>
-                </div>
-                <button class="apply-btn" onclick="applyToJob('${j.pos}')">APPLY WITH FAYDA ID</button>
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 40px 5%; }
+        .card { background: #111827; border-radius: 20px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body>
+
+    <div class="job-section">
+        <h2 style="color:var(--accent);">Live Job Board (2026)</h2>
+        <div id="job-container" style="display:flex; gap:15px; overflow-x:auto;">
             </div>
-        `).join('') : `<p style="opacity:0.5; padding: 20px;">Enroll in tracks to unlock matching jobs...</p>`;
-    }
+    </div>
 
-    function applyToJob(jobTitle) {
-        const id = localStorage.getItem('faydaID') || "NOT LINKED";
-        alert(`Application Sent for: ${jobTitle}\nUsing Fayda ID: ${id}\nStatus: Pending Review`);
-    }
-    
-    // Call renderJobs inside your existing render function
-</script>
+    <div class="grid" id="main-grid"></div>
+
+    <script>
+        /* THIS TAG STOPS THE TEXT FROM SHOWING */
+        const tracks = [
+            {id: 1, n: "Modern Carpentry", icon: "🪚"},
+            {id: 3, n: "AI Engineering", icon: "🤖"}
+            // ... Add your full list here
+        ];
+
+        function render() {
+            const enrolled = JSON.parse(localStorage.getItem('enrolled')) || [];
+            document.getElementById('main-grid').innerHTML = tracks.map(t => `
+                <div class="card">
+                    <h1 style="font-size:40px;">${t.icon}</h1>
+                    <h3>${t.n}</h3>
+                    <div style="color:${enrolled.includes(t.id) ? '#10b981' : '#374151'}">
+                        ${enrolled.includes(t.id) ? '✓ ENROLLED' : 'VIEW SYLLABUS'}
+                    </div>
+                </div>
+            `).join('');
+        }
+        render();
+    </script>
+</body>
+</html>
