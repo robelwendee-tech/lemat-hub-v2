@@ -1,57 +1,37 @@
-/* Keep your existing roots, but add these visual upgrades */
-:root {
-    --dark: #070b14;
-    --card-bg: #111827;
-    --accent: #38bdf8;
-    --yellow: #fbbf24;
-    --glass: rgba(255, 255, 255, 0.05);
-}
+<style>
+    :root {
+        --dark: #070b14;
+        --card-bg: #111827;
+        --accent: #38bdf8;
+        --glass: rgba(255, 255, 255, 0.05);
+    }
 
-/* 1. Smoother Scrolling & Background */
-body {
-    background: radial-gradient(circle at top right, #111827, #070b14);
-    scroll-behavior: smooth;
-}
+    /* Your glass-morphism and header styles go here */
+    header {
+        background: rgba(7, 11, 20, 0.85);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--glass);
+    }
 
-/* 2. Fix the Header Transparency */
-header {
-    background: rgba(7, 11, 20, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--glass);
-}
+    /* This stops images from being pure black if they fail */
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background: linear-gradient(45deg, #1e293b, #070b14);
+    }
+</style>
 
-/* 3. The "Invisible Fix" for Card Layout */
-.card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-}
+<header> ... </header>
+<div class="grid"> ... </div>
 
-/* This stops the black boxes from ruining the grid */
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background: linear-gradient(45deg, #1e293b, #070b14);
-    border-bottom: 1px solid var(--glass);
-}
-
-/* 4. Interactive Hover Effects */
-.card:hover {
-    transform: translateY(-12px) scale(1.02);
-    border-color: var(--accent);
-    box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
-}
-
-/* 5. Improve the Job Badge */
-.job-badge {
-    background: linear-gradient(90deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.05));
-    border-left: 3px solid var(--accent);
-    padding: 8px 15px;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
-}
+<script>
+    // Your renderGrid and Fayda ID saving logic goes here
+    function handleVerify() {
+        const id = document.querySelector('.id-input').value;
+        if (id.length === 10) {
+            localStorage.setItem('faydaID', id); // The Invisible Part
+            alert('Verified!');
+        }
+    }
+</script>
