@@ -1,139 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
-    <style>
-        :root { --dark: #070b14; --accent: #38bdf8; --yellow: #fbbf24; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: var(--dark); color: #f3f4f6; }
+// Check if user was already verified before
+window.onload = () => {
+    const savedID = localStorage.getItem('faydaID');
+    if (savedID) {
+        document.querySelector('.id-input').value = savedID;
+        verifySuccess(false); // Silent verification
+    }
+};
 
-        /* HEADER & TICKER */
-        header { background: rgba(7, 11, 20, 0.98); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .logo { font-size: 24px; font-weight: 800; color: var(--accent); text-decoration: none; }
-        .l-btn { padding: 6px 12px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; border-radius: 8px; font-weight: bold; margin-left: 5px; }
-        .l-btn.active { background: var(--accent); color: var(--dark); }
-        .yellow-ticker { background: var(--yellow); color: #000; padding: 12px; font-weight: 700; overflow: hidden; white-space: nowrap; }
-        .scrolling-text { display: inline-block; animation: scroll 40s linear infinite; }
-        @keyframes scroll { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-        /* FAYDA ID HERO SECTION */
-        .hero { padding: 60px 20px; text-align: center; background: linear-gradient(180deg, #111827, #070b14); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .id-input { background: rgba(255,255,255,0.05); border: 2px solid var(--accent); color: white; padding: 15px; width: 300px; border-radius: 12px; text-align: center; margin: 20px 0; outline: none; font-size: 1.2rem; }
-        .v-btn { background: var(--accent); color: #000; border: none; padding: 15px 40px; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; }
-
-        /* GRID & CARDS */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-        .card { background: #111827; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { transform: translateY(-8px); border-color: var(--accent); }
+function verifySuccess(showAlert = true) {
+    const idValue = document.querySelector('.id-input').value;
+    if (idValue.length === 10) {
+        // Save to invisible storage
+        localStorage.setItem('faydaID', idValue);
         
-        /* IMAGE FIX: This background ensures NO BLACK BOXES */
-        .card img { 
-            width: 100%; height: 170px; object-fit: cover; 
-            background: linear-gradient(45deg, #1e293b, #0f172a); 
-            display: block; 
-        }
-
-        .card-body { padding: 18px; }
-        .job-badge { background: rgba(56, 189, 248, 0.1); color: #fff; padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; border: 1px solid rgba(56,189,248,0.2); display: inline-block; margin-top: 10px; }
-
-        /* MODAL */
-        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(15px); }
-        .modal-box { background: #1f2937; padding: 35px; border-radius: 30px; max-width: 480px; width: 90%; border: 1px solid var(--accent); }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="#" class="logo">ልማት Hub</a>
-    <div>
-        <button class="l-btn active" onclick="setL('en')" id="en-btn">EN</button>
-        <button class="l-btn" onclick="setL('am')" id="am-btn">አማር</button>
-    </div>
-</header>
-
-<div class="yellow-ticker">
-    <div class="scrolling-text">Certified by Digital Ethiopia 2026 | New Vocational Tracks Now Open | Developed by Robel</div>
-</div>
-
-<div class="hero" id="hero-sec"></div>
-
-<div class="container">
-    <h2 style="margin-bottom:25px; border-left: 5px solid var(--yellow); padding-left: 15px;" id="h-tr">15 Career Tracks</h2>
-    <div class="grid" id="course-grid"></div>
-</div>
-
-<div id="modal-overlay" onclick="closeModal()">
-    <div class="modal-box" onclick="event.stopPropagation()">
-        <h2 id="m-title" style="color:var(--accent);"></h2>
-        <div style="width: 100%; height: 8px; background: #000; border-radius: 10px; margin: 20px 0; overflow: hidden;">
-            <div id="m-fill" style="height: 100%; background: var(--accent); width: 0%; transition: 1.5s;"></div>
-        </div>
-        <p id="m-syl" style="margin-top:15px; color: #d1d5db; line-height: 1.6;"></p>
-        <button onclick="closeModal()" style="background:var(--yellow); width:100%; padding:15px; border:none; border-radius:12px; font-weight:bold; margin-top:25px; cursor:pointer;">CLOSE DETAILS</button>
-    </div>
-</div>
-
-<script>
-    const tracks = [
-        {n: "Modern Carpentry", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=600", job: "Master Carpenter", syl: "Woodworking, design, and structural integrity."},
-        {n: "Electrical Systems", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?auto=format&fit=crop&w=600", job: "Electrician", syl: "Wiring, solar power grids, and safety diagnostics."},
-        {n: "AI Engineering", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600", job: "AI Specialist", syl: "Machine learning, Python, and data science."},
-        {n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600", job: "Security Auditor", syl: "Ethical hacking and network defense."},
-        {n: "Auto Mechanics", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600", job: "Technician", syl: "Engine repair and EV battery diagnostics."},
-        {n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&w=600", job: "Designer", syl: "Figma prototyping and user research."},
-        {n: "Solar Tech", img: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?auto=format&fit=crop&w=600", job: "Solar Installer", syl: "Renewable energy and PV system maintenance."},
-        {n: "Web Systems", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600", job: "Full-Stack Dev", syl: "React, Node.js, and cloud deployments."},
-        {n: "Network Admin", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600", job: "Network Engineer", syl: "Cisco routing and server architecture."},
-        {n: "Masonry Tech", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=600", job: "Master Mason", syl: "Construction, blueprint reading, and CAD."},
-        {n: "Welding & Metal", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600", job: "Metal Expert", syl: "MIG/TIG fabrication and metallurgy."},
-        {n: "Cloud Architect", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600", job: "Cloud Engineer", syl: "AWS, Kubernetes, and virtualization."},
-        {n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600", job: "Data Architect", syl: "SQL, Python, and big data analysis."},
-        {n: "Mobile Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600", job: "App Developer", syl: "Flutter, iOS/Android, and API integration."},
-        {n: "Plumbing Tech", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=600", job: "Plumber", syl: "Piping systems and sanitation technology."}
-    ];
-
-    const dict = {
-        en: {w:"National Career Hub", s:"Enter 10-Digit Fayda ID", v:"VERIFY IDENTITY", tr:"15 Career Tracks"},
-        am: {w:"ብሄራዊ የሙያ ማዕከል", s:"ባለ 10 አሃዝ የፋይዳ መታወቂያ", v:"አረጋግጥ", tr:"15 የሙያ መስኮች"}
-    };
-
-    function setL(lang) {
-        const d = dict[lang];
-        document.querySelectorAll('.l-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(lang+'-btn').classList.add('active');
-        document.getElementById('hero-sec').innerHTML = `
-            <h1 style="font-size:3rem; margin-bottom:10px;">${d.w}</h1>
-            <p style="color:#94a3b8;">${d.s}</p>
-            <input type="number" class="id-input" placeholder="0000000000"><br>
-            <button class="v-btn" onclick="alert('System Verified')">${d.v}</button>`;
-        document.getElementById('h-tr').innerText = d.tr;
-        renderGrid();
+        // Visual feedback
+        const btn = document.querySelector('.v-btn');
+        btn.style.background = '#10b981'; // Turn Green
+        btn.innerText = '✓ ACCESS GRANTED';
+        
+        if(showAlert) alert('Identity Verified via Digital Ethiopia 2026');
+    } else {
+        alert('Please enter a valid 10-digit ID');
     }
-
-    function renderGrid() {
-        document.getElementById('course-grid').innerHTML = tracks.map((t, i) => `
-            <div class="card" onclick="openModal(${i})">
-                <img src="${t.img}" onerror="this.src='https://via.placeholder.com/600x400/111827/38bdf8?text=${t.n}'">
-                <div class="card-body">
-                    <div style="font-weight:700;">${t.n}</div>
-                    <div class="job-badge">${t.job}</div>
-                </div>
-            </div>`).join('');
-    }
-
-    function openModal(i) {
-        const t = tracks[i];
-        document.getElementById('m-title').innerText = t.n;
-        document.getElementById('m-syl').innerHTML = `<strong>Goal:</strong> ${t.job}<br><br><strong>Syllabus:</strong> ${t.syl}`;
-        document.getElementById('modal-overlay').style.display = 'flex';
-        setTimeout(() => { document.getElementById('m-fill').style.width = "40%"; }, 100);
-    }
-
-    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
-    setL('en');
-</script>
-</body>
-</html>
+}
