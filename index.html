@@ -3,132 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026 Master</title>
+    <title>ልማት Hub | Jobs & Contracts</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* THE YELLOW TICKER */
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; text-transform: uppercase; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
 
-        /* JOB BOARD SECTION */
-        .job-section { padding: 30px 5%; border-bottom: 1px solid #1e293b; background: rgba(56,189,248,0.02); }
+        /* JOB BOARD */
+        .job-section { padding: 30px 5%; background: rgba(56,189,248,0.02); }
         .job-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
         .job-card { 
             background: var(--card); border: 2px solid var(--yellow); padding: 20px; 
-            border-radius: 12px; min-width: 260px; cursor: pointer; transition: 0.3s;
+            border-radius: 12px; min-width: 260px; cursor: pointer;
         }
-        .job-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .salary-tag { color: var(--green); font-weight: 900; font-size: 18px; display: block; margin: 10px 0; }
 
-        /* 15 COURSE GRID */
-        .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); }
-        .card-img { width: 100%; height: 150px; object-fit: cover; filter: grayscale(30%); }
-
-        /* SPLIT-SCREEN LEARNING VIEW */
+        /* LEARNING VIEW */
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
         .video-area { padding: 30px; overflow-y: auto; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; overflow-y: auto; }
+        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+        .video-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
         
-        .info-panel { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); line-height: 1.6; }
-        .skill-item { margin: 8px 0; font-size: 14px; color: #cbd5e1; }
-        .skill-item::before { content: "🎯 "; color: var(--accent); }
+        .info-panel { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .contract-box { display: none; background: white; color: black; padding: 40px; border-radius: 5px; margin-top: 20px; font-family: 'Courier New', monospace; }
+        
+        .btn-contract { background: var(--green); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 2026 JOB FAIR OPEN: 15 TRACKS VERIFIED | MINIMUM SALARY: 12,000 ETB</div>
+<div class="ticker">📄 NEW: AUTOMATIC JOB CONTRACTS GENERATED UPON COURSE COMPLETION</div>
 
 <div id="dashboard">
     <div class="job-section">
-        <h2 style="margin-top:0;">Top Paying Opportunities</h2>
+        <h2>Live 2026 Job Board</h2>
         <div class="job-grid" id="job-list"></div>
     </div>
-
-    <div class="container">
-        <h2>All 15 Professional Tracks</h2>
-        <div class="track-grid" id="track-grid"></div>
+    <div style="padding: 40px 5%;">
+        <h2>Certification Tracks</h2>
+        <div id="track-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;"></div>
     </div>
 </div>
 
 <div id="learning-view">
     <div class="video-area">
-        <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK TO JOBS</button>
-        <h2 id="view-title" style="color:var(--accent); margin:0;">Track Title</h2>
-        <p id="view-salary" style="color:var(--green); font-weight:bold; font-size:20px; margin:10px 0;"></p>
-
-        <div class="video-box"><span style="font-size:60px; color:var(--accent);">▶</span></div>
+        <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← EXIT</button>
+        <h2 id="view-title">Course</h2>
+        <div class="video-box" id="lesson-image-container">
+            </div>
 
         <div class="info-panel">
-            <h3 style="color:var(--yellow); margin-top:0;">What You Will Learn</h3>
-            <div id="skill-box"></div>
-            <hr style="border:0; border-top:1px solid #334155; margin:20px 0;">
-            <h3 style="color:var(--accent);">Technical Module Writing</h3>
-            <p id="writing-body" style="color:#94a3b8;"></p>
+            <h3 style="color:var(--yellow);">Skills You Are Learning:</h3>
+            <ul id="skill-box" style="padding-left: 20px;"></ul>
+            <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
+            <h3 style="color:var(--accent);">Technical Steps:</h3>
+            <p id="writing-body"></p>
+            
+            <button class="btn-contract" onclick="showContract()">SIGN JOB CONTRACT</button>
+
+            <div id="contract-area" class="contract-box">
+                <h2 style="text-align:center;">JOB OFFER LETTER</h2>
+                <p><strong>Date:</strong> March 2026</p>
+                <p><strong>Position:</strong> <span id="c-pos"></span></p>
+                <p><strong>Monthly Salary:</strong> <span id="c-sal"></span></p>
+                <p>This document confirms your employment upon successful verification of your Fayda ID and completion of the technical modules at ልማት Hub.</p>
+                <div style="margin-top:30px; border-top:1px solid black; display:inline-block; width:200px;">Signature</div>
+            </div>
         </div>
     </div>
-    <div class="sidebar">
-        <h3>Training Modules</h3>
+    <div class="sidebar" style="background:var(--card); padding:20px; border-left:1fr solid #334155;">
+        <h3>Module Progress</h3>
         <div id="sidebar-list"></div>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {id: 1, n: "Python for AI", g: "AI Engineer", price: "65,000 ETB", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500", 
-         learn: ["Neural Network Design", "Automated Scripting", "Data Ethics"], w: "Step 1: Install Python 3.12. Step 2: Set up a virtual environment. Step 3: Use 'pip' to install TensorFlow for model training."},
-        {id: 2, n: "Cyber Security", g: "Security Expert", price: "52,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", 
-         learn: ["Penetration Testing", "Digital Forensics", "Network Shielding"], w: "Identify network vulnerabilities using port scanning. Set up an AES-256 encryption tunnel for data transfer."},
-        {id: 3, n: "Full-Stack Web", g: "Web Developer", price: "45,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", 
-         learn: ["React & Node.js", "Database Scaling", "API Security"], w: "Initialize a Git repository. Build the frontend using Tailwind CSS and the backend using an Express.js server."},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "70,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", 
-         learn: ["AWS Deployment", "Serverless Logic", "Cloud Security"], w: "Create a VPC. Deploy an EC2 instance with an attached S3 bucket for scalable storage."},
-        {id: 5, n: "Mobile App Dev", g: "App Developer", price: "40,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", 
-         learn: ["Cross-Platform Flutter", "UX/UI Principles", "App Store Launch"], w: "Configure the Flutter SDK. Build a state-managed application using the Provider pattern."},
-        {id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "25,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", 
-         learn: ["Furniture Design", "Power Tool Safety", "Export Standards"], w: "Draft a 3D furniture model. Use a table saw to create precision dovetail joints for high-end export goods."},
-        {id: 7, n: "Electrical Systems", g: "Electrician", price: "22,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", 
-         learn: ["Solar Wiring", "Safety Compliance", "Grid Management"], w: "Calculate the total load of a commercial building. Install a 3-phase circuit breaker following the 2026 safety code."},
-        {id: 8, n: "Solar Tech", g: "Solar Installer", price: "30,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", 
-         learn: ["PV Cell Physics", "Battery Management", "Site Assessment"], w: "Orient panels at a 15-degree angle toward the sun. Connect a Lithium-Ion battery bank to a hybrid inverter."},
-        {id: 9, n: "UI/UX Design", g: "Product Designer", price: "38,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", 
-         learn: ["Figma Design", "User Testing", "Prototyping"], w: "Create a design system with reusable components. Build a high-fidelity prototype with interactive user flow."},
-        {id: 10, n: "Data Science", g: "Data Analyst", price: "48,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", 
-         learn: ["Predictive Analysis", "Data Mining", "Visualization"], w: "Clean raw data using Python's NumPy. Generate a regression model to predict market trends in the next quarter."},
-        {id: 11, n: "Auto Mechanics", g: "Auto Tech", price: "24,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", 
-         learn: ["EV Repair", "Engine Diagnostics", "Hydraulics"], w: "Use a computerized diagnostic tool to read ECU codes. Calibrate the fuel injection system for maximum efficiency."},
-        {id: 12, n: "Masonry Tech", g: "Master Mason", price: "20,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", 
-         learn: ["Blueprinting", "Reinforced Concrete", "Finishing"], w: "Mix mortar at a 3:1 ratio. Lay bricks using a running bond pattern, ensuring every layer is perfectly level."},
-        {id: 13, n: "Welding Tech", g: "Industrial Welder", price: "28,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", 
-         learn: ["TIG/MIG Welding", "Material Science", "Underwater Welding"], w: "Clean the metal surface using a wire brush. Apply a consistent bead using a 7018 rod for structural steel joints."},
-        {id: 14, n: "Network Admin", g: "Network Engineer", price: "35,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", 
-         learn: ["Routing Protocols", "Server Maintenance", "VoIP Setup"], w: "Configure a Cisco router. Assign IP addresses via DHCP and set up a VPN for remote office access."},
-        {id: 15, n: "Plumbing Tech", g: "Master Plumber", price: "18,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", 
-         learn: ["Hydraulic Logic", "Sewer Management", "Pipe Fitting"], w: "Install a PEX manifold system. Pressure test the lines to ensure zero leaks before the wall closure."}
+        {id: 1, n: "Python for AI", g: "AI Engineer", price: "65,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500", 
+         learn: ["Python Logic", "API Integration"], w: "Connect your Python script to the National Data Gateway using REST APIs."},
+        {id: 8, n: "Solar Tech", g: "Solar Installer", price: "30,000 ETB", img: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=500", 
+         learn: ["Panel Alignment", "Grid Safety"], w: "Measure the voltage output of the PV array before connecting to the main breaker."}
     ];
 
     function render() {
-        // Job Board
-        document.getElementById('job-list').innerHTML = tracks.slice(0, 6).map(t => `
+        document.getElementById('job-list').innerHTML = tracks.map(t => `
             <div class="job-card" onclick="openL(${t.id})">
-                <h4 style="margin:0;">${t.g}</h4>
-                <span class="salary-tag">${t.price}</span>
-                <p style="font-size:11px; opacity:0.6;">Requires ${t.n} Certification</p>
-                <button style="width:100%; background:var(--accent); border:none; padding:8px; border-radius:5px; font-weight:bold; cursor:pointer;">APPLY & LEARN</button>
+                <h3>${t.g}</h3>
+                <p style="color:var(--green); font-weight:bold;">${t.price}</p>
+                <button style="width:100%; background:var(--yellow); border:none; padding:8px; border-radius:5px; font-weight:bold; cursor:pointer;">TRAIN & SIGN</button>
             </div>`).join('');
 
-        // Track Grid
         document.getElementById('track-grid').innerHTML = tracks.map(t => `
-            <div class="card" onclick="openL(${t.id})">
-                <img src="${t.img}" class="card-img" alt="${t.n}">
-                <div style="padding:15px;">
-                    <h3 style="margin:0; font-size:16px;">${t.n}</h3>
-                    <p style="color:var(--green); font-size:13px; font-weight:bold; margin-top:5px;">${t.price} / mo</p>
-                </div>
+            <div style="background:var(--card); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.1); cursor:pointer;" onclick="openL(${t.id})">
+                <img src="${t.img}" style="width:100%; height:140px; object-fit:cover;">
+                <div style="padding:15px;"><strong>${t.n}</strong></div>
             </div>`).join('');
     }
 
@@ -137,11 +105,19 @@
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
         document.getElementById('view-title').innerText = t.n;
-        document.getElementById('view-salary').innerText = "Salary Goal: " + t.price;
         document.getElementById('writing-body').innerText = t.w;
-        document.getElementById('skill-box').innerHTML = t.learn.map(s => `<div class="skill-item">${s}</div>`).join('');
+        document.getElementById('skill-box').innerHTML = t.learn.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('lesson-image-container').innerHTML = `<img src="${t.img}" alt="Technical Lesson">`;
         
-        document.getElementById('sidebar-list').innerHTML = `<div style="padding:15px; background:rgba(56,189,248,0.1); border-radius:8px; border:1px solid var(--accent);"><strong>Module 1: Professional Training</strong></div>`;
+        // Setup Contract Data
+        document.getElementById('c-pos').innerText = t.g;
+        document.getElementById('c-sal').innerText = t.price;
+        document.getElementById('contract-area').style.display = 'none';
+    }
+
+    function showContract() {
+        document.getElementById('contract-area').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     function closeL() {
