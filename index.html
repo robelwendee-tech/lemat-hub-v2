@@ -2,103 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | Skills & Salary</title>
+    <title>ልማት Hub | Job Board & Salaries</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
         
-        .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .price-tag { position: absolute; top: 10px; right: 10px; background: var(--green); color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; }
+        /* UPDATED JOB BOARD */
+        .job-section { padding: 30px 5%; border-bottom: 1px solid #1e293b; }
+        .job-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
+        .job-card { 
+            background: var(--card); border: 2px solid var(--yellow); padding: 20px; 
+            border-radius: 12px; min-width: 280px; cursor: pointer; transition: 0.3s;
+        }
+        .job-card:hover { transform: scale(1.05); background: #1e293b; }
+        .salary-badge { color: var(--green); font-weight: 900; font-size: 18px; display: block; margin: 10px 0; }
+        .apply-btn { background: var(--accent); color: black; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; }
 
+        /* LEARNING PANEL */
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
         .video-area { padding: 30px; overflow-y: auto; }
         .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; overflow-y: auto; }
+        .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; }
         
-        .info-panel { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .skill-list { list-style: none; padding: 0; margin: 15px 0; }
-        .skill-list li { margin-bottom: 8px; font-size: 14px; color: #cbd5e1; }
-        .skill-list li::before { content: "✓ "; color: var(--green); font-weight: bold; }
+        .info-panel { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .skill-list li { margin: 5px 0; color: #cbd5e1; font-size: 14px; }
+        .skill-list li::before { content: "🎯 "; color: var(--accent); }
     </style>
 </head>
 <body>
 
-<div class="ticker">💰 2026 SALARY UPDATES: SKILL-BASED PAY SCALES ACTIVE FOR ALL 15 TRACKS</div>
+<div class="ticker">💼 2026 LIVE JOBS: CLICK A JOB TO SEE SALARY AND START TRAINING</div>
 
 <div id="dashboard">
-    <div class="container">
-        <h2>Professional Career Dashboard</h2>
-        <div class="track-grid" id="track-grid"></div>
+    <div class="job-section">
+        <h2 style="margin-top:0; color:var(--accent);">Available Opportunities</h2>
+        <div class="job-grid" id="job-list"></div>
+    </div>
+
+    <div class="job-section" style="background:none; border:none;">
+        <h2>Browse All 15 Tracks</h2>
+        <div id="track-list-main" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>
     </div>
 </div>
 
 <div id="learning-view">
     <div class="video-area">
-        <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK</button>
-        <h2 id="view-title" style="color:var(--accent); margin:0;">Course</h2>
-        <p id="view-salary" style="color:var(--green); font-weight:bold; margin-bottom:15px;"></p>
+        <button onclick="closeL()" style="background:var(--yellow); color:black; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← CLOSE & APPLY</button>
+        <h2 id="view-title" style="color:var(--accent); margin-bottom:5px;">Position</h2>
+        <span id="view-salary" class="salary-badge"></span>
 
-        <div class="video-box"><span style="font-size:60px; color:var(--accent);">▶</span></div>
+        <div class="video-box"><span style="font-size:60px; color:var(--yellow);">▶</span></div>
 
         <div class="info-panel">
-            <h3 id="lesson-title" style="color:var(--yellow);">Lesson Details</h3>
-            <div id="learning-outcomes">
-                <strong>What you will learn:</strong>
-                <ul id="skill-list" class="skill-list"></ul>
-            </div>
-            <hr style="border:0; border-top:1px solid #1e293b; margin:20px 0;">
-            <strong>Technical Instructions:</strong>
-            <p id="technical-body" style="line-height:1.6; color:#94a3b8;"></p>
+            <h3 style="margin-top:0;">Requirement: What you must learn</h3>
+            <ul id="skill-list" style="list-style:none; padding:0;" class="skill-list"></ul>
+            <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
+            <strong>Course Module Preview:</strong>
+            <p id="module-text" style="color:#94a3b8; font-size:14px; line-height:1.6;"></p>
         </div>
     </div>
     <div class="sidebar">
-        <h3>Modules</h3>
-        <div id="sidebar-list"></div>
+        <h3>Training Modules</h3>
+        <div id="module-sidebar"></div>
     </div>
 </div>
 
 <script>
     const tracks = [
         {
-            id: 1, n: "Python for AI", g: "AI Engineer", price: "45,000 - 85,000 ETB/mo", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500",
-            lessons: [
-                {t: "Deep Learning Intro", learn: ["Build Neural Networks", "Understand Backpropagation", "Optimizing Weights"], w: "Use Keras to define a Sequential model. Layer 1 should be Dense with 64 neurons and ReLU activation."}
-            ]
+            id: 1, n: "Python for AI", g: "AI Engineer", price: "55,000 ETB", 
+            learn: ["Build GPT-style models", "Data Automation", "Python Logic"],
+            w: "In this module, you will learn to write the core logic that powers 2026 AI automation systems."
         },
         {
-            id: 2, n: "Cyber Security", g: "Security Analyst", price: "38,000 - 70,000 ETB/mo", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
-            lessons: [
-                {t: "Network Auditing", learn: ["Scanning with Nmap", "Identifying vulnerabilities", "Reporting security gaps"], w: "Scan target IP range using -sV flag to detect service versions and potential exploits."}
-            ]
+            id: 2, n: "Cyber Security", g: "Security Expert", price: "48,000 ETB", 
+            learn: ["Defensive Networking", "Password Hashing", "Firewall Setup"],
+            w: "Learn how to block unauthorized access to Ethiopian banking and government networks."
         },
         {
-            id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "15,000 - 35,000 ETB/mo", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500",
-            lessons: [
-                {t: "Furniture Design", learn: ["Ergonomic measurement", "Material cost estimation", "Finishing techniques"], w: "Calculate the board feet required for a standard office desk using local hardwood types."}
-            ]
+            id: 3, n: "Mobile App Dev", g: "App Developer", price: "42,000 ETB", 
+            learn: ["Flutter & Dart", "Payment API Integration", "Cloud Sync"],
+            w: "Create mobile apps that allow users to pay for services using local digital wallets."
         },
         {
-            id: 15, n: "Plumbing Tech", g: "Master Plumber", price: "12,000 - 28,000 ETB/mo", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500",
-            lessons: [
-                {t: "Industrial Systems", learn: ["High-pressure piping", "Valve maintenance", "Water treatment logic"], w: "Install a 3-way manifold system ensuring all joints are sealed with industrial grade threading tape."}
-            ]
+            id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "28,000 ETB", 
+            learn: ["Blueprint Reading", "Industrial Finishing", "Ergonomics"],
+            w: "Design furniture that meets international export standards for the 2026 market."
         }
     ];
 
     function render() {
-        document.getElementById('track-grid').innerHTML = tracks.map(t => `
-            <div class="card" onclick="openL(${t.id})">
-                <div class="price-tag">${t.price.split(' ')[0]}</div>
-                <img src="${t.img}" style="width:100%; height:160px; object-fit:cover;">
-                <div style="padding:15px;">
-                    <h3 style="margin:0;">${t.n}</h3>
-                    <p style="color:var(--accent); font-size:12px; margin:5px 0;">${t.g}</p>
-                    <p style="color:var(--green); font-weight:bold; font-size:11px;">View Career Stats →</p>
-                </div>
+        // Render Job Board with Salaries
+        document.getElementById('job-list').innerHTML = tracks.map(t => `
+            <div class="job-card" onclick="openL(${t.id})">
+                <span style="font-size:12px; background:rgba(16, 185, 129, 0.1); color:var(--green); padding:3px 8px; border-radius:4px;">FULL-TIME</span>
+                <h3 style="margin:10px 0 0 0;">${t.g}</h3>
+                <span class="salary-badge">${t.price}<small style="color:white; font-size:10px; font-weight:normal;">/month</small></span>
+                <p style="font-size:11px; opacity:0.6; margin-bottom:15px;">Req: Completion of ${t.n} course</p>
+                <button class="apply-btn">START TRAINING</button>
+            </div>`).join('');
+
+        // Render Track Cards
+        document.getElementById('track-list-main').innerHTML = tracks.map(t => `
+            <div style="background:var(--card); padding:15px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); cursor:pointer;" onclick="openL(${t.id})">
+                <strong>${t.n}</strong>
+                <p style="font-size:12px; color:var(--accent); margin:5px 0;">Salary Target: ${t.price}</p>
             </div>`).join('');
     }
 
@@ -106,19 +115,17 @@
         const t = tracks.find(x => x.id === id);
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
-        document.getElementById('view-title').innerText = t.n;
-        document.getElementById('view-salary').innerText = "Market Value: " + t.price;
+        document.getElementById('view-title').innerText = t.g + " Training";
+        document.getElementById('view-salary').innerText = "Potential Salary: " + t.price;
+        document.getElementById('skill-list').innerHTML = t.learn.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('module-text').innerText = t.w;
         
-        document.getElementById('sidebar-list').innerHTML = t.lessons.map(l => `
-            <div style="background:rgba(255,255,255,0.03); padding:15px; margin-bottom:10px; border-radius:8px; cursor:pointer;" onclick="loadLesson('${l.t}', ${JSON.stringify(l.learn)}, '${l.w}')">
-                <strong>${l.t}</strong>
-            </div>`).join('');
-    }
-
-    function loadLesson(title, skills, instructions) {
-        document.getElementById('lesson-title').innerText = title;
-        document.getElementById('skill-list').innerHTML = skills.map(s => `<li>${s}</li>`).join('');
-        document.getElementById('technical-body').innerText = instructions;
+        document.getElementById('module-sidebar').innerHTML = `
+            <div style="background:var(--accent); color:black; padding:15px; border-radius:8px; margin-bottom:10px;">
+                <strong>Module 1: Foundations</strong><br><small>Locked until ID verification</small>
+            </div>
+            <div style="opacity:0.4; padding:15px;">Module 2: Advanced Tech</div>
+        `;
     }
 
     function closeL() {
