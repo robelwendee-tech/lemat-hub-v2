@@ -5,118 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Official 2026</title>
     <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        :root { --bg: #05080f; --card: #111827; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; }
         
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
+        /* HEADER TICKER */
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
 
-        /* RECEPTION NAV */
-        .reception-nav { background: #1e293b; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); }
-        .btn-reg { background: var(--green); color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        /* NAVIGATION BAR */
+        .nav-bar { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
+        .btn-reception { background: var(--accent); color: #000; border: none; padding: 8px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-left: 10px; }
+        .btn-register { background: var(--green); color: white; border: none; padding: 8px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        /* REGISTRATION FORM */
-        #registration-section { display: none; background: white; color: black; padding: 40px; border-radius: 15px; max-width: 500px; margin: 40px auto; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-
-        /* 15 TRACK GRID */
         .section-padding { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
+        
+        /* COURSE GRID CONFIG */
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .course-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; transition: 0.3s; cursor: pointer; }
+        .course-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .course-card img { width: 100%; height: 150px; object-fit: cover; background: #1a1a1a; }
+        .course-info { padding: 15px; }
 
-        /* JOB BOARD */
-        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; }
-        .salary { color: var(--green); font-size: 24px; font-weight: 900; margin: 10px 0; display: block; }
+        /* JOB BOARD CONFIG */
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; text-align: left; }
+        .salary-text { color: var(--green); font-size: 24px; font-weight: 800; margin: 10px 0; display: block; }
+        .btn-apply { background: var(--accent); color: black; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; }
 
-        /* RECEPTION CHAT BOX */
-        #reception-chat { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; color: black; border-radius: 10px; z-index: 5000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        /* REGISTRATION OVERLAY */
+        #reg-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .reg-content { background: white; color: black; padding: 40px; border-radius: 15px; width: 90%; max-width: 400px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+
+        /* RECEPTION CHAT */
+        #chat-window { display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; color: black; border-radius: 10px; z-index: 3000; box-shadow: 0 5px 25px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
-<div class="ticker">🛎️ RECEPTION ACTIVE | REGISTER NOW TO LOCK IN YOUR 2026 SALARY</div>
+<div class="ticker" id="top-ticker">🛎️ RECEPTION ACTIVE | REGISTER NOW TO LOCK IN YOUR 2026 SALARY</div>
 
-<nav class="reception-nav">
-    <div style="font-weight: 900; font-size: 20px; color: var(--accent);">ልማት Hub</div>
+<nav class="nav-bar">
+    <div style="font-size: 22px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
     <div>
-        <button class="btn-reg" onclick="showReg()">CLIENT REGISTRATION</button>
-        <button onclick="toggleChat()" style="background:var(--yellow); border:none; padding:10px; border-radius:5px; margin-left:10px; cursor:pointer;">RECEPTION</button>
+        <button class="btn-register" onclick="toggleReg(true)">CLIENT REGISTRATION</button>
+        <button class="btn-reception" onclick="toggleChat(true)">RECEPTION</button>
     </div>
 </nav>
 
-<div id="main-dashboard">
-    <div id="registration-section">
+<div class="section-padding">
+    <h2 style="color:var(--accent); margin-bottom:25px;">Professional Certification Tracks</h2>
+    <div class="track-grid" id="course-list"></div>
+</div>
+
+<div class="section-padding" style="background: rgba(56, 189, 248, 0.02); border-top: 1px solid #1e293b;">
+    <h2 style="margin-bottom:25px;">Available Positions & Salaries</h2>
+    <div class="job-grid" id="job-list"></div>
+</div>
+
+<div id="reg-modal">
+    <div class="reg-content">
         <h2 style="margin-top:0;">Client Registration</h2>
-        <p style="font-size:13px; color:#666;">Enter your details to access the 2026 job board.</p>
-        <input type="text" placeholder="Full Name (per Fayda ID)">
+        <input type="text" placeholder="Full Name">
+        <input type="text" placeholder="Fayda ID Number">
         <input type="email" placeholder="Email Address">
-        <select>
-            <option>Select Your Track</option>
-            <option>AI Developer</option>
-            <option>Cloud Architect</option>
-            <option>Master Carpenter</option>
-        </select>
-        <button onclick="submitReg()" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:5px; font-weight:bold; cursor:pointer;">COMPLETE REGISTRATION</button>
-        <button onclick="hideReg()" style="width:100%; background:none; border:none; color:red; margin-top:10px; cursor:pointer;">Cancel</button>
-    </div>
-
-    <div class="section-padding">
-        <h2 style="color:var(--accent);">Professional Certification Tracks</h2>
-        <div class="track-grid" id="track-grid"></div>
-    </div>
-
-    <div class="section-padding" style="background: rgba(56, 189, 248, 0.03);">
-        <h2>Available Positions & Salaries</h2>
-        <div class="track-grid" id="job-list"></div>
+        <button onclick="submitReg()" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:5px; font-weight:bold; cursor:pointer;">SUBMIT REGISTRATION</button>
+        <button onclick="toggleReg(false)" style="width:100%; background:none; border:none; color:red; margin-top:10px; cursor:pointer;">Close</button>
     </div>
 </div>
 
-<div id="reception-chat">
-    <div style="background:var(--card); color:white; padding:15px; border-radius:10px 10px 0 0;">Receptionist Online</div>
-    <div id="chat-box" style="padding:20px; height:200px; overflow-y:auto; font-size:14px;">
-        Welcome! Please register using the green button to start your career.
+<div id="chat-window">
+    <div style="background:var(--card); color:white; padding:15px; border-radius:10px 10px 0 0; display:flex; justify-content:space-between;">
+        <span>Receptionist</span>
+        <span onclick="toggleChat(false)" style="cursor:pointer;">×</span>
     </div>
-    <div style="border-top:1px solid #ddd; display:flex;">
-        <input type="text" id="chat-in" placeholder="Ask a question..." style="border:none; margin:0; border-radius:0;">
-        <button onclick="sendChat()" style="background:var(--accent); border:none; padding:10px;">Send</button>
+    <div style="padding:20px; height:150px; font-size:14px;">Welcome! How can I assist with your 2026 career path?</div>
+    <div style="padding:10px; border-top:1px solid #eee; display:flex;">
+        <input type="text" placeholder="Type..." style="margin:0; border:none;">
+        <button style="background:var(--accent); border:none; padding:5px 10px; border-radius:4px;">Send</button>
     </div>
 </div>
 
 <script>
-    const tracks = [
-        {id: 1, n: "Python for AI", g: "AI Developer", price: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500"},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500"},
-        {id: 15, n: "Plumbing Tech", g: "Hydraulics Lead", price: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500"}
-        // ... (12 more tracks)
+    const allData = [
+        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500"},
+        {id: 2, n: "Cyber Security", g: "Security Analyst", s: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500"},
+        {id: 3, n: "Full-Stack Web", g: "Full-Stack Dev", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500"},
+        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500"},
+        {id: 5, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500"},
+        {id: 6, n: "Mobile App Dev", g: "Mobile Engineer", s: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500"},
+        {id: 7, n: "UI/UX Design", g: "Product Designer", s: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500"},
+        {id: 8, n: "Solar Tech", g: "Solar Installer", s: "38,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500"},
+        {id: 9, n: "Data Science", g: "Data Analyst", s: "62,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500"},
+        {id: 10, n: "Carpentry Tech", g: "Master Carpenter", s: "35,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500"},
+        {id: 11, n: "Electrician", g: "Grid Specialist", s: "32,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500"},
+        {id: 12, n: "Masonry", g: "Senior Mason", s: "28,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500"},
+        {id: 13, n: "Welding", g: "Certified Welder", s: "33,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500"},
+        {id: 14, n: "Auto Mech", g: "EV Technician", s: "30,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500"},
+        {id: 15, n: "Network Admin", g: "Network Engineer", s: "42,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"}
     ];
 
     function render() {
-        document.getElementById('track-grid').innerHTML = tracks.map(t => `
-            <div class="card">
-                <img src="${t.img}">
-                <div style="padding:15px;"><strong>${t.n}</strong></div>
+        // Render 15 Courses
+        document.getElementById('course-list').innerHTML = allData.map(d => `
+            <div class="course-card">
+                <img src="${d.img}">
+                <div class="course-info">
+                    <span style="font-size:11px; color:var(--accent);">GOAL: ${d.g}</span>
+                    <strong style="display:block; margin-top:5px;">${d.n}</strong>
+                </div>
             </div>`).join('');
 
-        document.getElementById('job-list').innerHTML = tracks.map(t => `
+        // Render 15 Jobs
+        document.getElementById('job-list').innerHTML = allData.map(d => `
             <div class="job-card">
-                <h3 style="margin:0;">${t.g}</h3>
-                <span class="salary">${t.price}</span>
-                <button onclick="showReg()" style="width:100%; background:var(--accent); border:none; padding:12px; border-radius:5px; font-weight:bold; cursor:pointer;">APPLY NOW</button>
+                <h3 style="margin:0;">${d.g}</h3>
+                <span class="salary-text">${d.s}<small style="color:white; font-size:12px; font-weight:normal;">/mo</small></span>
+                <p style="font-size:12px; opacity:0.7;">Requires ${d.n} Certification</p>
+                <button class="btn-apply" onclick="toggleReg(true)">APPLY NOW</button>
             </div>`).join('');
     }
 
-    function showReg() { document.getElementById('registration-section').style.display = 'block'; window.scrollTo(0,0); }
-    function hideReg() { document.getElementById('registration-section').style.display = 'none'; }
-    function toggleChat() { 
-        const c = document.getElementById('reception-chat');
-        c.style.display = c.style.display === 'block' ? 'none' : 'block';
-    }
-    function submitReg() { alert("Registration Complete! Welcome to ልማት Hub."); hideReg(); }
-    function sendChat() {
-        const i = document.getElementById('chat-in');
-        document.getElementById('chat-box').innerHTML += `<p><strong>You:</strong> ${i.value}</p>`;
-        i.value = '';
-    }
+    function toggleReg(show) { document.getElementById('reg-modal').style.display = show ? 'flex' : 'none'; }
+    function toggleChat(show) { document.getElementById('chat-window').style.display = show ? 'block' : 'none'; }
+    function submitReg() { alert("Registration Received! Check your email for next steps."); toggleReg(false); }
 
     render();
 </script>
