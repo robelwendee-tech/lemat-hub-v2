@@ -2,124 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
+    <title>ልማት Hub | Content Development</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* THE YELLOW TICKER */
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; text-transform: uppercase; }
-
-        header { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; background: var(--bg); }
-        .logo { color: var(--accent); font-size: 24px; font-weight: 800; text-decoration: none; }
-
-        /* JOB BOARD SECTION */
-        .job-section { padding: 25px 5%; background: rgba(56, 189, 248, 0.02); border-bottom: 1px solid #1e293b; }
-        .job-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
-        .job-card { background: var(--card); border: 1px solid var(--yellow); padding: 15px; border-radius: 12px; min-width: 240px; }
-
-        /* 15 COURSE GRID */
-        .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card-img { width: 100%; height: 160px; object-fit: cover; background: #1e293b; }
-        .card-body { padding: 15px; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
 
         /* LEARNING INTERFACE */
-        #learning-view { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg); z-index: 2000; grid-template-columns: 1fr 350px; }
-        .video-area { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+        #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
+        .video-area { padding: 30px; overflow-y: auto; }
+        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+        
         .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; overflow-y: auto; }
-        .lesson-item { padding: 12px; background: rgba(255,255,255,0.03); margin-bottom: 8px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
-        .lesson-item:hover { border-color: var(--accent); }
-        .notes-content { margin-top: 20px; line-height: 1.6; color: #cbd5e1; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 10px; }
+        .lesson-card { padding: 15px; background: rgba(255,255,255,0.03); margin-bottom: 12px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
+        .lesson-card:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); }
+
+        .writing-panel { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 15px; line-height: 1.8; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.05); }
+        .step-badge { background: var(--accent); color: black; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-right: 8px; }
+
+        /* DASHBOARD */
+        .container { padding: 40px 5%; }
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 DIGITAL ETHIOPIA 2026: 15 CERTIFIED TRACKS ACTIVE | NEXT JOB FAIR: MARCH 15</div>
-
-<header id="main-nav">
-    <a href="#" class="logo">ልማት Hub</a>
-</header>
+<div class="ticker">📚 LESSONS UPDATED: DETAILED WRITTEN GUIDES ACTIVE FOR TOP TRACKS</div>
 
 <div id="dashboard">
-    <div class="job-section">
-        <h3 style="margin-top:0;">Live Job Board</h3>
-        <div class="job-grid" id="job-list"></div>
-    </div>
-
     <div class="container">
-        <h2>Professional Career Tracks</h2>
+        <h2>Select a Track to Work on Lessons</h2>
         <div class="track-grid" id="track-grid"></div>
     </div>
 </div>
 
 <div id="learning-view">
     <div class="video-area">
-        <button onclick="closeL()" style="width:100px; background:var(--accent); border:none; padding:10px; border-radius:5px; cursor:pointer; margin-bottom:15px; font-weight:bold;">← BACK</button>
-        <h2 id="view-title">Course Title</h2>
+        <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK</button>
+        <h2 id="view-title" style="color:var(--accent);">Course Title</h2>
+        
         <div class="video-box">
             <div style="text-align:center;">
-                <p style="font-size:50px; color:var(--accent);">▶</p>
-                <p id="lesson-name">Select a lesson to begin</p>
+                <span id="play-btn" style="font-size:60px; color:var(--accent);">▶</span>
+                <p id="active-lesson-title">Select a module to start</p>
             </div>
         </div>
-        <div class="notes-content">
-            <h3 id="note-head">Study Guide</h3>
-            <p id="note-body">Select a lesson on the right to load video and written notes.</p>
+
+        <div class="writing-panel">
+            <h3 id="write-head">Detailed Lesson Guide</h3>
+            <div id="write-body">Choose a lesson from the sidebar to load the technical steps and video module.</div>
         </div>
     </div>
+
     <div class="sidebar">
-        <h3 style="color:var(--accent);">Modules</h3>
-        <div id="sidebar-list"></div>
+        <h3 style="border-bottom: 1px solid #1e293b; padding-bottom: 10px;">Course Modules</h3>
+        <div id="lesson-list"></div>
     </div>
 </div>
 
 <script>
-    /* DATABASE OF ALL 15 TRACKS */
     const tracks = [
-        {id:1, n:"Python for AI", g:"AI Engineer", img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500", 
-         lessons:[{t:"AI Intro", w:"Python scripts drive AI decision-making."}, {t:"ML Basics", w:"Learn training patterns."}]},
-        {id:2, n:"Cyber Security", g:"Security Analyst", img:"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", 
-         lessons:[{t:"Network Def", w:"Protect local networks."}, {t:"Encryption", w:"Protecting sensitive data."}]},
-        {id:3, n:"Full-Stack Web", g:"Web Developer", img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", 
-         lessons:[{t:"UI Architecture", w:"Modern frontend building."}, {t:"Backend Systems", w:"Managing server logic."}]},
-        {id:4, n:"Cloud Architecture", g:"Cloud Engineer", img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", 
-         lessons:[{t:"Cloud Basics", w:"Understanding serverless apps."}]},
-        {id:5, n:"Mobile App Dev", g:"Mobile Developer", img:"https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", 
-         lessons:[{t:"App UI", w:"Building for Android/iOS."}]},
-        {id:6, n:"Modern Carpentry", g:"Master Carpenter", img:"https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", lessons:[{t:"Tool Basics", w:"Power tool safety."}]},
-        {id:7, n:"Electrical Systems", g:"Electrician", img:"https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", lessons:[{t:"Circuit Design", w:"Wiring fundamentals."}]},
-        {id:8, n:"Solar Tech", g:"Solar Installer", img:"https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", lessons:[{t:"Panel Install", w:"Renewable energy setup."}]},
-        {id:9, n:"UI/UX Design", g:"Product Designer", img:"https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", lessons:[{t:"Prototyping", w:"User-centered design."}]},
-        {id:10, n:"Data Science", g:"Data Analyst", img:"https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", lessons:[{t:"Stats", w:"Data-driven insights."}]},
-        {id:11, n:"Auto Mechanics", g:"Auto Tech", img:"https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", lessons:[{t:"Engine Repair", w:"Vehicle diagnostics."}]},
-        {id:12, n:"Masonry Tech", g:"Master Mason", img:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", lessons:[{t:"Brickwork", w:"Structural masonry."}]},
-        {id:13, n:"Welding Tech", g:"Industrial Welder", img:"https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", lessons:[{t:"Arc Welding", w:"Metal joining."}]},
-        {id:14, n:"Network Admin", g:"Network Engineer", img:"https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", lessons:[{t:"Switching", w:"Local area networks."}]},
-        {id:15, n:"Plumbing Tech", g:"Master Plumber", img:"https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", lessons:[{t:"Hydraulics", w:"Water system repair."}]}
+        {
+            id: 1, n: "Python for AI", g: "AI Engineer", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500",
+            lessons: [
+                {t: "Environment Setup", w: "<b>Step 1:</b> Install VS Code and Python 3.10+. <br><b>Step 2:</b> Open your terminal and type 'pip install numpy pandas'. <br><b>Step 3:</b> Create your first .py file to verify the installation."},
+                {t: "Data Handling with Pandas", w: "<b>Overview:</b> Pandas is used for data manipulation. <br><b>Practice:</b> Use 'df.read_csv()' to load the dataset. Use 'df.head()' to view the first 5 rows of AI training data."},
+                {t: "Building a Simple Model", w: "<b>Goal:</b> Create a linear regression. <br><b>Code:</b> Import Scikit-Learn. Define your X (features) and y (target). Call 'model.fit()' to begin training."}
+            ]
+        },
+        {
+            id: 2, n: "Cyber Security", g: "Security Analyst", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
+            lessons: [
+                {t: "Network Reconnaissance", w: "<b>Step 1:</b> Understanding IP ranges. <br><b>Step 2:</b> Using Nmap for basic port scanning (Ethical use only). <br><b>Step 3:</b> Identifying open services on a target machine."},
+                {t: "Password Security", w: "<b>Topic:</b> Hashing vs Encryption. <br><b>Task:</b> Learn how salts are added to passwords to prevent Rainbow Table attacks."}
+            ]
+        },
+        {
+            id: 3, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500",
+            lessons: [
+                {t: "Wood Science", w: "<b>Lesson:</b> Understanding moisture content. <br><b>Task:</b> Identify the difference between Wanza and Tid wood. Learn why seasoning wood prevents warping."},
+                {t: "Joint Geometry", w: "<b>Technique:</b> The Mortise and Tenon joint. <br><b>Execution:</b> Mark the shoulder, cut the tenon cheek, and ensure a tight friction fit."}
+            ]
+        }
+        // Additional 12 tracks can be expanded here...
     ];
 
     function render() {
-        // Render Job Board
-        document.getElementById('job-list').innerHTML = tracks.slice(0, 6).map(t => `
-            <div class="job-card">
-                <span style="background:var(--yellow); color:black; font-size:10px; font-weight:800; padding:2px 4px; border-radius:4px;">OPENING</span>
-                <h4 style="margin:8px 0 4px 0;">${t.g}</h4>
-                <div style="font-size:12px; opacity:0.7;">Ethio-Tech • Addis Ababa</div>
-            </div>`).join('');
-
-        // Render Tracks
         document.getElementById('track-grid').innerHTML = tracks.map(t => `
             <div class="card" onclick="openL(${t.id})">
-                <img src="${t.img}" class="card-img" alt="${t.n}">
-                <div class="card-body">
-                    <h3 style="margin:0; font-size:16px;">${t.n}</h3>
-                    <p style="opacity:0.6; font-size:13px; margin:5px 0;">Goal: ${t.g}</p>
-                    <p style="color:var(--accent); font-weight:bold; font-size:11px;">LEARN NOW →</p>
+                <img src="${t.img}" style="width:100%; height:160px; object-fit:cover;">
+                <div style="padding:15px;">
+                    <h3>${t.n}</h3>
+                    <p style="opacity:0.6; font-size:14px;">Goal: ${t.g}</p>
+                    <p style="color:var(--accent); font-weight:bold;">WORK ON LESSONS →</p>
                 </div>
             </div>`).join('');
     }
@@ -129,15 +106,20 @@
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
         document.getElementById('view-title').innerText = t.n;
-        document.getElementById('sidebar-list').innerHTML = t.lessons.map(l => `
-            <div class="lesson-item" onclick="loadLesson('${l.t}', '${l.w}')">
-                <strong>${l.t}</strong><br><small style="opacity:0.5;">Ready</small>
+        
+        document.getElementById('lesson-list').innerHTML = t.lessons.map(l => `
+            <div class="lesson-card" onclick="loadLesson('${l.t}', '${l.w.replace(/'/g, "\\'")}')">
+                <strong>${l.t}</strong><br>
+                <small style="color:var(--accent);">Video + Writing Ready</small>
             </div>`).join('');
     }
 
     function loadLesson(title, writing) {
-        document.getElementById('lesson-name').innerText = title;
-        document.getElementById('note-body').innerText = writing;
+        document.getElementById('active-lesson-title').innerText = title;
+        document.getElementById('write-head').innerText = "Step-by-Step: " + title;
+        document.getElementById('write-body').innerHTML = writing;
+        document.getElementById('play-btn').innerText = "⏳";
+        setTimeout(() => { document.getElementById('play-btn').innerText = "▶"; }, 400);
     }
 
     function closeL() {
