@@ -2,112 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | Job Board & Salaries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Official 2026 Master</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* UPDATED JOB BOARD */
-        .job-section { padding: 30px 5%; border-bottom: 1px solid #1e293b; }
+        /* THE YELLOW TICKER */
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; text-transform: uppercase; }
+
+        /* JOB BOARD SECTION */
+        .job-section { padding: 30px 5%; border-bottom: 1px solid #1e293b; background: rgba(56,189,248,0.02); }
         .job-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; }
         .job-card { 
             background: var(--card); border: 2px solid var(--yellow); padding: 20px; 
-            border-radius: 12px; min-width: 280px; cursor: pointer; transition: 0.3s;
+            border-radius: 12px; min-width: 260px; cursor: pointer; transition: 0.3s;
         }
-        .job-card:hover { transform: scale(1.05); background: #1e293b; }
-        .salary-badge { color: var(--green); font-weight: 900; font-size: 18px; display: block; margin: 10px 0; }
-        .apply-btn { background: var(--accent); color: black; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; width: 100%; cursor: pointer; }
+        .job-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .salary-tag { color: var(--green); font-weight: 900; font-size: 18px; display: block; margin: 10px 0; }
 
-        /* LEARNING PANEL */
+        /* 15 COURSE GRID */
+        .container { padding: 40px 5%; }
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--accent); }
+        .card-img { width: 100%; height: 150px; object-fit: cover; filter: grayscale(30%); }
+
+        /* SPLIT-SCREEN LEARNING VIEW */
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
         .video-area { padding: 30px; overflow-y: auto; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-        .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; }
+        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; overflow-y: auto; }
         
-        .info-panel { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1); }
-        .skill-list li { margin: 5px 0; color: #cbd5e1; font-size: 14px; }
-        .skill-list li::before { content: "🎯 "; color: var(--accent); }
+        .info-panel { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); line-height: 1.6; }
+        .skill-item { margin: 8px 0; font-size: 14px; color: #cbd5e1; }
+        .skill-item::before { content: "🎯 "; color: var(--accent); }
     </style>
 </head>
 <body>
 
-<div class="ticker">💼 2026 LIVE JOBS: CLICK A JOB TO SEE SALARY AND START TRAINING</div>
+<div class="ticker">🚀 2026 JOB FAIR OPEN: 15 TRACKS VERIFIED | MINIMUM SALARY: 12,000 ETB</div>
 
 <div id="dashboard">
     <div class="job-section">
-        <h2 style="margin-top:0; color:var(--accent);">Available Opportunities</h2>
+        <h2 style="margin-top:0;">Top Paying Opportunities</h2>
         <div class="job-grid" id="job-list"></div>
     </div>
 
-    <div class="job-section" style="background:none; border:none;">
-        <h2>Browse All 15 Tracks</h2>
-        <div id="track-list-main" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>
+    <div class="container">
+        <h2>All 15 Professional Tracks</h2>
+        <div class="track-grid" id="track-grid"></div>
     </div>
 </div>
 
 <div id="learning-view">
     <div class="video-area">
-        <button onclick="closeL()" style="background:var(--yellow); color:black; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← CLOSE & APPLY</button>
-        <h2 id="view-title" style="color:var(--accent); margin-bottom:5px;">Position</h2>
-        <span id="view-salary" class="salary-badge"></span>
+        <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK TO JOBS</button>
+        <h2 id="view-title" style="color:var(--accent); margin:0;">Track Title</h2>
+        <p id="view-salary" style="color:var(--green); font-weight:bold; font-size:20px; margin:10px 0;"></p>
 
-        <div class="video-box"><span style="font-size:60px; color:var(--yellow);">▶</span></div>
+        <div class="video-box"><span style="font-size:60px; color:var(--accent);">▶</span></div>
 
         <div class="info-panel">
-            <h3 style="margin-top:0;">Requirement: What you must learn</h3>
-            <ul id="skill-list" style="list-style:none; padding:0;" class="skill-list"></ul>
-            <hr style="border:0; border-top:1px solid #334155; margin:15px 0;">
-            <strong>Course Module Preview:</strong>
-            <p id="module-text" style="color:#94a3b8; font-size:14px; line-height:1.6;"></p>
+            <h3 style="color:var(--yellow); margin-top:0;">What You Will Learn</h3>
+            <div id="skill-box"></div>
+            <hr style="border:0; border-top:1px solid #334155; margin:20px 0;">
+            <h3 style="color:var(--accent);">Technical Module Writing</h3>
+            <p id="writing-body" style="color:#94a3b8;"></p>
         </div>
     </div>
     <div class="sidebar">
         <h3>Training Modules</h3>
-        <div id="module-sidebar"></div>
+        <div id="sidebar-list"></div>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {
-            id: 1, n: "Python for AI", g: "AI Engineer", price: "55,000 ETB", 
-            learn: ["Build GPT-style models", "Data Automation", "Python Logic"],
-            w: "In this module, you will learn to write the core logic that powers 2026 AI automation systems."
-        },
-        {
-            id: 2, n: "Cyber Security", g: "Security Expert", price: "48,000 ETB", 
-            learn: ["Defensive Networking", "Password Hashing", "Firewall Setup"],
-            w: "Learn how to block unauthorized access to Ethiopian banking and government networks."
-        },
-        {
-            id: 3, n: "Mobile App Dev", g: "App Developer", price: "42,000 ETB", 
-            learn: ["Flutter & Dart", "Payment API Integration", "Cloud Sync"],
-            w: "Create mobile apps that allow users to pay for services using local digital wallets."
-        },
-        {
-            id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "28,000 ETB", 
-            learn: ["Blueprint Reading", "Industrial Finishing", "Ergonomics"],
-            w: "Design furniture that meets international export standards for the 2026 market."
-        }
+        {id: 1, n: "Python for AI", g: "AI Engineer", price: "65,000 ETB", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500", 
+         learn: ["Neural Network Design", "Automated Scripting", "Data Ethics"], w: "Step 1: Install Python 3.12. Step 2: Set up a virtual environment. Step 3: Use 'pip' to install TensorFlow for model training."},
+        {id: 2, n: "Cyber Security", g: "Security Expert", price: "52,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", 
+         learn: ["Penetration Testing", "Digital Forensics", "Network Shielding"], w: "Identify network vulnerabilities using port scanning. Set up an AES-256 encryption tunnel for data transfer."},
+        {id: 3, n: "Full-Stack Web", g: "Web Developer", price: "45,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", 
+         learn: ["React & Node.js", "Database Scaling", "API Security"], w: "Initialize a Git repository. Build the frontend using Tailwind CSS and the backend using an Express.js server."},
+        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "70,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", 
+         learn: ["AWS Deployment", "Serverless Logic", "Cloud Security"], w: "Create a VPC. Deploy an EC2 instance with an attached S3 bucket for scalable storage."},
+        {id: 5, n: "Mobile App Dev", g: "App Developer", price: "40,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", 
+         learn: ["Cross-Platform Flutter", "UX/UI Principles", "App Store Launch"], w: "Configure the Flutter SDK. Build a state-managed application using the Provider pattern."},
+        {id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "25,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", 
+         learn: ["Furniture Design", "Power Tool Safety", "Export Standards"], w: "Draft a 3D furniture model. Use a table saw to create precision dovetail joints for high-end export goods."},
+        {id: 7, n: "Electrical Systems", g: "Electrician", price: "22,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", 
+         learn: ["Solar Wiring", "Safety Compliance", "Grid Management"], w: "Calculate the total load of a commercial building. Install a 3-phase circuit breaker following the 2026 safety code."},
+        {id: 8, n: "Solar Tech", g: "Solar Installer", price: "30,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", 
+         learn: ["PV Cell Physics", "Battery Management", "Site Assessment"], w: "Orient panels at a 15-degree angle toward the sun. Connect a Lithium-Ion battery bank to a hybrid inverter."},
+        {id: 9, n: "UI/UX Design", g: "Product Designer", price: "38,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", 
+         learn: ["Figma Design", "User Testing", "Prototyping"], w: "Create a design system with reusable components. Build a high-fidelity prototype with interactive user flow."},
+        {id: 10, n: "Data Science", g: "Data Analyst", price: "48,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", 
+         learn: ["Predictive Analysis", "Data Mining", "Visualization"], w: "Clean raw data using Python's NumPy. Generate a regression model to predict market trends in the next quarter."},
+        {id: 11, n: "Auto Mechanics", g: "Auto Tech", price: "24,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", 
+         learn: ["EV Repair", "Engine Diagnostics", "Hydraulics"], w: "Use a computerized diagnostic tool to read ECU codes. Calibrate the fuel injection system for maximum efficiency."},
+        {id: 12, n: "Masonry Tech", g: "Master Mason", price: "20,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", 
+         learn: ["Blueprinting", "Reinforced Concrete", "Finishing"], w: "Mix mortar at a 3:1 ratio. Lay bricks using a running bond pattern, ensuring every layer is perfectly level."},
+        {id: 13, n: "Welding Tech", g: "Industrial Welder", price: "28,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", 
+         learn: ["TIG/MIG Welding", "Material Science", "Underwater Welding"], w: "Clean the metal surface using a wire brush. Apply a consistent bead using a 7018 rod for structural steel joints."},
+        {id: 14, n: "Network Admin", g: "Network Engineer", price: "35,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", 
+         learn: ["Routing Protocols", "Server Maintenance", "VoIP Setup"], w: "Configure a Cisco router. Assign IP addresses via DHCP and set up a VPN for remote office access."},
+        {id: 15, n: "Plumbing Tech", g: "Master Plumber", price: "18,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", 
+         learn: ["Hydraulic Logic", "Sewer Management", "Pipe Fitting"], w: "Install a PEX manifold system. Pressure test the lines to ensure zero leaks before the wall closure."}
     ];
 
     function render() {
-        // Render Job Board with Salaries
-        document.getElementById('job-list').innerHTML = tracks.map(t => `
+        // Job Board
+        document.getElementById('job-list').innerHTML = tracks.slice(0, 6).map(t => `
             <div class="job-card" onclick="openL(${t.id})">
-                <span style="font-size:12px; background:rgba(16, 185, 129, 0.1); color:var(--green); padding:3px 8px; border-radius:4px;">FULL-TIME</span>
-                <h3 style="margin:10px 0 0 0;">${t.g}</h3>
-                <span class="salary-badge">${t.price}<small style="color:white; font-size:10px; font-weight:normal;">/month</small></span>
-                <p style="font-size:11px; opacity:0.6; margin-bottom:15px;">Req: Completion of ${t.n} course</p>
-                <button class="apply-btn">START TRAINING</button>
+                <h4 style="margin:0;">${t.g}</h4>
+                <span class="salary-tag">${t.price}</span>
+                <p style="font-size:11px; opacity:0.6;">Requires ${t.n} Certification</p>
+                <button style="width:100%; background:var(--accent); border:none; padding:8px; border-radius:5px; font-weight:bold; cursor:pointer;">APPLY & LEARN</button>
             </div>`).join('');
 
-        // Render Track Cards
-        document.getElementById('track-list-main').innerHTML = tracks.map(t => `
-            <div style="background:var(--card); padding:15px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); cursor:pointer;" onclick="openL(${t.id})">
-                <strong>${t.n}</strong>
-                <p style="font-size:12px; color:var(--accent); margin:5px 0;">Salary Target: ${t.price}</p>
+        // Track Grid
+        document.getElementById('track-grid').innerHTML = tracks.map(t => `
+            <div class="card" onclick="openL(${t.id})">
+                <img src="${t.img}" class="card-img" alt="${t.n}">
+                <div style="padding:15px;">
+                    <h3 style="margin:0; font-size:16px;">${t.n}</h3>
+                    <p style="color:var(--green); font-size:13px; font-weight:bold; margin-top:5px;">${t.price} / mo</p>
+                </div>
             </div>`).join('');
     }
 
@@ -115,17 +136,12 @@
         const t = tracks.find(x => x.id === id);
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
-        document.getElementById('view-title').innerText = t.g + " Training";
-        document.getElementById('view-salary').innerText = "Potential Salary: " + t.price;
-        document.getElementById('skill-list').innerHTML = t.learn.map(s => `<li>${s}</li>`).join('');
-        document.getElementById('module-text').innerText = t.w;
+        document.getElementById('view-title').innerText = t.n;
+        document.getElementById('view-salary').innerText = "Salary Goal: " + t.price;
+        document.getElementById('writing-body').innerText = t.w;
+        document.getElementById('skill-box').innerHTML = t.learn.map(s => `<div class="skill-item">${s}</div>`).join('');
         
-        document.getElementById('module-sidebar').innerHTML = `
-            <div style="background:var(--accent); color:black; padding:15px; border-radius:8px; margin-bottom:10px;">
-                <strong>Module 1: Foundations</strong><br><small>Locked until ID verification</small>
-            </div>
-            <div style="opacity:0.4; padding:15px;">Module 2: Advanced Tech</div>
-        `;
+        document.getElementById('sidebar-list').innerHTML = `<div style="padding:15px; background:rgba(56,189,248,0.1); border-radius:8px; border:1px solid var(--accent);"><strong>Module 1: Professional Training</strong></div>`;
     }
 
     function closeL() {
