@@ -8,121 +8,106 @@
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* HEADER */
         .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
         nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
 
         .container { padding: 40px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         
-        /* TRACK CARDS */
+        /* COURSE CARDS */
         .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .card img { width: 100%; height: 180px; object-fit: cover; }
         .card-body { padding: 20px; }
 
-        /* JOB BOARD */
-        .job-card { border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; background: var(--card); }
-        .salary { color: var(--green); font-size: 28px; font-weight: 900; display: block; margin: 10px 0; }
-        .btn-main { background: var(--accent); color: black; border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        /* THE STUDY ROOM (Hidden by default) */
+        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
+        .study-content { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
+        .sidebar { background: #0f172a; padding: 30px; }
 
-        /* REGISTRATION MODAL (NO FAYDA ID) */
+        /* REGISTRATION MODAL */
         #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .reg-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 450px; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
-
-        /* RECEPTION CHAT */
-        #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .reg-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
     </style>
 </head>
 <body>
 
-<div class="ticker" id="top-ticker">🛎️ RECEPTION ACTIVE | REGISTER WITH YOUR PERSONAL DETAILS TO START</div>
+<div class="ticker">🚀 SELECT A COURSE TO START YOUR 2026 CERTIFICATION</div>
 
 <nav>
     <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <div>
-        <button onclick="toggleModal('reg-modal', true)" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
-        <button onclick="toggleModal('reception-box', true)" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; margin-left:10px; cursor:pointer;">RECEPTION</button>
-    </div>
+    <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
 </nav>
 
-<div class="container">
-    <h2 style="color:var(--accent); margin-bottom:30px;">Professional Certification Tracks (Full 15)</h2>
-    <div class="grid" id="course-list"></div>
+<div id="hub-display">
+    <div class="container">
+        <h2 style="color:var(--accent);">Professional Tracks (15)</h2>
+        <div class="grid" id="course-list"></div>
+    </div>
 </div>
 
-<div class="container" style="border-top: 1px solid #1e293b;">
-    <h2 style="margin-bottom:30px;">Job Board & Salaries</h2>
-    <div class="grid" id="job-list"></div>
+<div id="study-room">
+    <div class="study-content">
+        <button onclick="closeStudy()" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:20px;">← BACK TO HUB</button>
+        <h1 id="course-title" style="color:var(--accent);"></h1>
+        <div id="course-visual" style="width:100%; height:300px; border-radius:15px; overflow:hidden; margin-bottom:20px; border:2px solid var(--accent);"></div>
+        <div style="background:rgba(255,255,255,0.02); padding:25px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
+            <h3 style="color:var(--green);">2026 Industrial Research</h3>
+            <p id="course-data" style="line-height:1.7; color:#cbd5e1;"></p>
+            <button onclick="alert('Certification Quiz Loading...')" style="background:var(--green); color:white; border:none; padding:15px 30px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:15px;">TAKE EXAM</button>
+        </div>
+    </div>
+    <div class="sidebar">
+        <h3>Training Modules</h3>
+        <div style="background:var(--accent); color:black; padding:15px; border-radius:8px; font-weight:bold;">Module 1: Research Phase</div>
+    </div>
 </div>
 
 <div id="reg-modal">
     <div class="reg-box">
-        <h2 style="margin:0 0 15px 0;">Client Registration</h2>
+        <h2 style="margin-top:0;">Personal Details</h2>
         <input type="text" placeholder="Full Name">
         <input type="number" placeholder="Age">
         <input type="email" placeholder="Email Address">
-        <input type="tel" placeholder="Phone Number">
-        <select>
-            <option>Select Education Level</option>
-            <option>High School</option>
-            <option>University</option>
-            <option>Technical/Vocational</option>
-        </select>
-        <button onclick="toggleModal('reg-modal', false)" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">COMPLETE REGISTRATION</button>
-    </div>
-</div>
-
-<div id="reception-box">
-    <div style="background:var(--card); color:white; padding:15px; border-radius:12px 12px 0 0; display:flex; justify-content:space-between;">
-        <strong>Receptionist</strong>
-        <span onclick="toggleModal('reception-box', false)" style="cursor:pointer;">×</span>
-    </div>
-    <div style="padding:20px; height:150px; overflow-y:auto; font-size:14px;">Hello! How can I help you navigate the 15 professional tracks today?</div>
-    <div style="padding:10px; border-top:1px solid #eee; display:flex;">
-        <input type="text" placeholder="Your message..." style="margin:0; border:none; flex:1;">
-        <button style="background:var(--accent); border:none; padding:8px 15px; border-radius:5px; margin-left:5px;">Send</button>
+        <button onclick="document.getElementById('reg-modal').style.display='none'" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer;">SUBMIT</button>
     </div>
 </div>
 
 <script>
-    const allTracks = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600"},
-        {id: 2, n: "Cyber Security", g: "Security Analyst", s: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600"},
-        {id: 3, n: "Full-Stack Web", g: "Full-Stack Dev", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600"},
-        {id: 5, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600"},
-        {id: 6, n: "Mobile App Dev", g: "Mobile Engineer", s: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600"},
-        {id: 7, n: "UI/UX Design", g: "Product Designer", s: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600"},
-        {id: 8, n: "Solar Tech", g: "Solar Installer", s: "38,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600"},
-        {id: 9, n: "Data Science", g: "Data Analyst", s: "62,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600"},
-        {id: 10, n: "Carpentry Tech", g: "Master Carpenter", s: "35,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600"},
-        {id: 11, n: "Electrical Sys", g: "Grid Specialist", s: "32,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600"},
-        {id: 12, n: "Masonry Tech", g: "Senior Mason", s: "28,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600"},
-        {id: 13, n: "Welding Tech", g: "Certified Welder", s: "33,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600"},
-        {id: 14, n: "Auto Mech", g: "EV Technician", s: "30,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600"},
-        {id: 15, n: "Network Admin", g: "Network Engineer", s: "42,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600"}
+    const tracks = [
+        {id: 1, n: "Python for AI", r: "Researching Python 3.12 and Fayda ID API integration for Ethiopian digital services.", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600"},
+        {id: 4, n: "Cloud Architecture", r: "Auditing local server infrastructure and implementing AES-256 encryption protocols.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600"},
+        {id: 8, n: "Solar Tech", r: "Configuring hybrid inverters and PV array layouts for grid-independent energy solutions.", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600"},
+        {id: 14, n: "EV Technician", r: "Diagnostic research on Electric Vehicle (EV) drivetrains and smart battery management.", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600"},
+        {id: 5, n: "Plumbing Tech", r: "High-pressure hydraulic research for luxury high-rise residential waste management.", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600"}
     ];
 
     function render() {
-        document.getElementById('course-list').innerHTML = allTracks.map(t => `
-            <div class="card">
-                <img src="${t.img}" alt="${t.n}">
+        document.getElementById('course-list').innerHTML = tracks.map(t => `
+            <div class="card" onclick="openStudy(${t.id})">
+                <img src="${t.img}">
                 <div class="card-body">
-                    <span style="color:var(--accent); font-size:12px;">GOAL: ${t.g}</span>
-                    <strong style="display:block; font-size:18px; margin-top:5px;">${t.n}</strong>
+                    <strong>${t.n}</strong>
+                    <p style="font-size:12px; color:var(--accent); margin-top:5px;">Click to open course</p>
                 </div>
-            </div>`).join('');
-
-        document.getElementById('job-list').innerHTML = allTracks.map(t => `
-            <div class="job-card">
-                <h3 style="margin:0;">${t.g}</h3>
-                <span class="salary">${t.s}<small style="color:white; font-size:12px; font-weight:normal;">/mo</small></span>
-                <button class="btn-main">START TRAINING</button>
             </div>`).join('');
     }
 
-    function toggleModal(id, show) { document.getElementById(id).style.display = show ? 'flex' : 'none'; if(id==='reception-box') document.getElementById(id).style.display = show ? 'block' : 'none'; }
+    function openStudy(id) {
+        const item = tracks.find(x => x.id === id);
+        document.getElementById('hub-display').style.display = 'none';
+        document.getElementById('study-room').style.display = 'grid';
+        document.getElementById('course-title').innerText = item.n;
+        document.getElementById('course-data').innerText = item.r;
+        document.getElementById('course-visual').innerHTML = `<img src="${item.img}" style="width:100%; height:100%; object-fit:cover;">`;
+    }
+
+    function closeStudy() {
+        document.getElementById('hub-display').style.display = 'block';
+        document.getElementById('study-room').style.display = 'none';
+    }
+
     render();
 </script>
 </body>
