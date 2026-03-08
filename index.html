@@ -3,106 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
+    <title>ልማት Hub | Exam Center 2026</title>
     <style>
         :root { --bg: #05080f; --card: #111827; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        /* TICKER & NAV */
         .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
-        .nav-bar { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-
         .section-padding { padding: 40px 5%; }
         
-        /* GRID CONFIG */
+        /* DASHBOARD */
         .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .course-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
-        .course-card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .course-card img { width: 100%; height: 160px; object-fit: cover; }
 
-        /* THE "STUDY ROOM" (THE COURSE CONTENT) */
+        /* STUDY ROOM & QUIZ */
         #study-room { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
         .main-lesson { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
-        .sidebar-modules { background: #0f172a; padding: 25px; }
-        .module-item { background: rgba(56, 189, 248, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--accent); margin-bottom: 10px; }
+        .sidebar { background: #0f172a; padding: 25px; }
 
-        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; }
-        .salary { color: var(--green); font-size: 26px; font-weight: 900; margin: 10px 0; display: block; }
+        /* QUIZ STYLING */
+        #quiz-section { display: none; margin-top: 30px; padding: 25px; background: rgba(16, 185, 129, 0.1); border: 1px solid var(--green); border-radius: 15px; }
+        .quiz-option { display: block; background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+        .quiz-option:hover { border-color: var(--accent); }
+
+        .salary { color: var(--green); font-size: 24px; font-weight: 900; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 START LEARNING NOW: ALL 15 TRACKS ARE LIVE | FAYDA ID REQUIRED</div>
-
-<nav class="nav-bar">
-    <div style="font-size: 24px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <div>
-        <button style="background:var(--green); border:none; padding:10px 20px; color:white; font-weight:bold; border-radius:5px; cursor:pointer;">REGISTER</button>
-    </div>
-</nav>
+<div class="ticker">📝 RESEARCH EXAM ACTIVE: COMPLETE THE QUIZ TO UNLOCK YOUR JOB PLACEMENT</div>
 
 <div id="dashboard">
     <div class="section-padding">
-        <h2 style="color:var(--accent); margin-bottom:25px;">Click a Course to Start Learning</h2>
-        <div class="track-grid" id="course-grid"></div>
+        <h2 style="color:var(--accent);">All 15 Certified Research Tracks</h2>
+        <div class="track-grid" id="course-list"></div>
     </div>
 
     <div class="section-padding" style="background: rgba(56, 189, 248, 0.02); border-top: 1px solid #1e293b;">
-        <h2>Available Careers</h2>
-        <div class="track-grid" id="job-grid"></div>
+        <h2>Job Board & Hiring</h2>
+        <div class="track-grid" id="job-list"></div>
     </div>
 </div>
 
 <div id="study-room">
     <div class="main-lesson">
-        <button onclick="closeStudy()" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:30px;">← BACK TO HUB</button>
+        <button onclick="closeStudy()" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:20px;">← EXIT LESSON</button>
         <h1 id="lesson-title" style="color:var(--accent);"></h1>
-        <div id="lesson-visual" style="width:100%; height:350px; background:#000; border:2px solid var(--accent); border-radius:15px; overflow:hidden; margin-bottom:25px;"></div>
-        <div style="background:rgba(255,255,255,0.02); padding:30px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
-            <h3 style="color:var(--green); margin-top:0;">2026 Industry Research & Training:</h3>
-            <p id="lesson-content" style="line-height:1.8; color:#cbd5e1; font-size:16px;"></p>
+        <div id="lesson-visual" style="width:100%; height:300px; border-radius:15px; overflow:hidden; margin-bottom:20px;"></div>
+        
+        <div id="lesson-text" style="background:rgba(255,255,255,0.02); padding:25px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); line-height:1.7;"></div>
+
+        <button id="start-quiz-btn" onclick="showQuiz()" style="margin-top:20px; background:var(--green); color:white; border:none; padding:15px 30px; border-radius:8px; font-weight:bold; cursor:pointer;">TAKE RESEARCH QUIZ</button>
+        
+        <div id="quiz-section">
+            <h3>Research Validation Quiz</h3>
+            <p id="quiz-question"></p>
+            <div id="quiz-options"></div>
         </div>
     </div>
-    <div class="sidebar-modules">
-        <h3>Course Syllabus</h3>
-        <div class="module-item"><strong>Module 1:</strong> Industrial Basics</div>
-        <div class="module-item" style="opacity:0.5;"><strong>Module 2:</strong> Advanced Technicals</div>
-        <div class="module-item" style="opacity:0.5;"><strong>Module 3:</strong> Final Certification</div>
-        <hr style="border:0; border-top:1px solid #334155; margin:30px 0;">
-        <p style="font-size:12px; color:var(--yellow);">*Complete Module 1 to unlock the rest.</p>
+
+    <div class="sidebar">
+        <h3>Training Progress</h3>
+        <div style="background:var(--accent); color:black; padding:15px; border-radius:8px; font-weight:bold; margin-bottom:10px;">Module 1: Research Phase</div>
+        <div style="padding:15px; border:1px solid #334155; border-radius:8px; opacity:0.5;">Module 2: Practical Exam</div>
+        <div style="padding:15px; border:1px solid #334155; border-radius:8px; opacity:0.5;">Module 3: Job Placement</div>
     </div>
 </div>
 
 <script>
-    const data = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500", c: "Researching Python 3.12 integration with Ethiopian Digital Gateway REST APIs. This module covers data cleaning and identity verification logic."},
-        {id: 2, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", c: "Focusing on local VPC configurations and AES-256 security standards for government data centers in Addis Ababa."},
-        {id: 3, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", c: "Technical research on high-pressure hydraulic systems and smart irrigation sensors for modern residential developments."}
-        // ... all 15 tracks included in full version
+    const tracks = [
+        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500", r: "Python 3.12 research focusing on the Ethiopian Digital ID API (Fayda).", q: "What is the primary API used for identity in this track?", o: ["Fayda ID API", "Global Web API", "Legacy SQL"]},
+        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", r: "Security research on AES-256 encryption for local Addis Ababa servers.", q: "Which encryption standard is required for 2026 servers?", o: ["AES-256", "MD5 Legacy", "No Encryption"]},
+        {id: 15, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", r: "Hydraulic research for high-pressure systems in luxury apartments.", q: "What type of systems are we researching for luxury apartments?", o: ["High-Pressure Hydraulics", "Low-Flow Manual", "Gravity Only"]}
     ];
 
+    let currentTrack = null;
+
     function render() {
-        document.getElementById('course-grid').innerHTML = data.map(d => `
-            <div class="course-card" onclick="openStudy(${d.id})">
-                <img src="${d.img}">
-                <div style="padding:15px;"><strong>${d.n}</strong></div>
+        document.getElementById('course-list').innerHTML = tracks.map(t => `
+            <div class="course-card" onclick="openStudy(${t.id})">
+                <img src="${t.img}">
+                <div style="padding:15px;"><strong>${t.n}</strong></div>
             </div>`).join('');
 
-        document.getElementById('job-grid').innerHTML = data.map(d => `
-            <div class="job-card">
-                <h3>${d.g}</h3>
-                <span class="salary">${d.s}</span>
-                <button onclick="openStudy(${d.id})" style="width:100%; background:var(--accent); border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">START COURSE</button>
+        document.getElementById('job-list').innerHTML = tracks.map(t => `
+            <div class="course-card" style="padding:20px; border:2px solid var(--yellow);">
+                <h3>${t.g}</h3>
+                <span class="salary">${t.s}</span>
+                <button onclick="openStudy(${t.id})" style="width:100%; background:var(--accent); border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:15px;">START RESEARCH</button>
             </div>`).join('');
     }
 
     function openStudy(id) {
-        const item = data.find(x => x.id === id);
+        currentTrack = tracks.find(x => x.id === id);
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('study-room').style.display = 'grid';
-        document.getElementById('lesson-title').innerText = item.n;
-        document.getElementById('lesson-content').innerText = item.c;
-        document.getElementById('lesson-visual').innerHTML = `<img src="${item.img}" style="width:100%; height:100%; object-fit:cover;">`;
+        document.getElementById('lesson-title').innerText = currentTrack.n;
+        document.getElementById('lesson-text').innerText = currentTrack.r;
+        document.getElementById('lesson-visual').innerHTML = `<img src="${currentTrack.img}" style="width:100%; height:100%; object-fit:cover;">`;
+        document.getElementById('quiz-section').style.display = 'none';
+        document.getElementById('start-quiz-btn').style.display = 'block';
+    }
+
+    function showQuiz() {
+        document.getElementById('start-quiz-btn').style.display = 'none';
+        document.getElementById('quiz-section').style.display = 'block';
+        document.getElementById('quiz-question').innerText = currentTrack.q;
+        document.getElementById('quiz-options').innerHTML = currentTrack.o.map(opt => `
+            <div class="quiz-option" onclick="finishQuiz()">${opt}</div>
+        `).join('');
+    }
+
+    function finishQuiz() {
+        alert("Correct! You have passed the Research Module for " + currentTrack.n + ". You are now eligible to apply for the " + currentTrack.s + " position.");
+        closeStudy();
     }
 
     function closeStudy() {
