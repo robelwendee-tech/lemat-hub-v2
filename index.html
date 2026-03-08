@@ -3,32 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Full 15 Tracks</title>
+    <title>ልማት Hub | Reception & Careers</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; scroll-behavior: smooth; }
         
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
+
+        /* RECEPTION BAR */
+        .reception-nav { background: #1e293b; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); }
+        .reception-status { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 8px; }
+        .dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
         .section-padding { padding: 40px 5%; }
         .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
         .card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .card img { width: 100%; height: 160px; object-fit: cover; }
 
-        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; }
+        /* JOB BOARD */
+        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; transition: 0.3s; }
         .salary { color: var(--green); font-size: 24px; font-weight: 900; margin: 10px 0; display: block; }
-        .btn-blue { background: var(--accent); color: black; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-bottom: 10px; }
-        .btn-outline { background: transparent; color: white; border: 1px solid white; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; }
+        
+        /* RECEPTION MODAL */
+        #reception-desk { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; background: white; color: #000; border-radius: 15px; z-index: 4000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
+        .chat-header { background: var(--card); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
+        .chat-body { padding: 20px; max-height: 300px; overflow-y: auto; font-size: 14px; }
+        .chat-input { display: flex; border-top: 1px solid #ddd; }
+        .chat-input input { flex: 1; border: none; padding: 15px; outline: none; }
+        .chat-input button { background: var(--accent); border: none; padding: 15px; cursor: pointer; font-weight: bold; }
 
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 20px;}
-        .video-box img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 DIGITAL ETHIOPIA 2026: 15 CERTIFIED TRACKS ACTIVE | NEXT JOB FAIR: MARCH 15</div>
+<div class="ticker">🛎️ RECEPTION OPEN: FAYDA ID VERIFICATION AGENTS ONLINE | 2026 JOB FAIR</div>
+
+<nav class="reception-nav">
+    <div style="font-weight: 900; font-size: 20px; color: var(--accent);">ልማት Hub</div>
+    <div class="reception-status">
+        <span class="dot"></span> Receptionist Online
+        <button onclick="toggleReception()" style="margin-left:15px; background:var(--yellow); border:none; padding:5px 15px; border-radius:20px; font-weight:bold; cursor:pointer;">TALK TO RECEPTION</button>
+    </div>
+</nav>
 
 <div id="dashboard">
     <div class="section-padding">
@@ -38,67 +58,81 @@
 
     <div class="section-padding" style="background: rgba(56, 189, 248, 0.03);">
         <h2>Available Positions & Monthly Salaries</h2>
-        <div class="job-grid" id="job-list"></div>
+        <div id="job-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;"></div>
+    </div>
+</div>
+
+<div id="reception-desk">
+    <div class="chat-header">
+        <span>Lemat Receptionist</span>
+        <span onclick="toggleReception()" style="cursor:pointer;">×</span>
+    </div>
+    <div class="chat-body" id="chat-content">
+        <p><strong>Reception:</strong> Hello! Welcome to ልማት Hub. How can I help you today?</p>
+        <p style="font-size:12px; color:#666;">- Verify my Fayda ID<br>- Ask about salaries<br>- Help with a course</p>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="chat-msg" placeholder="Type your question...">
+        <button onclick="sendChat()">Send</button>
     </div>
 </div>
 
 <div id="learning-view">
     <div style="padding: 30px; overflow-y: auto;">
-        <button onclick="closeL()" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK TO HUB</button>
-        <h2 id="view-title">Course</h2>
-        <div class="video-box" id="lesson-img"></div>
+        <button onclick="closeL()" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← EXIT LESSON</button>
+        <h2 id="view-title"></h2>
+        <div id="lesson-img" style="width:100%; aspect-ratio:16/9; border:2px solid var(--accent); border-radius:15px; overflow:hidden; margin-bottom:20px;"></div>
         <div style="background:rgba(255,255,255,0.02); padding:25px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
-            <h3 style="color:var(--yellow); margin-top:0;">What you will learn:</h3>
-            <ul id="skills-list" style="padding-left:20px;"></ul>
-            <hr style="border:0; border-top:1px solid #334155; margin:20px 0;">
+            <h3 id="salary-highlight" style="color:var(--green); margin-top:0;"></h3>
             <p id="writing-body" style="line-height:1.6; color:#cbd5e1;"></p>
         </div>
     </div>
     <div style="background:var(--card); padding:20px; border-left:1px solid #1e293b;">
-        <h3>Course Modules</h3>
-        <div id="sidebar-progress" style="padding:15px; background:rgba(56,189,248,0.1); border-radius:10px; border:1px solid var(--accent);">
-            <strong>Module 1: Foundations</strong>
+        <h3>Module Progress</h3>
+        <div style="padding:15px; background:rgba(56,189,248,0.1); border-radius:10px; border:1px solid var(--accent);">
+            <strong>Phase 1: Skills Training</strong>
         </div>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {id: 1, n: "Python for AI", g: "AI Developer", price: "75,000 ETB", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500", learn: ["Deep Learning Fundamentals", "API Integration", "Automation Scripts"], w: "Connect to the National Data Gateway using REST APIs and Python logic."},
-        {id: 2, n: "Cyber Security", g: "Security Analyst", price: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", learn: ["Ethical Hacking", "Network Auditing", "Firewall Configuration"], w: "Audit network traffic to block unauthorized IP access to local government servers."},
-        {id: 3, n: "Full-Stack Web", g: "Full-Stack Dev", price: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", learn: ["React Frontend", "Express.js Backend", "PostgreSQL Databases"], w: "Deploy a high-speed database to handle millions of commerce transactions."},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", learn: ["Cloud Deployment", "Virtual VPCs", "Serverless Computing"], w: "Architect a secure cloud environment for Ethiopia's new digital ID services."},
-        {id: 5, n: "Mobile App Dev", g: "Mobile Engineer", price: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", learn: ["Flutter Cross-Platform", "UX Optimization", "Push Services"], w: "Build a citizen-facing app that works on both Android and iOS devices."},
-        {id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "35,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", learn: ["Blueprint Analysis", "Industrial Power Tools", "Export Finishing"], w: "Design and build precision furniture for international export markets."},
-        {id: 7, n: "Electrical Systems", g: "Grid Specialist", price: "32,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", learn: ["Phase Load Calculation", "Smart Metering", "Safety Code"], w: "Install industrial power grids following the latest 2026 safety standards."},
-        {id: 8, n: "Solar Tech", g: "Solar Installer", price: "38,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", learn: ["PV Panel Physics", "Battery Banks", "Hybrid Inverters"], w: "Optimize the efficiency of solar arrays for remote rural energy projects."},
-        {id: 9, n: "UI/UX Design", g: "Product Designer", price: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", learn: ["User Research", "Figma Design Systems", "Prototyping"], w: "Design user-friendly interfaces for Ethiopia's growing digital ecosystem."},
-        {id: 10, n: "Data Science", g: "Data Analyst", price: "62,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", learn: ["Pandas & NumPy", "Data Visualization", "Predictive Models"], w: "Analyze economic trends to help government departments make data-driven decisions."},
-        {id: 11, n: "Auto Mechanics", g: "EV Technician", price: "30,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", learn: ["Electric Drive Trains", "Digital Diagnostics", "Battery Repair"], w: "Repair and maintain the new fleet of electric transport vehicles in Addis Ababa."},
-        {id: 12, n: "Masonry Tech", g: "Senior Mason", price: "28,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", learn: ["Reinforced Structures", "Site Layout", "Concrete Mixology"], w: "Lead structural construction projects using advanced reinforced concrete tech."},
-        {id: 13, n: "Welding Tech", g: "Certified Welder", price: "33,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", learn: ["TIG/MIG Methods", "Material Science", "Pipeline Integrity"], w: "Execute high-precision welding on critical infrastructure and pipeline joints."},
-        {id: 14, n: "Network Admin", g: "Network Engineer", price: "42,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", learn: ["Fiber Optics", "Server Management", "VPN Security"], w: "Configure high-speed fiber networks for modern industrial office parks."},
-        {id: 15, n: "Plumbing Tech", g: "Hydraulics Lead", price: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", learn: ["Advanced Hydraulics", "Waste Systems", "Smart Irrigation"], w: "Install high-pressure water systems for the new luxury residence developments."}
+        {id: 1, n: "Python for AI", g: "AI Developer", price: "75,000 ETB", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500", w: "Initialize your environment and connect to the National Data Gateway REST API."},
+        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", w: "Architect a secure cloud environment for digital ID services."},
+        {id: 15, n: "Plumbing Tech", g: "Hydraulics Lead", price: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", w: "Install high-pressure water systems for luxury developments."}
     ];
 
     function render() {
         document.getElementById('track-grid').innerHTML = tracks.map(t => `
             <div class="card" onclick="openL(${t.id})">
                 <img src="${t.img}">
-                <div style="padding:15px;">
-                    <strong>${t.n}</strong>
-                    <p style="font-size:12px; opacity:0.6; margin-top:5px;">Goal: ${t.g}</p>
-                </div>
+                <div style="padding:15px;"><strong>${t.n}</strong></div>
             </div>`).join('');
 
         document.getElementById('job-list').innerHTML = tracks.map(t => `
             <div class="job-card">
                 <h3 style="margin:0;">${t.g}</h3>
-                <span class="salary">${t.price}<small style="font-size:12px; color:white; font-weight:normal;">/mo</small></span>
-                <p style="font-size:12px; margin-bottom:15px;">Requires: ${t.n} Certification</p>
-                <button class="btn-blue" onclick="openL(${t.id})">START TRAINING</button>
-                <button class="btn-outline" onclick="alert('Contacting Hiring Team...')">CONTACT US</button>
+                <span class="salary">${t.price}</span>
+                <button onclick="openL(${t.id})" style="width:100%; background:var(--accent); border:none; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:10px;">TRAIN NOW</button>
+                <button onclick="toggleReception()" style="width:100%; background:transparent; border:1px solid white; color:white; padding:10px; border-radius:5px; cursor:pointer;">CONTACT RECEPTION</button>
             </div>`).join('');
+    }
+
+    function toggleReception() {
+        const desk = document.getElementById('reception-desk');
+        desk.style.display = desk.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendChat() {
+        const msg = document.getElementById('chat-msg').value;
+        if(!msg) return;
+        const content = document.getElementById('chat-content');
+        content.innerHTML += `<p style="text-align:right;"><strong>You:</strong> ${msg}</p>`;
+        document.getElementById('chat-msg').value = '';
+        setTimeout(() => {
+            content.innerHTML += `<p><strong>Reception:</strong> I've forwarded your request to the hiring manager for the ${tracks[0].g} position. Please have your Fayda ID ready.</p>`;
+            content.scrollTop = content.scrollHeight;
+        }, 1000);
     }
 
     function openL(id) {
@@ -106,9 +140,9 @@
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
         document.getElementById('view-title').innerText = t.n;
+        document.getElementById('salary-highlight').innerText = "Potential Salary: " + t.price;
         document.getElementById('writing-body').innerText = t.w;
-        document.getElementById('skills-list').innerHTML = t.learn.map(s => `<li>${s}</li>`).join('');
-        document.getElementById('lesson-img').innerHTML = `<img src="${t.img}">`;
+        document.getElementById('lesson-img').innerHTML = `<img src="${t.img}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
     function closeL() {
