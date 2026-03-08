@@ -2,33 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | 100% Content Complete</title>
+    <title>ልማት Hub | Skills & Salary</title>
     <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; }
+        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
         
         .container { padding: 40px 5%; }
-        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: scale(1.02); }
-        .card-img { width: 100%; height: 150px; object-fit: cover; }
+        .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; position: relative; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .price-tag { position: absolute; top: 10px; right: 10px; background: var(--green); color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 12px; }
 
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
         .video-area { padding: 30px; overflow-y: auto; }
         .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border: 2px solid var(--accent); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
         .sidebar { background: var(--card); border-left: 1px solid #1e293b; padding: 20px; overflow-y: auto; }
-        .lesson-card { padding: 15px; background: rgba(255,255,255,0.03); margin-bottom: 12px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; }
-        .writing-panel { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 15px; margin-top: 20px; line-height: 1.8; border: 1px solid rgba(255,255,255,0.05); }
+        
+        .info-panel { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 15px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .skill-list { list-style: none; padding: 0; margin: 15px 0; }
+        .skill-list li { margin-bottom: 8px; font-size: 14px; color: #cbd5e1; }
+        .skill-list li::before { content: "✓ "; color: var(--green); font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="ticker">✅ ALL 15 TRACKS FULLY LOADED | 2026 CERTIFICATION MODULES ACTIVE</div>
+<div class="ticker">💰 2026 SALARY UPDATES: SKILL-BASED PAY SCALES ACTIVE FOR ALL 15 TRACKS</div>
 
 <div id="dashboard">
     <div class="container">
-        <h2>Professional Career Hub</h2>
+        <h2>Professional Career Dashboard</h2>
         <div class="track-grid" id="track-grid"></div>
     </div>
 </div>
@@ -36,49 +39,65 @@
 <div id="learning-view">
     <div class="video-area">
         <button onclick="closeL()" style="background:var(--accent); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:20px;">← BACK</button>
-        <h2 id="view-title" style="color:var(--accent);">Course</h2>
-        <div class="video-box"><span id="play-btn" style="font-size:60px; color:var(--accent);">▶</span></div>
-        <div class="writing-panel">
-            <h3 id="write-head">Technical Documentation</h3>
-            <div id="write-body">Select a module to begin.</div>
+        <h2 id="view-title" style="color:var(--accent); margin:0;">Course</h2>
+        <p id="view-salary" style="color:var(--green); font-weight:bold; margin-bottom:15px;"></p>
+
+        <div class="video-box"><span style="font-size:60px; color:var(--accent);">▶</span></div>
+
+        <div class="info-panel">
+            <h3 id="lesson-title" style="color:var(--yellow);">Lesson Details</h3>
+            <div id="learning-outcomes">
+                <strong>What you will learn:</strong>
+                <ul id="skill-list" class="skill-list"></ul>
+            </div>
+            <hr style="border:0; border-top:1px solid #1e293b; margin:20px 0;">
+            <strong>Technical Instructions:</strong>
+            <p id="technical-body" style="line-height:1.6; color:#94a3b8;"></p>
         </div>
     </div>
     <div class="sidebar">
         <h3>Modules</h3>
-        <div id="lesson-list"></div>
+        <div id="sidebar-list"></div>
     </div>
 </div>
 
 <script>
     const tracks = [
-        // PREVIOUS TRACKS
-        { id: 1, n: "Python for AI", g: "AI Engineer", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500", lessons: [{t: "ML Logic", w: "Algorithm design basics."}]},
-        { id: 2, n: "Cyber Security", g: "Security Analyst", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", lessons: [{t: "Pen Testing", w: "Security audit steps."}]},
-        { id: 3, n: "Full-Stack Web", g: "Web Developer", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500", lessons: [{t: "React UI", w: "Component architecture."}]},
-        { id: 4, n: "Cloud Architecture", g: "Cloud Engineer", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", lessons: [{t: "S3 Buckets", w: "Storage management."}]},
-        { id: 5, n: "Mobile App Dev", g: "Mobile Developer", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500", lessons: [{t: "Native APIs", w: "Accessing camera/GPS."}]},
-        { id: 6, n: "Modern Carpentry", g: "Master Carpenter", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500", lessons: [{t: "Finishing", w: "Varnish and sanding."}]},
-        { id: 7, n: "Electrical Systems", g: "Electrician", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500", lessons: [{t: "Load Calc", w: "Safe circuit limits."}]},
-        { id: 8, n: "Solar Tech", g: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500", lessons: [{t: "Battery Bank", w: "Off-grid storage."}]},
-        
-        // FINAL 7 TRACKS
-        { id: 9, n: "UI/UX Design", g: "Product Designer", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500", lessons: [{t: "Figma Mastery", w: "<b>Auto Layout:</b> Design buttons that resize automatically. <br><b>Variants:</b> Creating component sets for buttons."}]},
-        { id: 10, n: "Data Science", g: "Data Scientist", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500", lessons: [{t: "SQL Queries", w: "<b>JOINS:</b> Combining customer and order tables. <br><b>Aggregates:</b> Calculating average monthly revenue."}]},
-        { id: 11, n: "Auto Mechanics", g: "Auto Tech", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500", lessons: [{t: "Transmission", w: "Understanding hydraulic gear shifts and fluid pressure."}]},
-        { id: 12, n: "Masonry Tech", g: "Master Mason", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500", lessons: [{t: "Plumb Line", w: "Ensuring vertical accuracy for structural walls."}]},
-        { id: 13, n: "Welding Tech", g: "Industrial Welder", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500", lessons: [{t: "TIG Welding", w: "Managing the tungsten electrode for precise aluminum welds."}]},
-        { id: 14, n: "Network Admin", g: "Network Engineer", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500", lessons: [{t: "VLAN Config", w: "Segmenting office traffic for security and performance."}]},
-        { id: 15, n: "Plumbing Tech", g: "Master Plumber", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", lessons: [{t: "PEX Systems", w: "Flexible piping installation and pressure manifold setup."}]}
+        {
+            id: 1, n: "Python for AI", g: "AI Engineer", price: "45,000 - 85,000 ETB/mo", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500",
+            lessons: [
+                {t: "Deep Learning Intro", learn: ["Build Neural Networks", "Understand Backpropagation", "Optimizing Weights"], w: "Use Keras to define a Sequential model. Layer 1 should be Dense with 64 neurons and ReLU activation."}
+            ]
+        },
+        {
+            id: 2, n: "Cyber Security", g: "Security Analyst", price: "38,000 - 70,000 ETB/mo", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
+            lessons: [
+                {t: "Network Auditing", learn: ["Scanning with Nmap", "Identifying vulnerabilities", "Reporting security gaps"], w: "Scan target IP range using -sV flag to detect service versions and potential exploits."}
+            ]
+        },
+        {
+            id: 6, n: "Modern Carpentry", g: "Master Carpenter", price: "15,000 - 35,000 ETB/mo", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500",
+            lessons: [
+                {t: "Furniture Design", learn: ["Ergonomic measurement", "Material cost estimation", "Finishing techniques"], w: "Calculate the board feet required for a standard office desk using local hardwood types."}
+            ]
+        },
+        {
+            id: 15, n: "Plumbing Tech", g: "Master Plumber", price: "12,000 - 28,000 ETB/mo", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500",
+            lessons: [
+                {t: "Industrial Systems", learn: ["High-pressure piping", "Valve maintenance", "Water treatment logic"], w: "Install a 3-way manifold system ensuring all joints are sealed with industrial grade threading tape."}
+            ]
+        }
     ];
 
     function render() {
         document.getElementById('track-grid').innerHTML = tracks.map(t => `
             <div class="card" onclick="openL(${t.id})">
-                <img src="${t.img}" class="card-img">
+                <div class="price-tag">${t.price.split(' ')[0]}</div>
+                <img src="${t.img}" style="width:100%; height:160px; object-fit:cover;">
                 <div style="padding:15px;">
-                    <h3 style="font-size:16px;">${t.n}</h3>
-                    <p style="opacity:0.6; font-size:12px;">Goal: ${t.g}</p>
-                    <p style="color:var(--accent); font-weight:bold; font-size:11px;">OPEN LESSONS →</p>
+                    <h3 style="margin:0;">${t.n}</h3>
+                    <p style="color:var(--accent); font-size:12px; margin:5px 0;">${t.g}</p>
+                    <p style="color:var(--green); font-weight:bold; font-size:11px;">View Career Stats →</p>
                 </div>
             </div>`).join('');
     }
@@ -88,15 +107,18 @@
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
         document.getElementById('view-title').innerText = t.n;
-        document.getElementById('lesson-list').innerHTML = t.lessons.map(l => `
-            <div class="lesson-card" onclick="loadLesson('${l.t}', '${l.w.replace(/'/g, "\\'")}')">
-                <strong>${l.t}</strong><br><small style="color:var(--accent);">Module Active</small>
+        document.getElementById('view-salary').innerText = "Market Value: " + t.price;
+        
+        document.getElementById('sidebar-list').innerHTML = t.lessons.map(l => `
+            <div style="background:rgba(255,255,255,0.03); padding:15px; margin-bottom:10px; border-radius:8px; cursor:pointer;" onclick="loadLesson('${l.t}', ${JSON.stringify(l.learn)}, '${l.w}')">
+                <strong>${l.t}</strong>
             </div>`).join('');
     }
 
-    function loadLesson(title, writing) {
-        document.getElementById('write-head').innerText = title;
-        document.getElementById('write-body').innerHTML = writing;
+    function loadLesson(title, skills, instructions) {
+        document.getElementById('lesson-title').innerText = title;
+        document.getElementById('skill-list').innerHTML = skills.map(s => `<li>${s}</li>`).join('');
+        document.getElementById('technical-body').innerText = instructions;
     }
 
     function closeL() {
