@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Reception & Careers</title>
+    <title>ልማት Hub | Official Career Portal</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; scroll-behavior: smooth; }
         
+        /* TICKER */
         .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 13px; position: sticky; top: 0; z-index: 1000; }
 
-        /* RECEPTION BAR */
+        /* RECEPTION NAV */
         .reception-nav { background: #1e293b; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--accent); }
         .reception-status { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 8px; }
         .dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
-
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
+        /* GRID LAYOUTS */
         .section-padding { padding: 40px 5%; }
         .track-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .card img { width: 100%; height: 160px; object-fit: cover; }
 
-        /* JOB BOARD */
-        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; transition: 0.3s; }
+        .job-card { background: var(--card); border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; }
         .salary { color: var(--green); font-size: 24px; font-weight: 900; margin: 10px 0; display: block; }
-        
-        /* RECEPTION MODAL */
+
+        /* RECEPTION CHAT */
         #reception-desk { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; background: white; color: #000; border-radius: 15px; z-index: 4000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
         .chat-header { background: var(--card); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
         .chat-body { padding: 20px; max-height: 300px; overflow-y: auto; font-size: 14px; }
@@ -35,17 +34,18 @@
         .chat-input input { flex: 1; border: none; padding: 15px; outline: none; }
         .chat-input button { background: var(--accent); border: none; padding: 15px; cursor: pointer; font-weight: bold; }
 
+        /* LEARNING VIEW */
         #learning-view { display: none; height: 100vh; grid-template-columns: 1fr 380px; position: fixed; top: 0; left: 0; width: 100%; background: var(--bg); z-index: 2000; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🛎️ RECEPTION OPEN: FAYDA ID VERIFICATION AGENTS ONLINE | 2026 JOB FAIR</div>
+<div class="ticker">🛎️ RECEPTION OPEN: CONTACT ROBELWENDEE@GMAIL.COM FOR JOB PLACEMENT</div>
 
 <nav class="reception-nav">
     <div style="font-weight: 900; font-size: 20px; color: var(--accent);">ልማት Hub</div>
     <div class="reception-status">
-        <span class="dot"></span> Receptionist Online
+        <span class="dot"></span> Agent Online
         <button onclick="toggleReception()" style="margin-left:15px; background:var(--yellow); border:none; padding:5px 15px; border-radius:20px; font-weight:bold; cursor:pointer;">TALK TO RECEPTION</button>
     </div>
 </nav>
@@ -68,8 +68,7 @@
         <span onclick="toggleReception()" style="cursor:pointer;">×</span>
     </div>
     <div class="chat-body" id="chat-content">
-        <p><strong>Reception:</strong> Hello! Welcome to ልማት Hub. How can I help you today?</p>
-        <p style="font-size:12px; color:#666;">- Verify my Fayda ID<br>- Ask about salaries<br>- Help with a course</p>
+        <p><strong>Reception:</strong> Welcome! I can help you with Fayda ID verification or job placement details.</p>
     </div>
     <div class="chat-input">
         <input type="text" id="chat-msg" placeholder="Type your question...">
@@ -88,16 +87,17 @@
         </div>
     </div>
     <div style="background:var(--card); padding:20px; border-left:1px solid #1e293b;">
-        <h3>Module Progress</h3>
+        <h3>Course Modules</h3>
         <div style="padding:15px; background:rgba(56,189,248,0.1); border-radius:10px; border:1px solid var(--accent);">
-            <strong>Phase 1: Skills Training</strong>
+            <strong>Module 1: Professional Training</strong>
         </div>
     </div>
 </div>
 
 <script>
     const tracks = [
-        {id: 1, n: "Python for AI", g: "AI Developer", price: "75,000 ETB", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500", w: "Initialize your environment and connect to the National Data Gateway REST API."},
+        {id: 1, n: "Python for AI", g: "AI Developer", price: "75,000 ETB", img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500", w: "Initialize your environment and connect to the Ethiopian Digital Gateway REST API."},
+        {id: 2, n: "Cyber Security", g: "Security Analyst", price: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500", w: "Audit network traffic and implement AES-256 encryption."},
         {id: 4, n: "Cloud Architecture", g: "Cloud Architect", price: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500", w: "Architect a secure cloud environment for digital ID services."},
         {id: 15, n: "Plumbing Tech", g: "Hydraulics Lead", price: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500", w: "Install high-pressure water systems for luxury developments."}
     ];
@@ -114,7 +114,7 @@
                 <h3 style="margin:0;">${t.g}</h3>
                 <span class="salary">${t.price}</span>
                 <button onclick="openL(${t.id})" style="width:100%; background:var(--accent); border:none; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:10px;">TRAIN NOW</button>
-                <button onclick="toggleReception()" style="width:100%; background:transparent; border:1px solid white; color:white; padding:10px; border-radius:5px; cursor:pointer;">CONTACT RECEPTION</button>
+                <button onclick="toggleReception()" style="width:100%; background:transparent; border:1px solid white; color:white; padding:10px; border-radius:5px; cursor:pointer;">APPLY NOW</button>
             </div>`).join('');
     }
 
@@ -130,7 +130,7 @@
         content.innerHTML += `<p style="text-align:right;"><strong>You:</strong> ${msg}</p>`;
         document.getElementById('chat-msg').value = '';
         setTimeout(() => {
-            content.innerHTML += `<p><strong>Reception:</strong> I've forwarded your request to the hiring manager for the ${tracks[0].g} position. Please have your Fayda ID ready.</p>`;
+            content.innerHTML += `<p><strong>Reception:</strong> To complete your application, please email your Fayda ID to <strong>robelwendee@gmail.com</strong>. We are ready to hire you!</p>`;
             content.scrollTop = content.scrollHeight;
         }, 1000);
     }
@@ -140,7 +140,7 @@
         document.getElementById('dashboard').style.display = 'none';
         document.getElementById('learning-view').style.display = 'grid';
         document.getElementById('view-title').innerText = t.n;
-        document.getElementById('salary-highlight').innerText = "Potential Salary: " + t.price;
+        document.getElementById('salary-highlight').innerText = "Target Salary: " + t.price;
         document.getElementById('writing-body').innerText = t.w;
         document.getElementById('lesson-img').innerHTML = `<img src="${t.img}" style="width:100%; height:100%; object-fit:cover;">`;
     }
