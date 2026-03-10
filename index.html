@@ -1,118 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
+    <title>ልማት Hub | 2026</title>
     <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
-        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-        .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 20px; flex-grow: 1; }
-        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
-        .study-content { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
-        .sidebar { background: #0f172a; padding: 30px; }
-        .job-card { border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; background: var(--card); }
-        .salary { color: var(--green); font-size: 28px; font-weight: 900; display: block; margin: 10px 0; }
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        body { background: #05080f; color: white; font-family: sans-serif; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: #0f172a; border: 1px solid #38bdf8; padding: 15px; border-radius: 10px; cursor: pointer; }
+        .card img { width: 100%; border-radius: 8px; }
+        #study-room { display: none; position: fixed; inset: 0; background: #05080f; padding: 50px; }
+        .reg-box { background: white; color: black; padding: 20px; border-radius: 10px; display: inline-block; margin-top: 50px; }
+        input { display: block; margin: 10px auto; padding: 10px; width: 80%; }
     </style>
 </head>
 <body>
+    <h1 style="color:#38bdf8;">ልማት Hub</h1>
+    <button onclick="document.getElementById('reg').style.display='block'" style="background:#10b981; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">REGISTRATION</button>
 
-<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | TOUCH A TRACK TO START</div>
+    <div class="grid" id="course-list"></div>
 
-<nav>
-    <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <div>
-        <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
-        <button onclick="openModal('reception-box')" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; margin-left:10px;">RECEPTION</button>
-    </div>
-</nav>
-
-<div id="hub-main">
-    <div class="container">
-        <h2 style="color:var(--accent);">Professional Tracks (15)</h2>
-        <div class="grid" id="course-list"></div>
-    </div>
-    <div class="container" style="background: rgba(56, 189, 248, 0.02); border-top: 1px solid #1e293b;">
-        <h2 style="margin-bottom:30px;">Hiring Dashboard</h2>
-        <div class="grid" id="job-list"></div>
-    </div>
-</div>
-
-<div id="study-room">
-    <div class="study-content">
-        <button onclick="closeStudy()" style="background:var(--yellow); padding:10px 20px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:25px;">← EXIT LESSON</button>
-        <h1 id="study-title" style="color:var(--accent);"></h1>
-        <div id="study-visual" style="width:100%; height:380px; border-radius:15px; overflow:hidden; border:2px solid var(--accent); margin-bottom:25px;"></div>
-        <div style="background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
-            <h2 id="study-role" style="color:var(--green); margin-top:0;"></h2>
-            <p id="study-research" style="line-height:1.8; color:#cbd5e1; font-size:17px;"></p>
-            <button onclick="alert('Exam Starting...')" style="background:var(--green); color:white; border:none; padding:15px 30px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px;">VALIDATE RESEARCH</button>
+    <div id="reg" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9);">
+        <div class="reg-box">
+            <h2>Personal Details</h2>
+            <input type="text" id="uName" placeholder="Full Name">
+            <input type="number" placeholder="Age">
+            <button onclick="saveUser()" style="background:#10b981; color:white; width:100%; padding:10px; border:none; cursor:pointer;">SUBMIT</button>
         </div>
     </div>
-    <div class="sidebar"><h3>Progress</h3><div style="background:var(--accent); color:black; padding:15px; border-radius:8px; font-weight:bold;">Module 1: Research</div></div>
-</div>
 
-<div id="reg-modal">
-    <div class="modal-box">
-        <h2 style="margin-top:0;">Personal Details</h2>
-        <input type="text" placeholder="Full Name">
-        <input type="number" placeholder="Age">
-        <input type="email" placeholder="Email Address">
-        <button onclick="closeModal('reg-modal')" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">SUBMIT</button>
+    <div id="study-room">
+        <button onclick="location.reload()" style="background:#fbbf24; padding:10px;">BACK</button>
+        <h1 id="st-title"></h1>
+        <p id="st-desc"></p>
     </div>
-</div>
 
-<div id="reception-box">
-    <div style="background:var(--card); color:white; padding:15px; border-radius:12px 12px 0 0; display:flex; justify-content:space-between;"><strong>Reception</strong><span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span></div>
-    <div style="padding:20px; height:100px; color:black;">How can we help you today?</div>
-</div>
+    <script>
+        const tracks = [
+            {id: 1, n: "Python for AI", d: "Researching AI and Python 3.12.", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"},
+            {id: 4, n: "Cloud Architecture", d: "Cloud migration protocols.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
+            {id: 8, n: "Solar Tech", d: "Solar energy storage research.", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"}
+        ];
 
-<script>
-    const data = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Python 3.12 automation research."},
-        {id: 2, n: "Cyber Security", g: "Security Analyst", s: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600", r: "AES-256 encryption defense."},
-        {id: 3, n: "Full-Stack Web", g: "Full-Stack Dev", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", r: "React and SQL applications."},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", r: "Hybrid server migration."},
-        {id: 5, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600", r: "Hydraulic infrastructure research."},
-        {id: 6, n: "Mobile App Dev", g: "Mobile Engineer", s: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600", r: "Cross-platform mobile apps."},
-        {id: 7, n: "UI/UX Design", g: "Product Designer", s: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600", r: "UX research and Figma."},
-        {id: 8, n: "Solar Tech", g: "Solar Installer", s: "38,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600", r: "Hybrid solar storage systems."},
-        {id: 9, n: "Data Science", g: "Data Analyst", s: "62,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600", r: "Predictive data modeling."},
-        {id: 10, n: "Carpentry Tech", g: "Master Carpenter", s: "35,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600", r: "Modern structural design."},
-        {id: 11, n: "Electrical Sys", g: "Grid Specialist", s: "32,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600", r: "Industrial grid safety."},
-        {id: 12, n: "Masonry Tech", g: "Senior Mason", s: "28,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600", r: "Sustainable building masonry."},
-        {id: 13, n: "Welding Tech", g: "Certified Welder", s: "33,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600", r: "Infrastructure TIG welding."},
-        {id: 14, n: "Auto Mech", g: "EV Technician", s: "30,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", r: "EV drivetrain diagnostics."},
-        {id: 15, n: "Network Admin", g: "Network Engineer", s: "42,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600", r: "Fiber network management."}
-    ];
-    function render() {
-        document.getElementById('course-list').innerHTML = data.map(t => `<div class="card" onclick="openStudy(${t.id})"><img src="${t.img}"><div class="card-body"><span style="color:var(--accent); font-size:12px;">TRACK ${t.id}</span><strong style="display:block; font-size:18px;">${t.n}</strong></div></div>`).join('');
-        document.getElementById('job-list').innerHTML = data.map(t => `<div class="job-card"><h3>${t.g}</h3><span class="salary">${t.s}</span><button onclick="openStudy(${t.id})" class="btn-main">START RESEARCH</button></div>`).join('');
-    }
-    function openStudy(id) {
-        const item = data.find(x => x.id === id);
-        document.getElementById('hub-main').style.display = 'none';
-        document.getElementById('study-room').style.display = 'grid';
-        document.getElementById('study-title').innerText = item.n;
-        document.getElementById('study-role').innerText = item.g + " Module";
-        document.getElementById('study-research').innerText = item.r;
-        document.getElementById('study-visual').innerHTML = `<img src="${item.img}" style="width:100%; height:100%; object-fit:cover;">`;
-    }
-    function closeStudy() { document.getElementById('hub-main').style.display = 'block'; document.getElementById('study-room').style.display = 'none'; }
-    function openModal(id) { document.getElementById(id).style.display = id === 'reception-box' ? 'block' : 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    render();
-</script>
+        let user = "Student";
+
+        function render() {
+            document.getElementById('course-list').innerHTML = tracks.map(t => `
+                <div class="card" onclick="openTrack(${t.id})">
+                    <img src="${t.img}">
+                    <h3>${t.n}</h3>
+                </div>`).join('');
+        }
+
+        function saveUser() {
+            user = document.getElementById('uName').value || "Student";
+            document.getElementById('reg').style.display = 'none';
+            alert("Welcome, " + user);
+        }
+
+        function openTrack(id) {
+            const t = tracks.find(x => x.id === id);
+            document.getElementById('study-room').style.display = 'block';
+            document.getElementById('st-title').innerText = user + "'s " + t.n;
+            document.getElementById('st-desc').innerText = t.d;
+        }
+
+        render();
+    </script>
 </body>
 </html>
