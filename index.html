@@ -1,69 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ልማት Hub | 2026</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Official 2026</title>
     <style>
-        body { background: #05080f; color: white; font-family: sans-serif; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
-        .card { background: #0f172a; border: 1px solid #38bdf8; padding: 15px; border-radius: 10px; cursor: pointer; }
+        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: bold; }
+        nav { background: #0f172a; padding: 15px; display: flex; justify-content: space-between; border-bottom: 1px solid #1e293b; }
+        .container { padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border: 1px solid #1e293b; border-radius: 12px; padding: 15px; cursor: pointer; }
         .card img { width: 100%; border-radius: 8px; }
-        #study-room { display: none; position: fixed; inset: 0; background: #05080f; padding: 50px; }
-        .reg-box { background: white; color: black; padding: 20px; border-radius: 10px; display: inline-block; margin-top: 50px; }
-        input { display: block; margin: 10px auto; padding: 10px; width: 80%; }
+        
+        /* RECEPTION BOX WITH INPUT */
+        #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+        .chat-header { background: var(--card); color: white; padding: 15px; display: flex; justify-content: space-between; font-weight: bold; }
+        .chat-display { height: 150px; padding: 15px; overflow-y: auto; font-size: 14px; background: #f8fafc; border-bottom: 1px solid #ddd; }
+        .chat-input-area { display: flex; padding: 10px; background: white; }
+        .chat-input-area input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; outline: none; }
+        .chat-send-btn { background: var(--accent); border: none; padding: 8px 12px; margin-left: 5px; border-radius: 4px; color: white; cursor: pointer; font-weight: bold; }
+
+        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
+        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; }
+        .modal-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
     </style>
 </head>
 <body>
-    <h1 style="color:#38bdf8;">ልማት Hub</h1>
-    <button onclick="document.getElementById('reg').style.display='block'" style="background:#10b981; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">REGISTRATION</button>
 
+<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | LOCK IN YOUR SALARY</div>
+
+<nav>
+    <div style="font-size: 24px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
+    <button onclick="openModal('reg-modal')" style="background:var(--green); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">REGISTRATION</button>
+</nav>
+
+<div class="container">
     <div class="grid" id="course-list"></div>
+</div>
 
-    <div id="reg" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9);">
-        <div class="reg-box">
-            <h2>Personal Details</h2>
-            <input type="text" id="uName" placeholder="Full Name">
-            <input type="number" placeholder="Age">
-            <button onclick="saveUser()" style="background:#10b981; color:white; width:100%; padding:10px; border:none; cursor:pointer;">SUBMIT</button>
-        </div>
+<div id="reception-box">
+    <div class="chat-header">
+        <span>Assistant Reception</span>
+        <span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span>
     </div>
-
-    <div id="study-room">
-        <button onclick="location.reload()" style="background:#fbbf24; padding:10px;">BACK</button>
-        <h1 id="st-title"></h1>
-        <p id="st-desc"></p>
+    <div class="chat-display" id="chat-messages">
+        <div><strong>Reception:</strong> Welcome! How can we help you today?</div>
     </div>
+    <div class="chat-input-area">
+        <input type="text" id="user-msg" placeholder="Type message...">
+        <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
 
-    <script>
-        const tracks = [
-            {id: 1, n: "Python for AI", d: "Researching AI and Python 3.12.", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"},
-            {id: 4, n: "Cloud Architecture", d: "Cloud migration protocols.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
-            {id: 8, n: "Solar Tech", d: "Solar energy storage research.", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"}
-        ];
+<div id="reg-modal">
+    <div class="modal-box">
+        <h2>Personal Details</h2>
+        <input type="text" id="reg-name" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">SUBMIT</button>
+    </div>
+</div>
 
-        let user = "Student";
+<button onclick="openModal('reception-box')" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer;">HELP RECEPTION</button>
 
-        function render() {
-            document.getElementById('course-list').innerHTML = tracks.map(t => `
-                <div class="card" onclick="openTrack(${t.id})">
-                    <img src="${t.img}">
-                    <h3>${t.n}</h3>
-                </div>`).join('');
+<script>
+    const tracks = [
+        {id: 1, n: "Python for AI", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"},
+        {id: 4, n: "Cloud Architecture", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
+        {id: 8, n: "Solar Tech", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"}
+    ];
+
+    let user = "Student";
+
+    function render() {
+        document.getElementById('course-list').innerHTML = tracks.map(t => `
+            <div class="card" onclick="alert('Module loading for ' + user)">
+                <img src="${t.img}">
+                <h3>${t.n}</h3>
+            </div>`).join('');
+    }
+
+    function saveUser() {
+        user = document.getElementById('reg-name').value || "Student";
+        closeModal('reg-modal');
+        document.getElementById('chat-messages').innerHTML += `<div><strong>System:</strong> User identified as ${user}.</div>`;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('user-msg');
+        if(input.value) {
+            document.getElementById('chat-messages').innerHTML += `<div><strong>${user}:</strong> ${input.value}</div>`;
+            input.value = "";
+            setTimeout(() => {
+                document.getElementById('chat-messages').innerHTML += `<div><strong>Reception:</strong> Thank you for your inquiry. An agent will be with you shortly.</div>`;
+                document.getElementById('chat-messages').scrollTop = 9999;
+            }, 1000);
         }
+    }
 
-        function saveUser() {
-            user = document.getElementById('uName').value || "Student";
-            document.getElementById('reg').style.display = 'none';
-            alert("Welcome, " + user);
-        }
+    function openModal(id) { document.getElementById(id).style.display = id === 'reception-box' ? 'block' : 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function openTrack(id) {
-            const t = tracks.find(x => x.id === id);
-            document.getElementById('study-room').style.display = 'block';
-            document.getElementById('st-title').innerText = user + "'s " + t.n;
-            document.getElementById('st-desc').innerText = t.d;
-        }
-
-        render();
-    </script>
+    render();
+</script>
 </body>
 </html>
