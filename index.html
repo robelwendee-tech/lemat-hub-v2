@@ -2,104 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ልማት Hub | Official 2026</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; position: sticky; top: 0; z-index: 1000; }
         nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-        .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 20px; }
+        .container { padding: 30px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
         
-        /* JOB BOARD STYLES */
-        .job-card { border: 2px solid var(--yellow); padding: 20px; border-radius: 12px; background: var(--card); text-align: center; }
-        .salary { color: var(--green); font-size: 24px; font-weight: 900; display: block; margin: 10px 0; }
-        
-        /* RECEPTION BOX */
+        /* THE COMPANY BOARD */
+        .company-card { background: white; color: #0f172a; padding: 15px; border-radius: 10px; border-left: 5px solid var(--accent); }
+        .salary { color: var(--green); font-weight: 900; font-size: 20px; }
+
+        /* SMART RECEPTION */
         #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
-        .chat-display { height: 180px; padding: 15px; overflow-y: auto; font-size: 13px; background: #f1f5f9; }
-        .chat-input { display: flex; padding: 10px; border-top: 1px solid #ddd; }
-        .chat-input input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .chat-display { height: 180px; padding: 15px; overflow-y: auto; font-size: 13px; background: #f1f5f9; display: flex; flex-direction: column; gap: 5px; }
+        .bot-msg { background: #e2e8f0; padding: 8px; border-radius: 8px; align-self: flex-start; }
+        .user-msg { background: var(--accent); color: white; padding: 8px; border-radius: 8px; align-self: flex-end; }
         
-        /* MODAL */
+        /* PERSONAL REGISTRATION */
         #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 350px; }
+        .modal-box { background: white; color: black; padding: 25px; border-radius: 15px; width: 380px; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | EMPLOYER & EMPLOYEE DASHBOARD ACTIVE</div>
+<div class="ticker">🌍 2026 GLOBAL INDUSTRIAL HUB | CONNECTING TALENT TO INDUSTRY</div>
 
 <nav>
     <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
+    <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">START REGISTRATION</button>
 </nav>
 
 <div class="container">
-    <h2 style="color:var(--accent);">Professional Tracks (15)</h2>
+    <h2 style="color:var(--accent);">Certified Research Tracks (15)</h2>
     <div class="grid" id="course-list"></div>
 </div>
 
-<div class="container" style="background: rgba(251,191,36,0.05);">
-    <h2 style="color:var(--yellow);">Hiring Dashboard | Salaries & Jobs</h2>
-    <div class="grid" id="job-list"></div>
+<div class="container" style="background: rgba(56, 189, 248, 0.05);">
+    <h2 style="color:var(--yellow);">Partner Companies & Open Salaries</h2>
+    <div class="grid" id="company-list"></div>
 </div>
 
 <div id="reception-box">
-    <div style="background:var(--card); color:white; padding:12px; font-weight:bold;">Assistant Reception</div>
-    <div class="chat-display" id="chat-box">How can I help you today?</div>
-    <div class="chat-input">
-        <input type="text" id="user-in" placeholder="Type here...">
-        <button onclick="sendMsg()" style="background:var(--accent); border:none; padding:5px 10px; color:white; cursor:pointer; border-radius:4px;">Send</button>
+    <div style="background:var(--card); color:white; padding:12px; font-weight:bold;">AI Assistant Reception</div>
+    <div class="chat-display" id="chat-box">
+        <div class="bot-msg">Hello! I am the Hub Assistant. How can I help you today?</div>
+    </div>
+    <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
+        <input type="text" id="user-in" placeholder="Ask a question..." style="margin:0;">
+        <button onclick="askBot()" style="background:var(--accent); border:none; padding:8px; margin-left:5px; border-radius:4px; color:white; cursor:pointer;">Send</button>
     </div>
 </div>
 
 <div id="reg-modal">
     <div class="modal-box">
-        <h2>Registration</h2>
-        <input type="text" id="u-name" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px;">
-        <input type="number" placeholder="Age" style="width:100%; padding:10px; margin-bottom:10px;">
-        <input type="email" placeholder="Email Address" style="width:100%; padding:10px; margin-bottom:10px;">
-        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">SUBMIT</button>
+        <h2 style="margin-top:0; color:var(--card);">Student Profile & Feeling</h2>
+        <label>Full Name:</label> <input type="text" id="reg-name">
+        <label>Current Feeling about your Career:</label>
+        <select id="reg-feeling">
+            <option>Excited to learn</option>
+            <option>Looking for a better salary</option>
+            <option>Ready for a career change</option>
+            <option>Anxious but motivated</option>
+        </select>
+        <label>Personal Bio / Goal:</label>
+        <textarea id="reg-goal" placeholder="What do you want to achieve in 2026?"></textarea>
+        <button onclick="finishReg()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">COMPLETE PROFILE</button>
     </div>
 </div>
 
-<button onclick="document.getElementById('reception-box').style.display='block'" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer;">HELP RECEPTION</button>
+<button onclick="document.getElementById('reception-box').style.display='block'" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); color:black; border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer;">HELP RECEPTION</button>
 
 <script>
-    const data = [
-        {id: 1, n: "Python for AI", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"},
-        {id: 2, n: "Cyber Security", s: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400"},
-        {id: 3, n: "Full-Stack Web", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400"},
-        {id: 4, n: "Cloud Architecture", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
-        {id: 5, n: "Plumbing Tech", s: "35,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=400"},
-        {id: 6, n: "Mobile App Dev", s: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400"},
-        {id: 7, n: "UI/UX Design", s: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400"},
-        {id: 8, n: "Solar Tech", s: "40,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"},
-        {id: 9, n: "Data Science", s: "70,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=400"},
-        {id: 10, n: "Carpentry Tech", s: "30,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400"},
-        {id: 11, n: "Electrical Sys", s: "38,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=400"},
-        {id: 12, n: "Masonry Tech", s: "32,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400"},
-        {id: 13, n: "Welding Tech", s: "36,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400"},
-        {id: 14, n: "EV Technician", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400"},
-        {id: 15, n: "Network Admin", s: "48,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400"}
+    const tracks = [
+        {n: "Python for AI", s: "75,000 ETB", c: "Tech-Ethiopia Corp", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400"},
+        {n: "Solar Energy", s: "45,000 ETB", c: "Green-Nile Power", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400"},
+        {n: "Cloud Systems", s: "85,000 ETB", c: "Abyssinia Cloud", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400"},
+        {n: "EV Engineering", s: "65,000 ETB", c: "Eco-Drive Motors", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400"}
+        // (Add more to make 15)
     ];
 
+    let userName = "Student";
+
     function render() {
-        document.getElementById('course-list').innerHTML = data.map(t => `<div class="card"><img src="${t.img}"><div class="card-body"><strong>${t.n}</strong></div></div>`).join('');
-        document.getElementById('job-list').innerHTML = data.map(t => `<div class="job-card"><h3>${t.n}</h3><span class="salary">${t.s}</span><button onclick="alert('Applying...')" style="background:var(--accent); color:white; border:none; padding:10px; cursor:pointer;">HIRE NOW</button></div>`).join('');
+        document.getElementById('course-list').innerHTML = tracks.map(t => `<div class="card" style="background:var(--card); border-radius:10px; overflow:hidden;"><img src="${t.img}" style="width:100%; height:150px; object-fit:cover;"><div style="padding:15px;"><strong>${t.n}</strong></div></div>`).join('');
+        document.getElementById('company-list').innerHTML = tracks.map(t => `<div class="company-card"><strong>${t.c}</strong><br><small>Hiring for ${t.n}</small><div class="salary">${t.s}</div><button style="margin-top:5px; cursor:pointer;">Apply Now</button></div>`).join('');
     }
 
-    function saveUser() { alert("Registered!"); document.getElementById('reg-modal').style.display='none'; }
-    function sendMsg() { 
-        const val = document.getElementById('user-in').value;
-        if(val) { document.getElementById('chat-box').innerHTML += `<div><strong>You:</strong> ${val}</div>`; document.getElementById('user-in').value = ""; }
+    function askBot() {
+        const input = document.getElementById('user-in');
+        const box = document.getElementById('chat-box');
+        if(!input.value) return;
+        
+        box.innerHTML += `<div class="user-msg">${input.value}</div>`;
+        const query = input.value.toLowerCase();
+        input.value = "";
+
+        // RECEPTION REPLIES
+        setTimeout(() => {
+            let reply = "I am checking the records for that. Please register your 'Feeling' first!";
+            if(query.includes("hi") || query.includes("hello")) reply = "Greetings! I can help you find companies like Tech-Ethiopia or Green-Nile.";
+            if(query.includes("salary")) reply = "Our highest current salary is 85,000 ETB for Cloud Architects.";
+            if(query.includes("python")) reply = "Python for AI is located in Track 1. It is our most requested skill.";
+            
+            box.innerHTML += `<div class="bot-msg">${reply}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 800);
     }
+
+    function finishReg() {
+        userName = document.getElementById('reg-name').value || "Student";
+        const feeling = document.getElementById('reg-feeling').value;
+        alert("Profile Created! " + userName + ", we see you are " + feeling + ". Good luck!");
+        document.getElementById('reg-modal').style.display = 'none';
+    }
+
     render();
 </script>
 </body>
