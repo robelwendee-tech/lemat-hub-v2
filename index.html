@@ -5,9 +5,19 @@
     <title>ልማት Hub | Official 2026</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* MOVING TICKER */
+        .ticker-wrap { background: var(--yellow); color: black; padding: 12px; font-weight: 800; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
+        .ticker-move { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
         nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
+        
+        /* LOGO STYLE */
+        .logo-box { text-align: center; padding: 20px 0; background: rgba(56, 189, 248, 0.05); }
+        .main-logo { font-size: 45px; font-weight: 900; color: var(--accent); text-shadow: 0 0 15px var(--accent); margin: 0; }
+
         .container { padding: 40px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
@@ -18,13 +28,13 @@
         .company-card { background: white; color: #0f172a; padding: 20px; border-radius: 12px; border-left: 6px solid var(--accent); }
         .salary-text { color: var(--green); font-size: 24px; font-weight: 900; margin: 10px 0; display: block; }
         
-        /* SMART RECEPTION */
+        /* RECEPTION */
         #reception-box { display: none; position: fixed; bottom: 80px; left: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
         .chat-display { height: 180px; padding: 15px; overflow-y: auto; font-size: 13px; background: #f1f5f9; display: flex; flex-direction: column; gap: 8px; }
         .msg-bot { background: #e2e8f0; padding: 8px; border-radius: 8px; align-self: flex-start; }
         .msg-user { background: var(--accent); color: white; padding: 8px; border-radius: 8px; align-self: flex-end; }
         
-        /* REGISTRATION */
+        /* MODAL */
         #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
         .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 380px; }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; }
@@ -32,12 +42,21 @@
 </head>
 <body>
 
-<div class="ticker">🌍 2026 GLOBAL INDUSTRIAL HUB | CONNECTING TALENT TO INDUSTRY</div>
+<div class="ticker-wrap">
+    <div class="ticker-move">
+        🌍 2026 GLOBAL INDUSTRIAL HUB | CONNECTING TALENT TO INDUSTRY | HIGHEST SALARY: 85,000 ETB | 15 CERTIFIED TRACKS LIVE | REGISTER NOW TO LOCK IN YOUR FUTURE 🚀
+    </div>
+</div>
 
 <nav>
     <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
     <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
 </nav>
+
+<div class="logo-box">
+    <h1 class="main-logo">ልማት Hub</h1>
+    <p style="color: var(--yellow); font-weight: bold; margin-top: 5px;">Certified Industrial Research Portal</p>
+</div>
 
 <div class="container">
     <h2 style="color:var(--accent);">Certified Research Tracks (15)</h2>
@@ -52,10 +71,10 @@
 <div id="reception-box">
     <div style="background:var(--card); color:white; padding:12px; font-weight:bold;">Assistant Reception</div>
     <div class="chat-display" id="chat-box">
-        <div class="msg-bot">Hello! I am the Hub Assistant. How are you feeling today?</div>
+        <div class="msg-bot">Hello! I am the Hub Assistant. Type your question below.</div>
     </div>
     <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
-        <input type="text" id="user-in" placeholder="Ask about jobs..." style="margin:0;">
+        <input type="text" id="user-in" placeholder="Ask about salaries..." style="margin:0;">
         <button onclick="askBot()" style="background:var(--accent); border:none; padding:8px 12px; margin-left:5px; border-radius:4px; color:white; cursor:pointer;">Send</button>
     </div>
 </div>
@@ -73,7 +92,7 @@
     </div>
 </div>
 
-<button onclick="document.getElementById('reception-box').style.display='block'" id="help-btn" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer;">HELP RECEPTION</button>
+<button onclick="document.getElementById('reception-box').style.display='block'" id="help-btn" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">HELP RECEPTION</button>
 
 <script>
     const data = [
@@ -98,7 +117,7 @@
 
     function render() {
         document.getElementById('course-list').innerHTML = data.map(t => `<div class="card"><img src="${t.img}"><div style="padding:15px;"><strong>${t.n}</strong></div></div>`).join('');
-        document.getElementById('company-list').innerHTML = data.map(t => `<div class="company-card"><strong>${t.c}</strong><br><small>Hiring: ${t.n}</small><span class="salary-text">${t.s}</span><button style="cursor:pointer;">APPLY NOW</button></div>`).join('');
+        document.getElementById('company-list').innerHTML = data.map(t => `<div class="company-card"><strong>${t.c}</strong><br><small>Hiring: ${t.n}</small><span class="salary-text">${t.s}</span><button style="cursor:pointer; background:var(--accent); color:white; border:none; padding:8px; border-radius:4px;">APPLY NOW</button></div>`).join('');
     }
 
     function askBot() {
@@ -110,9 +129,9 @@
         input.value = "";
         setTimeout(() => {
             let r = "I am checking our 15 industrial tracks for you!";
-            if(q.includes("hi")) r = "Hello " + user + "! How can I help you find a job today?";
-            if(q.includes("salary")) r = "Our highest salary is 85,000 ETB for Cloud Architecture.";
-            if(q.includes("python")) r = "Python for AI is located in the first track. Tech-Ethiopia is hiring!";
+            if(q.includes("hi")) r = "Hello " + user + "! Ready to explore your career?";
+            if(q.includes("salary")) r = "Highest salary currently is 85,000 ETB at Abyssinia Cloud.";
+            if(q.includes("python")) r = "Python for AI is our top research track. Check the first card!";
             box.innerHTML += `<div class="msg-bot">${r}</div>`;
             box.scrollTop = box.scrollHeight;
         }, 700);
@@ -121,8 +140,9 @@
     function finishReg() {
         user = document.getElementById('reg-name').value || "Student";
         const feel = document.getElementById('reg-feeling').value;
-        alert("Welcome " + user + "! We see you are " + feel + " today.");
+        alert("Welcome " + user + "! Profile locked in. Your feeling today: " + feel);
         document.getElementById('reg-modal').style.display = 'none';
+        document.getElementById('chat-box').innerHTML += `<div class="msg-bot">System: ${user} registered with ${feel} status.</div>`;
     }
 
     render();
