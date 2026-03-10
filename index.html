@@ -1,160 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
-    <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        
-        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
-        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-
-        .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        
-        /* THE 15 CARDS */
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-body { padding: 20px; flex-grow: 1; }
-
-        /* THE STUDY ROOM */
-        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
-        .study-content { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
-        .sidebar { background: #0f172a; padding: 30px; }
-
-        /* JOB BOARD */
-        .job-card { border: 2px solid var(--yellow); padding: 25px; border-radius: 15px; background: var(--card); }
-        .salary { color: var(--green); font-size: 28px; font-weight: 900; display: block; margin: 10px 0; }
-
-        /* MODALS & RECEPTION */
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        
-        #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-    </style>
-</head>
-<body>
-
-<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | SELECT A TRACK TO START</div>
-
-<nav>
-    <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <div>
-        <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
-        <button onclick="openModal('reception-box')" style="background:var(--yellow); border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; margin-left:10px;">RECEPTION</button>
-    </div>
-</nav>
-
-<div id="hub-main">
-    <div class="container">
-        <h2 style="color:var(--accent);">Professional Certification Tracks (15)</h2>
-        <div class="grid" id="course-list"></div>
-    </div>
-
-    <div class="container" style="background: rgba(56, 189, 248, 0.02); border-top: 1px solid #1e293b;">
-        <h2 style="margin-bottom:30px;">Hiring & Salaries</h2>
-        <div class="grid" id="job-list"></div>
-    </div>
-</div>
-
-<div id="study-room">
-    <div class="study-content">
-        <button onclick="closeStudy()" style="background:var(--yellow); padding:10px 20px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:25px;">← BACK TO HUB</button>
-        <h1 id="study-title" style="color:var(--accent);"></h1>
-        <div id="study-visual" style="width:100%; height:380px; border-radius:15px; overflow:hidden; border:2px solid var(--accent); margin-bottom:25px;"></div>
-        <div style="background:rgba(255,255,255,0.03); padding:30px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
-            <h2 id="study-role" style="color:var(--green); margin-top:0;"></h2>
-            <p id="study-research" style="line-height:1.8; color:#cbd5e1; font-size:17px;"></p>
-            <button onclick="alert('Module Exam Loading...')" style="background:var(--green); color:white; border:none; padding:15px 30px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px;">TAKE RESEARCH QUIZ</button>
-        </div>
-    </div>
-    <div class="sidebar">
-        <h3>Training Path</h3>
-        <div style="background:var(--accent); color:black; padding:15px; border-radius:8px; font-weight:bold; margin-bottom:15px;">Phase 1: Research</div>
-        <div style="padding:15px; border:1px solid #334155; border-radius:8px; opacity:0.5; margin-bottom:15px;">Phase 2: Practice</div>
-        <div style="padding:15px; border:1px solid #334155; border-radius:8px; opacity:0.5;">Phase 3: Placement</div>
-    </div>
-</div>
-
-<div id="reg-modal">
-    <div class="modal-box">
-        <h2 style="margin-top:0;">Personal Registration</h2>
-        <input type="text" placeholder="Full Name">
-        <input type="number" placeholder="Age">
-        <input type="email" placeholder="Email Address">
-        <button onclick="closeModal('reg-modal')" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">SUBMIT DETAILS</button>
-    </div>
-</div>
-
-<div id="reception-box">
-    <div style="background:var(--card); color:white; padding:15px; border-radius:12px 12px 0 0; display:flex; justify-content:space-between;">
-        <strong>Reception Desk</strong>
-        <span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span>
-    </div>
-    <div style="padding:20px; height:100px; font-size:14px;">Welcome! How can we help you join the 2026 workforce?</div>
-</div>
-
-<script>
+// 1. We start with the 15 Professional Tracks
     const data = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Researching Python 3.12 and API integration for local digital services."},
-        {id: 2, n: "Cyber Security", g: "Security Analyst", s: "60,000 ETB", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600", r: "Auditing local server infrastructure and implementing AES-256 encryption."},
-        {id: 3, n: "Full-Stack Web", g: "Full-Stack Dev", s: "55,000 ETB", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600", r: "Developing responsive applications using React and SQL."},
-        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", r: "Architecting hybrid cloud environments for 2026 data centers."},
-        {id: 5, n: "Plumbing Tech", g: "Hydraulics Lead", s: "29,000 ETB", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600", r: "High-pressure hydraulic flow for luxury high-rise systems."},
-        {id: 6, n: "Mobile App Dev", g: "Mobile Engineer", s: "50,000 ETB", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600", r: "Building Flutter apps for low-bandwidth environments."},
-        {id: 7, n: "UI/UX Design", g: "Product Designer", s: "45,000 ETB", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600", r: "Designing inclusive digital experiences with local user research."},
-        {id: 8, n: "Solar Tech", g: "Solar Installer", s: "38,000 ETB", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600", r: "Testing ES 3235:2019 hybrid inverter thermal management."},
-        {id: 9, n: "Data Science", g: "Data Analyst", s: "62,000 ETB", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600", r: "Analyzing datasets to predict market trends in Ethiopia."},
-        {id: 10, n: "Carpentry Tech", g: "Master Carpenter", s: "35,000 ETB", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600", r: "Export-quality wood finishing and blueprint analysis."},
-        {id: 11, n: "Electrical Sys", g: "Grid Specialist", s: "32,000 ETB", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600", r: "Installing 3-phase industrial power grids and safety audits."},
-        {id: 12, n: "Masonry Tech", g: "Senior Mason", s: "28,000 ETB", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600", r: "Structural masonry research for large-scale infrastructure."},
-        {id: 13, n: "Welding Tech", g: "Certified Welder", s: "33,000 ETB", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600", r: "Precision TIG/MIG welding for pipeline frameworks."},
-        {id: 14, n: "Auto Mech", g: "EV Technician", s: "30,000 ETB", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", r: "Diagnostic research on Electric Vehicle (EV) drivetrains."},
-        {id: 15, n: "Network Admin", g: "Network Engineer", s: "42,000 ETB", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600", r: "Managing enterprise fiber networks and firewalls."}
+        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Researching Python 3.12 and local API integration."},
+        // ... (Include all other 14 tracks here from your previous file)
     ];
+
+    let currentUser = "Student"; // Default name
 
     function render() {
         document.getElementById('course-list').innerHTML = data.map(t => `
-            <div class="card" onclick="openStudy(${t.id})">
-                <img src="${t.img}" alt="${t.n}">
+            <div class="card" onclick="checkAuth(${t.id})">
+                <img src="${t.img}">
                 <div class="card-body">
                     <span style="color:var(--accent); font-size:12px;">TRACK ${t.id}</span>
-                    <strong style="display:block; font-size:18px; margin-top:5px;">${t.n}</strong>
+                    <strong style="display:block; font-size:18px;">${t.n}</strong>
                 </div>
-            </div>`).join('');
-
-        document.getElementById('job-list').innerHTML = data.map(t => `
-            <div class="job-card">
-                <h3 style="margin:0;">${t.g}</h3>
-                <span class="salary">${t.s}<small style="color:white; font-size:12px; font-weight:normal;">/mo</small></span>
-                <button onclick="openStudy(${t.id})" style="width:100%; background:var(--accent); border:none; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">START TRAINING</button>
             </div>`).join('');
     }
 
+    // 2. New function to save the Registration details
+    function saveRegistration() {
+        const nameInput = document.querySelector('input[placeholder="Full Name"]').value;
+        if(nameInput) {
+            currentUser = nameInput;
+            alert("Welcome to ልማት Hub, " + currentUser + "!");
+            closeModal('reg-modal');
+        } else {
+            alert("Please enter your name to register.");
+        }
+    }
+
+    // 3. Personalized Study Room
     function openStudy(id) {
         const item = data.find(x => x.id === id);
         document.getElementById('hub-main').style.display = 'none';
         document.getElementById('study-room').style.display = 'grid';
-        document.getElementById('study-title').innerText = item.n;
-        document.getElementById('study-role').innerText = item.g + " Research";
+        
+        // This adds the student's name to the course title
+        document.getElementById('study-title').innerText = currentUser + "'s " + item.n + " Lab";
+        document.getElementById('study-role').innerText = item.g + " Research Phase";
         document.getElementById('study-research').innerText = item.r;
         document.getElementById('study-visual').innerHTML = `<img src="${item.img}" style="width:100%; height:100%; object-fit:cover;">`;
-        window.scrollTo(0,0);
     }
 
-    function closeStudy() {
-        document.getElementById('hub-main').style.display = 'block';
-        document.getElementById('study-room').style.display = 'none';
+    // Safety check: Make sure they register before studying
+    function checkAuth(id) {
+        if(currentUser === "Student") {
+            alert("Please Register your Personal Details first!");
+            openModal('reg-modal');
+        } else {
+            openStudy(id);
+        }
     }
 
+    function closeStudy() { document.getElementById('hub-main').style.display = 'block'; document.getElementById('study-room').style.display = 'none'; }
     function openModal(id) { document.getElementById(id).style.display = id === 'reception-box' ? 'block' : 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     render();
-</script>
-</body>
-</html>
