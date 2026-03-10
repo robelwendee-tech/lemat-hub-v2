@@ -1,59 +1,103 @@
-// 1. We start with the 15 Professional Tracks
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ልማት Hub | Official 2026</title>
+    <style>
+        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        .ticker { background: var(--yellow); color: black; padding: 12px; text-align: center; font-weight: 800; font-size: 14px; position: sticky; top: 0; z-index: 1000; }
+        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
+        .container { padding: 40px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
+        .study-content { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
+        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
+        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+
+<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | TOUCH A TRACK TO START</div>
+
+<nav>
+    <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
+    <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
+</nav>
+
+<div id="hub-main">
+    <div class="container">
+        <h2 style="color:var(--accent);">Professional Tracks (15)</h2>
+        <div class="grid" id="course-list"></div>
+    </div>
+</div>
+
+<div id="study-room">
+    <div class="study-content">
+        <button onclick="closeStudy()" style="background:var(--yellow); padding:10px 20px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-bottom:25px;">← EXIT</button>
+        <h1 id="study-title"></h1>
+        <div id="study-visual" style="width:100%; height:350px; border-radius:15px; overflow:hidden; border:2px solid var(--accent); margin-bottom:25px;"></div>
+        <p id="study-research" style="line-height:1.8; color:#cbd5e1; font-size:17px;"></p>
+    </div>
+</div>
+
+<div id="reg-modal">
+    <div class="modal-box">
+        <h2 style="margin-top:0;">Personal Details</h2>
+        <input type="text" id="userName" placeholder="Full Name">
+        <input type="number" placeholder="Age">
+        <input type="email" placeholder="Email Address">
+        <button onclick="saveRegistration()" style="width:100%; background:var(--green); color:white; border:none; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">SUBMIT</button>
+    </div>
+</div>
+
+<script>
     const data = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Researching Python 3.12 and local API integration."},
-        // ... (Include all other 14 tracks here from your previous file)
+        {id: 1, n: "Python for AI", g: "AI Developer", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Python 3.12 automation research."},
+        {id: 4, n: "Cloud Architecture", g: "Cloud Architect", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", r: "Hybrid cloud migration research."},
+        {id: 8, n: "Solar Tech", g: "Solar Installer", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600", r: "Solar energy storage research."},
+        {id: 14, n: "EV Technician", g: "EV Engineer", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", r: "EV powertrain diagnostics."},
+        {id: 5, n: "Plumbing Tech", g: "Hydraulics Lead", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600", r: "Hydraulic flow research."}
     ];
 
-    let currentUser = "Student"; // Default name
+    let currentUser = "Student";
 
     function render() {
         document.getElementById('course-list').innerHTML = data.map(t => `
-            <div class="card" onclick="checkAuth(${t.id})">
+            <div class="card" onclick="openStudy(${t.id})">
                 <img src="${t.img}">
-                <div class="card-body">
-                    <span style="color:var(--accent); font-size:12px;">TRACK ${t.id}</span>
-                    <strong style="display:block; font-size:18px;">${t.n}</strong>
-                </div>
+                <div class="card-body"><strong>${t.n}</strong></div>
             </div>`).join('');
     }
 
-    // 2. New function to save the Registration details
     function saveRegistration() {
-        const nameInput = document.querySelector('input[placeholder="Full Name"]').value;
-        if(nameInput) {
-            currentUser = nameInput;
-            alert("Welcome to ልማት Hub, " + currentUser + "!");
+        const val = document.getElementById('userName').value;
+        if(val) {
+            currentUser = val;
             closeModal('reg-modal');
-        } else {
-            alert("Please enter your name to register.");
+            alert("Welcome, " + currentUser);
         }
     }
 
-    // 3. Personalized Study Room
     function openStudy(id) {
         const item = data.find(x => x.id === id);
         document.getElementById('hub-main').style.display = 'none';
         document.getElementById('study-room').style.display = 'grid';
-        
-        // This adds the student's name to the course title
-        document.getElementById('study-title').innerText = currentUser + "'s " + item.n + " Lab";
-        document.getElementById('study-role').innerText = item.g + " Research Phase";
+        document.getElementById('study-title').innerText = currentUser + "'s " + item.n;
         document.getElementById('study-research').innerText = item.r;
         document.getElementById('study-visual').innerHTML = `<img src="${item.img}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
-    // Safety check: Make sure they register before studying
-    function checkAuth(id) {
-        if(currentUser === "Student") {
-            alert("Please Register your Personal Details first!");
-            openModal('reg-modal');
-        } else {
-            openStudy(id);
-        }
-    }
-
     function closeStudy() { document.getElementById('hub-main').style.display = 'block'; document.getElementById('study-room').style.display = 'none'; }
-    function openModal(id) { document.getElementById(id).style.display = id === 'reception-box' ? 'block' : 'flex'; }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     render();
+</script>
+</body>
+</html>
