@@ -16,69 +16,82 @@
         .card img { width: 100%; height: 180px; object-fit: cover; }
         .card-body { padding: 20px; }
         
-        /* STUDY ROOM */
-        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; grid-template-columns: 1fr 350px; }
-        .study-content { padding: 40px; overflow-y: auto; border-right: 1px solid #1e293b; }
-        
-        /* RECEPTION WITH INPUT AREA */
+        /* RECEPTION WITH SMART CHAT */
         #reception-box { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
-        .chat-display { height: 180px; padding: 15px; overflow-y: auto; font-size: 13px; background: #f1f5f9; }
+        .chat-display { height: 200px; padding: 15px; overflow-y: auto; font-size: 13px; background: #f1f5f9; display: flex; flex-direction: column; gap: 8px; }
         .chat-input { display: flex; padding: 10px; border-top: 1px solid #ddd; }
         .chat-input input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .msg-bot { background: #e2e8f0; padding: 8px; border-radius: 8px; align-self: flex-start; max-width: 80%; }
+        .msg-user { background: var(--accent); color: white; padding: 8px; border-radius: 8px; align-self: flex-end; max-width: 80%; }
+
+        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 9000; justify-content: center; align-items: center; }
+        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 350px; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | ALL 15 TRACKS LIVE</div>
+<div class="ticker">🚀 2026 INDUSTRIAL RESEARCH PORTAL | 15 CERTIFIED TRACKS READY</div>
 
 <nav>
     <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
     <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
 </nav>
 
-<div id="hub-main">
-    <div class="container">
-        <h2 style="color:var(--accent);">Professional Tracks (15)</h2>
-        <div class="grid" id="course-list"></div>
-    </div>
+<div class="container">
+    <h2 style="color:var(--accent); margin-bottom: 30px;">Professional Tracks (15)</h2>
+    <div class="grid" id="course-list"></div>
 </div>
 
 <div id="reception-box">
-    <div style="background:var(--card); color:white; padding:12px; font-weight:bold;">Assistant Reception</div>
-    <div class="chat-display" id="chat-box">Welcome! Type below to ask a question.</div>
+    <div style="background:var(--card); color:white; padding:12px; font-weight:bold; display:flex; justify-content:space-between;">
+        <span>Assistant Reception</span>
+        <span onclick="document.getElementById('reception-box').style.display='none'" style="cursor:pointer;">×</span>
+    </div>
+    <div class="chat-display" id="chat-box">
+        <div class="msg-bot">Welcome! I am your AI assistant. Ask me about our 15 tracks or how to register!</div>
+    </div>
     <div class="chat-input">
-        <input type="text" id="user-in" placeholder="Type here...">
+        <input type="text" id="user-in" placeholder="Type a question...">
         <button onclick="sendMsg()" style="background:var(--accent); border:none; padding:5px 10px; margin-left:5px; border-radius:4px; color:white; cursor:pointer;">Send</button>
     </div>
-    <button onclick="document.getElementById('reception-box').style.display='none'" style="width:100%; padding:10px; background:#eee; border:none; cursor:pointer;">Close</button>
 </div>
 
-<div id="reg-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9000; justify-content:center; align-items:center;">
-    <div style="background:white; color:black; padding:30px; border-radius:15px; width:350px;">
+<div id="reg-modal">
+    <div class="modal-box">
         <h2 style="margin-top:0;">Personal Details</h2>
-        <input type="text" id="u-name" placeholder="Full Name" style="width:100%; padding:12px; margin-bottom:10px;">
-        <input type="number" placeholder="Age" style="width:100%; padding:12px; margin-bottom:10px;">
+        <input type="text" id="u-name" placeholder="Full Name" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
+        <input type="number" placeholder="Age" style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
         <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">REGISTER</button>
     </div>
 </div>
 
-<button onclick="document.getElementById('reception-box').style.display='block'" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer; z-index:1000;">HELP RECEPTION</button>
+<button onclick="document.getElementById('reception-box').style.display='block'" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer; z-index:1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">HELP RECEPTION</button>
 
 <script>
+    // FULL 15 TRACK DATABASE
     const data = [
-        {id: 1, n: "Python for AI", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600", r: "Python 3.12 research phase."},
-        {id: 4, n: "Cloud Architecture", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600", r: "Hybrid server infrastructure."},
-        {id: 8, n: "Solar Tech", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600", r: "Solar storage systems."},
-        {id: 5, n: "Plumbing Tech", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600", r: "Hydraulic flow research."},
-        {id: 14, n: "EV Technician", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600", r: "Electric vehicle powertrain."}
-        // ... (Repeat tracks to fill out all 15 for the teacher)
+        {id: 1, n: "Python for AI", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=600"},
+        {id: 2, n: "Cyber Security", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600"},
+        {id: 3, n: "Full-Stack Web", img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600"},
+        {id: 4, n: "Cloud Architecture", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600"},
+        {id: 5, n: "Plumbing Tech", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=600"},
+        {id: 6, n: "Mobile App Dev", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600"},
+        {id: 7, n: "UI/UX Design", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=600"},
+        {id: 8, n: "Solar Tech", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600"},
+        {id: 9, n: "Data Science", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600"},
+        {id: 10, n: "Carpentry Tech", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600"},
+        {id: 11, n: "Electrical Sys", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=600"},
+        {id: 12, n: "Masonry Tech", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600"},
+        {id: 13, n: "Welding Tech", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600"},
+        {id: 14, n: "EV Technician", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600"},
+        {id: 15, n: "Network Admin", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600"}
     ];
 
     let user = "Student";
 
     function render() {
         document.getElementById('course-list').innerHTML = data.map(t => `
-            <div class="card" onclick="alert('Study Room Locked. Please Register First.')">
+            <div class="card" onclick="alert('Welcome ' + user + '! Starting ' + '${t.n}' + ' research module.')">
                 <img src="${t.img}">
                 <div class="card-body"><strong>${t.n}</strong></div>
             </div>`).join('');
@@ -87,15 +100,38 @@
     function saveUser() {
         user = document.getElementById('u-name').value || "Student";
         document.getElementById('reg-modal').style.display = 'none';
-        alert("Welcome, " + user + "!");
+        addBotMsg("Nice to meet you, " + user + "! You can now click any course to start.");
+    }
+
+    function addBotMsg(text) {
+        const box = document.getElementById('chat-box');
+        box.innerHTML += `<div class="msg-bot">${text}</div>`;
+        box.scrollTop = box.scrollHeight;
     }
 
     function sendMsg() {
-        const msg = document.getElementById('user-in').value;
-        if(msg) {
-            document.getElementById('chat-box').innerHTML += `<div style="margin-top:10px;"><strong>You:</strong> ${msg}</div>`;
-            document.getElementById('user-in').value = "";
-        }
+        const input = document.getElementById('user-in');
+        const msg = input.value.toLowerCase();
+        if(!msg) return;
+
+        const box = document.getElementById('chat-box');
+        box.innerHTML += `<div class="msg-user">${input.value}</div>`;
+        input.value = "";
+
+        // SMART RECEPTION LOGIC
+        setTimeout(() => {
+            if(msg.includes("hello") || msg.includes("hi")) {
+                addBotMsg("Hello " + user + "! How can I help you with your research today?");
+            } else if(msg.includes("course") || msg.includes("track")) {
+                addBotMsg("We have 15 professional tracks including Python, Solar Tech, and EV Engineering!");
+            } else if(msg.includes("python")) {
+                addBotMsg("Python for AI is our most popular track! It covers automation and AI basics.");
+            } else if(msg.includes("register")) {
+                addBotMsg("Click the green REGISTRATION button at the top to set up your profile.");
+            } else {
+                addBotMsg("I'm not sure about that, but I can tell you about our 15 industrial tracks!");
+            }
+        }, 800);
     }
 
     render();
