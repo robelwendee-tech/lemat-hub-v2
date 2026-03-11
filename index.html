@@ -7,53 +7,47 @@
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* 1. MOVING TICKER */
+        /* THE OFFICIAL LOGO DESIGN */
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { background: var(--accent); color: var(--bg); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 24px; }
+        .logo-text { font-size: 28px; font-weight: 900; color: white; letter-spacing: 1px; }
+
+        /* TICKER */
         .ticker-wrap { background: var(--yellow); color: black; padding: 12px; font-weight: 800; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
         .ticker-move { display: inline-block; animation: marquee 25s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* 2. NAVIGATION & LOGO */
-        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-        .main-logo { font-size: 32px; font-weight: 900; color: var(--accent); margin: 0; text-decoration: none; }
-
+        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--accent); }
         .container { padding: 40px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
         
-        /* 3. COURSE CARDS */
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-8px); }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
+        /* RESEARCH TRACKER */
+        #tracker-page { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 8000; padding: 50px; }
+        .progress-bar { background: #1e293b; height: 20px; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { background: var(--green); height: 100%; width: 0%; transition: 0.3s; }
 
-        /* 4. EMPLOYER CARDS */
-        .company-card { background: white; color: #0f172a; padding: 25px; border-radius: 15px; border-left: 8px solid var(--accent); }
-        .salary-tag { color: var(--green); font-size: 26px; font-weight: 900; display: block; margin: 10px 0; }
+        /* REGISTRATION & FEELINGS */
+        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
+        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 380px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
 
-        /* 5. RESEARCH TRACKER & CERTIFICATE */
-        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; overflow-y: auto; }
-        .progress-bar { background: #1e293b; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { background: var(--green); height: 100%; width: 0%; transition: 0.2s; }
-        
-        #cert-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 6000; justify-content: center; align-items: center; }
-        .cert-box { background: white; color: black; padding: 40px; width: 500px; border: 10px double var(--yellow); text-align: center; }
-
-        /* 6. REGISTRATION & AI ASSISTANT */
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 7000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 350px; }
-        input, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-
-        #reception-box { display: none; position: fixed; bottom: 80px; left: 20px; width: 300px; background: white; color: black; border-radius: 12px; z-index: 4000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
-        .chat-display { height: 180px; padding: 15px; overflow-y: auto; background: #f1f5f9; font-size: 13px; }
+        /* AI ASSISTANT */
+        #ai-reception { display: none; position: fixed; bottom: 90px; left: 20px; width: 320px; background: white; color: black; border-radius: 15px; z-index: 4000; box-shadow: 0 15px 50px rgba(0,0,0,0.5); overflow: hidden; }
+        .chat-window { height: 200px; padding: 15px; overflow-y: auto; background: #f8fafc; font-size: 13px; }
     </style>
 </head>
 <body>
 
 <div class="ticker-wrap">
-    <div class="ticker-move">🚀 2026 INDUSTRIAL HUB | 15 RESEARCH TRACKS LIVE | TOP SALARY: 85,000 ETB | REGISTER TO START 🌍</div>
+    <div class="ticker-move">🌍 ልማት Hub 2026 | 15 INDUSTRIAL RESEARCH TRACKS ACTIVE | CONNECTING ETHIOPIAN TALENT TO GLOBAL MARKETS 🌍</div>
 </div>
 
 <nav>
-    <a href="#" class="main-logo">ልማት Hub</a>
-    <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:12px 25px; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
+    <div class="logo-container">
+        <div class="logo-icon">ል</div>
+        <div class="logo-text">ልማት Hub</div>
+    </div>
+    <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:12px 25px; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">START REGISTRATION</button>
 </nav>
 
 <div class="container">
@@ -62,63 +56,51 @@
 </div>
 
 <div class="container" style="background: rgba(56, 189, 248, 0.05); border-top: 1px solid #1e293b;">
-    <h2 style="color:var(--yellow);">Partner Companies & Salaries</h2>
+    <h2 style="color:var(--yellow);">Partner Companies & Hiring Dashboard</h2>
     <div class="grid" id="company-list"></div>
 </div>
 
-<div id="study-room">
-    <button onclick="closeModal('study-room')" style="background:var(--yellow); padding:10px 20px; border:none; cursor:pointer; font-weight:bold; border-radius:5px;">← BACK</button>
-    <h1 id="study-title" style="color:var(--accent); margin-top:30px;"></h1>
-    <div style="background:var(--card); padding:30px; border-radius:15px; border: 1px solid var(--accent);">
-        <h3>📊 Live Research Tracker</h3>
-        <p id="study-status">Initializing modules...</p>
-        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
-        <button id="cert-btn" onclick="generateCert()" style="display:none; background:var(--green); color:white; width:100%; padding:15px; border:none; font-weight:bold; cursor:pointer; border-radius:5px;">CLAIM CERTIFICATE</button>
-    </div>
-</div>
-
-<div id="cert-overlay">
-    <div class="cert-box">
-        <h3>INDUSTRIAL HUB 2026</h3>
-        <h1>CERTIFICATE</h1>
-        <p>Awarded to</p>
-        <h2 id="cert-name" style="color:var(--accent); border-bottom: 2px solid #ddd; display:inline-block; padding:0 20px;"></h2>
-        <p>for completing research in</p>
-        <h3 id="cert-course"></h3>
-        <button onclick="closeModal('cert-overlay')" style="margin-top:20px; background:var(--card); color:white; padding:10px 20px; cursor:pointer;">CLOSE</button>
+<div id="tracker-page">
+    <button onclick="closeModal('tracker-page')" style="background:var(--yellow); border:none; padding:12px 25px; font-weight:bold; cursor:pointer; border-radius:8px;">← EXIT RESEARCH</button>
+    <div style="max-width:600px; margin:50px auto; background:var(--card); padding:40px; border-radius:20px; border:2px solid var(--accent);">
+        <h1 id="active-track" style="color:var(--accent); margin-top:0;"></h1>
+        <p><strong>Researcher:</strong> <span id="user-display">Guest</span></p>
+        <p><strong>Status:</strong> Analyzing Industrial Datasets...</p>
+        <div class="progress-bar"><div class="progress-fill" id="fill-bar"></div></div>
+        <button id="cert-claim" onclick="showCert()" style="display:none; background:var(--green); color:white; width:100%; padding:15px; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">DOWNLOAD CERTIFICATE</button>
     </div>
 </div>
 
 <div id="reg-modal">
     <div class="modal-box">
-        <h2 style="margin:0 0 15px 0;">Register Profile</h2>
-        <input type="text" id="u-name" placeholder="Full Name">
-        <input type="email" placeholder="Email Address">
-        <label style="font-size:12px; font-weight:bold; color:#666;">How do you feel today?</label>
-        <select id="u-feel">
-            <option>Excited to learn</option>
-            <option>Ambitious for high salary</option>
-            <option>Determined</option>
+        <h2 style="margin-top:0;">Professional Profile</h2>
+        <input type="text" id="name-in" placeholder="Full Name">
+        <input type="email" id="email-in" placeholder="Email Address">
+        <label style="font-size:12px; font-weight:bold; color:#555;">How do you feel about your career today?</label>
+        <select id="feel-in">
+            <option>Feeling: Excited</option>
+            <option>Feeling: Ambitious</option>
+            <option>Feeling: Determined</option>
         </select>
-        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">SUBMIT</button>
+        <button onclick="saveProfile()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">SUBMIT PROFILE</button>
     </div>
 </div>
 
-<div id="reception-box">
+<div id="ai-reception">
     <div style="background:var(--card); color:white; padding:12px; font-weight:bold; display:flex; justify-content:space-between;">
-        <span>AI Assistant</span>
-        <span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span>
+        <span>AI Hub Assistant</span>
+        <span onclick="closeModal('ai-reception')" style="cursor:pointer;">×</span>
     </div>
-    <div class="chat-display" id="chat-box">
-        <div><strong>AI:</strong> Welcome! Please register so I can help you.</div>
+    <div class="chat-window" id="chat-box">
+        <div><strong>AI:</strong> Welcome! Please register your name so I can help you with the 15 tracks.</div>
     </div>
     <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
-        <input type="text" id="user-in" placeholder="Ask about salaries..." style="flex:1; margin:0; padding:8px;">
-        <button onclick="sendMsg()" style="background:var(--accent); border:none; color:white; padding:8px; margin-left:5px; border-radius:4px; cursor:pointer;">Send</button>
+        <input type="text" id="ai-in" placeholder="Ask about jobs..." style="flex:1; margin:0;">
+        <button onclick="aiTalk()" style="background:var(--accent); border:none; color:white; padding:10px; margin-left:5px; border-radius:5px; cursor:pointer;">Send</button>
     </div>
 </div>
 
-<button onclick="openModal('reception-box')" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer; z-index:3000;">HELP RECEPTION</button>
+<button onclick="openModal('ai-reception')" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:18px 30px; border-radius:50px; font-weight:900; cursor:pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">HELP RECEPTION</button>
 
 <script>
     const tracks = [
@@ -126,21 +108,21 @@
         {n: "Cloud Architecture", s: "85,000 ETB", c: "Abyssinia Cloud", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500"},
         {n: "Solar Tech", s: "45,000 ETB", c: "Green-Nile Power", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500"},
         {n: "EV Engineering", s: "65,000 ETB", c: "Eco-Drive Motors", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500"},
-        {n: "Cyber Security", s: "70,000 ETB", c: "Safe-Net Africa", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500"},
+        {n: "Cyber Security", s: "72,000 ETB", c: "Safe-Net Africa", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500"},
         {n: "Data Science", s: "80,000 ETB", c: "Insight Data", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500"},
         {n: "UI/UX Design", s: "48,000 ETB", c: "Creative Hub", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500"},
         {n: "Network Admin", s: "55,000 ETB", c: "Global-Link", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"},
         {n: "Plumbing Tech", s: "38,000 ETB", c: "Hydro-Flow", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500"},
         {n: "Carpentry Tech", s: "34,000 ETB", c: "Build-Ethio", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500"},
-        {id: 11, n: "Masonry Tech", s: "36,000 ETB", c: "Ethio-Blocks", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500"},
-        {id: 12, n: "Electrical Sys", s: "52,000 ETB", c: "Power-Grid", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500"},
-        {id: 13, n: "Welding Tech", s: "42,000 ETB", c: "Steel-Front", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500"},
-        {id: 14, n: "Mobile App Dev", s: "60,000 ETB", c: "App-World", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500"},
-        {id: 15, n: "AI Ethics", s: "68,000 ETB", c: "Future-Guard", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500"}
+        {n: "Masonry Tech", s: "36,000 ETB", c: "Ethio-Blocks", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500"},
+        {n: "Electrical Sys", s: "52,000 ETB", c: "Power-Grid", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500"},
+        {n: "Welding Tech", s: "42,000 ETB", c: "Steel-Front", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500"},
+        {n: "Mobile App Dev", s: "60,000 ETB", c: "App-World", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500"},
+        {n: "AI Ethics", s: "68,000 ETB", c: "Future-Guard", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500"}
     ];
 
-    let user = "Student";
-    let feel = "Neutral";
+    let userName = "Student";
+    let userFeel = "Neutral";
 
     function render() {
         document.getElementById('course-list').innerHTML = tracks.map((t, i) => `
@@ -150,49 +132,43 @@
             </div>`).join('');
             
         document.getElementById('company-list').innerHTML = tracks.slice(0, 8).map(t => `
-            <div class="company-card">
-                <strong>${t.c}</strong><br><small>Hiring: ${t.n}</small>
-                <span class="salary-tag">${t.s}</span>
+            <div class="job-card" style="background:white; color:#0f172a; padding:20px; border-radius:15px; border-left:5px solid var(--accent);">
+                <strong>${t.c}</strong><br><small>Role: ${t.n}</small>
+                <div style="color:var(--green); font-size:22px; font-weight:900;">${t.s}</div>
             </div>`).join('');
     }
 
+    function saveProfile() {
+        userName = document.getElementById('name-in').value || "Student";
+        userFeel = document.getElementById('feel-in').value;
+        document.getElementById('user-display').innerText = userName;
+        closeModal('reg-modal');
+        document.getElementById('chat-box').innerHTML += `<div style="color:var(--green)">AI: Profile Active. ${userName} is ${userFeel}!</div>`;
+    }
+
     function startResearch(idx) {
-        const item = tracks[idx];
-        document.getElementById('study-title').innerText = item.n;
-        document.getElementById('study-room').style.display = 'block';
+        document.getElementById('active-track').innerText = tracks[idx].n;
+        document.getElementById('tracker-page').style.display = 'block';
         let w = 0;
-        const fill = document.getElementById('fill');
-        const btn = document.getElementById('cert-btn');
+        const bar = document.getElementById('fill-bar');
+        const btn = document.getElementById('cert-claim');
         btn.style.display = 'none';
         let interval = setInterval(() => {
             if(w >= 100) { clearInterval(interval); btn.style.display = 'block'; }
-            else { w++; fill.style.width = w + '%'; }
-        }, 30);
+            else { w++; bar.style.width = w + '%'; }
+        }, 20);
     }
 
-    function saveUser() {
-        user = document.getElementById('u-name').value || "Student";
-        feel = document.getElementById('u-feel').value;
-        closeModal('reg-modal');
-        document.getElementById('chat-box').innerHTML += `<div><strong>AI:</strong> Welcome ${user}! I see you feel ${feel}. How can I help?</div>`;
-    }
-
-    function generateCert() {
-        document.getElementById('cert-name').innerText = user;
-        document.getElementById('cert-course').innerText = document.getElementById('study-title').innerText;
-        openModal('cert-overlay');
-    }
-
-    function sendMsg() {
-        const input = document.getElementById('user-in');
+    function aiTalk() {
+        const input = document.getElementById('ai-in');
         if(input.value) {
-            document.getElementById('chat-box').innerHTML += `<div><strong>${user}:</strong> ${input.value}</div>`;
+            document.getElementById('chat-box').innerHTML += `<div><strong>${userName}:</strong> ${input.value}</div>`;
             input.value = "";
-            setTimeout(() => { document.getElementById('chat-box').innerHTML += `<div><strong>AI:</strong> Processing your industrial data request...</div>`; }, 800);
+            setTimeout(() => { document.getElementById('chat-box').innerHTML += `<div><strong>AI:</strong> Looking for info... the best salary is 85,000 ETB.</div>`; }, 600);
         }
     }
 
-    function openModal(id) { document.getElementById(id).style.display = (id==='reg-modal' || id==='cert-overlay') ? 'flex' : 'block'; }
+    function openModal(id) { document.getElementById(id).style.display = (id==='reg-modal') ? 'flex' : 'block'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     render();
 </script>
