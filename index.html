@@ -2,103 +2,95 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | Master 2026</title>
+    <title>ልማት Hub | Official 2026</title>
     <style>
         :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
         body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
         
-        .ticker { background: var(--yellow); color: black; padding: 12px; font-weight: 800; text-align: center; }
+        /* THE LOGO & NAV */
+        nav { background: #0f172a; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent); }
+        .logo { font-size: 35px; font-weight: 900; color: var(--accent); text-decoration: none; }
+        
         .container { padding: 40px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
         
-        /* REGISTRATION MODAL */
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 380px; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        /* CLIENT/EMPLOYER CARDS */
+        .client-card { background: white; color: #0f172a; padding: 25px; border-radius: 15px; text-align: center; border-bottom: 5px solid var(--accent); }
+        .salary-tag { color: var(--green); font-size: 26px; font-weight: 900; display: block; margin: 10px 0; }
 
-        /* SMART ASSISTANT */
-        #reception-box { display: none; position: fixed; bottom: 80px; left: 20px; width: 320px; background: white; color: black; border-radius: 12px; z-index: 10000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; }
-        .chat-display { height: 200px; padding: 15px; overflow-y: auto; background: #f1f5f9; font-size: 13px; display: flex; flex-direction: column; gap: 8px; }
+        /* CERTEFICATE MODAL */
+        #cert-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
+        .certificate { background: white; color: black; padding: 50px; width: 600px; border: 15px double var(--yellow); text-align: center; font-family: 'serif'; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 2026 INDUSTRIAL HUB | 15 TRACKS LIVE | PERSONALIZED RESEARCH ASSISTANT</div>
-
-<nav style="background:#0f172a; padding:15px 5%; display:flex; justify-content:space-between; align-items:center;">
-    <div style="font-size: 26px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:10px 20px; color:white; border-radius:5px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
+<nav>
+    <a href="#" class="logo">ልማት Hub</a> <button onclick="document.getElementById('reg-modal').style.display='flex'" style="background:var(--green); border:none; padding:12px 25px; color:white; border-radius:8px; font-weight:bold; cursor:pointer;">REGISTRATION</button>
 </nav>
 
-<div id="reg-modal">
-    <div class="modal-box">
-        <h2 style="margin:0 0 15px 0; color:var(--card);">Register Your Profile</h2>
-        <input type="text" id="reg-name" placeholder="Full Name">
-        <input type="number" id="reg-age" placeholder="Age">
-        <input type="email" id="reg-email" placeholder="Email Address">
-        
-        <label style="font-size:12px; font-weight:bold; color:#666;">How are you feeling today?</label>
-        <select id="reg-feeling">
-            <option value="Excited">Excited to start research</option>
-            <option value="Ambitious">Ambitious for high salary</option>
-            <option value="Determined">Determined to finish 15 tracks</option>
+<div class="container">
+    <h2 style="color:var(--accent);">Employer Clients & Salaries</h2>
+    <div class="grid" id="client-list"></div>
+</div>
+
+<div id="cert-overlay">
+    <div class="certificate">
+        <h3 style="margin:0; color:var(--card);">INDUSTRIAL RESEARCH RECORD</h3>
+        <h1 style="font-size:50px; margin:10px 0;">CERTIFICATE</h1>
+        <p>This is to certify that</p>
+        <h2 id="cert-user" style="color:var(--accent); border-bottom: 2px solid #ddd; display:inline-block; padding:0 30px;">Student Name</h2>
+        <p>has completed the professional track for</p>
+        <h3 id="cert-course" style="color:var(--card);">Track Name</h3>
+        <p style="margin-top:30px;">Awarded in Addis Ababa, 2026</p>
+        <button onclick="document.getElementById('cert-overlay').style.display='none'" style="margin-top:20px; background:var(--card); color:white; padding:10px 20px; cursor:pointer; border:none;">DOWNLOAD & EXIT</button>
+    </div>
+</div>
+
+<div id="reg-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:9000; justify-content:center; align-items:center;">
+    <div style="background:white; color:black; padding:30px; border-radius:15px; width:350px;">
+        <h2 style="margin:0 0 15px 0;">Register</h2>
+        <input type="text" id="user-n" placeholder="Full Name" style="width:100%; padding:10px; margin-bottom:10px;">
+        <select id="user-f" style="width:100%; padding:10px; margin-bottom:10px;">
+            <option>Feeling: Excited</option>
+            <option>Feeling: Ambitious</option>
         </select>
-        
-        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:10px;">LOCK IN MY PROFILE</button>
+        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">LOCK IN PROFILE</button>
     </div>
 </div>
-
-<div id="reception-box">
-    <div style="background:var(--card); color:white; padding:12px; font-weight:bold; display:flex; justify-content:space-between;">
-        <span>AI Reception Assistant</span>
-        <span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span>
-    </div>
-    <div class="chat-display" id="chat-box">
-        <div><strong>Assistant:</strong> Hello! Please register so I can personalize your 2026 hub experience.</div>
-    </div>
-    <div style="display:flex; padding:10px; border-top:1px solid #ddd;">
-        <input type="text" id="user-in" placeholder="Ask me anything..." style="margin:0; flex:1;">
-        <button onclick="sendMsg()" style="background:var(--accent); border:none; padding:8px; color:white; margin-left:5px; border-radius:4px; cursor:pointer;">Send</button>
-    </div>
-</div>
-
-<button onclick="openModal('reception-box')" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); border:none; padding:15px 25px; border-radius:50px; font-weight:bold; cursor:pointer;">HELP RECEPTION</button>
 
 <script>
-    let userName = "Student";
-    let userFeeling = "Neutral";
+    const clients = [
+        {c: "Tech-Ethiopia", t: "Python for AI", s: "75,000 ETB"},
+        {c: "Abyssinia Cloud", t: "Cloud Architecture", s: "85,000 ETB"},
+        {c: "Green-Nile Power", t: "Solar Tech", s: "45,000 ETB"}
+    ];
+
+    let currentStudent = "Student";
+
+    function render() {
+        document.getElementById('client-list').innerHTML = clients.map(item => `
+            <div class="client-card">
+                <strong>${item.c}</strong><br>
+                <small>Hiring for: ${item.t}</small>
+                <span class="salary-tag">${item.s}</span>
+                <button onclick="showCert('${item.t}')" style="background:var(--card); color:white; border:none; padding:10px 15px; border-radius:5px; cursor:pointer;">VIEW CERTIFICATE</button>
+            </div>`).join('');
+    }
 
     function saveUser() {
-        userName = document.getElementById('reg-name').value || "Student";
-        userFeeling = document.getElementById('reg-feeling').value;
-        closeModal('reg-modal');
-        
-        // Assistant AI responds to your feeling
-        const chatBox = document.getElementById('chat-box');
-        chatBox.innerHTML += `<div style="color:var(--green)"><strong>System:</strong> ${userName} registered!</div>`;
-        chatBox.innerHTML += `<div><strong>Assistant:</strong> It's great to hear you are <b>${userFeeling}</b> today, ${userName}! I'm here to help you finish all 15 tracks.</div>`;
+        currentStudent = document.getElementById('user-n').value || "Student";
+        document.getElementById('reg-modal').style.display = 'none';
+        alert("Welcome " + currentStudent);
     }
 
-    function sendMsg() {
-        const input = document.getElementById('user-in');
-        const box = document.getElementById('chat-box');
-        if(input.value) {
-            box.innerHTML += `<div><strong>${userName}:</strong> ${input.value}</div>`;
-            const q = input.value.toLowerCase();
-            input.value = "";
-            
-            setTimeout(() => {
-                let reply = "I am processing your request for the 15 tracks.";
-                if(q.includes("salary")) reply = "The highest salary is 85,000 ETB for Cloud Architecture.";
-                if(q.includes("how i feel")) reply = "You told me you are feeling " + userFeeling + " today!";
-                box.innerHTML += `<div><strong>Assistant:</strong> ${reply}</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 600);
-        }
+    function showCert(track) {
+        document.getElementById('cert-user').innerText = currentStudent;
+        document.getElementById('cert-course').innerText = track;
+        document.getElementById('cert-overlay').style.display = 'flex';
     }
 
-    function openModal(id) { document.getElementById(id).style.display = id === 'reg-modal' ? 'flex' : 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    render();
 </script>
 </body>
 </html>
