@@ -1,207 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ልማት Hub | Official 2026</title>
-    <style>
-        :root { --bg: #05080f; --card: #0f172a; --accent: #38bdf8; --yellow: #fbbf24; --green: #10b981; }
-        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
-        
-        /* 1. MOVING TICKER */
-        .ticker-wrap { background: var(--yellow); color: black; padding: 12px; font-weight: 800; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
-        .ticker-move { display: inline-block; animation: marquee 25s linear infinite; }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        /* 2. NAVIGATION & LOGO */
-        nav { background: #0f172a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1e293b; }
-        .logo-section { text-align: center; padding: 30px 0; background: linear-gradient(to bottom, #0f172a, var(--bg)); }
-        .main-logo { font-size: 50px; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); margin: 0; }
-
-        .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-        
-        /* 3. COURSE CARDS */
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { border-color: var(--accent); transform: translateY(-8px); }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
-        .card-info { padding: 15px; }
-
-        /* 4. EMPLOYER/SALARY CARDS */
-        .company-card { background: white; color: #0f172a; padding: 25px; border-radius: 15px; border-left: 8px solid var(--accent); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .salary-tag { color: var(--green); font-size: 26px; font-weight: 900; display: block; margin: 10px 0; }
-
-        /* 5. STUDY ROOM & TRACKER */
-        #study-room { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; overflow-y: auto; }
-        .tracker-ui { background: var(--card); border: 2px solid var(--accent); padding: 30px; border-radius: 20px; margin-top: 20px; }
-        .progress-bar { background: #1e293b; height: 15px; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .progress-fill { background: var(--green); height: 100%; width: 65%; }
-
-        /* 6. REGISTRATION & FEELING */
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 6000; justify-content: center; align-items: center; }
-        .modal-box { background: white; color: black; padding: 35px; border-radius: 20px; width: 400px; box-shadow: 0 0 30px var(--accent); }
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
-
-        /* 7. SMART RECEPTION */
-        #reception-box { display: none; position: fixed; bottom: 90px; left: 20px; width: 330px; background: white; color: black; border-radius: 15px; z-index: 4000; box-shadow: 0 15px 50px rgba(0,0,0,0.6); overflow: hidden; }
-        .chat-display { height: 200px; padding: 15px; overflow-y: auto; background: #f8fafc; display: flex; flex-direction: column; gap: 10px; }
-        .msg-bot { background: #e2e8f0; padding: 10px; border-radius: 10px 10px 10px 0; align-self: flex-start; font-size: 13px; }
-        .msg-user { background: var(--accent); color: white; padding: 10px; border-radius: 10px 10px 0 10px; align-self: flex-end; font-size: 13px; }
-    </style>
-</head>
-<body>
-
-<div class="ticker-wrap">
-    <div class="ticker-move">
-        🚀 2026 INDUSTRIAL HUB | 15 CERTIFIED RESEARCH TRACKS | TOP SALARY: 85,000 ETB | NEW EMPLOYERS JOINING: TECH-ETHIOPIA, ABYSSINIA CLOUD, ECO-DRIVE 🌍
-    </div>
-</div>
-
-<nav>
-    <div style="font-size: 24px; font-weight: 900; color: var(--accent);">ልማት Hub</div>
-    <button onclick="openModal('reg-modal')" style="background:var(--green); border:none; padding:12px 25px; color:white; border-radius:8px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 10px rgba(16,185,129,0.3);">REGISTRATION</button>
-</nav>
-
-<div class="logo-section">
-    <h1 class="main-logo">ልማት Hub</h1>
-    <p style="color: var(--yellow); font-weight: bold; font-size: 18px; margin-top: 10px;">The Future of Industrial Research</p>
-</div>
-
-<div class="container">
-    <h2 style="color:var(--accent); margin-bottom:30px;">Certified Research Tracks (15)</h2>
-    <div class="grid" id="course-list"></div>
-</div>
-
-<div class="container" style="background: rgba(56, 189, 248, 0.05); border-top: 1px solid #1e293b;">
-    <h2 style="color:var(--yellow); margin-bottom:30px;">Partner Companies & Employer Board</h2>
-    <div class="grid" id="company-list"></div>
-</div>
+<style>
+    /* CERTIFICATE MODAL */
+    #cert-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 7000; justify-content: center; align-items: center; }
+    .cert-paper { background: #fff; color: #1e293b; width: 600px; padding: 40px; border: 15px double var(--yellow); text-align: center; font-family: 'Georgia', serif; position: relative; }
+    .cert-paper h1 { font-size: 40px; margin: 0; color: var(--card); }
+    .cert-name { font-size: 30px; color: var(--accent); border-bottom: 2px solid #ddd; display: inline-block; padding: 0 20px; margin: 20px 0; }
+</style>
 
 <div id="study-room">
-    <button onclick="closeModal('study-room')" style="background:var(--yellow); padding:12px 25px; border:none; cursor:pointer; font-weight:bold; border-radius:8px;">← EXIT RESEARCH CENTER</button>
-    <div style="margin-top:40px;">
-        <h1 id="study-title" style="color:var(--accent); font-size:40px; margin:0;"></h1>
-        <p id="study-role" style="color:var(--yellow); font-size:20px; margin-top:5px; font-weight:bold;"></p>
-        
-        <div class="tracker-ui">
-            <h3>📊 Live Research Tracker</h3>
-            <p id="study-research" style="line-height:1.6; color:#cbd5e1;"></p>
-            <div class="progress-bar"><div class="progress-fill"></div></div>
-            <p style="margin-top:10px;"><strong style="color:var(--green);">Phase 3:</strong> Simulation & Local API Testing (65% Complete)</p>
-        </div>
+    <div class="tracker-ui">
+        <h3>📊 Live Research Tracker</h3>
+        <p id="study-research"></p>
+        <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
+        <button id="complete-btn" onclick="generateCert()" style="display:none; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; width:100%;">CLAIM COMPLETION CERTIFICATE</button>
     </div>
 </div>
 
-<div id="reg-modal">
-    <div class="modal-box">
-        <h2 style="margin:0 0 20px 0; color:var(--card);">Professional Registration</h2>
-        <label>Full Name</label><input type="text" id="reg-name" placeholder="Enter name">
-        <label>Email Address</label><input type="email" placeholder="email@example.com">
-        <label>How are you feeling about your career today?</label>
-        <select id="reg-feeling">
-            <option value="Excited">Excited to start research</option>
-            <option value="Ambitious">Ambitious for high salary</option>
-            <option value="Nervous">Nervous but ready to learn</option>
-            <option value="Confident">Confident in my skills</option>
-        </select>
-        <label>Professional Bio</label>
-        <textarea placeholder="Tell us your 2026 goals..." rows="3"></textarea>
-        <button onclick="saveUser()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; font-size:16px; margin-top:10px;">LOCK IN MY PROFILE</button>
+<div id="cert-modal">
+    <div class="cert-paper">
+        <p>OFFICIAL INDUSTRIAL RESEARCH RECORD</p>
+        <h1>CERTIFICATE</h1>
+        <p>This certifies that</p>
+        <div class="cert-name" id="c-user">Student Name</div>
+        <p>has successfully completed the research phase for</p>
+        <h3 id="c-track" style="color:var(--card);">Track Name</h3>
+        <p>Awarded in the year 2026</p>
+        <button onclick="closeModal('cert-modal')" style="margin-top:20px; background:var(--card); color:white; padding:10px 20px; cursor:pointer;">DOWNLOAD & CLOSE</button>
     </div>
 </div>
-
-<div id="reception-box">
-    <div style="background:var(--card); color:white; padding:15px; font-weight:bold; display:flex; justify-content:space-between;">
-        <span>Assistant Reception</span>
-        <span onclick="closeModal('reception-box')" style="cursor:pointer;">×</span>
-    </div>
-    <div class="chat-display" id="chat-box">
-        <div class="msg-bot">Welcome! I am the Hub Assistant. How can I guide your research today?</div>
-    </div>
-    <div style="display:flex; padding:12px; border-top:1px solid #eee;">
-        <input type="text" id="user-in" placeholder="Ask about jobs or tracks..." style="margin:0; flex:1;">
-        <button onclick="askBot()" style="background:var(--accent); border:none; padding:10px 15px; margin-left:8px; border-radius:5px; color:white; cursor:pointer;">Send</button>
-    </div>
-</div>
-
-<button onclick="openModal('reception-box')" id="reception-btn" style="position:fixed; bottom:20px; left:20px; background:var(--yellow); color:black; border:none; padding:18px 30px; border-radius:50px; font-weight:900; cursor:pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.4); z-index:3000;">HELP RECEPTION</button>
 
 <script>
-    const tracks = [
-        {id: 1, n: "Python for AI", g: "AI Developer", s: "75,000 ETB", c: "Tech-Ethiopia Corp", r: "Researching Python 3.12 and Local LLM API integration for automated industry logic.", img: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500"},
-        {id: 2, n: "Cloud Architecture", g: "Cloud Architect", s: "85,000 ETB", c: "Abyssinia Cloud", r: "Testing serverless deployment and hybrid cloud security protocols for 2026 data centers.", img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500"},
-        {id: 3, n: "Solar Technology", g: "Solar Engineer", s: "45,000 ETB", c: "Green-Nile Power", r: "Developing high-efficiency solar tracking software for agricultural irrigation pumps.", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=500"},
-        {id: 4, n: "EV Engineering", g: "EV Specialist", s: "65,000 ETB", c: "Eco-Drive Motors", r: "Analyzing lithium-ion battery management systems and charging grid load balancing.", img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500"},
-        {id: 5, n: "Cyber Security", g: "Security Analyst", s: "72,000 ETB", c: "Safe-Net Africa", r: "Simulating zero-trust network environments and industrial firewall stress tests.", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500"},
-        {id: 6, n: "Data Science", g: "Data Scientist", s: "80,000 ETB", c: "Insight Data PLC", r: "Building predictive models for manufacturing yield optimization using R and SQL.", img: "https://images.unsplash.com/photo-1551288049-bbbda536339a?w=500"},
-        {id: 7, n: "UI/UX Design", g: "Product Designer", s: "48,000 ETB", c: "Creative Hub", r: "Researching accessibility-first interface design for industrial control panels.", img: "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=500"},
-        {id: 8, n: "Network Admin", g: "Network Manager", s: "55,000 ETB", c: "Global-Link", r: "Configuring 5G industrial private networks for automated warehouses.", img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=500"},
-        {id: 9, n: "Plumbing Tech", g: "System Tech", s: "38,000 ETB", c: "Hydro-Flow", r: "Smart-sensor integration for leak detection in high-pressure industrial lines.", img: "https://images.unsplash.com/photo-1585704032915-c3400ca1f963?w=500"},
-        {id: 10, n: "Carpentry Tech", g: "Structural Tech", s: "34,000 ETB", c: "Build-Ethio", r: "Researching eco-friendly sustainable timber treatments and prefabricated frames.", img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=500"},
-        {id: 11, n: "Masonry Tech", g: "Stone Tech", s: "36,000 ETB", c: "Ethio-Blocks", r: "Testing carbon-neutral concrete mixes for large-scale housing projects.", img: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=500"},
-        {id: 12, n: "Electrical Sys", g: "Systems Eng", s: "52,000 ETB", c: "Power-Grid", r: "Implementing smart-grid meters and high-voltage safety monitoring systems.", img: "https://images.unsplash.com/photo-1621905231727-07442373e43d?w=500"},
-        {id: 13, n: "Welding Tech", g: "Lead Welder", s: "42,000 ETB", c: "Steel-Front", r: "X-ray testing of robotic arc welding for high-stress bridge components.", img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500"},
-        {id: 14, n: "Mobile App Dev", g: "iOS/Android Dev", s: "60,000 ETB", c: "App-World", r: "Developing cross-platform Flutter apps for real-time inventory tracking.", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500"},
-        {id: 15, n: "AI Ethics", g: "Policy Analyst", s: "68,000 ETB", c: "Future-Guard", r: "Creating framework for responsible AI deployment in public service sector.", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500"}
-    ];
-
-    let currentUser = "Student";
-
-    function render() {
-        document.getElementById('course-list').innerHTML = tracks.map((t, i) => `
-            <div class="card" onclick="openStudy(${i})">
-                <img src="${t.img}">
-                <div class="card-info">
-                    <strong style="color:var(--accent);">${t.n}</strong><br>
-                    <small>TRACK ID: #00${t.id}</small>
-                </div>
-            </div>`).join('');
-            
-        document.getElementById('company-list').innerHTML = tracks.slice(0, 8).map(t => `
-            <div class="company-card">
-                <strong style="font-size:18px;">${t.c}</strong><br>
-                <small>Role: ${t.g}</small>
-                <span class="salary-tag">${t.s}</span>
-                <button onclick="event.stopPropagation(); alert('Employer Application Sent!')" style="background:var(--card); color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">APPLY AS EMPLOYEE</button>
-            </div>`).join('');
-    }
-
+    // Update your openStudy function to include the progress logic
     function openStudy(idx) {
         const item = tracks[idx];
-        document.getElementById('study-title').innerText = item.n + " Research Room";
-        document.getElementById('study-role').innerText = "Assigned Role: " + item.g + " | Potential: " + item.s;
+        document.getElementById('study-title').innerText = item.n;
         document.getElementById('study-research').innerText = item.r;
         document.getElementById('study-room').style.display = 'block';
+        
+        // Simulate a "loading" progress for research
+        let width = 0;
+        const fill = document.getElementById('p-fill');
+        const btn = document.getElementById('complete-btn');
+        btn.style.display = 'none';
+        
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                btn.style.display = 'block'; // Show certificate button when done
+            } else {
+                width++;
+                fill.style.width = width + '%';
+            }
+        }, 30);
     }
 
-    function saveUser() {
-        currentUser = document.getElementById('reg-name').value || "Student";
-        const feel = document.getElementById('reg-feeling').value;
-        alert("Success! " + currentUser + ", you are registered as " + feel + ".");
-        closeModal('reg-modal');
-        document.getElementById('chat-box').innerHTML += `<div class="msg-bot">System: User ${currentUser} authenticated with '${feel}' profile.</div>`;
+    function generateCert() {
+        document.getElementById('c-user').innerText = currentUser; // Uses name from Registration
+        document.getElementById('c-track').innerText = document.getElementById('study-title').innerText;
+        openModal('cert-modal');
     }
-
-    function askBot() {
-        const input = document.getElementById('user-in');
-        const box = document.getElementById('chat-box');
-        if(!input.value) return;
-        box.innerHTML += `<div class="msg-user">${input.value}</div>`;
-        const q = input.value.toLowerCase();
-        input.value = "";
-        setTimeout(() => {
-            let r = "I am scanning our 15 industrial databases for you, " + currentUser + ".";
-            if(q.includes("hi")) r = "Hello " + currentUser + "! Ready to explore salaries?";
-            if(q.includes("salary")) r = "The top salary is 85,000 ETB for Cloud Architects at Abyssinia Cloud.";
-            if(q.includes("python")) r = "Python for AI (Track 1) currently focuses on Local API Integration.";
-            box.innerHTML += `<div class="msg-bot">${r}</div>`;
-            box.scrollTop = box.scrollHeight;
-        }, 800);
-    }
-
-    function openModal(id) { document.getElementById(id).style.display = id === 'reg-modal' ? 'flex' : 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    render();
 </script>
-</body>
-</html>
