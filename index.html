@@ -1,38 +1,39 @@
-<script>
-    const tracks = [
-        {n: "Python for AI", s: "75,000 ETB", c: "Tech-Ethiopia", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Cloud Architecture", s: "85,000 ETB", c: "Abyssinia Cloud", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Solar Tech", s: "45,000 ETB", c: "Green-Nile Power", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "EV Engineering", s: "65,000 ETB", c: "Eco-Drive Motors", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Cyber Security", s: "72,000 ETB", c: "Safe-Net Africa", img: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Data Science", s: "80,000 ETB", c: "Insight Data", img: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "UI/UX Design", s: "48,000 ETB", c: "Creative Hub", img: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Network Admin", s: "55,000 ETB", c: "Global-Link", img: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Plumbing Tech", s: "38,000 ETB", c: "Hydro-Flow", img: "https://images.pexels.com/photos/2310904/pexels-photo-2310904.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Carpentry Tech", s: "34,000 ETB", c: "Build-Ethio", img: "https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Masonry Tech", s: "36,000 ETB", c: "Ethio-Blocks", img: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Electrical Sys", s: "52,000 ETB", c: "Power-Grid", img: "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Welding Tech", s: "42,000 ETB", c: "Steel-Front", img: "https://images.pexels.com/photos/2381463/pexels-photo-2381463.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "Mobile App Dev", s: "60,000 ETB", c: "App-World", img: "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&w=600"},
-        {n: "AI Ethics", s: "68,000 ETB", c: "Future-Guard", img: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=600"}
-    ];
+<div class="ticker-wrap" style="background: #fbbf24; color: black; padding: 12px; font-weight: 800; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 2000;">
+    <div class="ticker-move" style="display: inline-block; animation: marquee 25s linear infinite;">
+        🚀 2026 GLOBAL INDUSTRIAL HUB | 15 RESEARCH TRACKS LIVE | HIGHEST SALARY: 85,000 ETB | CLICK A COURSE TO START LEARNING
+    </div>
+</div>
 
-    function render() {
-        // Updated render with error handling: onerror will trigger a backup gradient if the link breaks.
-        document.getElementById('course-list').innerHTML = tracks.map((t, i) => `
-            <div class="card" onclick="startResearch(${i})">
-                <img src="${t.img}" 
-                     alt="${t.n}" 
-                     onerror="this.src='https://via.placeholder.com/600x400/0f172a/38bdf8?text=Industrial+Hub'">
-                <div style="padding:15px;"><strong>${t.n}</strong></div>
-            </div>`).join('');
-            
-        // Render employers...
-        document.getElementById('company-list').innerHTML = tracks.slice(0, 8).map(t => `
-            <div class="job-card" style="background:white; color:#0f172a; padding:20px; border-radius:15px; border-left:5px solid var(--accent); margin-bottom:10px;">
-                <strong>${t.c}</strong><br><small>Role: ${t.n}</small>
-                <div style="color:var(--green); font-size:22px; font-weight:900;">${t.s}</div>
-            </div>`).join('');
-    }
-    render();
-</script>
+<header style="background: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 45px; z-index: 1000;">
+    
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="color: #00bfa5; font-size: 30px; font-weight: 900; letter-spacing: -1px;">ልማት</div>
+        <div style="color: #333; font-size: 30px; font-weight: 400;">hub</div>
+    </div>
+
+    <nav style="display: flex; gap: 35px; align-items: center;">
+        <div style="position: relative; cursor: pointer; font-weight: 600; color: #333;">
+            ABOUT US <span style="font-size: 10px;">▼</span>
+        </div>
+        <div style="position: relative; cursor: pointer; font-weight: 600; color: #333;">
+            SERVICES <span style="font-size: 10px;">▼</span>
+        </div>
+        <a href="#" style="text-decoration: none; color: #333; font-weight: 600;">PROJECTS</a>
+        <a href="#" style="text-decoration: none; color: #333; font-weight: 600;">CAREERS</a>
+        <a href="#" style="text-decoration: none; color: #00bfa5; font-weight: 700; border-bottom: 2px solid #00bfa5;">BLOG</a>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <button onclick="openModal('reg-modal')" style="background: white; border: 1px solid #ff7675; color: #ff7675; padding: 10px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s;">
+            CONTACT US
+        </button>
+        <div style="font-weight: 700; color: #333; cursor: pointer;">
+            EN | <span style="color: #999;">PL</span>
+        </div>
+    </div>
+</header>
+
+<style>
+    @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    header button:hover { background: #ff7675 !important; color: white !important; }
+</style>
