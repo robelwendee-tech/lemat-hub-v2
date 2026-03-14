@@ -1,113 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ልማት Hub | Official 2026</title>
-    <style>
-        :root { --teal: #00bfa5; --coral: #ff7675; --bg: #05080f; --card: #0f172a; --yellow: #fbbf24; --text-dark: #333; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; }
-
-        /* TICKER - KEEPING LATEST */
-        .ticker-wrap { background: var(--yellow); color: black; padding: 12px; font-weight: 800; overflow: hidden; white-space: nowrap; position: sticky; top: 0; z-index: 2000; }
-        .ticker-move { display: inline-block; animation: marquee 25s linear infinite; }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        /* NEW UPPER PART - MOBITOUCH STYLE */
-        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 44px; z-index: 1000; }
-        .logo-box { display: flex; align-items: center; gap: 5px; }
-        .logo-main { color: var(--teal); font-size: 28px; font-weight: 900; }
-        .logo-sub { color: var(--text-dark); font-size: 28px; font-weight: 400; }
-        
-        nav { display: flex; gap: 30px; }
-        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 14px; }
-        nav a.active { color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 5px; }
-
-        .btn-contact { border: 1.5px solid var(--coral); color: var(--coral); background: transparent; padding: 10px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-contact:hover { background: var(--coral); color: white; }
-
-        /* COURSE GRID */
-        .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .course-card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
-        .course-card:hover { transform: translateY(-5px); border-color: var(--teal); }
-        .course-card img { width: 100%; height: 160px; object-fit: cover; }
-
-        /* TRACKER PAGE */
-        #tracker-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; }
-    </style>
-</head>
-<body>
-
-<div class="ticker-wrap">
-    <div class="ticker-move">🚀 2026 GLOBAL INDUSTRIAL HUB | 15 RESEARCH TRACKS LIVE | HIGHEST SALARY: 85,000 ETB | REGISTER NOW</div>
-</div>
-
-<header>
-    <div class="logo-box">
-        <span class="logo-main">ልማት</span><span class="logo-sub">hub</span>
-    </div>
-    <nav>
-        <a href="#">ABOUT US</a>
-        <a href="#">SERVICES</a>
-        <a href="#">PROJECTS</a>
-        <a href="#">CAREERS</a>
-        <a href="#" class="active">BLOG</a>
-    </nav>
-    <div style="display: flex; align-items: center; gap: 20px;">
-        <button class="btn-contact" onclick="alert('Contact Form Loading...')">CONTACT US</button>
-        <div style="color: #333; font-weight: 700;">EN | <span style="color: #999;">PL</span></div>
-    </div>
-</header>
-
-<div class="container">
-    <h2 style="color: var(--teal);">Select Your Course (15)</h2>
-    <div class="grid" id="course-grid">
-        </div>
-</div>
-
-<div id="tracker-overlay">
-    <button onclick="document.getElementById('tracker-overlay').style.display='none'" style="background:var(--teal); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">← BACK</button>
-    <div style="max-width:600px; margin: 50px auto; text-align:center;">
-        <h1 id="track-title">Live Research Tracker</h1>
-        <div style="background:#1e293b; height:10px; border-radius:10px; overflow:hidden; margin:20px 0;">
-            <div id="progress-bar" style="background:var(--teal); height:100%; width:0%;"></div>
-        </div>
-        <p>Analyzing Industrial Modules...</p>
-    </div>
-</div>
-
-<script>
-    const courses = [
-        {n: "Python for AI", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
-        {n: "Solar Energy", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
-        {n: "Cloud Systems", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
-        {n: "EV Engineering", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"}
-        // Add more until 15...
-    ];
-
-    function renderCourses() {
-        const grid = document.getElementById('course-grid');
-        grid.innerHTML = courses.map(c => `
-            <div class="course-card" onclick="openTracker('${c.n}')">
-                <img src="${c.img}">
-                <div style="padding:15px;"><strong>${c.n}</strong><br><small>Click to Learn</small></div>
-            </div>
-        `).join('');
-    }
-
-    function openTracker(title) {
-        document.getElementById('track-title').innerText = title;
-        document.getElementById('tracker-overlay').style.display = 'block';
-        let w = 0;
-        let bar = document.getElementById('progress-bar');
-        let timer = setInterval(() => {
-            if(w >= 100) clearInterval(timer);
-            else { w++; bar.style.width = w + '%'; }
-        }, 30);
-    }
-
-    renderCourses();
-</script>
-</body>
-</html>
+// This function fills the blank "Live Research Tracker" page
+function openTracker(courseName) {
+    // 1. Show the hidden tracker section
+    document.getElementById('tracker-overlay').style.display = 'block';
+    
+    // 2. Inject the course name so it's not blank
+    document.getElementById('track-title').innerHTML = `
+        <h1 style="color: #00bfa5;">${courseName}</h1>
+        <p style="color: #666;">Status: Active Research Phase</p>
+    `;
+    
+    // 3. Reset and start the progress bar animation
+    let width = 0;
+    let bar = document.getElementById('progress-bar');
+    let interval = setInterval(() => {
+        if (width >= 100) {
+            clearInterval(interval);
+            // Optional: Show "Completed" message when done
+        } else {
+            width++;
+            bar.style.width = width + '%';
+        }
+    }, 50); // Speed of the research tracker
+}
