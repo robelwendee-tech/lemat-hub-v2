@@ -1,32 +1,85 @@
-<style>
-  /* All your CSS from the first design goes here */
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ልማት Hub | Official 2026</title>
+    <style>
+        :root { --teal: #00bfa5; --coral: #ff7675; --bg: #05080f; --card: #0f172a; --yellow: #fbbf24; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; }
 
-<div id="main-dashboard">
-    </div>
+        /* HEADER & TICKER */
+        .ticker { background: var(--yellow); color: black; padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 3000; }
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 40px; z-index: 2000; border-bottom: 1px solid #ddd; }
+        .logo { font-size: 28px; font-weight: 900; }
+        .logo .t1 { color: var(--teal); } .logo .t2 { color: #333; font-weight: 400; }
+        
+        /* CONTENT GRID */
+        .container { padding: 40px 5%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--teal); transform: translateY(-5px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
 
-<div id="tracker-overlay" style="display:none; position:fixed; inset:0; background:white; z-index:9999;">
-    <h1 id="track-title">Live Research Tracker</h1>
-    <div id="progress-container" style="width:80%; height:20px; background:#eee; margin:20px auto;">
-        <div id="progress-bar" style="width:0%; height:100%; background:#00bfa5;"></div>
-    </div>
+        /* TRACKER OVERLAY */
+        #tracker-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; text-align: center; }
+        .progress-bar { background: #1e293b; height: 15px; border-radius: 10px; margin: 30px auto; width: 80%; overflow: hidden; }
+        .progress-fill { background: var(--teal); height: 100%; width: 0%; }
+    </style>
+</head>
+<body>
+
+<div class="ticker">🚀 2026 INDUSTRIAL HUB | 15 TRACKS LIVE | HIGHEST SALARY: 85,000 ETB</div>
+
+<header>
+    <div class="logo"><span class="t1">ልማት</span><span class="t2">hub</span></div>
+    <nav style="display:flex; gap:20px;">
+        <a href="#" style="color:#333; text-decoration:none; font-weight:600;">ABOUT US</a>
+        <a href="#" style="color:var(--teal); text-decoration:none; font-weight:700; border-bottom:2px solid var(--teal);">BLOG</a>
+    </nav>
+    <button style="border:2px solid var(--coral); color:var(--coral); background:transparent; padding:10px 25px; border-radius:50px; font-weight:700; cursor:pointer;">CONTACT US</button>
+</header>
+
+<div class="container" id="main-ui">
+    <h2 style="color:var(--teal);">Select Your Course (15)</h2>
+    <div class="grid" id="course-grid"></div>
+</div>
+
+<div id="tracker-overlay">
+    <button onclick="document.getElementById('tracker-overlay').style.display='none'" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← BACK</button>
+    <h1 id="track-display" style="margin-top:100px; color:var(--teal);">Live Research Tracker</h1>
+    <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+    <p>Status: Active Research Phase...</p>
 </div>
 
 <script>
-function openTracker(courseName) {
-    // Show the tracker and fill the content
-    document.getElementById('tracker-overlay').style.display = 'block';
-    document.getElementById('track-title').innerHTML = courseName;
-    
-    let width = 0;
-    let bar = document.getElementById('progress-bar');
-    let interval = setInterval(() => {
-        if (width >= 100) {
-            clearInterval(interval);
-        } else {
-            width++;
-            bar.style.width = width + '%';
-        }
-    }, 50);
-}
+    const data = [
+        {n: "Python for AI", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
+        {n: "Solar Energy", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
+        {n: "Cloud Systems", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
+        {n: "EV Engineering", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"}
+    ];
+
+    function init() {
+        const grid = document.getElementById('course-grid');
+        grid.innerHTML = data.map(item => `
+            <div class="card" onclick="runTracker('${item.n}')">
+                <img src="${item.img}">
+                <div style="padding:15px;"><strong>${item.n}</strong></div>
+            </div>
+        `).join('');
+    }
+
+    function runTracker(name) {
+        document.getElementById('track-display').innerText = name;
+        document.getElementById('tracker-overlay').style.display = 'block';
+        let w = 0;
+        let b = document.getElementById('bar');
+        let t = setInterval(() => {
+            if(w >= 100) clearInterval(t);
+            else { w++; b.style.width = w + '%'; }
+        }, 40);
+    }
+    init();
 </script>
+</body>
+</html>
