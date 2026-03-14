@@ -6,30 +6,44 @@
     <title>ልማት Hub | Official 2026</title>
     <style>
         :root { --teal: #00bfa5; --coral: #ff7675; --bg: #05080f; --card: #0f172a; --yellow: #fbbf24; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: white; }
 
         /* HEADER & TICKER */
-        .ticker { background: var(--yellow); color: black; padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 3000; }
-        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 40px; z-index: 2000; }
-        .logo { font-size: 28px; font-weight: 900; color: var(--teal); }
+        .ticker { background: var(--yellow); color: black; padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 3000; font-size: 14px; }
+        header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 40px; z-index: 2000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 28px; font-weight: 900; color: var(--teal); cursor: pointer; }
         .logo span { color: #333; font-weight: 400; }
-        
-        /* REGISTRATION FORM POPUP */
-        #reg-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 6000; align-items: center; justify-content: center; }
-        .reg-content { background: white; color: #333; padding: 30px; border-radius: 15px; width: 350px; text-align: center; }
-        .reg-input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        nav a { text-decoration: none; color: #333; font-weight: 600; margin: 0 15px; font-size: 14px; }
+        .contact-btn { border: 2px solid var(--coral); color: var(--coral); background: transparent; padding: 10px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .contact-btn:hover { background: var(--coral); color: white; }
 
-        /* GRID & HIRING LIST */
+        /* GRID & CARDS */
         .container { padding: 40px 5%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; transition: 0.3s; cursor: pointer; }
-        .price-tag { color: var(--yellow); font-weight: bold; font-size: 1.1em; }
-        .job-row { background: white; color: #333; margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--teal); }
+        .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--teal); transform: translateY(-5px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .reg-price { color: var(--yellow); font-size: 14px; font-weight: bold; margin-top: 5px; }
 
-        /* TRACKER & CERT */
+        /* HIRING DASHBOARD */
+        .hiring-section { background: rgba(0, 191, 165, 0.03); padding: 40px 5%; }
+        .job-row { background: white; color: #333; margin-bottom: 12px; padding: 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 6px solid var(--teal); }
+        .salary-text { font-size: 18px; font-weight: bold; color: var(--teal); }
+        .reg-btn { background: var(--coral); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* RESEARCH TRACKER OVERLAY */
         #tracker-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; text-align: center; }
-        .bar { background: #1e293b; height: 15px; border-radius: 10px; width: 80%; margin: 20px auto; overflow: hidden; }
-        .fill { background: var(--teal); height: 100%; width: 0%; }
+        .progress-container { background: #1e293b; height: 20px; border-radius: 10px; width: 80%; margin: 30px auto; overflow: hidden; }
+        .progress-bar { background: var(--teal); height: 100%; width: 0%; transition: 0.1s; }
+
+        /* AI HUB ASSISTANT */
+        #ai-box { position: fixed; bottom: 85px; right: 20px; width: 320px; background: #1e293b; border-radius: 12px; border: 1px solid var(--teal); display: none; z-index: 4000; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .ai-header { background: var(--teal); color: black; padding: 12px; font-weight: bold; }
+        .chat-content { height: 220px; padding: 15px; overflow-y: auto; font-size: 14px; color: #e0e0e0; }
+        .ai-input-area { padding: 10px; display: flex; gap: 5px; border-top: 1px solid #333; }
+        .ai-input-area input { flex: 1; padding: 8px; border-radius: 4px; border: none; }
+        .ai-toggle { position: fixed; bottom: 20px; right: 20px; background: var(--teal); color: white; border: none; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; font-weight: bold; z-index: 4001; box-shadow: 0 4px 15px rgba(0,191,165,0.4); }
     </style>
 </head>
 <body>
@@ -37,84 +51,96 @@
 <div class="ticker">🚀 2026 INDUSTRIAL HUB | 15 RESEARCH TRACKS LIVE | HIGHEST SALARY: 85,000 ETB</div>
 
 <header>
-    <div class="logo">ልማት<span>hub</span></div>
+    <div class="logo" onclick="location.reload()">ልማት<span>hub</span></div>
     <nav>
-        <a href="#" style="color:#333; text-decoration:none; margin:0 15px; font-weight:600;">SERVICES</a>
-        <button onclick="openReg('General')" style="background:var(--teal); color:white; border:none; padding:8px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">REGISTER NOW</button>
+        <a href="#">ABOUT US</a>
+        <a href="#" style="color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 5px;">RESEARCH</a>
+        <a href="#">CAREERS</a>
     </nav>
-    <button style="border:1.5px solid var(--coral); color:var(--coral); background:transparent; padding:10px 25px; border-radius:50px; font-weight:700;">CONTACT US</button>
+    <button class="contact-btn">CONTACT US</button>
 </header>
 
 <div class="container">
-    <h2 style="color: var(--teal);">Track Prices & Research (15)</h2>
+    <h2 style="color: var(--teal); margin-bottom: 30px;">Select Your Course (15)</h2>
     <div class="grid" id="course-grid"></div>
 </div>
 
-<div class="container" style="background: rgba(0, 191, 165, 0.05);">
-    <h2 style="color: var(--yellow);">Employer Hiring Dashboard</h2>
-    <div id="hiring-list"></div>
-</div>
-
-<div id="reg-modal">
-    <div class="reg-content">
-        <h2 id="reg-title">Register</h2>
-        <input type="text" placeholder="Full Name" class="reg-input">
-        <input type="email" placeholder="Email Address" class="reg-input">
-        <button onclick="submitReg()" style="background:var(--teal); color:white; border:none; width:100%; padding:15px; border-radius:5px; font-weight:bold; cursor:pointer;">CONFIRM REGISTRATION</button>
-        <p onclick="document.getElementById('reg-modal').style.display='none'" style="cursor:pointer; color:red; margin-top:10px;">Cancel</p>
+<div class="hiring-section">
+    <div class="container">
+        <h2 style="color: var(--yellow); margin-bottom: 25px;">Employer Hiring Dashboard</h2>
+        <div id="hiring-list"></div>
     </div>
 </div>
 
 <div id="tracker-overlay">
-    <h1 id="active-name" style="margin-top:100px; color:var(--teal);">Researching...</h1>
-    <div class="bar"><div class="fill" id="fill"></div></div>
-    <p id="status">Syncing with Ethiopia Industry Database...</p>
+    <button onclick="closeTracker()" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← EXIT</button>
+    <h1 id="track-title" style="margin-top:100px; color:var(--teal); font-size: 36px;">Research Phase</h1>
+    <div class="progress-container"><div class="progress-bar" id="p-fill"></div></div>
+    <p style="color: #888; font-size: 18px;">Status: Active Research Phase. Synchronizing Industrial Data...</p>
 </div>
 
+<div id="ai-box">
+    <div class="ai-header">AI Hub Assistant</div>
+    <div id="ai-chat" class="chat-content">AI: Hello! I can help you find high-paying jobs and courses in Ethiopia.</div>
+    <div class="ai-input-area">
+        <input type="text" id="ai-q" placeholder="Ask about salaries...">
+        <button onclick="askAI()" style="background:var(--teal); border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Send</button>
+    </div>
+</div>
+<button class="ai-toggle" onclick="toggleAI()">AI</button>
+
 <script>
-    const tracks = [
-        {n: "Python for AI", p: "7,500 ETB", s: "75,000 ETB", e: "Ethio-Tech", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
-        {n: "Solar Energy", p: "4,500 ETB", s: "45,000 ETB", e: "Nile-Power", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
-        {n: "Cloud Systems", p: "8,500 ETB", s: "85,000 ETB", e: "Abyssinia Cloud", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
-        {n: "EV Engineering", p: "6,500 ETB", s: "65,000 ETB", e: "Eco-Drive", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"},
-        {n: "Data Science", p: "8,000 ETB", s: "80,000 ETB", e: "Insight-Africa", img: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?w=400"}
+    const data = [
+        {n: "Python for AI", r: "7,000 ETB", s: "75,000 ETB", e: "Ethio-Tech", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
+        {n: "Solar Energy", r: "4,500 ETB", s: "45,000 ETB", e: "Nile-Power", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
+        {n: "Cloud Systems", r: "8,500 ETB", s: "85,000 ETB", e: "Abyssinia Cloud", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
+        {n: "EV Engineering", r: "6,000 ETB", s: "65,000 ETB", e: "Eco-Drive", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"},
+        {n: "Data Science", r: "8,000 ETB", s: "80,000 ETB", e: "Insight-Africa", img: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?w=400"}
     ];
 
     function render() {
-        document.getElementById('course-grid').innerHTML = tracks.map(t => `
-            <div class="card" onclick="startResearch('${t.n}')">
+        const grid = document.getElementById('course-grid');
+        const list = document.getElementById('hiring-list');
+
+        grid.innerHTML = data.map(t => `
+            <div class="card" onclick="openTracker('${t.n}')">
                 <img src="${t.img}">
-                <div style="padding:15px;">
-                    <strong>${t.n}</strong><br>
-                    <span class="price-tag">Reg: ${t.p}</span>
+                <div class="card-body">
+                    <strong>${t.n}</strong>
+                    <div class="reg-price">Reg: ${t.r}</div>
                 </div>
             </div>`).join('');
 
-        document.getElementById('hiring-list').innerHTML = tracks.map(t => `
+        list.innerHTML = data.map(t => `
             <div class="job-row">
-                <div><strong>${t.e}</strong><br><small>${t.n}</small></div>
+                <div>
+                    <strong style="font-size:18px;">${t.e}</strong><br>
+                    <small style="color:#666">${t.n}</small>
+                </div>
                 <div style="text-align:right">
-                    <div style="font-weight:bold; color:var(--teal);">${t.s} / month</div>
-                    <button onclick="openReg('${t.n}')" style="background:var(--coral); color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">Register</button>
+                    <div class="salary-text">${t.s} / month</div>
+                    <button class="reg-btn" onclick="event.stopPropagation(); alert('Redirecting to Registration for ${t.n}...')">Register</button>
                 </div>
             </div>`).join('');
     }
 
-    function openReg(course) {
-        document.getElementById('reg-title').innerText = "Register for " + course;
-        document.getElementById('reg-modal').style.display = 'flex';
-    }
-
-    function submitReg() {
-        alert("Registration Successful! Redirecting to Payment...");
-        document.getElementById('reg-modal').style.display = 'none';
-    }
-
-    function startResearch(name) {
-        document.getElementById('active-name').innerText = name;
+    function openTracker(name) {
+        document.getElementById('track-title').innerText = name;
         document.getElementById('tracker-overlay').style.display = 'block';
-        let w = 0; let b = document.getElementById('fill');
-        let t = setInterval(() => { if(w >= 100) { clearInterval(t); alert('Research Complete! Certificate Generated.'); location.reload(); } else { w++; b.style.width = w + '%'; } }, 30);
+        let w = 0; let b = document.getElementById('p-fill');
+        let t = setInterval(() => { if(w >= 100) clearInterval(t); else { w++; b.style.width = w + '%'; } }, 40);
+    }
+
+    function closeTracker() { document.getElementById('tracker-overlay').style.display = 'none'; }
+    function toggleAI() { const b = document.getElementById('ai-box'); b.style.display = (b.style.display === 'block') ? 'none' : 'block'; }
+
+    function askAI() {
+        const q = document.getElementById('ai-q').value;
+        if(q) {
+            document.getElementById('ai-chat').innerHTML += `<div><b>You:</b> ${q}</div>`;
+            document.getElementById('ai-q').value = "";
+            setTimeout(() => { document.getElementById('ai-chat').innerHTML += `<div style="color:var(--teal)"><b>AI:</b> The average salary for Cloud Systems is 85,000 ETB.</div>`; }, 600);
+        }
     }
 
     render();
