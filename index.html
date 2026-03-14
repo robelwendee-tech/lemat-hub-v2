@@ -2,83 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ልማት Hub | Official 2026</title>
+    <title>ልማት Hub | Master 2026</title>
     <style>
         :root { --teal: #00bfa5; --coral: #ff7675; --bg: #05080f; --card: #0f172a; --yellow: #fbbf24; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: white; }
 
-        /* HEADER & TICKER */
-        .ticker { background: var(--yellow); color: black; padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 3000; }
+        /* TICKER */
+        .ticker { background: var(--yellow); color: black; padding: 10px; font-weight: bold; text-align: center; position: sticky; top: 0; z-index: 3000; white-space: nowrap; overflow: hidden; }
+
+        /* MOBITOUCH HEADER */
         header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 40px; z-index: 2000; border-bottom: 1px solid #ddd; }
-        .logo { font-size: 28px; font-weight: 900; }
+        .logo { font-size: 28px; font-weight: 900; display: flex; gap: 4px; }
         .logo .t1 { color: var(--teal); } .logo .t2 { color: #333; font-weight: 400; }
-        
-        /* CONTENT GRID */
+        nav a { text-decoration: none; color: #333; font-weight: 600; margin: 0 15px; font-size: 14px; }
+        .contact-btn { border: 2px solid var(--coral); color: var(--coral); background: transparent; padding: 10px 25px; border-radius: 50px; font-weight: 700; cursor: pointer; }
+
+        /* GRID CONTENT */
         .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
         .card:hover { border-color: var(--teal); transform: translateY(-5px); }
-        .card img { width: 100%; height: 160px; object-fit: cover; }
+        .card img { width: 100%; height: 150px; object-fit: cover; }
 
         /* TRACKER OVERLAY */
-        #tracker-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; text-align: center; }
-        .progress-bar { background: #1e293b; height: 15px; border-radius: 10px; margin: 30px auto; width: 80%; overflow: hidden; }
-        .progress-fill { background: var(--teal); height: 100%; width: 0%; }
+        #tracker-overlay { display: none; position: fixed; inset: 0; background: white; color: black; z-index: 5000; padding: 50px; text-align: center; }
+        .progress-bar { background: #eee; height: 15px; border-radius: 10px; margin: 30px auto; width: 80%; overflow: hidden; }
+        .progress-fill { background: var(--teal); height: 100%; width: 0%; transition: 0.1s; }
     </style>
 </head>
 <body>
 
-<div class="ticker">🚀 2026 INDUSTRIAL HUB | 15 TRACKS LIVE | HIGHEST SALARY: 85,000 ETB</div>
+<div class="ticker">🚀 2026 INDUSTRIAL HUB | 15 RESEARCH TRACKS LIVE | HIGHEST SALARY: 85,000 ETB</div>
 
 <header>
     <div class="logo"><span class="t1">ልማት</span><span class="t2">hub</span></div>
-    <nav style="display:flex; gap:20px;">
-        <a href="#" style="color:#333; text-decoration:none; font-weight:600;">ABOUT US</a>
-        <a href="#" style="color:var(--teal); text-decoration:none; font-weight:700; border-bottom:2px solid var(--teal);">BLOG</a>
+    <nav>
+        <a href="#">ABOUT US</a>
+        <a href="#" style="color: var(--teal); border-bottom: 2px solid var(--teal);">RESEARCH</a>
+        <a href="#">CAREERS</a>
     </nav>
-    <button style="border:2px solid var(--coral); color:var(--coral); background:transparent; padding:10px 25px; border-radius:50px; font-weight:700; cursor:pointer;">CONTACT US</button>
+    <button class="contact-btn">CONTACT US</button>
 </header>
 
-<div class="container" id="main-ui">
-    <h2 style="color:var(--teal);">Select Your Course (15)</h2>
+<div class="container">
+    <h2 style="color: var(--teal);">Select Your Course (15)</h2>
     <div class="grid" id="course-grid"></div>
 </div>
 
 <div id="tracker-overlay">
-    <button onclick="document.getElementById('tracker-overlay').style.display='none'" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← BACK</button>
-    <h1 id="track-display" style="margin-top:100px; color:var(--teal);">Live Research Tracker</h1>
-    <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
-    <p>Status: Active Research Phase...</p>
+    <button onclick="closeTracker()" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← BACK</button>
+    <h1 id="active-title" style="margin-top:100px;">Live Research Tracker</h1>
+    <p>Status: Active Research Phase</p>
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
 </div>
 
 <script>
-    const data = [
+    const tracks = [
         {n: "Python for AI", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
         {n: "Solar Energy", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
         {n: "Cloud Systems", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
         {n: "EV Engineering", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"}
+        // Imagine 15 tracks here...
     ];
 
     function init() {
         const grid = document.getElementById('course-grid');
-        grid.innerHTML = data.map(item => `
-            <div class="card" onclick="runTracker('${item.n}')">
-                <img src="${item.img}">
-                <div style="padding:15px;"><strong>${item.n}</strong></div>
+        grid.innerHTML = tracks.map(t => `
+            <div class="card" onclick="openTracker('${t.n}')">
+                <img src="${t.img}">
+                <div style="padding:15px;"><strong>${t.n}</strong></div>
             </div>
         `).join('');
     }
 
-    function runTracker(name) {
-        document.getElementById('track-display').innerText = name;
+    function openTracker(name) {
+        document.getElementById('active-title').innerText = name;
         document.getElementById('tracker-overlay').style.display = 'block';
         let w = 0;
-        let b = document.getElementById('bar');
+        let b = document.getElementById('fill');
         let t = setInterval(() => {
             if(w >= 100) clearInterval(t);
             else { w++; b.style.width = w + '%'; }
-        }, 40);
+        }, 50);
     }
+
+    function closeTracker() { document.getElementById('tracker-overlay').style.display = 'none'; }
     init();
 </script>
 </body>
