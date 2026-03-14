@@ -1,24 +1,32 @@
-// This function fills the blank "Live Research Tracker" page
+<style>
+  /* All your CSS from the first design goes here */
+</style>
+
+<div id="main-dashboard">
+    </div>
+
+<div id="tracker-overlay" style="display:none; position:fixed; inset:0; background:white; z-index:9999;">
+    <h1 id="track-title">Live Research Tracker</h1>
+    <div id="progress-container" style="width:80%; height:20px; background:#eee; margin:20px auto;">
+        <div id="progress-bar" style="width:0%; height:100%; background:#00bfa5;"></div>
+    </div>
+</div>
+
+<script>
 function openTracker(courseName) {
-    // 1. Show the hidden tracker section
+    // Show the tracker and fill the content
     document.getElementById('tracker-overlay').style.display = 'block';
+    document.getElementById('track-title').innerHTML = courseName;
     
-    // 2. Inject the course name so it's not blank
-    document.getElementById('track-title').innerHTML = `
-        <h1 style="color: #00bfa5;">${courseName}</h1>
-        <p style="color: #666;">Status: Active Research Phase</p>
-    `;
-    
-    // 3. Reset and start the progress bar animation
     let width = 0;
     let bar = document.getElementById('progress-bar');
     let interval = setInterval(() => {
         if (width >= 100) {
             clearInterval(interval);
-            // Optional: Show "Completed" message when done
         } else {
             width++;
             bar.style.width = width + '%';
         }
-    }, 50); // Speed of the research tracker
+    }, 50);
 }
+</script>
