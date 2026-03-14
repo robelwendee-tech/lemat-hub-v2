@@ -13,17 +13,23 @@
         .logo { font-size: 28px; font-weight: 900; color: var(--teal); }
         .logo span { color: #333; font-weight: 400; }
         
-        /* GRID */
+        /* GRID & CARDS */
         .container { padding: 40px 5%; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: 0.3s; }
         .card:hover { border-color: var(--teal); transform: translateY(-5px); }
-        .card img { width: 100%; height: 150px; object-fit: cover; }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
+
+        /* EMPLOYMENT LIST */
+        .job-row { background: white; color: #333; margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--teal); }
 
         /* TRACKER OVERLAY */
         #tracker-overlay { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 5000; padding: 50px; text-align: center; }
         .progress-bar { background: #1e293b; height: 15px; border-radius: 10px; margin: 30px auto; width: 80%; overflow: hidden; }
         .progress-fill { background: var(--teal); height: 100%; width: 0%; }
+
+        /* AI ASSISTANT BOX */
+        #ai-box { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; color: #333; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 4000; display: none; overflow: hidden; }
     </style>
 </head>
 <body>
@@ -33,8 +39,8 @@
 <header>
     <div class="logo">ልማት<span>hub</span></div>
     <nav>
-        <a href="#" style="color:#333; text-decoration:none; margin:0 15px; font-weight:600;">ABOUT US</a>
-        <a href="#" style="color:var(--teal); text-decoration:none; margin:0 15px; font-weight:700; border-bottom:2px solid var(--teal);">BLOG</a>
+        <a href="#" style="color:#333; text-decoration:none; margin:0 15px; font-weight:600;">SERVICES</a>
+        <a href="#" style="color:var(--teal); text-decoration:none; margin:0 15px; font-weight:700;">RESEARCH</a>
     </nav>
     <button style="border:1.5px solid var(--coral); color:var(--coral); background:transparent; padding:10px 25px; border-radius:50px; font-weight:700;">CONTACT US</button>
 </header>
@@ -44,52 +50,66 @@
     <div class="grid" id="course-grid"></div>
 </div>
 
-<div id="tracker-overlay">
-    <button onclick="document.getElementById('tracker-overlay').style.display='none'" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← BACK</button>
-    <h1 id="active-track" style="margin-top:100px; color:var(--teal);">Live Research Tracker</h1>
-    <div class="progress-bar"><div class="progress-fill" id="fill-bar"></div></div>
-    <p id="status">Initializing Industrial Modules...</p>
+<div class="container" style="background: rgba(0, 191, 165, 0.05);">
+    <h2 style="color: var(--yellow);">Employer Hiring Dashboard (Live)</h2>
+    <div id="hiring-list"></div>
 </div>
 
+<div id="tracker-overlay">
+    <button onclick="document.getElementById('tracker-overlay').style.display='none'" style="background:var(--coral); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; float:left;">← EXIT</button>
+    <h1 id="track-name" style="margin-top:100px; color:var(--teal);">Live Research Tracker</h1>
+    <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+    <p>Status: Active Research Phase</p>
+</div>
+
+<div id="ai-box">
+    <div style="background:var(--card); color:white; padding:15px; font-weight:bold;">AI Hub Assistant</div>
+    <div id="ai-chat" style="height:200px; padding:15px; overflow-y:auto; font-size:14px;">AI: Hello! I can help you find high-paying jobs in Ethiopia.</div>
+    <div style="padding:10px; border-top:1px solid #eee; display:flex;">
+        <input type="text" id="ai-q" placeholder="Ask about salaries..." style="flex:1; padding:8px; border:1px solid #ddd; border-radius:5px;">
+        <button onclick="askAI()" style="background:var(--teal); color:white; border:none; padding:8px; margin-left:5px; border-radius:5px;">Send</button>
+    </div>
+</div>
+
+<button onclick="document.getElementById('ai-box').style.display='block'" style="position:fixed; bottom:20px; right:20px; background:var(--teal); color:white; border:none; width:60px; height:60px; border-radius:50%; font-weight:bold; cursor:pointer; font-size:24px;">AI</button>
+
 <script>
-    // THE FULL 15 TRACKS
-    const tracks = [
-        {n: "Python for AI", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
-        {n: "Solar Energy", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
-        {n: "Cloud Systems", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
-        {n: "EV Engineering", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"},
-        {n: "Cyber Security", img: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?w=400"},
-        {n: "Data Science", img: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?w=400"},
-        {n: "UI/UX Design", img: "https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?w=400"},
-        {n: "Network Admin", img: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?w=400"},
-        {n: "Mobile App Dev", img: "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?w=400"},
-        {n: "AI Ethics", img: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?w=400"},
-        {n: "Plumbing Tech", img: "https://images.pexels.com/photos/2310904/pexels-photo-2310904.jpeg?w=400"},
-        {n: "Carpentry Tech", img: "https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?w=400"},
-        {n: "Masonry Tech", img: "https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?w=400"},
-        {n: "Electrical Sys", img: "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?w=400"},
-        {n: "Welding Tech", img: "https://images.pexels.com/photos/2381463/pexels-photo-2381463.jpeg?w=400"}
+    const data = [
+        {n: "Python for AI", s: "75,000 ETB", e: "Ethio-Tech", img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?w=400"},
+        {n: "Solar Energy", s: "45,000 ETB", e: "Nile-Power", img: "https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?w=400"},
+        {n: "Cloud Systems", s: "85,000 ETB", e: "Abyssinia Cloud", img: "https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?w=400"},
+        {n: "EV Engineering", s: "65,000 ETB", e: "Eco-Drive", img: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?w=400"},
+        {n: "Data Science", s: "80,000 ETB", e: "Insight-Africa", img: "https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?w=400"}
     ];
 
     function render() {
-        const grid = document.getElementById('course-grid');
-        grid.innerHTML = tracks.map(t => `
+        document.getElementById('course-grid').innerHTML = data.map(t => `
             <div class="card" onclick="startResearch('${t.n}')">
                 <img src="${t.img}">
                 <div style="padding:15px;"><strong>${t.n}</strong></div>
-            </div>
-        `).join('');
+            </div>`).join('');
+            
+        document.getElementById('hiring-list').innerHTML = data.map(t => `
+            <div class="job-row">
+                <div><strong>${t.e}</strong><br><small>${t.n}</small></div>
+                <div style="font-size:20px; font-weight:bold; color:var(--teal);">${t.s}</div>
+            </div>`).join('');
     }
 
     function startResearch(name) {
-        document.getElementById('active-track').innerText = name;
+        document.getElementById('track-name').innerText = name;
         document.getElementById('tracker-overlay').style.display = 'block';
-        let w = 0;
-        let bar = document.getElementById('fill-bar');
-        let interval = setInterval(() => {
-            if(w >= 100) clearInterval(interval);
-            else { w++; bar.style.width = w + '%'; }
-        }, 50);
+        let w = 0; let b = document.getElementById('fill');
+        let t = setInterval(() => { if(w >= 100) clearInterval(t); else { w++; b.style.width = w + '%'; } }, 40);
+    }
+
+    function askAI() {
+        let q = document.getElementById('ai-q').value;
+        if(q) {
+            document.getElementById('ai-chat').innerHTML += `<div><b>You:</b> ${q}</div>`;
+            document.getElementById('ai-q').value = "";
+            setTimeout(() => { document.getElementById('ai-chat').innerHTML += `<div><b>AI:</b> The average salary for Cloud Systems is 85,000 ETB.</div>`; }, 800);
+        }
     }
     render();
 </script>
